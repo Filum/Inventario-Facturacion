@@ -25,12 +25,35 @@ namespace Proyecto_SIF
             InitializeComponent();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void btn_minimizar_Click(object sender, RoutedEventArgs e)
         {
-
+            WindowState = WindowState.Minimized;
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void btn_cerrar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_maximizar_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+               
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+            }
+            
+                
+ 
+            
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
         {
 
         }
