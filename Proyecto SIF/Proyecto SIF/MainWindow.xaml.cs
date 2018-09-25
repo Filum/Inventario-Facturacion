@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Proyecto_SIF
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para Login.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Login : Window
     {
-        public MainWindow()
+        public Login()
         {
             InitializeComponent();
         }
@@ -61,6 +61,18 @@ namespace Proyecto_SIF
                 txt_usuario.Text = "USUARIO";
 
             }
+        }
+
+        private void barra_movil__MouseDown(object sender, MouseButtonEventArgs e)
+
+        {
+            if(WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;       
+            }
+
+            this.DragMove();
+
         }
     }
 }
