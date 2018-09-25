@@ -51,7 +51,8 @@ namespace Proyecto_SIF
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-
+            
+           
         }
 
         private void txt_usuario_TextChanged(object sender, TextChangedEventArgs e)

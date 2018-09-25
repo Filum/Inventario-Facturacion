@@ -108,5 +108,14 @@
   <ItemGroup>
     <Resource Include="padlock %281%29.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="maximizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="minimizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cerrar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
