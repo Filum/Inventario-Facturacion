@@ -47,15 +47,20 @@ namespace Proyecto_SIF
             {
                 WindowState = WindowState.Normal;
             }
-            
-                
- 
-            
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void txt_usuario_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txt_usuario.Text == "USUARIO")
+            {
+                txt_usuario.Text = "USUARIO";
+
+            }
         }
     }
 }

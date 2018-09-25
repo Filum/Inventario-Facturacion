@@ -96,5 +96,17 @@
   <ItemGroup>
     <Resource Include="LOGODELRAM.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="padlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="padlock %281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

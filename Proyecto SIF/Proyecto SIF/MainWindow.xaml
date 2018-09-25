@@ -27,38 +27,37 @@
             <GradientStop Color="#FE2E2672" Offset="0.942"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid Background="{x:Null}" Width="Auto">
+    <Grid Background="{x:Null}" Width="Auto" Opacity="0.8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="409*"/>
             <ColumnDefinition Width="385*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
-        <PasswordBox x:Name="txt_contraseña" Height="30" Margin="310,395,275.6,0" VerticalAlignment="Top" FontFamily="Yu Gothic UI Light" FontSize="18" Background="White" HorizontalAlignment="Center" MinWidth="160" Width="208" Grid.ColumnSpan="2">
-            <PasswordBox.OpacityMask>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FFFFF9F9" Offset="1"/>
-                </LinearGradientBrush>
-            </PasswordBox.OpacityMask>
-        </PasswordBox>
-        <Button x:Name="btn_ingresar" Content="Ingresar" Margin="310,455,275.6,0" VerticalAlignment="Top" Height="38" RenderTransformOrigin="0.066,0.486" FontFamily="Yu Gothic UI Light" Click="button_Click" FontWeight="Bold" Width="208" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txt_usuario" Height="30" Margin="310,341,275.6,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Yu Gothic UI Light" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" MinWidth="160" Width="208" Grid.ColumnSpan="2"/>
+        <Button x:Name="btn_ingresar" Content="Ingresar" Margin="0,520,0,0" VerticalAlignment="Top" Height="35" RenderTransformOrigin="0.066,0.486" FontFamily="Yu Gothic UI Light" Click="button_Click" FontWeight="Bold" Width="125" HorizontalAlignment="Center" Grid.ColumnSpan="2" Background="#FF353434" BorderBrush="{x:Null}" Foreground="White" FontSize="20"/>
 
-        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Margin="0,0,-0.4,0" Height="50" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FF434343" HorizontalAlignment="Right" Width="50" Click="btn_cerrar_Click" Grid.Column="1">
-            <Image x:Name="img_cerrar" Source="C:\Users\Usuario\Source\Repos\Inventario-Facturacion\Proyecto SIF\Proyecto SIF\imagenes\cerrar.png" Stretch="None" Height="50" Width="50"/>
+        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Margin="0,0,-0.4,0" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Grid.Column="1">
+            <Image x:Name="img_cerrar" Source="C:\Users\Usuario\Source\Repos\Inventario-Facturacion\Proyecto SIF\Proyecto SIF\imagenes\cerrar.png" Stretch="None" Width="40" Height="40"/>
         </Button>
-        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,49.6,0" Height="50" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FF434343" HorizontalAlignment="Right" Width="50" Click="btn_maximizar_Click" Grid.Column="1">
-            <Image x:Name="img_maximizar" Source="C:\Users\Usuario\Source\Repos\Inventario-Facturacion\Proyecto SIF\Proyecto SIF\imagenes\maximizar.png" Stretch="None" Height="50" Width="50"/>
+        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,39.6,0" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click" Grid.Column="1">
+            <Image x:Name="img_maximizar" Source="C:\Users\Usuario\Source\Repos\Inventario-Facturacion\Proyecto SIF\Proyecto SIF\imagenes\maximizar.png" Stretch="None" Height="40" Width="40"/>
         </Button>
 
-        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,99.6,0" Height="50" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FF434343" HorizontalAlignment="Right" Width="50" Click="btn_minimizar_Click" Grid.Column="1">
-            <Image x:Name="img_minimizar" Source="C:\Users\Usuario\Source\Repos\Inventario-Facturacion\Proyecto SIF\Proyecto SIF\imagenes\minimizar.png" Stretch="None" Height="50" Width="50"/>
+        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,79.6,0" Height="40" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click" Grid.Column="1">
+            <Image x:Name="img_minimizar" Source="C:\Users\Usuario\Source\Repos\Inventario-Facturacion\Proyecto SIF\Proyecto SIF\imagenes\minimizar.png" Stretch="None" Width="40" Height="40"/>
         </Button>
-        <Separator HorizontalAlignment="Center" Height="100" Margin="111,239,86.6,0" VerticalAlignment="Top" Width="596" Grid.ColumnSpan="2"/>
-        <DockPanel HorizontalAlignment="Center" Height="193" LastChildFill="False" Margin="102,91,-20.4,0" VerticalAlignment="Top" Width="712" Grid.ColumnSpan="2">
-            <Image x:Name="LOGODELRAM_png" Margin="0,0,0,-40" Source="LOGODELRAM.png" Stretch="Fill" Width="240" HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" DockPanel.Dock="Left"/>
-            <Label x:Name="text_nombreEmpresa" Content="Sistema de Inventario &#xA;y Facturación " Margin="0,0,0,-3" VerticalAlignment="Center" Foreground="#FFF7F7F7" FontSize="36" FontFamily="Yu Gothic UI Light" FontWeight="Bold" HorizontalAlignment="Right" Height="103" Width="383" DockPanel.Dock="Right"/>
+        <Separator x:Name="separador" HorizontalAlignment="Center" Height="100" Margin="0,280,0,0" VerticalAlignment="Top" Width="870" Grid.ColumnSpan="2"/>
+        <DockPanel x:Name="pan_logo" HorizontalAlignment="Center" Height="193" LastChildFill="False" Margin="0,100,0,0" VerticalAlignment="Top" Width="840" Grid.ColumnSpan="2">
+            <Image x:Name="LOGODELRAM_png" Margin="10,0,50,0" Source="LOGODELRAM.png" Stretch="Fill" Width="300" HorizontalAlignment="Center" Height="193" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+            <Label x:Name="text_nombreEmpresa" Content="Sistema de Inventario &#xA;y Facturación " Margin="0" VerticalAlignment="Center" Foreground="#FFF7F7F7" FontSize="36" FontFamily="Yu Gothic UI Light" FontWeight="Bold" HorizontalAlignment="Right" Height="103" Width="383" DockPanel.Dock="Right"/>
+        </DockPanel>
+        <DockPanel x:Name="pan_contraseña" Height="70" LastChildFill="False" VerticalAlignment="Top" Margin="0,430,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Background="#FF353434">
+            <Image x:Name="padlock__1__png" Margin="10,0" Source="padlock (1).png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <PasswordBox x:Name="txt_contraseña" Height="30" VerticalAlignment="Center" FontFamily="Yu Gothic UI Light" FontSize="18" Background="{x:Null}" HorizontalAlignment="Left" MinWidth="160" DockPanel.Dock="Left" Margin="10,15,10,10" Width="200" Password="HOLA" BorderBrush="{x:Null}" Foreground="White"/>
+        </DockPanel>
+        <DockPanel x:Name="pan_usuario" HorizontalAlignment="Center" Height="70" LastChildFill="False" VerticalAlignment="Top" Margin="0,350,0,0" Grid.ColumnSpan="2" Background="#FF353434">
+            <Image x:Name="usuario_png" Margin="10,0" Source="usuario.png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox x:Name="txt_usuario" Height="35" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Yu Gothic UI Light" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" MinWidth="160" DockPanel.Dock="Left" Margin="10,15,10,10" Width="200" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Text="USUARIO" TextChanged="txt_usuario_TextChanged"/>
         </DockPanel>
 
 
