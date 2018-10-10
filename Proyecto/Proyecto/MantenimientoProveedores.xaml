@@ -241,25 +241,12 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                 </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="48*"/>
-                        <RowDefinition Height="91*"/>
-                        <RowDefinition Height="22*"/>
-                        <RowDefinition Height="19*"/>
-                        <RowDefinition Height="17*"/>
-                        <RowDefinition Height="27*"/>
-                        <RowDefinition Height="51*"/>
-                        <RowDefinition Height="61*"/>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="4*"/>
                     </Grid.RowDefinitions>
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="129*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="120*"/>
-                        <ColumnDefinition Width="19*"/>
-                        <ColumnDefinition Width="120*"/>
-                        <ColumnDefinition Width="68*"/>
-                        <ColumnDefinition Width="91*"/>
-                        <ColumnDefinition Width="92*"/>
-                        <ColumnDefinition Width="21*"/>
+
                     </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -273,9 +260,9 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Label x:Name="lbl_codProd_Copy" Content="Ingrese la cédula jurídica:" Margin="15,10,15,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Grid.ColumnSpan="4" Height="29"/>
-                    <TextBox x:Name="textbox_cedJuridica" Margin="105,10,0,0" TextWrapping="Wrap" Text="" Grid.Column="2" Grid.ColumnSpan="3" Height="32" VerticalAlignment="Top" FontSize="16" TextChanged="textbox_cedJuridica_TextChanged" KeyDown="telefono_ingresar_KeyDown"/>
-                    <DataGrid Margin="15,20,15,0" Grid.ColumnSpan="7" Grid.Row="1" SelectionChanged="DataGrid_SelectionChanged" FontSize="16">
+                    <Label x:Name="lbl_codProd_Copy" Content="Ingrese el nombre o la la cédula jurídica:" Margin="20,30,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" HorizontalAlignment="Left" Width="326"/>
+                    <TextBox x:Name="textbox_cedJuridica" Margin="350,30,0,0" TextWrapping="Wrap" Text="" Height="32" VerticalAlignment="Top" FontSize="16" TextChanged="textbox_cedJuridica_TextChanged" KeyDown="telefono_ingresar_KeyDown" Width="200" HorizontalAlignment="Left"/>
+                    <DataGrid Margin="15,100,15.2,45" SelectionChanged="DataGrid_SelectionChanged" FontSize="16">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Foreground="#FFE4D7D7" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Cédula Jurídica" Width="auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="auto"/>
@@ -284,27 +271,27 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción" Width="auto"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Separator Margin="15,0,18,6" Grid.ColumnSpan="8" Background="White" Grid.RowSpan="4" Height="60" VerticalAlignment="Bottom" Grid.Row="1"/>
-                    <Label Content="Ingrese el motivo:" HorizontalAlignment="Left" Margin="15,8,0,0" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="149" Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="3" FontSize="16"/>
-                    <Button x:Name="btn_buscar_deshabilitar_proveedores"  Height="70" Width="70" Foreground="White" Margin="5,2,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Grid.ColumnSpan="2" Grid.Column="5" Grid.RowSpan="2" Click="btn_buscar_deshabilitar_proveedores_Click">
+                    <Separator Margin="20,0,10.2,0" Background="White" Height="60" VerticalAlignment="Bottom"/>
+                    <Label Content="Ingrese el motivo:" HorizontalAlignment="Left" Margin="20,0,0,0" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="149" FontSize="16" Grid.Row="1" Height="32" VerticalAlignment="Top"/>
+                    <Button x:Name="btn_buscar_deshabilitar_proveedores"  Height="70" Width="70" Foreground="White" Margin="570,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_buscar_deshabilitar_proveedores_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/buscar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Buscar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="15,0,0,0" Width="45" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btn_guardar_deshabilitar_proveedores" Width="70" Foreground="White" Margin="0,0,7,40"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_guardar_deshabilitar_proveedores_Click" Grid.Column="7" Grid.Row="3" Grid.RowSpan="4" Height="63" VerticalAlignment="Bottom">
+                    <Button x:Name="btn_guardar_deshabilitar_proveedores" Foreground="White" Margin="0,70,50,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_guardar_deshabilitar_proveedores_Click" Grid.Row="1" HorizontalAlignment="Right" Width="71" Height="63" VerticalAlignment="Top">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/Guardar.png" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,5,0,5"/>
                             <TextBlock Text="Guardar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btn_limpiar_deshabilitar" Width="70" Foreground="White" Margin="0,0,7,37"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="7" Grid.Row="6" Height="61" VerticalAlignment="Bottom" Grid.RowSpan="2" Click="btn_limpiar_deshabilitar_Click">
+                    <Button x:Name="btn_limpiar_deshabilitar" Foreground="White" Margin="0,0,50,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_limpiar_deshabilitar_Click" Grid.Row="1" HorizontalAlignment="Right" Width="72" Height="61" VerticalAlignment="Top">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <TextBox x:Name="textbox_motivo_proveedores" Margin="35,12,0,0" TextWrapping="Wrap" Text="" TextChanged="TextBox_TextChanged" FontSize="16" Height="75" VerticalAlignment="Top" HorizontalAlignment="Left" Width="219" Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="4" Grid.RowSpan="3"/>
+                    <TextBox x:Name="textbox_motivo_proveedores" Margin="188,0,0,30" TextWrapping="Wrap" Text="" TextChanged="TextBox_TextChanged" FontSize="16" HorizontalAlignment="Left" Width="414" Grid.Row="1"/>
 
                 </Grid>
             </TabItem>
@@ -343,9 +330,9 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Label x:Name="lbl_codProd" Content="Ingrese la cédula jurídica:" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="248"/>
-                    <TextBox x:Name="txb_codProd" Height="32" Margin="227,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171" KeyDown="telefono_ingresar_KeyDown" />
-                    <Button x:Name="btn_buscar_actualizar_proveedores" Height="70" Foreground="White" Margin="397,0,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="74" Grid.RowSpan="2" Click="btn_buscar_actualizar_proveedores_Click">
+                    <Label x:Name="lbl_codProd" Content="Ingrese el nombre o la cédula jurídica:" HorizontalAlignment="Left" Margin="15,23,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="310"/>
+                    <TextBox x:Name="txb_codProd" Height="32" Margin="325,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" KeyDown="telefono_ingresar_KeyDown" />
+                    <Button x:Name="btn_buscar_actualizar_proveedores" Height="70" Foreground="White" Margin="558,12,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="74" Click="btn_buscar_actualizar_proveedores_Click" Grid.RowSpan="2">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
                             <Image Source="Imagenes/buscar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,3"/>
                             <TextBlock Text="Buscar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="15,0,0,0" Width="45" HorizontalAlignment="Left"/>
