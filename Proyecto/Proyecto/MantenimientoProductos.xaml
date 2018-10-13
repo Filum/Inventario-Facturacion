@@ -81,10 +81,11 @@
                             <TextBlock Text="Imprimir" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_listar_lista" Margin="40.084,125,35.249,39" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="772" ColumnHeaderHeight="{DynamicResource {x:Static SystemParameters.IconWidthKey}}">
+                    <DataGrid x:Name="dtg_listar_lista" Margin="40,125,35.333,39" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" ColumnHeaderHeight="{DynamicResource {x:Static SystemParameters.IconWidthKey}}">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Código" CanUserReorder="False" Width="Auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" />
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Marca" />
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor" />
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha ingreso"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio" />
@@ -134,7 +135,8 @@
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Label x:Name="lbl_buscar_buscar" Content="Ingrese el nombre o el código del producto: " Margin="7.167,38,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" FontWeight="Bold" Foreground="White" Height="29" HorizontalAlignment="Left" Width="351" Grid.Column="1"/>
+                    <Label x:Name="lbl_buscar_buscar" Content="Buscar por: " Margin="10,35,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" FontWeight="Bold" Foreground="White" Height="32" HorizontalAlignment="Left" Width="110" Grid.Column="1"/>
+
                     <TextBox x:Name="textbox_buscar_buscar" Height="32" Margin="363.167,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" FontFamily="Global Sans Serif" MaxLength="25" HorizontalAlignment="Left" Width="283" TextChanged="textbox_buscar_buscar_TextChanged" Grid.Column="1"/>
                     <Button x:Name="btn_buscar_buscar" Foreground="White" Margin="679.167,10,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70" Click="btn_buscar_buscar_Click" Grid.Column="1">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -142,10 +144,11 @@
                             <TextBlock Text="Buscar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="15,0,0,0" Width="45" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_buscar_busqueda" Margin="10.167,125,9.333,39" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="772" Grid.RowSpan="2" Grid.Column="1" ColumnHeaderHeight="{DynamicResource {x:Static SystemParameters.IconWidthKey}}">
+                    <DataGrid x:Name="dtg_buscar_busqueda" Margin="10,125,9.333,39" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.RowSpan="2" Grid.Column="1" ColumnHeaderHeight="{DynamicResource {x:Static SystemParameters.IconWidthKey}}">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Código" CanUserReorder="False" Width="Auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" />
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Marca" />
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor" />
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha ingreso"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio" />
@@ -156,6 +159,11 @@
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción" />
                         </DataGrid.Columns>
                     </DataGrid>
+                    <ComboBox Grid.Column="1" Margin="149,35,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Global Sans Serif" Height="32" HorizontalAlignment="Left" Width="120">
+                        <ComboBoxItem Content="Nombre"/>
+                        <ComboBoxItem Content="Código"/>
+                        <ComboBoxItem Content="Marca"/>
+                    </ComboBox>
                 </Grid>
             </TabItem>
 
@@ -195,10 +203,11 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="79,0,0,38" Height="310" Width="173">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="79,50.667,0,50" Height="348" Width="173">
                         <Label Content="Código del producto:" x:Name="lbl_ingresar_codProd" Margin="0,3,0.333,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="29" FontSize="16"/>
-                        <Label Content="Nombre:" x:Name="lbl_ingresar_nombre" Margin="0,3,0.333,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="24" FontSize="16"/>
-                        <Label Content="Proveedor:" x:Name="lbl_ingresar_proveedor" Margin="0,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="24" FontSize="16"/>
+                        <Label Content="Nombre:" x:Name="lbl_ingresar_nombre" Margin="0,0,0.333,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="24" FontSize="16"/>
+                        <Label Content="Marca:" x:Name="lbl_ingresar_marca" Margin="0,3,0.333,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="24" FontSize="16"/>
+                        <Label Content="Proveedor:" x:Name="lbl_ingresar_proveedor" Margin="0,5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="24" FontSize="16"/>
                         <Label Content="Fecha de ingreso:" x:Name="lbl_ingresar_fechaIngreso" Margin="0,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="29" FontSize="16"/>
                         <Label Content="Precio en colones:" x:Name="lbl_ingresar_precio" Margin="0,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="24" FontSize="16"/>
                         <Label Content="Cantidad a ingresar:" x:Name="lbl_ingresar_cantIngresar" Margin="0,3,0.333,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="28" FontSize="16"/>
@@ -207,9 +216,10 @@
                         <Label Content="Estado:" x:Name="lbl_ingresar_estado" Margin="0,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="24" FontSize="16"/>
                         <Label Content="Descripción:" x:Name="lbl_ingresar_descripcion" Margin="0,3" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="31" FontSize="16"/>
                     </StackPanel>
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="285,50.667,0,50" Grid.Row="1" Height="348" Width="242">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="285,50.667,0,26" Grid.Row="1" Height="372" Width="242">
                         <TextBox x:Name="textbox_ingresar_codProd" Margin="0,5" TextWrapping="Wrap" Grid.Column="2"  VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="141" FontFamily="Global Sans Serif" KeyDown="soloNumeros_KeyDown" MaxLength="10"/>
                         <TextBox x:Name="textbox_ingresar_nombre"  Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" Width="242" MaxLength="25" />
+                        <TextBox x:Name="textbox_ingresar_marca"  Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" Width="242" MaxLength="25" />
                         <TextBox x:Name="textbox_ingresar_proveedor" Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="242" FontFamily="Global Sans Serif" MaxLength="15"/>
                         <DatePicker x:Name="date_ingresar_fechaIngreso" Margin="0,5,101,5" FontFamily="Global Sans Serif" FontSize="14"/>
                         <TextBox x:Name="textbox_ingresar_precio" Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="113" FontFamily="Global Sans Serif" KeyDown="soloNumeros_KeyDown" MaxLength="10"/>
@@ -293,19 +303,20 @@
                             <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Label x:Name="lbl_deshabilitar_buscar" Content="Ingrese el código del producto:" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="248"/>
-                    <TextBox x:Name="textbox_deshabilitar_buscar" Height="32" Margin="271,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="165"  KeyDown="soloNumeros_KeyDown" FontFamily="Global Sans Serif" MaxLength="10"/>
-                    <Button x:Name="btn_deshabilitar_buscar" Width="70" Height="70" Foreground="White" Margin="466,-1,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_actualizar_buscar_Click" HorizontalAlignment="Left" Grid.RowSpan="2">
+                    <Label x:Name="lbl_deshabilitar_buscar" Content="Ingrese el nombre o código del producto:" HorizontalAlignment="Left" Margin="15,13,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="331"/>
+                    <TextBox x:Name="textbox_deshabilitar_buscar" Height="32" Margin="365,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="165"  KeyDown="soloNumeros_KeyDown" FontFamily="Global Sans Serif" MaxLength="10"/>
+                    <Button x:Name="btn_deshabilitar_buscar" Width="70" Height="70" Foreground="White" Margin="551,5,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_actualizar_buscar_Click" HorizontalAlignment="Left" Grid.RowSpan="2" Grid.ColumnSpan="2">
                         <StackPanel Width="60" Height="66" HorizontalAlignment="Center" VerticalAlignment="Center" >
                             <Image Source="Imagenes/buscar.png" Width="50" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,3,10,3"/>
                             <TextBlock Text="Buscar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         </StackPanel>
                     </Button>
                     <Separator  Background="#FF3472DE" Grid.RowSpan="2" Margin="15,10,28.333,38" Grid.ColumnSpan="3" Grid.Row="2"/>
-                    <DataGrid x:Name="dtg_deshabilitar_busqueda" Margin="26,22,49.333,5" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="772" Grid.ColumnSpan="3" Grid.Row="1" ColumnHeaderHeight="{DynamicResource {x:Static SystemParameters.IconWidthKey}}">
+                    <DataGrid x:Name="dtg_deshabilitar_busqueda" Margin="27,22,49.379,5" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.ColumnSpan="3" Grid.Row="1" ColumnHeaderHeight="{DynamicResource {x:Static SystemParameters.IconWidthKey}}">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Código" CanUserReorder="False" Width="Auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" />
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Marca" />
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor" />
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha ingreso"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio" />
@@ -354,9 +365,9 @@
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Label x:Name="lbl_actualizar_buscar" Content="Ingrese el código del producto:" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="248"/>
-                    <TextBox x:Name="textbox_actualizar_buscar" Height="32" Margin="271,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="165"  KeyDown="soloNumeros_KeyDown" FontFamily="Global Sans Serif" MaxLength="10"/>
-                    <Button x:Name="btn_actualizar_buscar" Width="70" Height="70" Foreground="White" Margin="466,-1,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_actualizar_buscar_Click" Grid.RowSpan="2" HorizontalAlignment="Left">
+                    <Label x:Name="lbl_actualizar_buscar" Content="Ingrese el nombre o código del producto:" HorizontalAlignment="Left" Margin="15,13,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="327"/>
+                    <TextBox x:Name="textbox_actualizar_buscar" Height="32" Margin="361,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="165"  KeyDown="soloNumeros_KeyDown" FontFamily="Global Sans Serif" MaxLength="10"/>
+                    <Button x:Name="btn_actualizar_buscar" Width="70" Height="65" Foreground="White" Margin="545,4,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_actualizar_buscar_Click" Grid.RowSpan="2" HorizontalAlignment="Left">
                         <StackPanel Width="60" Height="66" HorizontalAlignment="Center" VerticalAlignment="Center" >
                             <Image Source="Imagenes/buscar.png" Width="50" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,3,10,3"/>
                             <TextBlock Text="Buscar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -417,10 +428,11 @@
                             <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_actualizar_busqueda" Margin="26,14,49.333,9.667" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="772" Grid.Row="1" ColumnHeaderHeight="32">
+                    <DataGrid x:Name="dtg_actualizar_busqueda" Margin="26,14,49.333,9.667" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" ColumnHeaderHeight="32">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Código" CanUserReorder="False" Width="Auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" />
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Marca" />
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor" />
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha ingreso"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio" />
@@ -472,7 +484,7 @@
                             <TextBlock Text="Historial" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_historial_historial" Margin="40.084,125,35.249,39" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="772" ColumnHeaderHeight="32">
+                    <DataGrid x:Name="dtg_historial_historial" Margin="56,125,19.333,39" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" ColumnHeaderHeight="32">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Fecha" Width="120"/>
                             <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Usuario" Width="200"/>

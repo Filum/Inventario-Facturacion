@@ -94,16 +94,17 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_lista" Margin="20,99,22,21" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="804" Grid.ColumnSpan="2" ColumnHeaderHeight="32">
+                    <DataGrid x:Name="dtg_listar_lista" Margin="20,99,22,21" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.ColumnSpan="2" ColumnHeaderHeight="32">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="115"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="120"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Apellidos" Width="auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Teléfono" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="120"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="100"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="auto"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="btn_listar_listar" Height="70" Width="70" Foreground="White" Margin="0,10,42,0" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}">
@@ -145,7 +146,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Label x:Name="lbl_listar_indicaciones" Content="Ingrese el nombre o el número de cédula: " Margin="10,25,328,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" FontWeight="Bold" Foreground="White" Grid.ColumnSpan="2"/>
+                    <Label x:Name="lbl_listar_indicaciones" Content="Ingrese el número de cédula o el nombre: " Margin="10,25,328,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" FontWeight="Bold" Foreground="White" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="textbox_buscar_buscar" Height="32" Margin="301,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="206" TextChanged="txb_buscar_TextChanged"/>
                     <Button x:Name="btn_buscar_buscar" Height="70" Width="70" Foreground="White" Margin="512,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_buscar_buscar_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -153,16 +154,17 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <TextBlock Text="Buscar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="15,0,0,0" Width="45" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_buscar_resultados" Margin="20,99,22,21" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="804" Grid.ColumnSpan="2" ColumnHeaderHeight="32">
+                    <DataGrid x:Name="dtg_buscar_resultados" Margin="20,99,22,21" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.ColumnSpan="2" ColumnHeaderHeight="32">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="115"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="120"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Apellidos" Width="auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Teléfono" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="120"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="100"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="auto"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -199,9 +201,10 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Height="332" Width="193" Margin="50,94,0,0">
+                    <StackPanel HorizontalAlignment="Left" Width="193" Margin="50,61,0,41">
                         <Label x:Name="lbl_ingresar_numCed" Content="Número de cédula:" Margin="0,4" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Column="1"/>
-                        <Label x:Name="lbl_ingresar_nombre" Content="Nombre completo:" Margin="0,0"  FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Column="1"/>
+                        <Label x:Name="lbl_ingresar_nombre" Content="Nombre:" Margin="0,4"  FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Column="1"/>
+                        <Label x:Name="lbl_ingresar_apellidos" Content="Apellidos:" Margin="0,4"  FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Column="1"/>
                         <Label x:Name="lbl_ingresar_telHabitacion" Content="Teléfono Habitación:" Margin="0,4" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Column="1"/>
                         <Label x:Name="lbl_ingresar_telMovil" Content="Teléfono Móvil:" Margin="0,4" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Column="1"/>
                         <Label x:Name="lbl_ingresar_email" Content="Correo:" Margin="0,4"  FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Column="1"/>
@@ -211,20 +214,21 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         <Label x:Name="lbl_ingresar_contrasenna" Content="Contraseña:" Margin="0,4" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Column="1"/>
                     </StackPanel>
 
-                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Height="332" Width="308" Margin="280,94,0,0" >
-                        <TextBox x:Name="textbox_ingresar_numCed" Height="26" Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="130" TextChanged="textbox_ingresar_numCed_TextChanged"/>
-                        <TextBox x:Name="textbox_ingresar_nombre" Height="26" Margin="0,3,-77,3" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="280"/>
-                        <TextBox x:Name="textbox_ingresar_telHabitacion" Height="26"  Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="130" KeyDown="telefono_KeyDown"/>
-                        <TextBox x:Name="textbox_ingresar_telMovil" Height="26"  Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="130" KeyDown="telefono_KeyDown"/>
-                        <TextBox x:Name="textbox_ingresar_email" Height="26" Margin="0,5,-8,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="280" TextChanged="textbox_ingresar_email_TextChanged" LostKeyboardFocus="validar_Correo"/>
-                        <TextBox x:Name="textbox_ingresar_puesto" Height="26" Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="203"/>
+                    <StackPanel HorizontalAlignment="Left" Width="308" Margin="280,61,0,41" >
+                        <TextBox x:Name="textbox_ingresar_numCed" Height="26" Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="130" TextChanged="textbox_ingresar_numCed_TextChanged" MaxLength="9"/>
+                        <TextBox x:Name="textbox_ingresar_nombre" Height="26" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="280" MaxLength="25"/>
+                        <TextBox x:Name="textbox_ingresar_apellidos" Height="26" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="280" MaxLength="25"/>
+                        <TextBox x:Name="textbox_ingresar_telHabitacion" Height="26"  Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="130" KeyDown="validarNumeros_KeyDown" MaxLength="8"/>
+                        <TextBox x:Name="textbox_ingresar_telMovil" Height="26"  Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="130" KeyDown="validarNumeros_KeyDown" MaxLength="8"/>
+                        <TextBox x:Name="textbox_ingresar_email" Height="26" Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="280" TextChanged="textbox_ingresar_email_TextChanged" LostKeyboardFocus="validar_Correo" MaxLength="25"/>
+                        <TextBox x:Name="textbox_ingresar_puesto" Height="26" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="203" MaxLength="20"/>
 
                         <ComboBox x:Name="cmb_ingresar_rol" HorizontalAlignment="Left" Height="26" Margin="0,7" Width="203">
                             <ComboBoxItem Content="Administrador"/>
                             <ComboBoxItem Content="Operario"/>
                             <ComboBoxItem Content="Recepcionista"/>
                         </ComboBox>
-                        <TextBox x:Name="textbox_ingresar_usuario" Height="26" Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" TextChanged="txb_usuario_ingresar_TextChanged" HorizontalAlignment="Left" Width="203"/>
+                        <TextBox x:Name="textbox_ingresar_usuario" Height="26" Margin="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" TextChanged="txb_usuario_ingresar_TextChanged" HorizontalAlignment="Left" Width="203" MaxLength="20"/>
                         <TextBox x:Name="textbox_ingresar_contrasenna" Height="26" Margin="0,6" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" FontSize="16" HorizontalAlignment="Left" Width="203" MaxLines="1" MaxLength="16" LostKeyboardFocus="validar_ingresar_contrasenna" TextChanged="textbox_ingresar_contrasenna_TextChanged"/>
                     </StackPanel>
 
@@ -289,16 +293,17 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <TextBlock Text="Buscar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="15,0,0,0" Width="45" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_deshabilitar_resultados" Margin="17,14.5,25,4" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="804" Grid.Row="1" ColumnHeaderHeight="32">
+                    <DataGrid x:Name="dtg_deshabilitar_resultados" Margin="17,15,25,4" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" ColumnHeaderHeight="32">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="115"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="120"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Apellidos" Width="auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Teléfono" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="120"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="100"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="auto"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Separator x:Name="separador_Copy" Margin="15,84.5,39,125" Background="#FF3472DE" Grid.RowSpan="3" Grid.Row="1"/>
@@ -355,18 +360,20 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <Separator x:Name="separador" Margin="15,80.667,39,125.333" Background="#FF3472DE" Grid.RowSpan="2" Grid.Row="1"/>
 
                     <Grid Grid.Row="2" Height="135" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,53,0,42" Width="703">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Height="135" Width="175">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Height="170" Width="175" Margin="0,0,0,-35">
                             <Label x:Name="lbl_actualizar_nombre" Content="Nombre:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="87" Grid.Row="2" FontSize="16"/>
+                            <Label x:Name="lbl_actualizar_apellidos" Content="Apellidos:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="87" Grid.Row="2" FontSize="16"/>
                             <Label x:Name="lbl_actualizar_email" Content="Correo:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="67" Grid.Row="2" FontSize="16"/>
                             <Label x:Name="lbl_actualizar_telHabitacion" Content="Teléfono Habitación:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="165" Grid.Row="2" FontSize="16"/>
                             <Label x:Name="lbl_actualizar_telMovil" Content="Teléfono Móvil:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="135" Grid.Row="2" FontSize="16"/>
                         </StackPanel>
 
-                        <StackPanel Margin="180,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="135" Width="238">
-                            <TextBox x:Name="textbox_actualizar_nombre" HorizontalAlignment="Left" Height="24" Margin="0,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" TextChanged="textbox_actualizar_nombre_TextChanged"/>
-                            <TextBox x:Name="textbox_actualizar_email" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged" Grid.Row="2" FontSize="16" LostKeyboardFocus="validar_Actualizar_Correo"/>
-                            <TextBox x:Name="textbox_actualizar_telHabitacion" HorizontalAlignment="Left" Height="24" Margin="0,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" KeyDown="telefono_KeyDown"/>
-                            <TextBox x:Name="textbox_actualizar_telMovil" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" KeyDown="telefono_KeyDown"/>
+                        <StackPanel Margin="180,0,0,-35" VerticalAlignment="Center" HorizontalAlignment="Left" Height="170" Width="238">
+                            <TextBox x:Name="textbox_actualizar_nombre" HorizontalAlignment="Left" Height="24" Margin="0,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" TextChanged="textbox_actualizar_nombre_TextChanged" MaxLength="25"/>
+                            <TextBox x:Name="textbox_actualizar_apellidos" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" TextChanged="textbox_actualizar_nombre_TextChanged" MaxLength="25"/>
+                            <TextBox x:Name="textbox_actualizar_email" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged" Grid.Row="2" FontSize="16" LostKeyboardFocus="validar_Actualizar_Correo" MaxLength="25"/>
+                            <TextBox x:Name="textbox_actualizar_telHabitacion" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" KeyDown="validarNumeros_KeyDown" MaxLength="8"/>
+                            <TextBox x:Name="textbox_actualizar_telMovil" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" KeyDown="validarNumeros_KeyDown" MaxLength="8"/>
                         </StackPanel>
 
                         <StackPanel Margin="418,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="135" Width="131">
@@ -377,8 +384,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </StackPanel>
 
                         <StackPanel Margin="531,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="135" Width="172">
-                            <TextBox x:Name="textbox_actualizar_puesto" HorizontalAlignment="Left" Height="24" Margin="0,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="2" Grid.Row="2" FontSize="16"/>
-                            <TextBox x:Name="textbox_actualizar_usuario" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="2" Grid.Row="2" FontSize="16"/>
+                            <TextBox x:Name="textbox_actualizar_puesto" HorizontalAlignment="Left" Height="24" Margin="0,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="20"/>
+                            <TextBox x:Name="textbox_actualizar_usuario" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="20"/>
                             <TextBox x:Name="textbox_actualizar_contrasenna" HorizontalAlignment="Left" Height="24" Margin="0,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLines="1" MaxLength="16" TextChanged="textbox_actualizar_contrasenna_TextChanged" LostKeyboardFocus="validar_actualizar_contrasenna"/>
                             <ComboBox x:Name="cmb_actualizar_rol" HorizontalAlignment="Left" Height="24" Margin="0,10" Width="170">
                                 <ComboBoxItem Content="Administrador"/>
@@ -401,16 +408,17 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <TextBlock Text="Guardar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_actualizar_resultados" Margin="17,11,25,14" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="804" Grid.Row="1" ColumnHeaderHeight="32">
+                    <DataGrid x:Name="dtg_actualizar_resultados" Margin="17,11,25,14" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" ColumnHeaderHeight="32">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="115"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="120"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Apellidos" Width="auto"/>
                             <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Teléfono" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="120"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="100"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="100"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="auto"/>
+                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="auto"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label x:Name="lbl_actualizar_numCed" Content="Ingrese el número de cédula o el nombre: " HorizontalAlignment="Left" Margin="20,38,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="329"/>
@@ -466,11 +474,11 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <TextBlock Text="Historial" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_historial_historial" Margin="39.418,125,34.582,39" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" HorizontalAlignment="Center" Width="772" ColumnHeaderHeight="32">
+                    <DataGrid x:Name="dtg_historial_historial" Margin="39,125,35,39" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" ColumnHeaderHeight="32">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Fecha" Width="120"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Usuario" Width="200"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Actividad" Width="300"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Fecha" Width="auto"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Usuario" Width="auto"/>
+                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Actividad" Width="auto"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

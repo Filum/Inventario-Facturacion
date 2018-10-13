@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data.OracleClient;
 
 namespace Proyecto
 {
@@ -25,14 +26,6 @@ namespace Proyecto
 
             txt_fecha.Content = DateTime.Now.ToShortDateString();
             txt_hora.Content = DateTime.Now.ToShortTimeString();
-        }
-
-        private void btn_Ingresar_Click(object sender, RoutedEventArgs e)
-        {
-            Menu ventana = new Menu();
-            ventana.Show();
-            this.Close();
-
         }
 
         private void txt_usuario_TextChanged(object sender, TextChangedEventArgs e)
@@ -88,9 +81,23 @@ namespace Proyecto
 
         private void click_Ingresar(object sender, RoutedEventArgs e)
         {
-            Menu ventana = new Menu();
-            ventana.Show();
-            this.Close();
+            try
+            {
+                OracleConnection oracle = new OracleConnection("DATA SOURCE = XE ; PASSWORD = root ; USER ID = DELRAM");
+                oracle.Open();
+                MessageBox.Show("Conectado");
+                oracle.Close();
+
+                Menu ventana = new Menu();
+                ventana.Show();
+                this.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se ha podido conectar con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //CREAR BOTON CONECTAR
+            }
+                        
         }
 
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)

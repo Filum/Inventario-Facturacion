@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.Data.OracleClient;
 
 namespace Proyecto
 {
@@ -122,7 +123,28 @@ namespace Proyecto
                 }
                 else
                 {
-                    MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //EJEMPLO DE INSERT
+                    OracleConnection oracle = new OracleConnection("DATA SOURCE = XE ; PASSWORD = root ; USER ID = DELRAM");
+                        try
+                        {
+                        
+                            oracle.Open();
+                            OracleCommand comando = new OracleCommand("add_Proveedores", oracle);
+                            comando.CommandType = System.Data.CommandType.StoredProcedure;
+                            comando.Parameters.Add("ID_PROVEEDOR", OracleType.Number).Value = textbox_cedJuridica_ingresar;
+                            comando.Parameters.Add("NOMB", OracleType.VarChar).Value = textbox_nombre_ingresar;
+                            comando.Parameters.Add("EMAIL", OracleType.VarChar).Value = textbox_email_ingresar;
+                            comando.Parameters.Add("DESCRI", OracleType.VarChar).Value = textbox_descripcion_ingresar;
+                            comando.Parameters.Add("TELEFO", OracleType.Number).Value = textbox_telefono_ingresar;
+                            comando.ExecuteNonQuery();
+                            MessageBox.Show("Datos ingresados"); 
+                                                   
+                        }
+                catch (Exception)
+                        {
+                            MessageBox.Show("No se ingresaron los datos");
+                        }
+                    oracle.Close();
                 }
         }
 
