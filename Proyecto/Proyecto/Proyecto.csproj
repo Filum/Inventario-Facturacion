@@ -224,6 +224,9 @@
   <ItemGroup>
     <Resource Include="Vista\Imagenes\informacion.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controlador\" />
+    <Folder Include="Modelo\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
