@@ -92,22 +92,21 @@
             <Image x:Name="usuario_png" Margin="10,0" Source="Imagenes\user.png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <TextBox x:Name="txt_usuario" Height="35" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Yu Gothic UI Light" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10" Background="{x:Null}" Foreground="White" TextChanged="txt_usuario_TextChanged" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" Style="{StaticResource placeHolder}" Tag="USUARIO"/>
         </DockPanel>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="16,0,0,1.6" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="90" Height="32" VerticalAlignment="Bottom"/>
-        <Label x:Name="txt_hora" Content="hora" Margin="106,0,0,1.6" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="80" Height="32" VerticalAlignment="Bottom"/>
+        <Label x:Name="txt_fecha" Content="fecha" Margin="16,0,0,1.6" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="150" Height="32" VerticalAlignment="Bottom"/>
         <StackPanel HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" Orientation="Horizontal">
-            <Image x:Name="LOGODELRAM_png" Source="Imagenes/img_DELRAM.png" Stretch="Fill" HorizontalAlignment="Center" Width="252" Height="152" VerticalAlignment="Center" Margin="50,0"/>
+            <Image x:Name="LOGODELRAM_png" Source="Imagenes/img_DELRAM.png" Stretch="Fill" HorizontalAlignment="Center" Width="252" Height="173" VerticalAlignment="Center" Margin="50,0"/>
             <Label x:Name="txt_NombreSistema" Content="Sistema de Inventario &#xA;y Facturación  (SIF)" Margin="50,0" Foreground="#FFF7F7F7" FontSize="36" FontFamily="Yu Gothic UI Light" FontWeight="Bold" Height="117" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" Height="100" Margin="0,480,0,0" VerticalAlignment="Top" Orientation="Horizontal" Width="300">
             <Button Foreground="White" Background="{x:Null}" Margin="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Height="100" Click="click_Limpiar_Datos">
-                <StackPanel Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150">
+                <StackPanel x:Name="stk_Limpiardatos" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150">
                     <Image Source="Imagenes/limpiar.png" VerticalAlignment="Center" Margin="0,10" HorizontalAlignment="Center" Width="50" Height="50"/>
                     <TextBlock Text="Limpiar datos" FontSize="14" FontFamily="Global Sans Serif" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
             <Button Foreground="White" Background="{x:Null}" Margin="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Height="100" Click="click_Ingresar" >
-                <StackPanel Height="100" VerticalAlignment="Center" Width="150">
+                <StackPanel x:Name="stk_Ingresar" Height="100" VerticalAlignment="Center" Width="150">
                     <Image Source="Imagenes/Ingresar.png" VerticalAlignment="Center" Margin="0,10" HorizontalAlignment="Center" Width="50" Height="50"/>
                     <TextBlock Text="Ingresar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>

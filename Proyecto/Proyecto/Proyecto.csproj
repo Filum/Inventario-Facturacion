@@ -15,7 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,15 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Facturacion.xaml">
+    <Page Include="Vista\Facturacion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Login.xaml">
+    <Page Include="Vista\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Clientes.xaml">
+    <Page Include="Vista\Clientes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -70,51 +71,51 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Facturacion.xaml.cs">
+    <Compile Include="Vista\Facturacion.xaml.cs">
       <DependentUpon>Facturacion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Login.xaml.cs">
+    <Compile Include="Vista\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Clientes.xaml.cs">
+    <Compile Include="Vista\Clientes.xaml.cs">
       <DependentUpon>Clientes.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MantenimientoProductos.xaml">
+    <Page Include="Vista\MantenimientoProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MantenimientoProveedores.xaml">
+    <Page Include="Vista\MantenimientoProveedores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MantenimientoRoles.xaml">
+    <Page Include="Vista\MantenimientoRoles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MantenimientoUsuarios.xaml">
+    <Page Include="Vista\MantenimientoUsuarios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Menu.xaml">
+    <Page Include="Vista\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MantenimientoProductos.xaml.cs">
+    <Compile Include="Vista\MantenimientoProductos.xaml.cs">
       <DependentUpon>MantenimientoProductos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MantenimientoProveedores.xaml.cs">
+    <Compile Include="Vista\MantenimientoProveedores.xaml.cs">
       <DependentUpon>MantenimientoProveedores.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MantenimientoRoles.xaml.cs">
+    <Compile Include="Vista\MantenimientoRoles.xaml.cs">
       <DependentUpon>MantenimientoRoles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MantenimientoUsuarios.xaml.cs">
+    <Compile Include="Vista\MantenimientoUsuarios.xaml.cs">
       <DependentUpon>MantenimientoUsuarios.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menu.xaml.cs">
+    <Compile Include="Vista\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -140,88 +141,89 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\agregar-usuario.png" />
-    <Resource Include="Imagenes\agregar.png" />
-    <Resource Include="Imagenes\agregarFactura.png" />
-    <Resource Include="Imagenes\ayuda.png" />
-    <Resource Include="Imagenes\buscar.png" />
-    <Resource Include="Imagenes\buscarFactura.png" />
-    <Resource Include="Imagenes\editar.png" />
-    <Resource Include="Imagenes\Guardar.png" />
-    <Resource Include="Imagenes\imprimir.png" />
-    <Resource Include="Imagenes\limpiar.png" />
-    <Resource Include="Imagenes\logo.PNG" />
-    <Resource Include="Imagenes\Ordenar.png" />
-    <Resource Include="Imagenes\ordenarporusuario.png" />
-    <Resource Include="Imagenes\ordernar_por fecha.png" />
-    <Resource Include="Imagenes\salir.png" />
-    <Resource Include="Imagenes\user.png" />
+    <Resource Include="Vista\Imagenes\agregar-usuario.png" />
+    <Resource Include="Vista\Imagenes\agregar.png" />
+    <Resource Include="Vista\Imagenes\agregarFactura.png" />
+    <Resource Include="Vista\Imagenes\ayuda.png" />
+    <Resource Include="Vista\Imagenes\buscar.png" />
+    <Resource Include="Vista\Imagenes\buscarFactura.png" />
+    <Resource Include="Vista\Imagenes\editar.png" />
+    <Resource Include="Vista\Imagenes\Guardar.png" />
+    <Resource Include="Vista\Imagenes\imprimir.png" />
+    <Resource Include="Vista\Imagenes\limpiar.png" />
+    <Resource Include="Vista\Imagenes\logo.PNG" />
+    <Resource Include="Vista\Imagenes\Ordenar.png" />
+    <Resource Include="Vista\Imagenes\ordenarporusuario.png" />
+    <Resource Include="Vista\Imagenes\ordernar_por fecha.png" />
+    <Resource Include="Vista\Imagenes\salir.png" />
+    <Resource Include="Vista\Imagenes\user.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\delram.png" />
+    <Resource Include="Vista\Imagenes\delram.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\Ingresar.png" />
+    <Resource Include="Vista\Imagenes\Ingresar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\cubo-de-borrar.png" />
+    <Resource Include="Vista\Imagenes\cubo-de-borrar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\lock.png" />
-    <Resource Include="Imagenes\usuario.png" />
+    <Resource Include="Vista\Imagenes\lock.png" />
+    <Resource Include="Vista\Imagenes\usuario.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\padlock %281%29.png" />
+    <Resource Include="Vista\Imagenes\padlock %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\actualizar-16.png" />
-    <Resource Include="Imagenes\agregar-16.png" />
-    <Resource Include="Imagenes\buscar-16.png" />
-    <Resource Include="Imagenes\Deshabilitar-16.png" />
-    <Resource Include="Imagenes\edit-16.png" />
-    <Resource Include="Imagenes\libro-16.png" />
-    <Resource Include="Imagenes\libro.png" />
-    <Resource Include="Imagenes\listar-16.png" />
+    <Resource Include="Vista\Imagenes\actualizar-16.png" />
+    <Resource Include="Vista\Imagenes\agregar-16.png" />
+    <Resource Include="Vista\Imagenes\buscar-16.png" />
+    <Resource Include="Vista\Imagenes\Deshabilitar-16.png" />
+    <Resource Include="Vista\Imagenes\edit-16.png" />
+    <Resource Include="Vista\Imagenes\libro-16.png" />
+    <Resource Include="Vista\Imagenes\libro.png" />
+    <Resource Include="Vista\Imagenes\listar-16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\cancelar.png" />
-    <Resource Include="Imagenes\deshabilitar.png" />
+    <Resource Include="Vista\Imagenes\cancelar.png" />
+    <Resource Include="Vista\Imagenes\deshabilitar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\redimensionar.png" />
+    <Resource Include="Vista\Imagenes\redimensionar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\redimensionar %281%29.png" />
+    <Resource Include="Vista\Imagenes\redimensionar %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\cambio-de-tamano-horizontal-opcion.png" />
+    <Resource Include="Vista\Imagenes\cambio-de-tamano-horizontal-opcion.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\customer-support.png" />
+    <Resource Include="Vista\Imagenes\customer-support.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\factura.png" />
+    <Resource Include="Vista\Imagenes\factura.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cerrar.png" />
+    <Resource Include="Vista\Imagenes\cerrar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\img_cancelar.png" />
+    <Resource Include="Vista\Imagenes\img_cancelar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\img_maximizar.png" />
+    <Resource Include="Vista\Imagenes\img_maximizar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\img_minimizar.png" />
+    <Resource Include="Vista\Imagenes\img_minimizar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\img_DELRAM.png" />
+    <Resource Include="Vista\Imagenes\img_DELRAM.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\padlock.png" />
+    <Resource Include="Vista\Imagenes\padlock.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\informacion.png" />
+    <Resource Include="Vista\Imagenes\informacion.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -257,7 +257,7 @@ namespace Proyecto
             }
         }
 
-        private void telefono_KeyDown(object sender, KeyEventArgs e)
+        private void validarNumeros_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
                 e.Handled = false;
