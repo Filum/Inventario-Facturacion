@@ -137,10 +137,10 @@ namespace Proyecto
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          //  _en = dtg_listar_clientes.SelectedItem as Ventana; 
+            //  _en = dtg_listar_clientes.SelectedItem as Ventana; 
         }
 
-        private void textbox_rol_modificar_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_rol_modificar_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
@@ -161,7 +161,7 @@ namespace Proyecto
 
         private void btn_guardar_cliente_actualizado_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_actualizar_correo.Text == "" || textbox_actualizar_nombre.Text == "" || textbox_actualizar_TelMov.Text == "" || textbox_actualizar_TelOf.Text == "")
+            if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelMov.Text == "" || txb_actualizar_TelOf.Text == "")
             {
                 MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -173,38 +173,39 @@ namespace Proyecto
 
         private void btn_limpiar_actualizar_cliente_Click(object sender, RoutedEventArgs e)
         {
-            textbox_actualizar_correo.Text = "";
-            textbox_actualizar_correo_o.Text = "";
-            textbox_actualizar_nombre.Text = "";
-            textbox_actualizar_observaciones.Text = "";
-            textbox_actualizar_TelMov.Text = "";
-            textbox_actualizar_TelOf.Text = "";
+            txb_actualizar_correo.Text = "";
+            txb_actualizar_correo_o.Text = "";
+            txb_actualizar_nombre.Text = "";
+            txb_actualizar_observaciones.Text = "";
+            txb_actualizar_TelMov.Text = "";
+            txb_actualizar_TelOf.Text = "";
         }
 
         private void Button_guardar_cliente_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                /*if (textbox_actualizar_correo.Text == "" || textbox_actualizar_nombre.Text == "" || textbox_actualizar_TelMov.Text == "" || textbox_actualizar_TelOf.Text == "")
+                if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelMov.Text == "" || txb_actualizar_TelOf.Text == "" && rb_no_actualizar.Checked || rb_si_actualizar.Checked )
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
-                {*/
-                    clt.v_NombreCompleto = textbox_ingresar_nombre.Text;
-                    clt.v_Teleoficina = Convert.ToInt32(textbox_TelOf.Text);
-                    clt.v_Telemovil = Convert.ToInt32(textbox_TelMov.Text);
-                    clt.v_Correo = textbox_ingresar_correo.Text;
-                    clt.v_CorreoOpc = textbox_ingresar_correo_o.Text;     
-                    clt.v_Observaciones = textbox_observaciones.Text;
-                    int v_Resultado = model.AgregarClientes(clt);
-                    if (v_Resultado == -1)
-                    {
-                        MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                //}
+                {
+                if(rb_si_actualizar.Checked)
+                clt.v_NombreCompleto = txb_ingresar_nombre.Text;
+                clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
+                clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
+                clt.v_Correo = txb_ingresar_correo.Text;
+                clt.v_CorreoOpc = txb_ingresar_correo_o.Text;
+                clt.v_Observaciones = txb_observaciones.Text;
+                int v_Resultado = model.AgregarClientes(clt);
+                if (v_Resultado == -1)
+                {
+                    MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                }
             }
-            catch(Exception m)
+            catch (Exception m)
             {
                 Console.WriteLine(m.ToString());
                 MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -213,35 +214,35 @@ namespace Proyecto
 
         private void Button_limpiar_cliente_Click(object sender, RoutedEventArgs e)
         {
-            textbox_ingresar_correo.Text = "";
-            textbox_ingresar_correo_o.Text = "";
-            textbox_ingresar_nombre.Text = "";
-            textbox_observaciones.Text = "";
-            textbox_TelMov.Text = "";
-            textbox_TelOf.Text = "";
+            txb_ingresar_correo.Text = "";
+            txb_ingresar_correo_o.Text = "";
+            txb_ingresar_nombre.Text = "";
+            txb_observaciones.Text = "";
+            txb_TelMov.Text = "";
+            txb_TelOf.Text = "";
         }
 
-        private void textbox_ingresar_nombre_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_ingresar_nombre_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_ingresar_correo_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_ingresar_correo_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_ingresar_correo_o_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_ingresar_correo_o_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_ingresar_telOf_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_ingresar_telOf_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_ingresar_telMov_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_ingresar_telMov_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
@@ -251,7 +252,7 @@ namespace Proyecto
 
         }
 
-        private void textbox_observaciones_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_observaciones_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
@@ -328,37 +329,37 @@ namespace Proyecto
 
         }
 
-        private void textbox_cliente_modificar_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_cliente_modificar_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_actualizar_nombre_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_actualizar_nombre_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_actualizar_correo_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_actualizar_correo_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_actualizar_correo_o_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_actualizar_correo_o_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_actualizar_TelOf_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_actualizar_TelOf_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_actualizar_TelMov_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_actualizar_TelMov_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void textbox_actualizar_observaciones_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_actualizar_observaciones_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
@@ -395,40 +396,40 @@ namespace Proyecto
         private void validar_Correo(object sender, EventArgs e)
         {
 
-            Console.WriteLine("Correo: " + textbox_ingresar_correo.Text);
+            Console.WriteLine("Correo: " + txb_ingresar_correo.Text);
 
-            Console.WriteLine(email_correcto(textbox_ingresar_correo.Text));
+            Console.WriteLine(email_correcto(txb_ingresar_correo.Text));
 
-            if (email_correcto(textbox_ingresar_correo.Text) == false)
+            if (email_correcto(txb_ingresar_correo.Text) == false)
             {
                 MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                textbox_ingresar_correo.BorderBrush = Brushes.Red;
-                textbox_ingresar_correo.Background = Brushes.Tomato;
+                txb_ingresar_correo.BorderBrush = Brushes.Red;
+                txb_ingresar_correo.Background = Brushes.Tomato;
             }
             else
             {
-                textbox_ingresar_correo.BorderBrush = Brushes.White;
-                textbox_ingresar_correo.Background = Brushes.White;
+                txb_ingresar_correo.BorderBrush = Brushes.White;
+                txb_ingresar_correo.Background = Brushes.White;
             }
         }
 
         private void validar_Actualizar_Correo(object sender, EventArgs e)
         {
 
-            Console.WriteLine("Correo: " + textbox_actualizar_correo.Text);
+            Console.WriteLine("Correo: " + txb_actualizar_correo.Text);
 
-            Console.WriteLine(email_correcto(textbox_actualizar_correo.Text));
+            Console.WriteLine(email_correcto(txb_actualizar_correo.Text));
 
-            if (email_correcto(textbox_actualizar_correo.Text) == false)
+            if (email_correcto(txb_actualizar_correo.Text) == false)
             {
                 MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                textbox_actualizar_correo.BorderBrush = Brushes.Red;
-                textbox_actualizar_correo.Background = Brushes.Tomato;
+                txb_actualizar_correo.BorderBrush = Brushes.Red;
+                txb_actualizar_correo.Background = Brushes.Tomato;
             }
             else
             {
-                textbox_actualizar_correo.BorderBrush = Brushes.White;
-                textbox_actualizar_correo.Background = Brushes.White;
+                txb_actualizar_correo.BorderBrush = Brushes.White;
+                txb_actualizar_correo.Background = Brushes.White;
             }
 
 

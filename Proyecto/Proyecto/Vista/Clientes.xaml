@@ -162,7 +162,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FF040608"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <TextBox x:Name="textbox_cliente_modificar" Margin="311.4,10,21.4,0" TextWrapping="Wrap" Grid.Column="1" Height="22" VerticalAlignment="Top" TextChanged="textbox_cliente_modificar_TextChanged"/>
+                    <TextBox x:Name="txb_cliente_modificar" Margin="311.4,10,21.4,0" TextWrapping="Wrap" Grid.Column="1" Height="22" VerticalAlignment="Top" />
                     <Label x:Name="txt_nombre_codigo_cliente" Content="Ingrese el nombre o código del cliente:" Margin="1.4,3,304.4,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="29" VerticalAlignment="Top"/>
                     <Button x:Name="btn_buscar_editar_cliente" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" Click="btn_buscar_Click" Grid.Column="1" HorizontalAlignment="Right" Width="70" Margin="0,3,15.4,0" Height="61" VerticalAlignment="Top" Grid.ColumnSpan="5">
                         <Image Source="Imagenes/buscar.png" Stretch="Fill" Height="50" Width="50"/>
@@ -172,7 +172,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </DataGrid>
                     <Label x:Name="txt_nombre_actualizar" Content="Nombre:" HorizontalAlignment="Left" Margin="13.4,23.4,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="126" Grid.Row="2" Height="25" VerticalAlignment="Top" Grid.Column="1" Grid.RowSpan="2"/>
                     <Label Margin="4.4,0,-41.8,2.6" VerticalAlignment="Bottom" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.ColumnSpan="7" Height="29" Grid.Column="1" Grid.Row="1"/>
-                    <TextBox x:Name="txb_actualizar_nombre" Margin="218.4,21.4,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Width="369" Height="27" VerticalAlignment="Top" TextChanged="textbox_actualizar_nombre_TextChanged" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                    <TextBox x:Name="txb_actualizar_nombre" Margin="218.4,21.4,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Width="369" Height="27" VerticalAlignment="Top"  Grid.ColumnSpan="2" Grid.RowSpan="2"/>
                     <Button x:Name="btn_guardar_cliente_actualizado" Height="70" Width="70" Foreground="White" Margin="0,18,33.2,194.4" VerticalAlignment="Center" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="6" Grid.Row="3" Click="btn_guardar_cliente_actualizado_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/guardar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
@@ -187,16 +187,16 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Button>
                     <Separator Margin="17,19,33.2,16" Background="White" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1"/>
                     <Label x:Name="txt_correo_actualizar" Content="Correo:" HorizontalAlignment="Left" Margin="13.4,27,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Grid.Column="1" Grid.Row="3" Height="25" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txb_actualizar_correo" Margin="218.4,27,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="369" Height="27" VerticalAlignment="Top" TextChanged="textbox_actualizar_correo_TextChanged" LostKeyboardFocus="validar_Actualizar_Correo" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="txb_actualizar_correo_o" Margin="218.4,80,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="369" Height="27" VerticalAlignment="Top" TextChanged="textbox_actualizar_correo_o_TextChanged" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="textbox_actualizar_observaciones" Margin="218.4,267,0,-59.6" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="369" Height="75" VerticalAlignment="Top" TextChanged="textbox_actualizar_observaciones_TextChanged" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="txb_actualizar_correo" Margin="218.4,27,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="369" Height="27" VerticalAlignment="Top"  LostKeyboardFocus="validar_Actualizar_Correo" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="txb_actualizar_correo_o" Margin="218.4,80,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="369" Height="27" VerticalAlignment="Top"  Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="txb_actualizar_observaciones" Margin="218.4,267,0,-59.6" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="369" Height="75" VerticalAlignment="Top"  Grid.ColumnSpan="2"/>
                     <Label x:Name="txt_coopcional_actualizar" Content="Correo opcional:" HorizontalAlignment="Left" Margin="13.4,76,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Grid.Row="3" Height="31" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label x:Name="txt_teleofi_actualizar" Content="Teléfono de Oficina:" HorizontalAlignment="Left" Margin="13.4,119,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Grid.Row="3" Height="31" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label x:Name="txt_incactivo_actualizar" Content="Inactivo:" HorizontalAlignment="Left" Margin="13.4,214,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Grid.Row="3" Height="31" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label x:Name="txt_telemovil_actualizar" Content="Teléfono Móvil:" HorizontalAlignment="Left" Margin="13.4,171,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Grid.Row="3" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="txb_actualizar_TelOf" Margin="218.4,122,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="218" Height="28" VerticalAlignment="Top" TextChanged="textbox_actualizar_TelOf_TextChanged" KeyDown="telefono_KeyDown"/>
+                    <TextBox x:Name="txb_actualizar_TelOf" Margin="218.4,122,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="218" Height="28" VerticalAlignment="Top" KeyDown="telefono_KeyDown"/>
                     <Label x:Name="txt_observaciones_actualizar" Content="Observaciones:" HorizontalAlignment="Left" Margin="13.4,265,0,-12.6" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Grid.Row="3" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="txb_actualizar_TelMov" Margin="218.4,171,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="218" Height="28" VerticalAlignment="Top" TextChanged="textbox_actualizar_TelMov_TextChanged" KeyDown="telefono_KeyDown"/>
+                    <TextBox x:Name="txb_actualizar_TelMov" Margin="218.4,171,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="218" Height="28" VerticalAlignment="Top"  KeyDown="telefono_KeyDown"/>
                     <RadioButton x:Name="rb_si_actualizar" Content="Si" Grid.Column="1" HorizontalAlignment="Left" Margin="218.4,227,0,0" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="33"/>
                     <RadioButton x:Name="rb_no_actualizar" Content="No" Grid.Column="1" HorizontalAlignment="Left" Margin="314.4,227,0,0" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="39"/>
 
@@ -247,19 +247,19 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Button>
                     <Label x:Name="txt_nombre_ingresar" Content="Nombre:" HorizontalAlignment="Left" Margin="145,53,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="126" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <Label x:Name="txt_correo_ingresar" Content="Correo:" HorizontalAlignment="Left" Margin="145,128,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="txb_ingresar_nombre" Margin="180,53,30,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top" TextChanged="textbox_ingresar_nombre_TextChanged"/>
+                    <TextBox x:Name="txb_ingresar_nombre" Margin="180,53,30,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top" />
                     <Label x:Name="txt_correoopc_insertar" Content="Correo (opcional):" HorizontalAlignment="Left" Margin="145,190,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="31" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <Label x:Name="txt_teleofi_insertar" Content="Teléfono de Oficina:" HorizontalAlignment="Left" Margin="145,258,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <Label x:Name="txt_inactivo_insertar" Content="Inactivo:" HorizontalAlignment="Left" Margin="145,371,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <Label x:Name="txt_observaciones_insertar" Content="Observaciones:" HorizontalAlignment="Left" Margin="145,442,0,-5.6" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="txb_ingresar_correo" Margin="180,128,30,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top" TextChanged="textbox_ingresar_correo_TextChanged" LostKeyboardFocus="validar_Correo"/>
-                    <TextBox x:Name="txb_ingresar_correo_o" Margin="180,190,30,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top" TextChanged="textbox_ingresar_correo_o_TextChanged"/>
-                    <TextBox x:Name="txb_observaciones" Margin="180,442,30,0" TextWrapping="Wrap" Grid.Column="1" Height="111" VerticalAlignment="Top" TextChanged="textbox_observaciones_TextChanged"/>
+                    <TextBox x:Name="txb_ingresar_correo" Margin="180,128,30,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top"  LostKeyboardFocus="validar_Correo"/>
+                    <TextBox x:Name="txb_ingresar_correo_o" Margin="180,190,30,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top" />
+                    <TextBox x:Name="txb_observaciones" Margin="180,442,30,0" TextWrapping="Wrap" Grid.Column="1" Height="111" VerticalAlignment="Top" />
                     <RadioButton x:Name="rb_si_insertar" Content="Si" Grid.Column="1" HorizontalAlignment="Left" Margin="180,377,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="33"/>
                     <RadioButton x:Name="rb_no_insertar" Content="No" Grid.Column="1" HorizontalAlignment="Left" Margin="268,377,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="37" Width="39"/>
                     <Label x:Name="txt_telemovil" Content="Teléfono Móvil:" HorizontalAlignment="Left" Margin="145,313,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="txb_TelMov" Margin="180,313,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top" TextChanged="textbox_ingresar_telMov_TextChanged" KeyDown="telefono_KeyDown"/>
-                    <TextBox x:Name="txb_TelOf" Margin="180,258,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top" TextChanged="textbox_ingresar_telOf_TextChanged" KeyDown="telefono_KeyDown"/>
+                    <TextBox x:Name="txb_TelMov" Margin="180,313,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top"  KeyDown="telefono_KeyDown"/>
+                    <TextBox x:Name="txb_TelOf" Margin="180,258,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top" KeyDown="telefono_KeyDown"/>
 
                 </Grid>
             </TabItem>
