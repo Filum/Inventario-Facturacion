@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using Entidades;
+using Logica;
 
 namespace Proyecto
 {
@@ -21,15 +24,11 @@ namespace Proyecto
     /// </summary>
     public partial class Clientes : Window
     {
+        EntidadClientes clt = new EntidadClientes();
+        Model model = new Model();
         public Clientes()
         {
             InitializeComponent();
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
             txt_fecha.Content = DateTime.Now.ToShortDateString();
             txt_hora.Content = DateTime.Now.ToShortTimeString();
         }
@@ -138,7 +137,7 @@ namespace Proyecto
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+          //  _en = dtg_listar_clientes.SelectedItem as Ventana; 
         }
 
         private void textbox_rol_modificar_TextChanged(object sender, TextChangedEventArgs e)
@@ -218,7 +217,7 @@ namespace Proyecto
             c7.Binding = new Binding("observaciones");
             dtg_actualizar_clientes.Columns.Add(c7);
 
-            dtg_actualizar_clientes.Items.Add(new Item() { codigo = "123", nombre_completo = "Vinicio Pacheco Vargas", correo = "vipava@gamil.com", telemovil = "88064567", teleoficina = "88098765", inactividad = "a", observaciones = "No" });
+           // dtg_actualizar_clientes.Items.Add(new Item() { codigo = "123", nombre_completo = "Vinicio Pacheco Vargas", correo = "vipava@gamil.com", telemovil = "88064567", teleoficina = "88098765", inactividad = "a", observaciones = "No" });
 
         }
         private void btn_guardar_cliente_actualizado_Click(object sender, RoutedEventArgs e)
@@ -245,13 +244,31 @@ namespace Proyecto
 
         private void Button_guardar_cliente_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_ingresar_correo.Text == "" || textbox_ingresar_nombre.Text == "" || textbox_TelMov.Text == "" || textbox_TelOf.Text == "")
+            try
             {
-                MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                /*if (textbox_actualizar_correo.Text == "" || textbox_actualizar_nombre.Text == "" || textbox_actualizar_TelMov.Text == "" || textbox_actualizar_TelOf.Text == "")
+                {
+                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {*/
+                    clt.v_NombreCompleto = textbox_ingresar_nombre.Text;
+                    clt.v_Teleoficina = Convert.ToInt32(textbox_TelOf.Text);
+                    clt.v_Telemovil = Convert.ToInt32(textbox_TelMov.Text);
+                    clt.v_Correo = textbox_ingresar_correo.Text;
+                    clt.v_CorreoOpc = textbox_ingresar_correo_o.Text;     
+                    clt.v_Observaciones = textbox_observaciones.Text;
+                    int v_Resultado = model.AgregarClientes(clt);
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                //}
             }
-            else
+            catch(Exception m)
             {
-                MessageBox.Show("Datos guardados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                Console.WriteLine(m.ToString());
+                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

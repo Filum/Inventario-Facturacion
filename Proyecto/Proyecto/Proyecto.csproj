@@ -225,8 +225,14 @@
     <Resource Include="Vista\Imagenes\informacion.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controlador\" />
-    <Folder Include="Modelo\" />
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{c78d2dc8-1cf4-4e9c-8640-666a237045a3}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logica\Logica.csproj">
+      <Project>{88f02d93-a58d-446e-b431-b9731972262c}</Project>
+      <Name>Logica</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
