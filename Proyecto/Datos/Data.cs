@@ -23,6 +23,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("TELMOVIL", clt.v_Telemovil));
             comando.Parameters.Add(new OracleParameter("CORRE", clt.v_Correo));
             comando.Parameters.Add(new OracleParameter("CORREOPC", clt.v_CorreoOpc));
+            comando.Parameters.Add(new OracleParameter("INACT", clt.v_Inactividad));
             comando.Parameters.Add(new OracleParameter("OBVS", clt.v_Observaciones));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();

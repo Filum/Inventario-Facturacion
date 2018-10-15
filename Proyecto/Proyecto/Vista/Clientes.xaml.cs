@@ -183,27 +183,34 @@ namespace Proyecto
 
         private void Button_guardar_cliente_Click(object sender, RoutedEventArgs e)
         {
+            Int32 inactivo;
             try
             {
-                if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelMov.Text == "" || txb_actualizar_TelOf.Text == "" && rb_no_actualizar.Checked || rb_si_actualizar.Checked )
+                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_observaciones.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" && rb_si_insertar.IsChecked == true || rb_no_insertar.IsChecked == true)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                if(rb_si_actualizar.Checked)
-                clt.v_NombreCompleto = txb_ingresar_nombre.Text;
-                clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
-                clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
-                clt.v_Correo = txb_ingresar_correo.Text;
-                clt.v_CorreoOpc = txb_ingresar_correo_o.Text;
-                clt.v_Observaciones = txb_observaciones.Text;
+                    if (rb_si_insertar.IsChecked == true)
+                        inactivo = 1;
+                    else
+                        inactivo = 0;
+
+                    clt.v_NombreCompleto = txb_ingresar_nombre.Text;
+                    clt.v_Teleoficina = Convert.ToInt32(txb_ingresar_TelOf.Text);
+                    clt.v_Telemovil = Convert.ToInt32(txb_ingresar_TelMov.Text);
+                    clt.v_Correo = txb_ingresar_correo.Text;
+                    clt.v_CorreoOpc = txb_ingresar_correo_o.Text;
+                    clt.v_Inactividad = inactivo;
+                    clt.v_Observaciones = txb_observaciones.Text;
                 int v_Resultado = model.AgregarClientes(clt);
                 if (v_Resultado == -1)
                 {
                     MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Limpiar_Ingresar_Cliente();
                 }
-                }
+               }
             }
             catch (Exception m)
             {
@@ -212,14 +219,20 @@ namespace Proyecto
             }
         }
 
-        private void Button_limpiar_cliente_Click(object sender, RoutedEventArgs e)
+        private void Limpiar_Ingresar_Cliente()
         {
             txb_ingresar_correo.Text = "";
             txb_ingresar_correo_o.Text = "";
             txb_ingresar_nombre.Text = "";
             txb_observaciones.Text = "";
-            txb_TelMov.Text = "";
-            txb_TelOf.Text = "";
+            txb_ingresar_TelMov.Text = "";
+            txb_ingresar_TelOf.Text = "";
+            rb_no_insertar.IsChecked = false;
+            rb_si_insertar.IsChecked = false;
+        }
+        private void Button_limpiar_cliente_Click(object sender, RoutedEventArgs e)
+        {
+            Limpiar_Ingresar_Cliente();
         }
 
         private void txb_ingresar_nombre_TextChanged(object sender, TextChangedEventArgs e)
@@ -436,6 +449,9 @@ namespace Proyecto
 
         }
 
+        private void rb_si_actualizar_Checked(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

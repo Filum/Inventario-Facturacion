@@ -84,7 +84,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Grid.Background>
 
                     <DataGrid x:Name="dtg_listar_clientes" Margin="10,75,23,50" FrozenColumnCount="5" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" FontSize="12">
-            
+
                     </DataGrid>
                     <Button x:Name="btn_imprimirClientes" Height="70" Width="70" Foreground="White" Margin="0,48,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_Click" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel x:Name="stp_imprimirclientes" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -197,7 +197,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <TextBox x:Name="txb_actualizar_TelOf" Margin="218.4,122,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="218" Height="28" VerticalAlignment="Top" KeyDown="telefono_KeyDown"/>
                     <Label x:Name="txt_observaciones_actualizar" Content="Observaciones:" HorizontalAlignment="Left" Margin="13.4,265,0,-12.6" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Grid.Row="3" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
                     <TextBox x:Name="txb_actualizar_TelMov" Margin="218.4,171,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="218" Height="28" VerticalAlignment="Top"  KeyDown="telefono_KeyDown"/>
-                    <RadioButton x:Name="rb_si_actualizar" Content="Si" Grid.Column="1" HorizontalAlignment="Left" Margin="218.4,227,0,0" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="33"/>
+                    <RadioButton x:Name="rb_si_actualizar" Content="Si" Grid.Column="1" HorizontalAlignment="Left" Margin="218.4,227,0,0" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="33" Checked="rb_si_actualizar_Checked"/>
                     <RadioButton x:Name="rb_no_actualizar" Content="No" Grid.Column="1" HorizontalAlignment="Left" Margin="314.4,227,0,0" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="39"/>
 
                 </Grid>
@@ -233,13 +233,13 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FF040608"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Button x:Name="btn_guardar_cliente" Height="70" Width="70" Foreground="White" Margin="0,53,33,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="3" Click="Button_guardar_cliente_Click">
+                    <Button x:Name="btn_guardar_cliente" Height="70" Foreground="White" Margin="1.2,53,31.2,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="3" Click="Button_guardar_cliente_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/Guardar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Guardar" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btn_limpiar_cliente_ingreso" Height="70" Width="70" Foreground="White" Margin="0,147,33,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="3" Click="Button_limpiar_cliente_Click">
+                    <Button x:Name="btn_limpiar_cliente_ingreso" Height="70" Foreground="White" Margin="1.2,147,31.2,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="3" Click="Button_limpiar_cliente_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Limpiar" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
@@ -258,8 +258,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <RadioButton x:Name="rb_si_insertar" Content="Si" Grid.Column="1" HorizontalAlignment="Left" Margin="180,377,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="33"/>
                     <RadioButton x:Name="rb_no_insertar" Content="No" Grid.Column="1" HorizontalAlignment="Left" Margin="268,377,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="37" Width="39"/>
                     <Label x:Name="txt_telemovil" Content="Teléfono Móvil:" HorizontalAlignment="Left" Margin="145,313,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="txb_TelMov" Margin="180,313,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top"  KeyDown="telefono_KeyDown"/>
-                    <TextBox x:Name="txb_TelOf" Margin="180,258,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top" KeyDown="telefono_KeyDown"/>
+                    <TextBox x:Name="txb_ingresar_TelMov" Margin="180,313,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top"  KeyDown="telefono_KeyDown"/>
+                    <TextBox x:Name="txb_ingresar_TelOf" Margin="180,258,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top" KeyDown="telefono_KeyDown"/>
 
                 </Grid>
             </TabItem>
