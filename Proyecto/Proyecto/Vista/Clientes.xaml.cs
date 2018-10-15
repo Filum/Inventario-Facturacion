@@ -157,69 +157,8 @@ namespace Proyecto
 
         private void btn_buscar_Click(object sender, RoutedEventArgs e)
         {
-            generate_columns();
-        }
-        public class Item
-        {
-            public string codigo { get; set; }
-            public string nombre_completo { get; set; }
-            public string correo { get; set; }
-            public string teleoficina { get; set; }
-
-            public string telemovil { get; set; }
-
-            public string inactividad { get; set; }
-
-            public string observaciones { get; set; }
-
         }
 
-        private void generate_columns()
-        {
-            DataGridTextColumn c1 = new DataGridTextColumn();
-            c1.Header = "Código";
-            c1.Binding = new Binding("codigo");
-            c1.Width = 60;
-            dtg_actualizar_clientes.Columns.Add(c1);
-            DataGridTextColumn c2 = new DataGridTextColumn();
-            c2.Header = "Nombre Completo";
-            c2.Width = 400;
-            c2.Binding = new Binding("nombre_completo");
-            dtg_actualizar_clientes.Columns.Add(c2);
-
-            DataGridTextColumn c3 = new DataGridTextColumn();
-            c3.Header = "Correo";
-            c3.Width = 200;
-            c3.Binding = new Binding("correo");
-            dtg_actualizar_clientes.Columns.Add(c3);
-
-            DataGridTextColumn c4 = new DataGridTextColumn();
-            c4.Header = "Teléfono Oficina";
-            c4.Width = 200;
-            c4.Binding = new Binding("teleoficina");
-            dtg_actualizar_clientes.Columns.Add(c4);
-
-            DataGridTextColumn c5 = new DataGridTextColumn();
-            c5.Header = "Teléfono Móvil";
-            c5.Width = 200;
-            c5.Binding = new Binding("telemovil");
-            dtg_actualizar_clientes.Columns.Add(c5);
-
-            DataGridCheckBoxColumn c6 = new DataGridCheckBoxColumn();
-            c6.Header = "Inactividad";
-            c6.Width = 100;
-            c6.Binding = new Binding("inactividad");
-            dtg_actualizar_clientes.Columns.Add(c6);
-
-            DataGridTextColumn c7 = new DataGridTextColumn();
-            c7.Header = "Observaciones";
-            c7.Width = 100;
-            c7.Binding = new Binding("observaciones");
-            dtg_actualizar_clientes.Columns.Add(c7);
-
-           // dtg_actualizar_clientes.Items.Add(new Item() { codigo = "123", nombre_completo = "Vinicio Pacheco Vargas", correo = "vipava@gamil.com", telemovil = "88064567", teleoficina = "88098765", inactividad = "a", observaciones = "No" });
-
-        }
         private void btn_guardar_cliente_actualizado_Click(object sender, RoutedEventArgs e)
         {
             if (textbox_actualizar_correo.Text == "" || textbox_actualizar_nombre.Text == "" || textbox_actualizar_TelMov.Text == "" || textbox_actualizar_TelOf.Text == "")

@@ -13,11 +13,12 @@ namespace Datos
     {
         public int AgregarClientes(EntidadClientes clt)
         {
+
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand("ADD_CLIENTES", conn as OracleConnection);
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add(new OracleParameter("NOM", clt.v_NombreCompleto));
+            comando.Parameters.Add(new OracleParameter("NOM", DateTime.Now.ToShortDateString()));
             comando.Parameters.Add(new OracleParameter("TELOFI", clt.v_Teleoficina));
             comando.Parameters.Add(new OracleParameter("TELMOVIL", clt.v_Telemovil));
             comando.Parameters.Add(new OracleParameter("CORRE", clt.v_Correo));
