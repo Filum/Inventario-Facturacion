@@ -7,10 +7,14 @@ using Entidades;
 using System.Data;
 using Oracle.DataAccess.Client;
 
+
+
+
 namespace Datos
 {
     public class Data
     {
+        
         public int AgregarClientes(EntidadClientes clt)
         {
 
@@ -59,5 +63,34 @@ namespace Datos
             conn.Close();
             return v_Resultado;
         }
+
+        public int AgregarProveedores(EntidadProveedores clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("ADD_PROVEEDORES", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("CEDJUR", clt.v_cedulaJuridica));
+            comando.Parameters.Add(new OracleParameter("NOMB", clt.v_nombre));
+            comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_correo));
+            comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripccion));
+            comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
+           
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
+        public int ListarProveedores(EntidadProveedores clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("", conn as OracleConnection);
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
+        
     }
 }

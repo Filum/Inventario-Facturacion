@@ -186,7 +186,7 @@ namespace Proyecto
             Int32 inactivo;
             try
             {
-                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_observaciones.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" && rb_si_insertar.IsChecked == true || rb_no_insertar.IsChecked == true)
+                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_observaciones.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" && rb_si_insertar.IsChecked == false || rb_no_insertar.IsChecked == false)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }

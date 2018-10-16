@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
-using System.Data.OracleClient;
+using Entidades;
+using Logica;
+
 
 namespace Proyecto
 {
@@ -22,6 +24,8 @@ namespace Proyecto
     /// </summary>
     public partial class MantenimientoProveedores : Window
     {
+        EntidadProveedores clt = new EntidadProveedores();
+        Model model = new Model();
         public MantenimientoProveedores()
         {
             InitializeComponent();
@@ -116,45 +120,42 @@ namespace Proyecto
 
         private void btn_guardar_proveedor_Click(object sender, RoutedEventArgs e)
         {
-                if (textbox_cedJuridica_ingresar.Text == "" && textbox_nombre_ingresar.Text =="" && textbox_telefono_ingresar.Text == ""&& textbox_email_ingresar.Text == ""&& textbox_descripcion_ingresar.Text == "")
+            try
+            {
+                if (tbx_cedJuridica_ingresar.Text == "" || tbx_nombre_ingresar.Text == "" || tbx_telefono_ingresar.Text == "" || tbx_email_ingresar.Text == "" || tbx_descripcion_ingresar.Text == "")
                 {
-                    MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    //EJEMPLO DE INSERT
-                    OracleConnection oracle = new OracleConnection("DATA SOURCE = XE ; PASSWORD = root ; USER ID = DELRAM");
-                        try
-                        {
-                        
-                            oracle.Open();
-                            OracleCommand comando = new OracleCommand("add_Proveedores", oracle);
-                            comando.CommandType = System.Data.CommandType.StoredProcedure;
-                            comando.Parameters.Add("ID_PROVEEDOR", OracleType.Number).Value = textbox_cedJuridica_ingresar;
-                            comando.Parameters.Add("NOMB", OracleType.VarChar).Value = textbox_nombre_ingresar;
-                            comando.Parameters.Add("EMAIL", OracleType.VarChar).Value = textbox_email_ingresar;
-                            comando.Parameters.Add("DESCRI", OracleType.VarChar).Value = textbox_descripcion_ingresar;
-                            comando.Parameters.Add("TELEFO", OracleType.Number).Value = textbox_telefono_ingresar;
-                            comando.ExecuteNonQuery();
-                            MessageBox.Show("Datos ingresados"); 
-                                                   
-                        }
-                catch (Exception)
-                        {
-                            MessageBox.Show("No se ingresaron los datos");
-                        }
-                    oracle.Close();
+                    clt.v_cedulaJuridica = Convert.ToInt32(tbx_cedJuridica_ingresar.Text);
+                    clt.v_nombre = tbx_nombre_ingresar.Text;
+                    clt.v_telefono = Convert.ToInt32(tbx_telefono_ingresar.Text);
+                    clt.v_correo = tbx_email_ingresar.Text;
+                    clt.v_descripccion = tbx_descripcion_ingresar.Text;
+                    int v_Resultado = model.AgregarProveedores(clt);
+
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btn_limpiar_ingresar_Click(sender,e);
+                    }
                 }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m.ToString());
+                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btn_limpiar_ingresar_Click(object sender, RoutedEventArgs e)
         {
-            textbox_nombre_ingresar.Text = "";
-            textbox_cedJuridica_ingresar.Text = "";
-            textbox_telefono_ingresar.Text = "";
-            textbox_email_ingresar.Text = "";
-            textbox_descripcion_ingresar.Text = "";
+            tbx_telefono_ingresar.Text = "";
+            tbx_cedJuridica_ingresar.Text = "";
+            tbx_nombre_ingresar.Text = "";
+            tbx_email_ingresar.Text = "";
+            tbx_descripcion_ingresar.Text = "";
         }
 
         private void telefono_ingresar_KeyDown(object sender, KeyEventArgs e)
@@ -193,20 +194,20 @@ namespace Proyecto
         private void validar_email(object sender, EventArgs e)
         {
 
-            Console.WriteLine("Correo: " + textbox_email_ingresar.Text);
+            Console.WriteLine("Correo: " + tbx_email_ingresar.Text);
 
-            Console.WriteLine(email_bien(textbox_email_ingresar.Text));
+            Console.WriteLine(email_bien(tbx_email_ingresar.Text));
 
-            if (email_bien(textbox_email_ingresar.Text) == false)
+            if (email_bien(tbx_email_ingresar.Text) == false)
             {
                 MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                textbox_email_ingresar.BorderBrush = Brushes.Red;
-                textbox_email_ingresar.Background = Brushes.Tomato;
+                tbx_email_ingresar.BorderBrush = Brushes.Red;
+                tbx_email_ingresar.Background = Brushes.Tomato;
             }
             else
             {
-                textbox_email_ingresar.BorderBrush = Brushes.White;
-                textbox_email_ingresar.Background = Brushes.White;
+                tbx_email_ingresar.BorderBrush = Brushes.White;
+                tbx_email_ingresar.Background = Brushes.White;
             }
         }
 
