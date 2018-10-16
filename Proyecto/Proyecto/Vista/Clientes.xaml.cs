@@ -456,5 +456,10 @@ namespace Proyecto
         {
 
         }
+
+        private void txb_cliente_modificar_KeyUp(object sender, KeyEventArgs e)
+        {
+            dtg_actualizar_clientes.ItemsSource = model.BuscarClientes(txb_cliente_modificar.Text);
+        }
     }
 }
