@@ -289,7 +289,6 @@ namespace Proyecto
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
             dtg_listar_clientes.ItemsSource = model.MostrarListaClientes().DefaultView;
-            
             dtg_listar_clientes.Columns[0].Header = "Código";
             dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
             dtg_listar_clientes.Columns[2].Header = "Nombre";
