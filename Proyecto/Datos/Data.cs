@@ -106,5 +106,21 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+
+        public DataTable MostarListaProveedores()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("SHOW_PROVEEDORES", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("registros", OracleDbType.RefCursor).Direction = System.Data.ParameterDirection.Output;
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
     }
 }

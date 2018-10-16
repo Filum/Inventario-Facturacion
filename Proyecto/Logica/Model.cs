@@ -33,9 +33,9 @@ namespace Logica
             return data.AgregarProveedores(clt);
         }
 
-        public int ListarProveedores(EntidadProveedores clt)
+        public DataTable mostrarListaProveedores()
         {
-            return data.ListarProveedores(clt);
+            return data.MostarListaProveedores();
         }
 
         public DataTable MostrarListaClientes()

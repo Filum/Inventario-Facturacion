@@ -347,5 +347,10 @@ namespace Proyecto
 
                           , "Ayuda");
         }
+
+        private void btn_Listar_Proveedores_Click(object sender, RoutedEventArgs e)
+        {
+            dtg_listar_Proveedores.ItemsSource = model.mostrarListaProveedores().DefaultView;
+        }
     }
 }
