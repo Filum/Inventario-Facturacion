@@ -8,13 +8,13 @@ namespace Entidades
 {
     public class EntidadClientes
     {
-        public int v_Codigo { get; set; }
+        public Int32 v_Codigo { get; set; }
         public string v_NombreCompleto { get ; set ; }
         public string v_Correo { get ; set ; }
         public string v_CorreoOpc { get; set ; }
-        public int v_Teleoficina { get; set ; }
-        public int v_Telemovil { get ; set ; }
-        public int v_Inactividad { get; set ; }
+        public Int32 v_Teleoficina { get; set ; }
+        public Int32 v_Telemovil { get ; set ; }
+        public Int32 v_Inactividad { get; set ; }
         public string v_Observaciones { get; set ; }
 
         public EntidadClientes()
@@ -22,7 +22,7 @@ namespace Entidades
 
         }
 
-        public EntidadClientes(int v_Codigo, string v_NombreCompleto, string v_Correo, string v_CorreoOpc, int v_Teleoficina, int v_Telemovil, Int32 v_Inactividad, string v_Observaciones)
+        public EntidadClientes(Int32 v_Codigo, string v_NombreCompleto, string v_Correo, string v_CorreoOpc, Int32 v_Teleoficina, Int32 v_Telemovil, Int32 v_Inactividad, string v_Observaciones)
         {
             this.v_Codigo = v_Codigo;
             this.v_NombreCompleto = v_NombreCompleto;
