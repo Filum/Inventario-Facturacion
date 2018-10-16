@@ -279,7 +279,9 @@ namespace Proyecto
 
         private void btn_buscar_cliente_Click(object sender, RoutedEventArgs e)
         {
-
+            string v_Nombre;
+            v_Nombre = txb_buscar_cliente.Text;
+            model.BuscarClientes(v_Nombre);
         }
 
         private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
@@ -455,6 +457,11 @@ namespace Proyecto
         private void rb_si_actualizar_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void txb_buscar_cliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            model.BuscarClientes(txb_buscar_cliente.Text);
         }
     }
 }

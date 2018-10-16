@@ -32,6 +32,10 @@ namespace Logica
         {
             return data.AgregarProveedores(clt);
         }
+        public List<EntidadClientes> BuscarClientes(String nombre)
+        {
+            return data.BuscarClientes(nombre);
+        }
 
         public DataTable mostrarListaProveedores()
         {

@@ -82,8 +82,12 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_clientes" Margin="10,75,23,50" FrozenColumnCount="5" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" FontSize="12">
-
+                    <DataGrid x:Name="dtg_listar_clientes" Margin="10,75,23,50" FrozenColumnCount="5" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Nombre}" Header="Nombre" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding TotalVentas}" Header="Total ventas" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Estado}" Header="Estado" IsReadOnly="True" />
+                        </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="btn_imprimirClientes" Height="70" Width="70" Foreground="White" Margin="0,48,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_Click" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel x:Name="stp_imprimirclientes" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -160,7 +164,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <Button x:Name="btn_buscar_editar_cliente" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" Click="btn_buscar_Click" Grid.Column="1" HorizontalAlignment="Right" Width="70" Margin="0,3,15.4,0" Height="61" VerticalAlignment="Top" Grid.ColumnSpan="5">
                         <Image Source="Imagenes/buscar.png" Stretch="Fill" Height="50" Width="50"/>
                     </Button>
-                    <DataGrid x:Name="dtg_actualizar_clientes" Margin="1.4,69,5.4,31.6" Grid.Column="1" Grid.ColumnSpan="5" SelectionChanged="dtg_actualizar_clientes_SelectionChanged" FontSize="12" Grid.RowSpan="2">
+                    <DataGrid x:Name="dtg_actualizar_clientes" Margin="1.4,69,5.4,31.6" Grid.Column="1" Grid.ColumnSpan="5" SelectionChanged="dtg_actualizar_clientes_SelectionChanged" FontSize="12" Grid.RowSpan="2" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True">
 
                     </DataGrid>
                     <Label x:Name="txt_nombre_actualizar" Content="Nombre:" HorizontalAlignment="Left" Margin="13.4,23.4,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="126" Grid.Row="2" Height="25" VerticalAlignment="Top" Grid.Column="1" Grid.RowSpan="2"/>
@@ -287,16 +291,10 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Label x:Name="txt_nombre_cliente_buscar" Content="Ingrese el nombre del cliente:" HorizontalAlignment="Left" Margin="15,25,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="248"/>
-                    <TextBox x:Name="txb_buscar_cliente" Height="32" Margin="268,25,390,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-                    <DataGrid x:Name="dtg_buscar_cliente" Margin="8,80,0,21" FrozenColumnCount="5" SelectionChanged="DataGrid_SelectionChanged" FontSize="12">
+                    <TextBox x:Name="txb_buscar_cliente" Height="32" Margin="268,25,390,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" KeyUp="txb_buscar_cliente_KeyUp"/>
+                    <DataGrid x:Name="dtg_buscar_cliente" Margin="8,80,0,21" FrozenColumnCount="5" SelectionChanged="DataGrid_SelectionChanged" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Código" Width="80" />
-                            <DataGridTextColumn Header="Nombre Completo" Width="400"/>
-                            <DataGridTextColumn Header="Correo" Width="270"/>
-                            <DataGridTextColumn Header="Teléfono" Width="200"/>
-                            <DataGridTextColumn Header="Teléfono" Width="200"/>
-                            <DataGridTextColumn Header="Inactividad" Width="100"/>
-                            <DataGridTextColumn Header="Observaciones" Width="100"/>
+                     
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="btn_buscar_cliente" Height="70" Foreground="White" Margin="0,10,310,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_buscar_cliente_Click" HorizontalAlignment="Right" Width="70">
