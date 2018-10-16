@@ -122,8 +122,7 @@ namespace Proyecto
 
         private void btn_guardar_proveedor_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+           
                 if ((lbl_errorCedJur.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
                     (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorEmail.Visibility == Visibility.Visible)) ||
                     (lbl_errorDesc.Visibility == Visibility.Visible))
@@ -132,32 +131,36 @@ namespace Proyecto
                 }
                 else
                 {
-                    clt.v_cedulaJuridica = Convert.ToInt32(tbx_cedJuridica_ingresar.Text);
-                    clt.v_nombre = tbx_nombre_ingresar.Text;
-                    clt.v_telefono = Convert.ToInt32(tbx_telefono_ingresar.Text);
-                    clt.v_correo = tbx_email_ingresar.Text;
-                    clt.v_descripccion = tbx_descripcion_ingresar.Text;
-                    int v_Resultado = model.AgregarProveedores(clt);
-
-                    if (v_Resultado == -1)
+                    try
                     {
-                        MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        btn_limpiar_ingresar_Click(sender,e);
-                    }
+                        clt.v_cedulaJuridica = Convert.ToInt64(tbx_cedJuridica_ingresar.Text);
+                        clt.v_nombre = tbx_nombre_ingresar.Text;
+                        clt.v_telefono = Convert.ToInt64(tbx_telefono_ingresar.Text);
+                        clt.v_correo = tbx_email_ingresar.Text;
+                        clt.v_descripccion = tbx_descripcion_ingresar.Text;
+                        int v_Resultado = model.AgregarProveedores(clt);
 
-                    //esconder mensajes de error
-                    lbl_errorCedJur.Visibility = Visibility.Collapsed;
-                    lbl_errorNombre.Visibility = Visibility.Collapsed;
-                    lbl_errorTelefono.Visibility = Visibility.Collapsed;
-                    lbl_errorEmail.Visibility = Visibility.Collapsed;
-                    lbl_errorDesc.Visibility = Visibility.Collapsed;
+                        if (v_Resultado == -1)
+                        {
+                            MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                            btn_limpiar_ingresar_Click(sender, e);
+                        }
+
+                        //esconder mensajes de error
+                        lbl_errorCedJur.Visibility = Visibility.Collapsed;
+                        lbl_errorNombre.Visibility = Visibility.Collapsed;
+                        lbl_errorTelefono.Visibility = Visibility.Collapsed;
+                        lbl_errorEmail.Visibility = Visibility.Collapsed;
+                        lbl_errorDesc.Visibility = Visibility.Collapsed;
+                    }
+                    catch (Exception m)
+                    {
+                        Console.WriteLine(m.ToString());
+                        MessageBox.Show("Error al agregar\nHacen falta campos por rellenar holaaaaaaaa", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-            }
-            catch (Exception m)
-            {
-                Console.WriteLine(m.ToString());
-                MessageBox.Show("Error al agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            
+            
         }
 
         private void btn_limpiar_ingresar_Click(object sender, RoutedEventArgs e)
@@ -176,7 +179,7 @@ namespace Proyecto
 
         private void telefono_ingresar_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length -1)[0]))
                 e.Handled = false;
             else
                 e.Handled = true;

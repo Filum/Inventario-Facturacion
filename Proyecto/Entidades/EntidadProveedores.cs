@@ -14,16 +14,16 @@ namespace Entidades
 
         }
 
-        public Int32 v_idProveedor { set; get; }
-        public Int32 v_cedulaJuridica { set; get; }
+        public Int64 v_idProveedor { set; get; }
+        public Int64 v_cedulaJuridica { set; get; }
         public string v_nombre { set; get; }
         public string v_correo { set; get; }
         public string v_descripccion { set; get; }
-        public Int32 v_telefono { set; get; }
+        public Int64 v_telefono { set; get; }
         public DateTime v_fecha { set; get; }
 
 
-        public EntidadProveedores(Int32 v_idProveedor,Int32 v_cedulaJuridica, string v_nombre, string v_correo, string v_descripccion, Int32 v_telefono, DateTime v_fecha)
+        public EntidadProveedores(Int64 v_idProveedor, Int64 v_cedulaJuridica, string v_nombre, string v_correo, string v_descripccion, Int64 v_telefono, DateTime v_fecha)
         {
             this.v_idProveedor = v_idProveedor;
             this.v_cedulaJuridica = v_cedulaJuridica;
