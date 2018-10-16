@@ -251,12 +251,12 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <Label x:Name="txt_observaciones_insertar" Content="Observaciones:" HorizontalAlignment="Left" Margin="145,442,0,-5.6" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="txb_ingresar_correo" Margin="180,128,30,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top"  LostKeyboardFocus="validar_Correo" MaxLength="50"/>
                     <TextBox x:Name="txb_ingresar_correo_o" Margin="180,190,30,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top" MaxLength="50" LostKeyboardFocus="validar_Correo_Opc"/>
-                    <TextBox x:Name="txb_observaciones" Margin="180,442,30,0" TextWrapping="Wrap" Grid.Column="1" Height="111" VerticalAlignment="Top" />
+                    <TextBox x:Name="txb_observaciones" Margin="180,442,30,0" TextWrapping="Wrap" Grid.Column="1" Height="111" VerticalAlignment="Top" MaxLength="300"/>
                     <RadioButton x:Name="rb_si_insertar" Content="Si" Grid.Column="1" HorizontalAlignment="Left" Margin="180,377,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="33"/>
                     <RadioButton x:Name="rb_no_insertar" Content="No" Grid.Column="1" HorizontalAlignment="Left" Margin="268,377,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="37" Width="39"/>
                     <Label x:Name="txt_telemovil" Content="Teléfono Móvil:" HorizontalAlignment="Left" Margin="145,313,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="txb_ingresar_TelMov" Margin="180,313,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top"  KeyDown="telefono_KeyDown"/>
-                    <TextBox x:Name="txb_ingresar_TelOf" Margin="180,258,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top" KeyDown="telefono_KeyDown" MaxLength="8"/>
+                    <TextBox x:Name="txb_ingresar_TelMov" Margin="180,313,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top"  KeyDown="telefono_KeyDown" MaxLength="12"/>
+                    <TextBox x:Name="txb_ingresar_TelOf" Margin="180,258,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="187" Height="28" VerticalAlignment="Top" KeyDown="telefono_KeyDown" MaxLength="12"/>
 
                 </Grid>
             </TabItem>
