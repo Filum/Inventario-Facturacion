@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entidades;
 using Datos;
+using System.Data;
 
 namespace Logica
 {
@@ -25,6 +26,10 @@ namespace Logica
         public int EliminarClientes(EntidadClientes clt)
         {
             return data.EliminarClientes(clt);
+        }
+        public DataTable MostrarListaClientes()
+        {
+            return data.MostarListaClientes();
         }
     }
 }

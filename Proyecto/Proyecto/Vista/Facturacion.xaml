@@ -70,8 +70,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="10,0,0,5" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="90" Height="32" VerticalAlignment="Bottom"/>
-        <Label x:Name="txt_hora" Content="hora" Margin="100,0,0,5" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="80" Height="32" VerticalAlignment="Bottom"/>
+        <Label x:Name="txt_fecha" Content="fecha" Margin="10,0,0,5" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="245" Height="32" VerticalAlignment="Bottom"/>
 
         <TabControl Margin="10,40,101,37"  Grid.ColumnSpan="2">
             <TabItem>

@@ -29,10 +29,17 @@ namespace Proyecto
         public Clientes()
         {
             InitializeComponent();
-            txt_fecha.Content = DateTime.Now.ToShortDateString();
-            txt_hora.Content = DateTime.Now.ToShortTimeString();
+            //Formato para la hora
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
         }
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            txt_fecha.Content = DateTime.Now.ToString();
 
+        }
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Sección Mantenimiento de Clientes:\n\n" + "Listar: usted podra imprimir la lista de clientes, aparte de ordenarlos ya sea por código o por nombre.\n" +
@@ -142,7 +149,7 @@ namespace Proyecto
 
         private void txb_rol_modificar_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
         private void btn_editar_cliente_Click(object sender, RoutedEventArgs e)
@@ -186,7 +193,7 @@ namespace Proyecto
             Int32 inactivo;
             try
             {
-                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_observaciones.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" && rb_si_insertar.IsChecked == true || rb_no_insertar.IsChecked == true)
+               if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_observaciones.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" && rb_si_insertar.IsChecked == false && rb_no_insertar.IsChecked == false)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -210,7 +217,7 @@ namespace Proyecto
                     MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                     Limpiar_Ingresar_Cliente();
                 }
-               }
+             }
             }
             catch (Exception m)
             {
@@ -332,15 +339,11 @@ namespace Proyecto
 
         }
 
-        private void btn_ordenarporcodigo_Click(object sender, RoutedEventArgs e)
+        private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
-
+            dtg_listar_clientes.ItemsSource = model.MostrarListaClientes().DefaultView;
         }
 
-        private void btn_ordenarpornombre_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void txb_cliente_modificar_TextChanged(object sender, TextChangedEventArgs e)
         {
