@@ -19,8 +19,7 @@
                 <GradientStop Color="#FE2E2672" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="0" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="80" Height="25" VerticalAlignment="Bottom"/>
-        <Label x:Name="txt_hora" Content="hora" Margin="80,0,0,0" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="80" Height="25" VerticalAlignment="Bottom"/>
+        <Label x:Name="txt_fecha" Content="fecha" Margin="0,0,0,-0.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="231" Height="25" VerticalAlignment="Bottom"/>
         <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,120,0" Height="30" HorizontalAlignment="Right" Width="40"/>
 
         <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,80,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click">

@@ -51,8 +51,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="0,0,0,-0.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="97" Height="25" VerticalAlignment="Bottom"/>
-        <Label x:Name="txt_hora" Content="hora" Margin="102,0,0,-0.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="80" Height="25" VerticalAlignment="Bottom"/>
+        <Label x:Name="txt_fecha" Content="fecha" Margin="4,0,0,-0.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="264" Height="25" VerticalAlignment="Bottom"/>
 
         <TabControl Margin="10,50,130,30" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Margin="0" Padding="10" ScrollViewer.CanContentScroll="True">
@@ -92,16 +91,10 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <TextBlock Text="Imprimir" Height="22" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="53" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btn_ordenarporcodigo" Height="112" Width="79" Foreground="White" Margin="0,144,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_ordenarporcodigo_Click" Grid.Column="1" Grid.ColumnSpan="2">
-                        <StackPanel x:Name="stp_ordenarcodigo" Width="70" Height="105" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:Name="btn_Listar" Height="112" Width="79" Foreground="White" Margin="0,144,10.2,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click" Grid.Column="1" Grid.ColumnSpan="2">
+                        <StackPanel x:Name="stp_ordenarcodigo" Width="70" Height="79" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock x:Name="txb_ordenarcodigo" Height="67" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left"><Run Text="Ordenar "/><LineBreak/><Run Text="  "/><Run Text="  "/><Run Text="por "/><LineBreak/><Run Text=" "/><Run Text="Código"/></TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btn_ordenarnombre" Height="106" Width="70" Foreground="White" Margin="0,300,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_ordenarpornombre_Click" Grid.Column="1" Grid.ColumnSpan="2">
-                        <StackPanel x:Name="stp_ordenarnombre" Width="64" Height="117" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/Ordenarporusuario.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock x:Name="txb_ordenarnombre" Height="66" FontFamily="Global Sans Serif" Margin="2,0,-5.4,0"><Run Text="Ordenar "/><LineBreak/><Run Text="    "/><Run Text="por"/><LineBreak/><Run Text=" Nombre"/></TextBlock>
+                            <TextBlock x:Name="txb_ordenarcodigo" Height="45" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left" Text="Listar" Margin="18,0,-7.6,0"></TextBlock>
                         </StackPanel>
                     </Button>
                     <Label x:Name="txt_rangofecha" Content="Seleccione un rango de fecha del:" Margin="0,30,402,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1" HorizontalAlignment="Right" Width="269"/>

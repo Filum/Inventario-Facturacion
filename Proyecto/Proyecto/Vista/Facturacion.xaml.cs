@@ -22,17 +22,17 @@ namespace Proyecto
         public Facturacion()
         {
             InitializeComponent();
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
-
-            txt_fecha.Content = DateTime.Now.ToShortDateString();
-            txt_hora.Content = DateTime.Now.ToShortTimeString();
+            //Formato para la hora
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
         }
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            txt_fecha.Content = DateTime.Now.ToString();
 
+        }
         private void btn_Salir_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();

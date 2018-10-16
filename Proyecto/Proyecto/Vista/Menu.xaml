@@ -96,7 +96,6 @@
 
         </ListView>
         <Label x:Name="txt_fecha" Content="Fecha: 23/08/2018" Margin="30,0,0,26.2" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="150" Height="32" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
-        <Label x:Name="txt_hora" Content="Hora: 12:40" Margin="30,0,0,8.2" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="150" Height="32" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
         <Rectangle x:Name="barra_movil" Height="29" VerticalAlignment="Top" Margin="0,0,119.6,0" MouseDown="barra_movil__MouseDown" Cursor="Hand" Grid.ColumnSpan="2">
             <Rectangle.Fill>
                 <SolidColorBrush Color="Black" Opacity="0"/>

@@ -25,10 +25,17 @@ namespace Proyecto
         public MantenimientoUsuarios()
         {
             InitializeComponent();
-            lbl_fecha.Content = DateTime.Now.ToShortDateString();
-            lbl_hora.Content = DateTime.Now.ToShortTimeString();
+            //Formato para la hora
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
         }
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            txt_fecha.Content = DateTime.Now.ToString();
 
+        }
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
