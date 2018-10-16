@@ -42,5 +42,10 @@ namespace Logica
         {
             return data.MostarListaClientes();
         }
+
+        public List<EntidadClientes> BuscarClientes(String v_Nombre)
+        {
+            return data.BuscarClientes(v_Nombre);
+        }
     }
 }

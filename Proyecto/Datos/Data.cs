@@ -122,5 +122,37 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+
+        public List<EntidadClientes> BuscarClientes(String v_Nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT * FROM TBL_CLIENTES WHERE NOMBRE LIKE '%" + v_Nombre + "%'";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadClientes> Lista = new List<EntidadClientes>();
+
+            if (v_Nombre != "")
+            {
+                while (dr.Read())
+                {
+                    EntidadClientes cliente = new EntidadClientes();
+                    cliente.v_Codigo = dr.GetInt32(0);
+                    cliente.v_NombreCompleto = dr.GetString(2);
+                    //cliente.v_Teleoficina = dr.GetInt32(3);
+                    //cliente.v_Telemovil = dr.GetInt32(4);
+                    cliente.v_Correo = dr.GetString(5);
+                    //cliente.v_CorreoOpc = dr.GetString(6);
+                    cliente.v_Inactividad = dr.GetInt32(7);
+                    //cliente.v_Observaciones = dr.GetString(8);
+                    Lista.Add(cliente);
+                }
+            }
+            conn.Close();
+            return Lista;
+        }
+
+
     }
 }
