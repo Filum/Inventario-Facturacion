@@ -74,47 +74,37 @@ namespace Proyecto
                  , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-
+        private void Limpiar_Ingresar_Cliente()
+        {
+            txb_ingresar_correo.Text = "";
+            txb_ingresar_correo_o.Text = "";
+            txb_ingresar_nombre.Text = "";
+            txb_observaciones.Text = "";
+            txb_ingresar_TelMov.Text = "";
+            txb_ingresar_TelOf.Text = "";
+            rb_no_insertar.IsChecked = false;
+            rb_si_insertar.IsChecked = false;
+            txb_ingresar_correo_o.BorderBrush = Brushes.White;
+            txb_ingresar_correo_o.Background = Brushes.White;
+        }
+        private void Limpiar_Actualizar_Cliente()
+        {
+            txb_actualizar_correo.Text = "";
+            txb_actualizar_correo_o.Text = "";
+            txb_actualizar_nombre.Text = "";
+            txb_actualizar_observaciones.Text = "";
+            txb_actualizar_TelMov.Text = "";
+            txb_actualizar_TelOf.Text = "";
+            rb_si_actualizar.IsChecked = false;
+            rb_no_actualizar.IsChecked = false;
+            txb_actualizar_correo_o.BorderBrush = Brushes.White;
+            txb_actualizar_correo_o.Background = Brushes.White;
+        }
         private void btn_Regresar_Click_1(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
             ventana.Show();
             this.Close();
-        }
-
-        private void btn_Lista_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_guardarIng(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_limpiarIng(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void btn_salir_Click(object sender, RoutedEventArgs e)
@@ -125,16 +115,6 @@ namespace Proyecto
         }
 
 
-        private void btn_historial_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_listar_clientes_nombre_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btn_usuario_clientes_Click(object sender, RoutedEventArgs e)
         {
             Login ventana = new Login();
@@ -142,29 +122,11 @@ namespace Proyecto
             this.Close();
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //  _en = dtg_listar_clientes.SelectedItem as Ventana; 
-        }
-
-        private void txb_rol_modificar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
-
         private void btn_editar_cliente_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("No se ha seleccionado ningun cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void dtg_actualizar_clientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void btn_buscar_Click(object sender, RoutedEventArgs e)
-        {
-        }
 
         private void btn_guardar_cliente_actualizado_Click(object sender, RoutedEventArgs e)
         {
@@ -218,18 +180,7 @@ namespace Proyecto
         {
             Limpiar_Actualizar_Cliente();
         }
-
-        private void Limpiar_Actualizar_Cliente()
-        {
-            txb_actualizar_correo.Text = "";
-            txb_actualizar_correo_o.Text = "";
-            txb_actualizar_nombre.Text = "";
-            txb_actualizar_observaciones.Text = "";
-            txb_actualizar_TelMov.Text = "";
-            txb_actualizar_TelOf.Text = "";
-            rb_si_actualizar.IsChecked = false;
-            rb_no_actualizar.IsChecked = false;
-        }
+      
 
         private void Button_guardar_cliente_Click(object sender, RoutedEventArgs e)
         {
@@ -279,55 +230,9 @@ namespace Proyecto
             }
         }
 
-        private void Limpiar_Ingresar_Cliente()
-        {
-            txb_ingresar_correo.Text = "";
-            txb_ingresar_correo_o.Text = "";
-            txb_ingresar_nombre.Text = "";
-            txb_observaciones.Text = "";
-            txb_ingresar_TelMov.Text = "";
-            txb_ingresar_TelOf.Text = "";
-            rb_no_insertar.IsChecked = false;
-            rb_si_insertar.IsChecked = false;
-        }
         private void Button_limpiar_cliente_Click(object sender, RoutedEventArgs e)
         {
             Limpiar_Ingresar_Cliente();
-        }
-
-        private void txb_ingresar_nombre_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_ingresar_correo_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_ingresar_correo_o_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_ingresar_telOf_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_ingresar_telMov_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_no_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void txb_observaciones_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void btn_buscar_cliente_Click(object sender, RoutedEventArgs e)
@@ -337,10 +242,6 @@ namespace Proyecto
             model.BuscarClientes(v_Nombre);
         }
 
-        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void btn_salir_clientes_Click(object sender, RoutedEventArgs e)
         {
@@ -384,56 +285,24 @@ namespace Proyecto
             this.Close();
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void btn_imprimir_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
             dtg_listar_clientes.ItemsSource = model.MostrarListaClientes().DefaultView;
+            dtg_listar_clientes.Columns[0].Header = "Código";
+            dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
+            dtg_listar_clientes.Columns[2].Header = "Nombre";
+            dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
+            dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
+            dtg_listar_clientes.Columns[5].Header = "Correo";
+            dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
+            dtg_listar_clientes.Columns[7].Header = "Inactividad";
+            dtg_listar_clientes.Columns[8].Header = "Observaciones";
+
+
         }
 
 
-        private void txb_cliente_modificar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_actualizar_nombre_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_actualizar_correo_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_actualizar_correo_o_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_actualizar_TelOf_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_actualizar_TelMov_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_actualizar_observaciones_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
         private void telefono_KeyDown(object sender, KeyEventArgs e)
         {
@@ -507,14 +376,18 @@ namespace Proyecto
 
         }
 
-        private void rb_si_actualizar_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void txb_cliente_modificar_KeyUp(object sender, KeyEventArgs e)
         {
             dtg_actualizar_clientes.ItemsSource = model.BuscarClientes(txb_cliente_modificar.Text);
+            dtg_actualizar_clientes.Columns[0].Header = "Código";
+            dtg_actualizar_clientes.Columns[1].Header = "Nombre";
+            dtg_actualizar_clientes.Columns[2].Header = "Correo";
+            dtg_actualizar_clientes.Columns[3].Header = "Correo Opcional";
+            dtg_actualizar_clientes.Columns[4].Header = "Tel. Oficina";
+            dtg_actualizar_clientes.Columns[5].Header = "Tel. Móvil";
+            dtg_actualizar_clientes.Columns[6].Header = "Inactividad";
+            dtg_actualizar_clientes.Columns[7].Header = "Observaciones";
         }
 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -542,6 +415,60 @@ namespace Proyecto
             txb_actualizar_observaciones.Text = (dtg_actualizar_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
 
 
+        }
+
+        private void txb_buscar_cliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            dtg_buscar_cliente.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
+            dtg_buscar_cliente.Columns[0].Header = "Código";
+            dtg_buscar_cliente.Columns[1].Header = "Nombre";
+            dtg_buscar_cliente.Columns[2].Header = "Correo";
+            dtg_buscar_cliente.Columns[3].Header = "Correo Opcional";
+            dtg_buscar_cliente.Columns[4].Header = "Tel. Oficina";
+            dtg_buscar_cliente.Columns[5].Header = "Tel. Móvil";
+            dtg_buscar_cliente.Columns[6].Header = "Inactividad";
+            dtg_buscar_cliente.Columns[7].Header = "Observaciones";
+        }
+
+        private void btn_buscar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_historial_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void validar_Correo_Opc(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (email_correcto(txb_ingresar_correo_o.Text) == false)
+            {
+                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txb_ingresar_correo_o.BorderBrush = Brushes.Red;
+                txb_ingresar_correo_o.Background = Brushes.Tomato;
+            }
+            else
+            {
+                txb_ingresar_correo_o.BorderBrush = Brushes.White;
+                txb_ingresar_correo_o.Background = Brushes.White;
+            }
+        }
+
+        private void validar_Correo_Opc_Act(object sender, RoutedEventArgs e)
+        {
+            if (email_correcto(txb_actualizar_correo_o.Text) == false)
+            {
+                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txb_actualizar_correo_o.BorderBrush = Brushes.Red;
+                txb_actualizar_correo_o.Background = Brushes.Tomato;
+            }
+            else
+            {
+                txb_actualizar_correo_o.BorderBrush = Brushes.White;
+                txb_actualizar_correo_o.Background = Brushes.White;
+            }
         }
     }
 }
