@@ -82,7 +82,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_clientes" Margin="10,75,23,50" FrozenColumnCount="5" Grid.ColumnSpan="2" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True">
+                    <DataGrid x:Name="dtg_listar_clientes" Margin="10,75,23,50" FrozenColumnCount="5" Grid.ColumnSpan="2" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="144" >
 
                     </DataGrid>
                     <Button x:Name="btn_imprimirClientes" Height="70" Width="70" Foreground="White" Margin="0,48,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"  Grid.Column="1" Grid.ColumnSpan="2">
@@ -156,7 +156,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
                     <TextBox x:Name="txb_cliente_modificar" Margin="311.4,10,21.4,0" TextWrapping="Wrap" Grid.Column="1" Height="22" VerticalAlignment="Top" KeyUp="txb_cliente_modificar_KeyUp"/>
-                    <Label x:Name="txt_nombre_codigo_cliente" Content="Ingrese el nombre o código del cliente:" Margin="1.4,3,304.4,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="29" VerticalAlignment="Top"/>
+                    <Label x:Name="txt_nombre_cliente" Content="Ingrese el nombre del cliente:" Margin="1,3,313,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="29" VerticalAlignment="Top"/>
                     <Button x:Name="btn_buscar_editar_cliente" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" Click="btn_buscar_Click" Grid.Column="1" HorizontalAlignment="Right" Width="70" Margin="0,3,15.4,0" Height="61" VerticalAlignment="Top" Grid.ColumnSpan="5">
                         <Image Source="Imagenes/buscar.png" Stretch="Fill" Height="50" Width="50"/>
                     </Button>

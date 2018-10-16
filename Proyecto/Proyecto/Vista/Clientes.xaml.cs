@@ -289,6 +289,18 @@ namespace Proyecto
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
             dtg_listar_clientes.ItemsSource = model.MostrarListaClientes().DefaultView;
+            
+            dtg_listar_clientes.Columns[0].Header = "Código";
+            dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
+            dtg_listar_clientes.Columns[2].Header = "Nombre";
+            dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
+            dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
+            dtg_listar_clientes.Columns[5].Header = "Correo";
+            dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
+            dtg_listar_clientes.Columns[7].Header = "Inactividad";
+            dtg_listar_clientes.Columns[8].Header = "Observaciones";
+
+
         }
 
 
@@ -369,6 +381,14 @@ namespace Proyecto
         private void txb_cliente_modificar_KeyUp(object sender, KeyEventArgs e)
         {
             dtg_actualizar_clientes.ItemsSource = model.BuscarClientes(txb_cliente_modificar.Text);
+            dtg_actualizar_clientes.Columns[0].Header = "Código";
+            dtg_actualizar_clientes.Columns[1].Header = "Nombre";
+            dtg_actualizar_clientes.Columns[2].Header = "Correo";
+            dtg_actualizar_clientes.Columns[3].Header = "Correo Opcional";
+            dtg_actualizar_clientes.Columns[4].Header = "Tel. Oficina";
+            dtg_actualizar_clientes.Columns[5].Header = "Tel. Móvil";
+            dtg_actualizar_clientes.Columns[6].Header = "Inactividad";
+            dtg_actualizar_clientes.Columns[7].Header = "Observaciones";
         }
 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -401,6 +421,14 @@ namespace Proyecto
         private void txb_buscar_cliente_KeyUp(object sender, KeyEventArgs e)
         {
             dtg_buscar_cliente.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
+            dtg_buscar_cliente.Columns[0].Header = "Código";
+            dtg_buscar_cliente.Columns[1].Header = "Nombre";
+            dtg_buscar_cliente.Columns[2].Header = "Correo";
+            dtg_buscar_cliente.Columns[3].Header = "Correo Opcional";
+            dtg_buscar_cliente.Columns[4].Header = "Tel. Oficina";
+            dtg_buscar_cliente.Columns[5].Header = "Tel. Móvil";
+            dtg_buscar_cliente.Columns[6].Header = "Inactividad";
+            dtg_buscar_cliente.Columns[7].Header = "Observaciones";
         }
 
         private void btn_buscar_Click(object sender, RoutedEventArgs e)
