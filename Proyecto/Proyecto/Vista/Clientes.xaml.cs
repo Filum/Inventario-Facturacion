@@ -168,17 +168,58 @@ namespace Proyecto
 
         private void btn_guardar_cliente_actualizado_Click(object sender, RoutedEventArgs e)
         {
-            if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelMov.Text == "" || txb_actualizar_TelOf.Text == "")
+            try
             {
-                MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                int inactivo;
+                if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelOf.Text == "" || txb_actualizar_TelMov.Text == "" && rb_si_actualizar.IsChecked == false || rb_no_actualizar.IsChecked == false)
+                {
+                    MessageBox.Show("No se puede modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    if (rb_si_insertar.IsChecked == true)
+                        inactivo = 1;
+                    else
+                        inactivo = 0;
+                    
+                    clt.v_NombreCompleto = txb_actualizar_nombre.Text;
+                    clt.v_Teleoficina = Convert.ToInt32(txb_actualizar_TelOf.Text);
+                    clt.v_Telemovil = Convert.ToInt32(txb_actualizar_TelMov.Text);
+                    clt.v_Correo = txb_actualizar_correo.Text;
+
+                    if (txb_actualizar_correo_o.Text == "")
+                        clt.v_CorreoOpc = "N/A";
+                    else
+                        clt.v_CorreoOpc = txb_actualizar_correo_o.Text;
+
+                    clt.v_Inactividad = inactivo;
+
+                    if (txb_actualizar_correo_o.Text == "")
+                        clt.v_Observaciones = "N/A";
+                    else
+                        clt.v_Observaciones = txb_actualizar_observaciones.Text;
+
+                    int v_Resultado = model.ModificarClientes(clt);
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Limpiar_Actualizar_Cliente();
+                    }
+                }
             }
-            else
+            catch (Exception m)
             {
-                MessageBox.Show("Datos guardados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                Console.WriteLine(m.ToString());
+                MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void btn_limpiar_actualizar_cliente_Click(object sender, RoutedEventArgs e)
+        {
+            Limpiar_Actualizar_Cliente();
+        }
+
+        private void Limpiar_Actualizar_Cliente()
         {
             txb_actualizar_correo.Text = "";
             txb_actualizar_correo_o.Text = "";
@@ -186,6 +227,8 @@ namespace Proyecto
             txb_actualizar_observaciones.Text = "";
             txb_actualizar_TelMov.Text = "";
             txb_actualizar_TelOf.Text = "";
+            rb_si_actualizar.IsChecked = false;
+            rb_no_actualizar.IsChecked = false;
         }
 
         private void Button_guardar_cliente_Click(object sender, RoutedEventArgs e)
@@ -193,7 +236,7 @@ namespace Proyecto
             Int32 inactivo;
             try
             {
-                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_observaciones.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" && rb_si_insertar.IsChecked == false || rb_no_insertar.IsChecked == false)
+                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" && rb_si_insertar.IsChecked == false || rb_no_insertar.IsChecked == false)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -203,18 +246,28 @@ namespace Proyecto
                         inactivo = 1;
                     else
                         inactivo = 0;
-
+                    
                     clt.v_NombreCompleto = txb_ingresar_nombre.Text;
                     clt.v_Teleoficina = Convert.ToInt32(txb_ingresar_TelOf.Text);
                     clt.v_Telemovil = Convert.ToInt32(txb_ingresar_TelMov.Text);
                     clt.v_Correo = txb_ingresar_correo.Text;
-                    clt.v_CorreoOpc = txb_ingresar_correo_o.Text;
+
+                    if (txb_ingresar_correo_o.Text == "")
+                        clt.v_CorreoOpc = "N/A";
+                    else
+                        clt.v_CorreoOpc = txb_ingresar_correo_o.Text;
+
                     clt.v_Inactividad = inactivo;
-                    clt.v_Observaciones = txb_observaciones.Text;
-                int v_Resultado = model.AgregarClientes(clt);
+
+                    if (txb_observaciones.Text == "")
+                        clt.v_Observaciones = "N/A";
+                    else
+                        clt.v_Observaciones = txb_observaciones.Text;
+
+                    int v_Resultado = model.AgregarClientes(clt);
                 if (v_Resultado == -1)
                 {
-                    MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                     Limpiar_Ingresar_Cliente();
                 }
              }
@@ -462,6 +515,33 @@ namespace Proyecto
         private void txb_cliente_modificar_KeyUp(object sender, KeyEventArgs e)
         {
             dtg_actualizar_clientes.ItemsSource = model.BuscarClientes(txb_cliente_modificar.Text);
+        }
+
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+
+            clt.v_Codigo = Convert.ToInt32((dtg_actualizar_clientes.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+         
+            txb_actualizar_nombre.Text = (dtg_actualizar_clientes.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+            txb_actualizar_correo.Text = (dtg_actualizar_clientes.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+            txb_actualizar_correo_o.Text = (dtg_actualizar_clientes.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            txb_actualizar_TelOf.Text = (dtg_actualizar_clientes.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
+            txb_actualizar_TelMov.Text = (dtg_actualizar_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+
+            String vInact = (dtg_actualizar_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
+            if (vInact=="0")
+            {
+                rb_no_actualizar.IsChecked = true;
+            } else if(vInact=="1")
+            {
+                rb_si_actualizar.IsChecked = true;
+            }
+
+
+            txb_actualizar_observaciones.Text = (dtg_actualizar_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
+
+
         }
     }
 }

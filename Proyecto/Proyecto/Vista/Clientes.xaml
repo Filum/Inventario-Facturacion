@@ -160,8 +160,12 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <Button x:Name="btn_buscar_editar_cliente" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" Click="btn_buscar_Click" Grid.Column="1" HorizontalAlignment="Right" Width="70" Margin="0,3,15.4,0" Height="61" VerticalAlignment="Top" Grid.ColumnSpan="5">
                         <Image Source="Imagenes/buscar.png" Stretch="Fill" Height="50" Width="50"/>
                     </Button>
-                    <DataGrid x:Name="dtg_actualizar_clientes" Margin="1.4,69,5.4,31.6" Grid.Column="1" Grid.ColumnSpan="5" SelectionChanged="dtg_actualizar_clientes_SelectionChanged" FontSize="12" Grid.RowSpan="2" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True">
-
+                    <DataGrid x:Name="dtg_actualizar_clientes" Margin="1.4,69,5.4,31.6" Grid.Column="1" Grid.ColumnSpan="5" SelectionChanged="dtg_actualizar_clientes_SelectionChanged" FontSize="12" Grid.RowSpan="2" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" >
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.Resources>
                     </DataGrid>
                     <Label x:Name="txt_nombre_actualizar" Content="Nombre:" HorizontalAlignment="Left" Margin="13.4,23.4,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="126" Grid.Row="2" Height="25" VerticalAlignment="Top" Grid.Column="1" Grid.RowSpan="2"/>
                     <Label Margin="4.4,0,-41.8,2.6" VerticalAlignment="Bottom" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.ColumnSpan="7" Height="29" Grid.Column="1" Grid.Row="1"/>
