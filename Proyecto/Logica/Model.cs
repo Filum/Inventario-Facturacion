@@ -37,6 +37,10 @@ namespace Logica
         {
             return data.ListarProveedores(clt);
         }
-       
+
+        public DataTable MostrarListaClientes()
+        {
+            return data.MostarListaClientes();
+        }
     }
 }
