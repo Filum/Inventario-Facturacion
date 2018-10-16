@@ -132,6 +132,7 @@ namespace Datos
             comando.CommandText = "SELECT * FROM TBL_CLIENTES WHERE NOMBRE LIKE '%" + v_Nombre + "%'";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadClientes> Lista = new List<EntidadClientes>();
+
             if (v_Nombre != "")
             {
                 while (dr.Read())
@@ -151,5 +152,7 @@ namespace Datos
             conn.Close();
             return Lista;
         }
-}
+
+
+    }
 }
