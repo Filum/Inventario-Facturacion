@@ -53,17 +53,6 @@ namespace Datos
             return v_Resultado;
         }
 
-        public int EliminarClientes(EntidadClientes clt)
-        {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand("del_CLIENTES", conn as OracleConnection);
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add(new OracleParameter("ID_CLIENTE", clt.v_Codigo));
-            int v_Resultado = comando.ExecuteNonQuery();
-            conn.Close();
-            return v_Resultado;
-        }
 
         public int AgregarProveedores(EntidadProveedores clt)
         {

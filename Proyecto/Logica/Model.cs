@@ -23,11 +23,6 @@ namespace Logica
             return data.ModificarClientes(clt);
         }
 
-        public int EliminarClientes(EntidadClientes clt)
-        {
-            return data.EliminarClientes(clt);
-        }
-
         public int AgregarProveedores(EntidadProveedores clt)
         {
             return data.AgregarProveedores(clt);

@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using Entidades;
 using Logica;
 
+
 namespace Proyecto
 {
     /// <summary>
@@ -24,22 +25,26 @@ namespace Proyecto
     /// </summary>
     public partial class Clientes : Window
     {
+        //Declaramos dos objetos, uno de la entidad de clientes y otro del model.
         EntidadClientes clt = new EntidadClientes();
         Model model = new Model();
         public Clientes()
         {
             InitializeComponent();
-            //Formato para la hora
+            //Formato para la hora, se ejecuta por medio de un hilo.
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Tick += new EventHandler(Hora_Fecha);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
         }
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        //Se toma el txt_fecha para establecer la hra del sistema.
+        private void Hora_Fecha(object sender, EventArgs e)
         {
             txt_fecha.Content = DateTime.Now.ToString();
 
         }
+
+        //funcion para mostar mensajes de ayuda para el usuario.
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Sección Mantenimiento de Clientes:\n\n" + "Listar: usted podra imprimir la lista de clientes, aparte de ordenarlos ya sea por código o por nombre.\n" +
@@ -49,7 +54,7 @@ namespace Proyecto
                              "Historial: esta ventana le mostrara todos los cambios realizados en esta sección.\n\n" +
                              "Actualizar Clientes\n" +
                              "1 - Si desea actualiar un cliente primero debe buscarlo por nombre o por el código.\n" +
-                             "2 - Una ves que lo encontró lo puede editar y guardar los cambios.\n\n" +
+                             "2 - Una ves que lo encontró lo puede seleccionar,editar y guardar los cambios.\n\n" +
 
                              "Ingresar Clientes\n" +
 
@@ -74,6 +79,7 @@ namespace Proyecto
                  , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        //Funciones para limpiar los campos de texto en las pestañas de "Ingresar Clientes" y "Modificar Clientes".
         private void Limpiar_Ingresar_Cliente()
         {
             txb_ingresar_correo.Text = "";
@@ -103,8 +109,8 @@ namespace Proyecto
         private void btn_Regresar_Click_1(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
-            ventana.Show();
-            this.Close();
+            ventana.Show();//funcion para mostrar otra ventana.
+            this.Close();//cierra la ventana en la que se esta en ese momento.
         }
 
         private void btn_salir_Click(object sender, RoutedEventArgs e)
@@ -130,7 +136,7 @@ namespace Proyecto
 
         private void btn_guardar_cliente_actualizado_Click(object sender, RoutedEventArgs e)
         {
-            try
+            try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
             {
                 int inactivo;
                 if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelOf.Text == "" || txb_actualizar_TelMov.Text == "" && rb_si_actualizar.IsChecked == false || rb_no_actualizar.IsChecked == false)
@@ -144,11 +150,12 @@ namespace Proyecto
                     else
                         inactivo = 0;
                     
+                    //Extraemos los datos de la pantlla de actualizar clientes y los ingresamos al objeto de clientes.
                     clt.v_NombreCompleto = txb_actualizar_nombre.Text;
                     clt.v_Teleoficina = Convert.ToInt32(txb_actualizar_TelOf.Text);
                     clt.v_Telemovil = Convert.ToInt32(txb_actualizar_TelMov.Text);
                     clt.v_Correo = txb_actualizar_correo.Text;
-
+                    //A los espacios vacios se rellenan con un "N/A"
                     if (txb_actualizar_correo_o.Text == "")
                         clt.v_CorreoOpc = "N/A";
                     else
@@ -161,15 +168,16 @@ namespace Proyecto
                     else
                         clt.v_Observaciones = txb_actualizar_observaciones.Text;
 
+                    //Obetenemos el resultado de modificar los datos del cliente
                     int v_Resultado = model.ModificarClientes(clt);
-                    if (v_Resultado == -1)
+                    if (v_Resultado == -1)//Si no surge ningun error ,se modifica correctamente.
                     {
-                        MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
                     }
                 }
             }
-            catch (Exception m)
+            catch (Exception m)//En caso de que surgan error, se muestra un mensaje de error.
             {
                 Console.WriteLine(m.ToString());
                 MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -181,7 +189,7 @@ namespace Proyecto
             Limpiar_Actualizar_Cliente();
         }
       
-
+        //Metodo para ingresar clientes al sistema.
         private void Button_guardar_cliente_Click(object sender, RoutedEventArgs e)
         {
             Int32 inactivo;
@@ -218,7 +226,7 @@ namespace Proyecto
                     int v_Resultado = model.AgregarClientes(clt);
                 if (v_Resultado == -1)
                 {
-                    MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                     Limpiar_Ingresar_Cliente();
                 }
              }
