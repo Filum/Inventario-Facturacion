@@ -37,9 +37,9 @@ namespace Logica
             return data.MostarListaProveedores( fecha1,  fecha2);
         }
 
-        public DataTable MostrarListaClientes()
+        public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
-            return data.MostarListaClientes();
+            return data.MostrarListaClientes(fecha1,fecha2);
         }
         public int validar_cedJur_proveedores(long v_CedJur)
         {

@@ -296,18 +296,29 @@ namespace Proyecto
 
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
-            dtg_listar_clientes.ItemsSource = model.MostrarListaClientes().DefaultView;
-            dtg_listar_clientes.Columns[0].Header = "Código";
-            dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
-            dtg_listar_clientes.Columns[2].Header = "Nombre";
-            dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
-            dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
-            dtg_listar_clientes.Columns[5].Header = "Correo";
-            dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
-            dtg_listar_clientes.Columns[7].Header = "Inactividad";
-            dtg_listar_clientes.Columns[8].Header = "Observaciones";
+            if (date_historial_clientes_inicio.SelectedDate != null && date_historial_clientes_final.SelectedDate != null)
+            {
 
+                String fecha1;
+                fecha1 = date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString();
+                String fecha2;
+                fecha2 = date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString();
+                dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(fecha1, fecha2).DefaultView;
+                dtg_listar_clientes.Columns[0].Header = "Código";
+                dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
+                dtg_listar_clientes.Columns[2].Header = "Nombre";
+                dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
+                dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
+                dtg_listar_clientes.Columns[5].Header = "Correo";
+                dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
+                dtg_listar_clientes.Columns[7].Header = "Inactividad";
+                dtg_listar_clientes.Columns[8].Header = "Observaciones";
 
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un rango de fechas", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 

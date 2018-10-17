@@ -71,18 +71,19 @@ namespace Datos
             return v_Resultado;
         }
 
-        
 
-        public DataTable MostarListaClientes()
+
+        public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
+
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
-            OracleCommand comando = new OracleCommand("show_Clientes", conn as OracleConnection);
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("registros", OracleDbType.RefCursor).Direction = System.Data.ParameterDirection.Output;
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select * from tbl_Clientes where trunc(fecha) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
+
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
-
             DataTable tabla = new DataTable();
             adaptador.Fill(tabla);
             conn.Close();
@@ -156,6 +157,7 @@ namespace Datos
             return 2;
         }
 
-       
+
+
     }
 }
