@@ -32,9 +32,9 @@ namespace Logica
             return data.BuscarClientes(nombre);
         }
 
-        public DataTable mostrarListaProveedores(String fecha1, String fecha2)
+        public DataTable mostrarListaProveedores(String v_Fecha1, String v_Fecha2)
         {
-            return data.MostarListaProveedores( fecha1,  fecha2);
+            return data.MostarListaProveedores(v_Fecha1, v_Fecha2);
         }
 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)

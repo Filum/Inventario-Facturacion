@@ -90,14 +90,14 @@ namespace Datos
             return tabla;
         }
 
-        public DataTable MostarListaProveedores(String fecha1, String fecha2)
+        public DataTable MostarListaProveedores(String v_Fecha1, String v_Fecha2)
         {
             
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select * from tbl_Proveedores where trunc(fecha) BETWEEN '" +fecha1+ "' AND '" + fecha2 + "'";
+            comando.CommandText = "select * from tbl_Proveedores where trunc(fecha) BETWEEN '" +v_Fecha1+ "' AND '" + v_Fecha2 + "'";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;

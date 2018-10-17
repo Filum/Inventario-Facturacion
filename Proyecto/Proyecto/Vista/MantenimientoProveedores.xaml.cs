@@ -37,7 +37,7 @@ namespace Proyecto
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            txt_fecha.Content = DateTime.Now.ToString();
+            lbl_fecha.Content = DateTime.Now.ToString();
 
         }
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
@@ -103,14 +103,14 @@ namespace Proyecto
 
         private void btn_salir_proveedores__Click(object sender, RoutedEventArgs e)
         {
-            Menu ventana = new Menu();
-            ventana.Show();
+            Menu v_Ventana = new Menu();
+            v_Ventana.Show();
             this.Close();
         }
 
         private void btn_buscar_proveedor_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_buscar_proveedores.Text == "")
+            if (txb_buscar_proveedores.Text == "")
             {
                 MessageBox.Show("No hay datos que buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -120,12 +120,12 @@ namespace Proyecto
             }
         }
 
-        private void btn_guardar_proveedor_Click(object sender, RoutedEventArgs e)
+        private void btn_ingresar_guardar_Click(object sender, RoutedEventArgs e)
         {
            
-                if ((lbl_errorCedJur.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
-                    (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorEmail.Visibility == Visibility.Visible)) ||
-                    (lbl_errorDesc.Visibility == Visibility.Visible))
+                if ((lbl_ingresar_errorCedJur.Visibility == Visibility.Visible) || (lbl_ingresar_errorNombre.Visibility == Visibility.Visible) ||
+                    (lbl_ingresar_errorTelefono.Visibility == Visibility.Visible || (lbl_ingresar_errorEmail.Visibility == Visibility.Visible)) ||
+                    (lbl_ingresar_errorDesc.Visibility == Visibility.Visible))
                 {
                     MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -133,50 +133,48 @@ namespace Proyecto
                 {
                     try
                     {
-                        clt.v_cedulaJuridica = Convert.ToInt64(tbx_cedJuridica_ingresar.Text);
-                        clt.v_nombre = tbx_nombre_ingresar.Text;
-                        clt.v_telefono = Convert.ToInt64(tbx_telefono_ingresar.Text);
-                        clt.v_correo = tbx_email_ingresar.Text;
-                        clt.v_descripccion = tbx_descripcion_ingresar.Text;
+                        clt.v_cedulaJuridica = Convert.ToInt64(tbx_ingresar_cedJuridica.Text);
+                        clt.v_nombre = tbx_ingresar_nombre.Text;
+                        clt.v_telefono = Convert.ToInt64(tbx_ingresar_telefono.Text);
+                        clt.v_correo = tbx_ingresar_email.Text;
+                        clt.v_descripccion = tbx_ingresar_descripcion.Text;
                         int v_Resultado = model.AgregarProveedores(clt);
 
                         if (v_Resultado == -1)
                         {
                             MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                            btn_limpiar_ingresar_Click(sender, e);
+                            btn_ingresar_limpiar_Click(sender, e);
                         }
 
                         //esconder mensajes de error
-                        lbl_errorCedJur.Visibility = Visibility.Collapsed;
-                        lbl_errorNombre.Visibility = Visibility.Collapsed;
-                        lbl_errorTelefono.Visibility = Visibility.Collapsed;
-                        lbl_errorEmail.Visibility = Visibility.Collapsed;
-                        lbl_errorDesc.Visibility = Visibility.Collapsed;
+                        lbl_ingresar_errorCedJur.Visibility = Visibility.Collapsed;
+                        lbl_ingresar_errorNombre.Visibility = Visibility.Collapsed;
+                        lbl_ingresar_errorTelefono.Visibility = Visibility.Collapsed;
+                        lbl_ingresar_errorEmail.Visibility = Visibility.Collapsed;
+                        lbl_ingresar_errorDesc.Visibility = Visibility.Collapsed;
                     }
                     catch (Exception m)
                     {
                         Console.WriteLine(m.ToString());
                         MessageBox.Show("Error al agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                }
-            
-            
+                }    
         }
 
-        private void btn_limpiar_ingresar_Click(object sender, RoutedEventArgs e)
+        private void btn_ingresar_limpiar_Click(object sender, RoutedEventArgs e)
         {
-            tbx_telefono_ingresar.Text = "";
-            tbx_cedJuridica_ingresar.Text = "";
-            tbx_nombre_ingresar.Text = "";
-            tbx_email_ingresar.Text = "";
-            tbx_descripcion_ingresar.Text = "";
-            tbx_email_ingresar.Background = Brushes.White;
-            tbx_email_ingresar.BorderBrush = Brushes.White;
-            lbl_errorCedJur.Visibility = Visibility.Collapsed;
-            lbl_errorNombre.Visibility = Visibility.Collapsed;
-            lbl_errorTelefono.Visibility = Visibility.Collapsed;
-            lbl_errorEmail.Visibility = Visibility.Collapsed;
-            lbl_errorDesc.Visibility = Visibility.Collapsed;
+            tbx_ingresar_telefono.Text = "";
+            tbx_ingresar_cedJuridica.Text = "";
+            tbx_ingresar_nombre.Text = "";
+            tbx_ingresar_email.Text = "";
+            tbx_ingresar_descripcion.Text = "";
+            tbx_ingresar_email.Background = Brushes.White;
+            tbx_ingresar_email.BorderBrush = Brushes.White;
+            lbl_ingresar_errorCedJur.Visibility = Visibility.Collapsed;
+            lbl_ingresar_errorNombre.Visibility = Visibility.Collapsed;
+            lbl_ingresar_errorTelefono.Visibility = Visibility.Collapsed;
+            lbl_ingresar_errorEmail.Visibility = Visibility.Collapsed;
+            lbl_ingresar_errorDesc.Visibility = Visibility.Collapsed;
             
         }
 
@@ -188,13 +186,31 @@ namespace Proyecto
                 e.Handled = true;
         }
 
-        private Boolean email_bien(String email)
+        private void validar_telefono(object sender, KeyboardFocusChangedEventArgs e)
         {
-            String expresion;
-            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
-            if (Regex.IsMatch(email, expresion))
+            string v_Telefono = tbx_ingresar_telefono.Text;
+            if (tbx_ingresar_telefono.Text == "")
             {
-                if (Regex.Replace(email, expresion, String.Empty).Length == 0)
+                lbl_ingresar_errorTelefono.Content = "Espacio Vacío";
+                lbl_ingresar_errorTelefono.Visibility = Visibility.Visible;
+            } else if(v_Telefono.Length < 8)
+            {
+                lbl_ingresar_errorTelefono.Content = "Los números telefónicos deben tener al menos 8 dígitos";
+                lbl_ingresar_errorTelefono.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_ingresar_errorTelefono.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private Boolean email_bien(String v_Email)
+        {
+            String v_Expresion;
+            v_Expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(v_Email, v_Expresion))
+            {
+                if (Regex.Replace(v_Email, v_Expresion, String.Empty).Length == 0)
                 {
                     return true;
                 }
@@ -208,27 +224,21 @@ namespace Proyecto
                 return false;
             }
         }
+
         private void validar_email(object sender, EventArgs e)
         {
-            Console.WriteLine("Correo: " + tbx_email_ingresar.Text);
-            Console.WriteLine(email_bien(tbx_email_ingresar.Text));
+            Console.WriteLine("Correo: " + tbx_ingresar_email.Text);
+            Console.WriteLine(email_bien(tbx_ingresar_email.Text));
 
-            if (email_bien(tbx_email_ingresar.Text) == false)
+            if (email_bien(tbx_ingresar_email.Text) == false)
             {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                tbx_email_ingresar.BorderBrush = Brushes.Red;
-                tbx_email_ingresar.Background = Brushes.Tomato;
+                lbl_ingresar_errorEmail.Content = "Error de formato (usuario@dominio.extension)";
+                lbl_ingresar_errorEmail.Visibility = Visibility.Visible;
             }
             else
             {
-                tbx_email_ingresar.BorderBrush = Brushes.White;
-                tbx_email_ingresar.Background = Brushes.White;
+                lbl_ingresar_errorEmail.Visibility = Visibility.Collapsed;
             }
-        }
-
-        private void textbox_cedJuridica_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void btn_buscar_deshabilitar_proveedores_Click(object sender, RoutedEventArgs e)
@@ -251,7 +261,7 @@ namespace Proyecto
 
         private void btn_buscar_actualizar_proveedores_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_cedJuridica.Text == "")
+            if (txb_codProd.Text == "")
             {
                 MessageBox.Show("No hay datos que buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -276,7 +286,7 @@ namespace Proyecto
 
         private void btn_guardar_actualizar_proveedores_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_nombre_actualizar.Text == "" && textbox_telefono_proveedores.Text == "" && textbox_email_proveedores.Text == "" && textbox_descripcion_actualizar.Text == "")
+            if (textbox_nombre_actualizar.Text == "" && textbox_telefono_proveedores.Text == "" && tbx_ingresar_email.Text == "" && textbox_descripcion_actualizar.Text == "")
             {
                 MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
@@ -287,11 +297,7 @@ namespace Proyecto
             }
         }
 
-        private void textbox_telefono_proveedores_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-        private void telefono_proveedores_KeyDown(object sender, KeyEventArgs e)
+        private void keyDown_telefono_ingresar(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
                 e.Handled = false;
@@ -302,20 +308,20 @@ namespace Proyecto
         private void validar_email_proveedores(object sender, EventArgs e)
         {
 
-            Console.WriteLine("Correo: " + textbox_email_proveedores.Text);
+            Console.WriteLine("Correo: " + tbx_ingresar_email.Text);
 
-            Console.WriteLine(email_bien(textbox_email_proveedores.Text));
+            Console.WriteLine(email_bien(tbx_ingresar_email.Text));
 
-            if (email_bien(textbox_email_proveedores.Text) == false)
+            if (email_bien(tbx_ingresar_email.Text) == false)
             {
                 MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                textbox_email_proveedores.BorderBrush = Brushes.Red;
-                textbox_email_proveedores.Background = Brushes.Tomato;
+                tbx_ingresar_email.BorderBrush = Brushes.Red;
+                tbx_ingresar_email.Background = Brushes.Tomato;
             }
             else
             {
-                textbox_email_proveedores.BorderBrush = Brushes.White;
-                textbox_email_proveedores.Background = Brushes.White;
+                tbx_ingresar_email.BorderBrush = Brushes.White;
+                tbx_ingresar_email.Background = Brushes.White;
             }
         }
 
@@ -324,7 +330,7 @@ namespace Proyecto
         {
             textbox_nombre_actualizar.Text = " ";
             textbox_telefono_proveedores.Text = " ";
-            textbox_email_proveedores.Text = " ";
+            tbx_ingresar_email.Text = " ";
             textbox_descripcion_actualizar.Text = " ";
         }
 
@@ -356,17 +362,16 @@ namespace Proyecto
                           , "Ayuda");
         }
 
-        private void btn_Listar_Proveedores_Click(object sender, RoutedEventArgs e)
+        private void btn_listar_listar_Click(object sender, RoutedEventArgs e)
         {
             if (date_listar_inicio.SelectedDate != null && date_listar_final.SelectedDate != null)
             {
-
-                String fecha1;
-                fecha1 = date_listar_inicio.SelectedDate.Value.Date.ToShortDateString(); 
-                String fecha2;
-                fecha2 = date_listar_final.SelectedDate.Value.Date.ToShortDateString();
-                dtg_listar_Proveedores.ItemsSource = model.mostrarListaProveedores(fecha1, fecha2).DefaultView;
-                dtg_listar_Proveedores.Columns[0].Header = "ID de Proveedor";
+                String v_Fecha1;
+                v_Fecha1 = date_listar_inicio.SelectedDate.Value.Date.ToShortDateString(); 
+                String v_Fecha2;
+                v_Fecha2 = date_listar_final.SelectedDate.Value.Date.ToShortDateString();
+                dtg_listar_Proveedores.ItemsSource = model.mostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView;
+                dtg_listar_Proveedores.Columns[0].Header = "Código";
                 dtg_listar_Proveedores.Columns[1].Header = "Fecha";
                 dtg_listar_Proveedores.Columns[2].Header = "Cédula Jurídica";
                 dtg_listar_Proveedores.Columns[3].Header = "Nombre";
@@ -382,115 +387,122 @@ namespace Proyecto
             
         }
 
-        private void tbx_cedJuridica_ingresar_TextChanged(object sender, TextChangedEventArgs e)
+        private void tbx_ingresar_cedJuridica_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbx_cedJuridica_ingresar.Text == "")
+            if (tbx_ingresar_cedJuridica.Text == "")
             {
-                lbl_errorCedJur.Content = "Espacio Vacío";
-                lbl_errorCedJur.Visibility = Visibility.Visible;
-                tbx_nombre_ingresar.IsEnabled = false;
-                tbx_telefono_ingresar.IsEnabled = false;
-                tbx_email_ingresar.IsEnabled = false;
-                tbx_descripcion_ingresar.IsEnabled = false;
+                lbl_ingresar_errorCedJur.Content = "Espacio Vacío";
+                lbl_ingresar_errorCedJur.Visibility = Visibility.Visible;
+                tbx_ingresar_nombre.IsEnabled = false;
+                tbx_ingresar_telefono.IsEnabled = false;
+                tbx_ingresar_email.IsEnabled = false;
+                tbx_ingresar_descripcion.IsEnabled = false;
             }
-            else if (tbx_cedJuridica_ingresar.Text.Contains(" "))
+            else if (tbx_ingresar_cedJuridica.Text.Contains(" "))
             {
-                lbl_errorCedJur.Content = "No se permite el ingreso de espacios";
-                lbl_errorCedJur.Visibility = Visibility.Visible;
-                tbx_nombre_ingresar.IsEnabled = false;
-                tbx_telefono_ingresar.IsEnabled = false;
-                tbx_email_ingresar.IsEnabled = false;
-                tbx_descripcion_ingresar.IsEnabled = false;                
+                lbl_ingresar_errorCedJur.Content = "No se permite el ingreso de espacios";
+                lbl_ingresar_errorCedJur.Visibility = Visibility.Visible;
+                tbx_ingresar_nombre.IsEnabled = false;
+                tbx_ingresar_telefono.IsEnabled = false;
+                tbx_ingresar_email.IsEnabled = false;
+                tbx_ingresar_descripcion.IsEnabled = false;                
             }
             else
             {
-                tbx_nombre_ingresar.IsEnabled = true;
-                tbx_telefono_ingresar.IsEnabled = true;
-                tbx_email_ingresar.IsEnabled = true;
-                tbx_descripcion_ingresar.IsEnabled = true;
-                lbl_errorCedJur.Visibility = Visibility.Collapsed;
+                tbx_ingresar_nombre.IsEnabled = true;
+                tbx_ingresar_telefono.IsEnabled = true;
+                tbx_ingresar_email.IsEnabled = true;
+                tbx_ingresar_descripcion.IsEnabled = true;
+                lbl_ingresar_errorCedJur.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void txb_nombre_ingresar_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_ingresar_nombre_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            if (tbx_nombre_ingresar.Text == "")
+            if (tbx_ingresar_nombre.Text == "")
             {
-                lbl_errorNombre.Content = "Espacio vacío";
-                lbl_errorNombre.Visibility = Visibility.Visible;
+                lbl_ingresar_errorNombre.Content = "Espacio vacío";
+                lbl_ingresar_errorNombre.Visibility = Visibility.Visible;
             }
-            else if (tbx_nombre_ingresar.Text.Contains("  "))
+            else if (tbx_ingresar_nombre.Text.Contains("  "))
             {
-                lbl_errorNombre.Content = "Parámetros incorrectos (espacios seguidos).";
-                lbl_errorNombre.Visibility = Visibility.Visible;
+                lbl_ingresar_errorNombre.Content = "Parámetros incorrectos (espacios seguidos).";
+                lbl_ingresar_errorNombre.Visibility = Visibility.Visible;
             }
             else
             {
-                lbl_errorNombre.Visibility = Visibility.Collapsed;
+                lbl_ingresar_errorNombre.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void tbx_telefono_ingresar_TextChanged(object sender, TextChangedEventArgs e)
+        private void tbx_ingresar_telefono_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbx_telefono_ingresar.Text == "")
+            if (tbx_ingresar_telefono.Text == "")
             {
-                lbl_errorTelefono.Content = "Espacio Vacío";
-                lbl_errorTelefono.Visibility = Visibility.Visible;
+                lbl_ingresar_errorTelefono.Content = "Espacio Vacío";
+                lbl_ingresar_errorTelefono.Visibility = Visibility.Visible;
             }
-            else if(tbx_telefono_ingresar.Text.Contains(" "))
+            else if(tbx_ingresar_telefono.Text.Contains(" "))
             {
-                lbl_errorTelefono.Content = "No se permite el ingreso de espacios";
-                lbl_errorTelefono.Visibility = Visibility.Visible;
+                lbl_ingresar_errorTelefono.Content = "No se permite el ingreso de espacios";
+                lbl_ingresar_errorTelefono.Visibility = Visibility.Visible;
 
             }
             else
             {
-                lbl_errorTelefono.Visibility = Visibility.Collapsed;
+                lbl_ingresar_errorTelefono.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void textbox_email_ingresar_TextChanged(object sender, TextChangedEventArgs e)
+        private void textbox_ingresar_email_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbx_email_ingresar.Text == "")
+            if (tbx_ingresar_email.Text == "")
             {
-                lbl_errorEmail.Content = "Espacio Vacío";
-                lbl_errorEmail.Visibility = Visibility.Visible;
+                lbl_ingresar_errorEmail.Content = "Espacio Vacío";
+                lbl_ingresar_errorEmail.Visibility = Visibility.Visible;
             }
             else
             {
-                lbl_errorEmail.Visibility = Visibility.Collapsed;
+                lbl_ingresar_errorEmail.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void tbx_descripcion_ingresar_TextChanged(object sender, TextChangedEventArgs e)
+        private void tbx_ingresar_descripcion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (tbx_descripcion_ingresar.Text == "")
+            if (tbx_ingresar_descripcion.Text == "")
             {
-                lbl_errorDesc.Content = "Espacio Vacío";
-                lbl_errorDesc.Visibility = Visibility.Visible;
+                lbl_ingresar_errorDesc.Content = "Espacio Vacío";
+                lbl_ingresar_errorDesc.Visibility = Visibility.Visible;
             }
             else
             {
-                lbl_errorDesc.Visibility = Visibility.Collapsed;
+                lbl_ingresar_errorDesc.Visibility = Visibility.Collapsed;
             }
         }
 
 
         private void validar_cedJur(object sender, EventArgs e)
         {
-            if (tbx_cedJuridica_ingresar.Text != "")
+            string v_CedJuridica = tbx_ingresar_cedJuridica.Text;
+            if(v_CedJuridica.Length < 9)
             {
-                long cedJur = Convert.ToInt64(tbx_cedJuridica_ingresar.Text);
-                long v_resultado = model.validar_cedJur_proveedores(cedJur);
-                if (v_resultado == 1)
+                lbl_ingresar_errorCedJur.Content = "La cédula jurídica debe tener al menos 9 dígitos";
+                lbl_ingresar_errorCedJur.Visibility = Visibility.Visible;
+            }
+            else if (tbx_ingresar_cedJuridica.Text != "")
+            {
+                lbl_ingresar_errorCedJur.Visibility = Visibility.Collapsed;
+                long v_CedJur = Convert.ToInt64(tbx_ingresar_cedJuridica.Text);
+                long v_Resultado = model.validar_cedJur_proveedores(v_CedJur);
+                if (v_Resultado == 1)
                 {
-                    lbl_errorCedJur.Content = "La cédula jurídica ya existe.";
-                    lbl_errorCedJur.Visibility = Visibility.Visible;
-                    tbx_nombre_ingresar.IsEnabled = false;
-                    tbx_telefono_ingresar.IsEnabled = false;
-                    tbx_email_ingresar.IsEnabled = false;
-                    tbx_descripcion_ingresar.IsEnabled = false;
+                    lbl_ingresar_errorCedJur.Content = "La cédula jurídica ya existe.";
+                    lbl_ingresar_errorCedJur.Visibility = Visibility.Visible;
+                    tbx_ingresar_nombre.IsEnabled = false;
+                    tbx_ingresar_telefono.IsEnabled = false;
+                    tbx_ingresar_email.IsEnabled = false;
+                    tbx_ingresar_descripcion.IsEnabled = false;
                 }
             }
         }
