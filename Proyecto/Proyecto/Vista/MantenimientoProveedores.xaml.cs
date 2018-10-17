@@ -156,7 +156,7 @@ namespace Proyecto
                     catch (Exception m)
                     {
                         Console.WriteLine(m.ToString());
-                        MessageBox.Show("Error al agregar\nHacen falta campos por rellenar holaaaaaaaa", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Error al agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             
