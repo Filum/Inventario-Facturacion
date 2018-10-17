@@ -41,6 +41,9 @@ namespace Logica
         {
             return data.MostarListaClientes();
         }
-
+        public int validar_cedJur_proveedores(long v_CedJur)
+        {
+            return data.validar_cedJur_proveedores(v_CedJur);
+        }
     }
 }
