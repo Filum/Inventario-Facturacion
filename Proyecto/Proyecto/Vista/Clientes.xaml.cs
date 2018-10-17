@@ -205,30 +205,31 @@ namespace Proyecto
                         inactivo = 1;
                     else
                         inactivo = 0;
-                    
                     clt.v_NombreCompleto = txb_ingresar_nombre.Text;
                     clt.v_Teleoficina = Convert.ToInt32(txb_ingresar_TelOf.Text);
                     clt.v_Telemovil = Convert.ToInt32(txb_ingresar_TelMov.Text);
-                    clt.v_Correo = txb_ingresar_correo.Text;
 
-                    if (txb_ingresar_correo_o.Text == "")
-                        clt.v_CorreoOpc = "N/A";
-                    else
-                        clt.v_CorreoOpc = txb_ingresar_correo_o.Text;
+                        clt.v_Correo = txb_ingresar_correo.Text;
 
-                    clt.v_Inactividad = inactivo;
+                        if (txb_ingresar_correo_o.Text == "")
+                            clt.v_CorreoOpc = "N/A";
+                        else
+                            clt.v_CorreoOpc = txb_ingresar_correo_o.Text;
 
-                    if (txb_observaciones.Text == "")
-                        clt.v_Observaciones = "N/A";
-                    else
-                        clt.v_Observaciones = txb_observaciones.Text;
+                        clt.v_Inactividad = inactivo;
 
-                    int v_Resultado = model.AgregarClientes(clt);
-                if (v_Resultado == -1)
-                {
-                    MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Limpiar_Ingresar_Cliente();
-                }
+                        if (txb_observaciones.Text == "")
+                            clt.v_Observaciones = "N/A";
+                        else
+                            clt.v_Observaciones = txb_observaciones.Text;
+
+                        int v_Resultado = model.AgregarClientes(clt);
+                        if (v_Resultado == -1)
+                        {
+                            MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                            Limpiar_Ingresar_Cliente();
+                        }
+
              }
             }
             catch (Exception m)
@@ -361,7 +362,7 @@ namespace Proyecto
 
             if (email_correcto(txb_ingresar_correo.Text) == false)
             {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extensión", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 txb_ingresar_correo.BorderBrush = Brushes.Red;
                 txb_ingresar_correo.Background = Brushes.Tomato;
             }
@@ -381,7 +382,7 @@ namespace Proyecto
 
             if (email_correcto(txb_actualizar_correo.Text) == false)
             {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extensión", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 txb_actualizar_correo.BorderBrush = Brushes.Red;
                 txb_actualizar_correo.Background = Brushes.Tomato;
             }
@@ -430,7 +431,7 @@ namespace Proyecto
                 rb_si_actualizar.IsChecked = true;
             }
 
-
+            Modificar_Si_Editable();
             txb_actualizar_observaciones.Text = (dtg_actualizar_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
 
 
@@ -488,6 +489,93 @@ namespace Proyecto
                 txb_actualizar_correo_o.BorderBrush = Brushes.White;
                 txb_actualizar_correo_o.Background = Brushes.White;
             }
+        }
+
+        private void validar_tel_oficina(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string tele1 = txb_ingresar_TelOf.Text;
+            if(tele1.Length < 8)
+            {
+                MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txb_ingresar_TelOf.BorderBrush = Brushes.Red;
+                txb_ingresar_TelOf.Background = Brushes.Tomato;
+            }
+            else
+            {
+                txb_ingresar_TelOf.BorderBrush = Brushes.White;
+                txb_ingresar_TelOf.Background = Brushes.White;
+            }
+        }
+
+        private void validar_tel_Movil(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string tele1 = txb_ingresar_TelMov.Text;
+            if (tele1.Length < 8)
+            {
+                MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txb_ingresar_TelMov.BorderBrush = Brushes.Red;
+                txb_ingresar_TelMov.Background = Brushes.Tomato;
+            }
+            else
+            {
+                txb_ingresar_TelMov.BorderBrush = Brushes.White;
+                txb_ingresar_TelMov.Background = Brushes.White;
+            }
+        }
+
+        private void validar_actualizar_oficina(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string tele1 = txb_actualizar_TelOf.Text;
+            if (tele1.Length < 8)
+            {
+                MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txb_actualizar_TelOf.BorderBrush = Brushes.Red;
+                txb_actualizar_TelOf.Background = Brushes.Tomato;
+            }
+            else
+            {
+                txb_actualizar_TelOf.BorderBrush = Brushes.White;
+                txb_actualizar_TelOf.Background = Brushes.White;
+            }
+        }
+
+        private void validar_actualizar_movil(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string tele1 = txb_actualizar_TelMov.Text;
+            if (tele1.Length < 8)
+            {
+                MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txb_actualizar_TelMov.BorderBrush = Brushes.Red;
+                txb_actualizar_TelMov.Background = Brushes.Tomato;
+            }
+            else
+            {
+                txb_actualizar_TelMov.BorderBrush = Brushes.White;
+                txb_actualizar_TelMov.Background = Brushes.White;
+            }
+        }
+        public void Modificar_Si_Editable()
+        {
+            txb_actualizar_nombre.IsReadOnly = false;
+            txb_actualizar_correo.IsReadOnly = false;
+            txb_actualizar_correo_o.IsReadOnly = false;
+            txb_actualizar_TelOf.IsReadOnly = false;
+            txb_actualizar_TelMov.IsReadOnly = false;
+            txb_actualizar_observaciones.IsReadOnly = false;
+        }
+        public void Modificar_No_Editable()
+        {
+            txb_actualizar_nombre.IsReadOnly = true;
+            txb_actualizar_correo.IsReadOnly = true;
+            txb_actualizar_correo_o.IsReadOnly = true;
+            txb_actualizar_TelOf.IsReadOnly = true;
+            txb_actualizar_TelMov.IsReadOnly = true;
+            txb_actualizar_observaciones.IsReadOnly = true;
+        }
+
+        private void Grid_Initialized(object sender, EventArgs e)
+        {
+            Modificar_No_Editable();
         }
     }
 }
