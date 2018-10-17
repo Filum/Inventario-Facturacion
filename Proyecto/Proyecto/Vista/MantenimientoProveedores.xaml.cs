@@ -366,6 +366,13 @@ namespace Proyecto
                 String fecha2;
                 fecha2 = date_listar_final.SelectedDate.Value.Date.ToShortDateString();
                 dtg_listar_Proveedores.ItemsSource = model.mostrarListaProveedores(fecha1, fecha2).DefaultView;
+                dtg_listar_Proveedores.Columns[0].Header = "ID de Proveedor";
+                dtg_listar_Proveedores.Columns[1].Header = "Fecha";
+                dtg_listar_Proveedores.Columns[2].Header = "Cédula Jurídica";
+                dtg_listar_Proveedores.Columns[3].Header = "Nombre";
+                dtg_listar_Proveedores.Columns[4].Header = "Correo";
+                dtg_listar_Proveedores.Columns[5].Header = "Descripción";
+                dtg_listar_Proveedores.Columns[6].Header = "Teléfono";
 
             }
             else
