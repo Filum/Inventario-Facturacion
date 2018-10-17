@@ -306,7 +306,7 @@ namespace Proyecto
                 dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(fecha1, fecha2).DefaultView;
                 dtg_listar_clientes.Columns[0].Header = "Código";
                 dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
-                dtg_listar_clientes.Columns[2].Header = "Nombre";
+                dtg_listar_clientes.Columns[2].Header = "Nombre Completo";
                 dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
                 dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
                 dtg_listar_clientes.Columns[5].Header = "Correo";
