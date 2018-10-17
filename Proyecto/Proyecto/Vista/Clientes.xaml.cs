@@ -139,15 +139,15 @@ namespace Proyecto
             try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
             {
                 int inactivo;
-                if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelOf.Text == "" || txb_actualizar_TelMov.Text == "" && rb_si_actualizar.IsChecked == false || rb_no_actualizar.IsChecked == false)
+                if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelOf.Text == "" || txb_actualizar_TelMov.Text == "")
                 {
                     MessageBox.Show("No se puede modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    if (rb_si_insertar.IsChecked == true)
+                    if (rb_si_actualizar.IsChecked == true)
                         inactivo = 1;
-                    else
+                    else 
                         inactivo = 0;
                     
                     //Extraemos los datos de la pantlla de actualizar clientes y los ingresamos al objeto de clientes.
@@ -174,6 +174,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
+                        Modificar_No_Editable();
                     }
                 }
             }
@@ -195,12 +196,12 @@ namespace Proyecto
             Int32 inactivo;
             try
             {
-                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" && rb_si_insertar.IsChecked == false || rb_no_insertar.IsChecked == false)
+                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" )
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
-                {
+                { 
                     if (rb_si_insertar.IsChecked == true)
                         inactivo = 1;
                     else
@@ -556,21 +557,25 @@ namespace Proyecto
         }
         public void Modificar_Si_Editable()
         {
-            txb_actualizar_nombre.IsReadOnly = false;
-            txb_actualizar_correo.IsReadOnly = false;
-            txb_actualizar_correo_o.IsReadOnly = false;
-            txb_actualizar_TelOf.IsReadOnly = false;
-            txb_actualizar_TelMov.IsReadOnly = false;
-            txb_actualizar_observaciones.IsReadOnly = false;
+            txb_actualizar_nombre.IsEnabled = true;
+            txb_actualizar_correo.IsEnabled = true;
+            txb_actualizar_correo_o.IsEnabled = true;
+            txb_actualizar_TelOf.IsEnabled = true;
+            txb_actualizar_TelMov.IsEnabled = true;
+            txb_actualizar_observaciones.IsEnabled = true;
+            rb_no_actualizar.IsEnabled = true;
+            rb_si_actualizar.IsEnabled = true;
         }
         public void Modificar_No_Editable()
         {
-            txb_actualizar_nombre.IsReadOnly = true;
-            txb_actualizar_correo.IsReadOnly = true;
-            txb_actualizar_correo_o.IsReadOnly = true;
-            txb_actualizar_TelOf.IsReadOnly = true;
-            txb_actualizar_TelMov.IsReadOnly = true;
-            txb_actualizar_observaciones.IsReadOnly = true;
+            txb_actualizar_nombre.IsEnabled = false;
+            txb_actualizar_correo.IsEnabled = false;
+            txb_actualizar_correo_o.IsEnabled = false;
+            txb_actualizar_TelOf.IsEnabled = false;
+            txb_actualizar_TelMov.IsEnabled = false;
+            txb_actualizar_observaciones.IsEnabled = false;
+            rb_no_actualizar.IsEnabled = false;
+            rb_si_actualizar.IsEnabled = false;
         }
 
         private void Grid_Initialized(object sender, EventArgs e)
