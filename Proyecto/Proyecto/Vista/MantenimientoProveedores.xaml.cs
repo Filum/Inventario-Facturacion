@@ -212,7 +212,7 @@ namespace Proyecto
             string v_Telefono = txb_ingresar_telefono.Text;
             if (txb_ingresar_telefono.Text == "")
             {
-                lbl_ingresar_errorTelefono.Content = "Espacio Vacío";
+                lbl_ingresar_errorTelefono.Content = "Espacio vacío";
                 lbl_ingresar_errorTelefono.Visibility = Visibility.Visible;
             } else if(v_Telefono.Length < 8)
             {
@@ -410,7 +410,7 @@ namespace Proyecto
         {
             if (txb_ingresar_cedJuridica.Text == "")
             {
-                lbl_ingresar_errorCedJur.Content = "Espacio Vacío";
+                lbl_ingresar_errorCedJur.Content = "Espacio vacío";
                 lbl_ingresar_errorCedJur.Visibility = Visibility.Visible;
                 txb_ingresar_nombre.IsEnabled = false;
                 txb_ingresar_telefono.IsEnabled = false;
@@ -459,7 +459,7 @@ namespace Proyecto
         {
             if (txb_ingresar_telefono.Text == "")
             {
-                lbl_ingresar_errorTelefono.Content = "Espacio Vacío";
+                lbl_ingresar_errorTelefono.Content = "Espacio vacío";
                 lbl_ingresar_errorTelefono.Visibility = Visibility.Visible;
             }
             else if(txb_ingresar_telefono.Text.Contains(" "))
@@ -478,7 +478,7 @@ namespace Proyecto
         {
             if (txb_ingresar_email.Text == "")
             {
-                lbl_ingresar_errorEmail.Content = "Espacio Vacío";
+                lbl_ingresar_errorEmail.Content = "Espacio vacío";
                 lbl_ingresar_errorEmail.Visibility = Visibility.Visible;
             }
             else
@@ -491,7 +491,7 @@ namespace Proyecto
         {
             if (txb_ingresar_descripcion.Text == "")
             {
-                lbl_ingresar_errorDesc.Content = "Espacio Vacío";
+                lbl_ingresar_errorDesc.Content = "Espacio vacío";
                 lbl_ingresar_errorDesc.Visibility = Visibility.Visible;
             }
             else
