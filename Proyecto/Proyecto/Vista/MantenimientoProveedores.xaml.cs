@@ -170,11 +170,14 @@ namespace Proyecto
             tbx_nombre_ingresar.Text = "";
             tbx_email_ingresar.Text = "";
             tbx_descripcion_ingresar.Text = "";
+            tbx_email_ingresar.Background = Brushes.White;
+            tbx_email_ingresar.BorderBrush = Brushes.White;
             lbl_errorCedJur.Visibility = Visibility.Collapsed;
             lbl_errorNombre.Visibility = Visibility.Collapsed;
             lbl_errorTelefono.Visibility = Visibility.Collapsed;
             lbl_errorEmail.Visibility = Visibility.Collapsed;
             lbl_errorDesc.Visibility = Visibility.Collapsed;
+            
         }
 
         private void telefono_ingresar_KeyDown(object sender, KeyEventArgs e)
@@ -449,6 +452,25 @@ namespace Proyecto
             else
             {
                 lbl_errorDesc.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        private void validar_cedJur(object sender, EventArgs e)
+        {
+            if (tbx_cedJuridica_ingresar.Text != "")
+            {
+                long cedJur = Convert.ToInt64(tbx_cedJuridica_ingresar.Text);
+                long v_resultado = model.validar_cedJur_proveedores(cedJur);
+                if (v_resultado == 1)
+                {
+                    lbl_errorCedJur.Content = "La cédula jurídica ya existe.";
+                    lbl_errorCedJur.Visibility = Visibility.Visible;
+                    tbx_nombre_ingresar.IsEnabled = false;
+                    tbx_telefono_ingresar.IsEnabled = false;
+                    tbx_email_ingresar.IsEnabled = false;
+                    tbx_descripcion_ingresar.IsEnabled = false;
+                }
             }
         }
     }
