@@ -92,7 +92,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </StackPanel>
                     </Button>
                     <Label Content="Seleccione un rango de fecha del:" Margin="0,30,470.2,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <DatePicker x:Name="date_historial_datte3" Margin="0,31,314.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" FontFamily="Global Sans Serif" VerticalContentAlignment="Center">
+                    <DatePicker x:Name="date_listar_inicio" Margin="0,31,314.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" FontFamily="Global Sans Serif" VerticalContentAlignment="Center">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -100,7 +100,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </DatePicker.Resources>
                     </DatePicker>
                     <Label Content="al:" HorizontalAlignment="Right" Margin="0,32,280.2,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
-                    <DatePicker x:Name="date_historial_datte4" Margin="0,30,135.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" VerticalContentAlignment="Center" FontFamily="Global Sans Serif">
+                    <DatePicker x:Name="date_listar_final" Margin="0,30,135.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" VerticalContentAlignment="Center" FontFamily="Global Sans Serif">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>

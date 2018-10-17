@@ -358,7 +358,21 @@ namespace Proyecto
 
         private void btn_Listar_Proveedores_Click(object sender, RoutedEventArgs e)
         {
-            dtg_listar_Proveedores.ItemsSource = model.mostrarListaProveedores().DefaultView;
+            if (date_listar_inicio.SelectedDate != null && date_listar_final.SelectedDate != null)
+            {
+
+                String fecha1;
+                fecha1 = date_listar_inicio.SelectedDate.Value.Date.ToShortDateString(); 
+                String fecha2;
+                fecha2 = date_listar_final.SelectedDate.Value.Date.ToShortDateString();
+                dtg_listar_Proveedores.ItemsSource = model.mostrarListaProveedores(fecha1, fecha2).DefaultView;
+
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un rango de fechas","Error",MessageBoxButton.OK,MessageBoxImage.Error );
+            }
+            
         }
 
         private void tbx_cedJuridica_ingresar_TextChanged(object sender, TextChangedEventArgs e)

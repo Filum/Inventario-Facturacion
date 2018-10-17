@@ -82,15 +82,7 @@ namespace Datos
             return v_Resultado;
         }
 
-        public int ListarProveedores(EntidadProveedores clt)
-        {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand("", conn as OracleConnection);
-            int v_Resultado = comando.ExecuteNonQuery();
-            conn.Close();
-            return v_Resultado;
-        }
+        
 
         public DataTable MostarListaClientes()
         {
@@ -108,16 +100,17 @@ namespace Datos
             return tabla;
         }
 
-        public DataTable MostarListaProveedores()
+        public DataTable MostarListaProveedores(String fecha1, String fecha2)
         {
+            
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
-            OracleCommand comando = new OracleCommand("SHOW_PROVEEDORES", conn as OracleConnection);
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("registros", OracleDbType.RefCursor).Direction = System.Data.ParameterDirection.Output;
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select * from tbl_Proveedores where trunc(fecha) BETWEEN '" +fecha1+ "' AND '" + fecha2 + "'";
+
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
-
             DataTable tabla = new DataTable();
             adaptador.Fill(tabla);
             conn.Close();
@@ -174,6 +167,6 @@ namespace Datos
             return 2;
         }
 
-
+       
     }
 }
