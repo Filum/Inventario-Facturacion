@@ -79,32 +79,24 @@ namespace Proyecto
                  , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        //Funciones para limpiar los campos de texto en las pestañas de "Ingresar Clientes" y "Modificar Clientes".
-        private void Limpiar_Ingresar_Cliente()
-        {
-            txb_ingresar_correo.Text = "";
-            txb_ingresar_correo_o.Text = "";
-            txb_ingresar_nombre.Text = "";
-            txb_observaciones.Text = "";
-            txb_ingresar_TelMov.Text = "";
-            txb_ingresar_TelOf.Text = "";
-            rb_no_insertar.IsChecked = false;
-            rb_si_insertar.IsChecked = false;
-            txb_ingresar_correo_o.BorderBrush = Brushes.White;
-            txb_ingresar_correo_o.Background = Brushes.White;
-        }
         private void Limpiar_Actualizar_Cliente()
         {
-            txb_actualizar_correo.Text = "";
-            txb_actualizar_correo_o.Text = "";
-            txb_actualizar_nombre.Text = "";
-            txb_actualizar_observaciones.Text = "";
-            txb_actualizar_TelMov.Text = "";
-            txb_actualizar_TelOf.Text = "";
-            rb_si_actualizar.IsChecked = false;
-            rb_no_actualizar.IsChecked = false;
-            txb_actualizar_correo_o.BorderBrush = Brushes.White;
-            txb_actualizar_correo_o.Background = Brushes.White;
+            txb_correo.Text = "";
+            txb_correo_o.Text = "";
+            txb_nombre.Text = "";
+            txb_observaciones.Text = "";
+            txb_TelMov.Text = "";
+            txb_TelOf.Text = "";
+            rb_si.IsChecked = false;
+            rb_no.IsChecked = false;
+            txb_correo_o.BorderBrush = Brushes.White;
+            txb_correo_o.Background = Brushes.White;
+            txb_correo.BorderBrush = Brushes.White;
+            txb_correo.Background = Brushes.White;
+            txb_TelMov.BorderBrush = Brushes.White;
+            txb_TelMov.Background = Brushes.White;
+            txb_TelOf.BorderBrush = Brushes.White;
+            txb_TelOf.Background = Brushes.White;
         }
         private void btn_Regresar_Click_1(object sender, RoutedEventArgs e)
         {
@@ -139,34 +131,34 @@ namespace Proyecto
             try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
             {
                 int inactivo;
-                if (txb_actualizar_correo.Text == "" || txb_actualizar_nombre.Text == "" || txb_actualizar_TelOf.Text == "" || txb_actualizar_TelMov.Text == "")
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "")
                 {
                     MessageBox.Show("No se puede modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    if (rb_si_actualizar.IsChecked == true)
+                    if (rb_si.IsChecked == true)
                         inactivo = 1;
-                    else 
+                    else
                         inactivo = 0;
-                    
+
                     //Extraemos los datos de la pantlla de actualizar clientes y los ingresamos al objeto de clientes.
-                    clt.v_NombreCompleto = txb_actualizar_nombre.Text;
-                    clt.v_Teleoficina = Convert.ToInt32(txb_actualizar_TelOf.Text);
-                    clt.v_Telemovil = Convert.ToInt32(txb_actualizar_TelMov.Text);
-                    clt.v_Correo = txb_actualizar_correo.Text;
+                    clt.v_NombreCompleto = txb_nombre.Text;
+                    clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
+                    clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
+                    clt.v_Correo = txb_correo.Text;
                     //A los espacios vacios se rellenan con un "N/A"
-                    if (txb_actualizar_correo_o.Text == "")
+                    if (txb_correo_o.Text == "")
                         clt.v_CorreoOpc = "N/A";
                     else
-                        clt.v_CorreoOpc = txb_actualizar_correo_o.Text;
+                        clt.v_CorreoOpc = txb_correo_o.Text;
 
                     clt.v_Inactividad = inactivo;
 
-                    if (txb_actualizar_correo_o.Text == "")
+                    if (txb_correo_o.Text == "")
                         clt.v_Observaciones = "N/A";
                     else
-                        clt.v_Observaciones = txb_actualizar_observaciones.Text;
+                        clt.v_Observaciones = txb_observaciones.Text;
 
                     //Obetenemos el resultado de modificar los datos del cliente
                     int v_Resultado = model.ModificarClientes(clt);
@@ -189,68 +181,7 @@ namespace Proyecto
         {
             Limpiar_Actualizar_Cliente();
         }
-      
-        //Metodo para ingresar clientes al sistema.
-        private void Button_guardar_cliente_Click(object sender, RoutedEventArgs e)
-        {
-            Int32 inactivo;
-            try
-            {
-                if (txb_ingresar_correo.Text == "" || txb_ingresar_nombre.Text == "" || txb_ingresar_TelOf.Text == "" || txb_ingresar_TelMov.Text == "" )
-                {
-                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                { 
-                    if (rb_si_insertar.IsChecked == true)
-                        inactivo = 1;
-                    else
-                        inactivo = 0;
-                    clt.v_NombreCompleto = txb_ingresar_nombre.Text;
-                    clt.v_Teleoficina = Convert.ToInt32(txb_ingresar_TelOf.Text);
-                    clt.v_Telemovil = Convert.ToInt32(txb_ingresar_TelMov.Text);
 
-                        clt.v_Correo = txb_ingresar_correo.Text;
-
-                        if (txb_ingresar_correo_o.Text == "")
-                            clt.v_CorreoOpc = "N/A";
-                        else
-                            clt.v_CorreoOpc = txb_ingresar_correo_o.Text;
-
-                        clt.v_Inactividad = inactivo;
-
-                        if (txb_observaciones.Text == "")
-                            clt.v_Observaciones = "N/A";
-                        else
-                            clt.v_Observaciones = txb_observaciones.Text;
-
-                        int v_Resultado = model.AgregarClientes(clt);
-                        if (v_Resultado == -1)
-                        {
-                            MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                            Limpiar_Ingresar_Cliente();
-                        }
-
-             }
-            }
-            catch (Exception m)
-            {
-                Console.WriteLine(m.ToString());
-                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void Button_limpiar_cliente_Click(object sender, RoutedEventArgs e)
-        {
-            Limpiar_Ingresar_Cliente();
-        }
-
-        private void btn_buscar_cliente_Click(object sender, RoutedEventArgs e)
-        {
-            string v_Nombre;
-            v_Nombre = txb_buscar_cliente.Text;
-            model.BuscarClientes(v_Nombre);
-        }
 
 
         private void btn_salir_clientes_Click(object sender, RoutedEventArgs e)
@@ -313,7 +244,7 @@ namespace Proyecto
                 dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
                 dtg_listar_clientes.Columns[5].Header = "Correo";
                 dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
-                dtg_listar_clientes.Columns[7].Header = "Inactividad";
+                dtg_listar_clientes.Columns[7].Header = "Estado";
                 dtg_listar_clientes.Columns[8].Header = "Observaciones";
 
             }
@@ -354,43 +285,24 @@ namespace Proyecto
             }
         }
 
-        private void validar_Correo(object sender, EventArgs e)
-        {
-
-            Console.WriteLine("Correo: " + txb_ingresar_correo.Text);
-
-            Console.WriteLine(email_correcto(txb_ingresar_correo.Text));
-
-            if (email_correcto(txb_ingresar_correo.Text) == false)
-            {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extensión", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_ingresar_correo.BorderBrush = Brushes.Red;
-                txb_ingresar_correo.Background = Brushes.Tomato;
-            }
-            else
-            {
-                txb_ingresar_correo.BorderBrush = Brushes.White;
-                txb_ingresar_correo.Background = Brushes.White;
-            }
-        }
 
         private void validar_Actualizar_Correo(object sender, EventArgs e)
         {
 
-            Console.WriteLine("Correo: " + txb_actualizar_correo.Text);
+            Console.WriteLine("Correo: " + txb_correo.Text);
 
-            Console.WriteLine(email_correcto(txb_actualizar_correo.Text));
+            Console.WriteLine(email_correcto(txb_correo.Text));
 
-            if (email_correcto(txb_actualizar_correo.Text) == false)
+            if (email_correcto(txb_correo.Text) == false)
             {
                 MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extensión", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_actualizar_correo.BorderBrush = Brushes.Red;
-                txb_actualizar_correo.Background = Brushes.Tomato;
+                txb_correo.BorderBrush = Brushes.Red;
+                txb_correo.Background = Brushes.Tomato;
             }
             else
             {
-                txb_actualizar_correo.BorderBrush = Brushes.White;
-                txb_actualizar_correo.Background = Brushes.White;
+                txb_correo.BorderBrush = Brushes.White;
+                txb_correo.Background = Brushes.White;
             }
 
 
@@ -400,187 +312,200 @@ namespace Proyecto
 
         private void txb_cliente_modificar_KeyUp(object sender, KeyEventArgs e)
         {
-            dtg_actualizar_clientes.ItemsSource = model.BuscarClientes(txb_cliente_modificar.Text);
-            dtg_actualizar_clientes.Columns[0].Header = "Código";
-            dtg_actualizar_clientes.Columns[1].Header = "Nombre";
-            dtg_actualizar_clientes.Columns[2].Header = "Correo";
-            dtg_actualizar_clientes.Columns[3].Header = "Correo Opcional";
-            dtg_actualizar_clientes.Columns[4].Header = "Tel. Oficina";
-            dtg_actualizar_clientes.Columns[5].Header = "Tel. Móvil";
-            dtg_actualizar_clientes.Columns[6].Header = "Inactividad";
-            dtg_actualizar_clientes.Columns[7].Header = "Observaciones";
+            string texto;
+            dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
+            dtg_clientes.Columns[0].Header = "Código";
+            dtg_clientes.Columns[1].Header = "Nombre";
+            dtg_clientes.Columns[2].Header = "Correo";
+            dtg_clientes.Columns[3].Header = "Correo Opcional";
+            dtg_clientes.Columns[4].Header = "Tel. Oficina";
+            dtg_clientes.Columns[5].Header = "Tel. Móvil";
+            dtg_clientes.Columns[6].Header = "Estado";
+            dtg_clientes.Columns[7].Header = "Observaciones";
+            if (txb_buscar_cliente.Text == "")
+            {
+                txb_nombre.Text = "";
+                Modificar_No_Editable();
+                Limpiar_Actualizar_Cliente();
+            }
+            else
+            {
+                if (dtg_clientes.Items.Count == 0)
+                {
+                    texto = txb_buscar_cliente.Text;
+                    Agregar(texto);
+                    btn_agregar_Cliente.Visibility = Visibility.Visible;
+                    btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    btn_agregar_Cliente.Visibility = Visibility.Hidden;
+                    btn_guardar_cliente_actualizado.Visibility = Visibility.Visible;
+                    Modificar_No_Editable();
+                }
+            }
+
         }
 
+        private void Agregar(string texto)
+        {
+            Modificar_Si_Editable();
+            txb_nombre.Text = texto;
+        }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
 
-            clt.v_Codigo = Convert.ToInt32((dtg_actualizar_clientes.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
-         
-            txb_actualizar_nombre.Text = (dtg_actualizar_clientes.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
-            txb_actualizar_correo.Text = (dtg_actualizar_clientes.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
-            txb_actualizar_correo_o.Text = (dtg_actualizar_clientes.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
-            txb_actualizar_TelOf.Text = (dtg_actualizar_clientes.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
-            txb_actualizar_TelMov.Text = (dtg_actualizar_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+            clt.v_Codigo = Convert.ToInt32((dtg_clientes.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
 
-            String vInact = (dtg_actualizar_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
-            if (vInact=="0")
+            txb_nombre.Text = (dtg_clientes.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+            txb_correo.Text = (dtg_clientes.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+            txb_correo_o.Text = (dtg_clientes.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            txb_TelOf.Text = (dtg_clientes.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
+            txb_TelMov.Text = (dtg_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+
+            String vInact = (dtg_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
+            if (vInact == "0")
             {
-                rb_no_actualizar.IsChecked = true;
-            } else if(vInact=="1")
+                rb_no.IsChecked = true;
+            }
+            else if (vInact == "1")
             {
-                rb_si_actualizar.IsChecked = true;
+                rb_si.IsChecked = true;
             }
 
             Modificar_Si_Editable();
-            txb_actualizar_observaciones.Text = (dtg_actualizar_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
+            txb_observaciones.Text = (dtg_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
 
 
         }
 
-        private void txb_buscar_cliente_KeyUp(object sender, KeyEventArgs e)
-        {
-            dtg_buscar_cliente.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
-            dtg_buscar_cliente.Columns[0].Header = "Código";
-            dtg_buscar_cliente.Columns[1].Header = "Nombre";
-            dtg_buscar_cliente.Columns[2].Header = "Correo";
-            dtg_buscar_cliente.Columns[3].Header = "Correo Opcional";
-            dtg_buscar_cliente.Columns[4].Header = "Tel. Oficina";
-            dtg_buscar_cliente.Columns[5].Header = "Tel. Móvil";
-            dtg_buscar_cliente.Columns[6].Header = "Inactividad";
-            dtg_buscar_cliente.Columns[7].Header = "Observaciones";
-        }
-
-        private void btn_buscar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_historial_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        private void validar_Correo_Opc(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (email_correcto(txb_ingresar_correo_o.Text) == false)
-            {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_ingresar_correo_o.BorderBrush = Brushes.Red;
-                txb_ingresar_correo_o.Background = Brushes.Tomato;
-            }
-            else
-            {
-                txb_ingresar_correo_o.BorderBrush = Brushes.White;
-                txb_ingresar_correo_o.Background = Brushes.White;
-            }
-        }
 
         private void validar_Correo_Opc_Act(object sender, RoutedEventArgs e)
         {
-            if (email_correcto(txb_actualizar_correo_o.Text) == false)
+            if (email_correcto(txb_correo_o.Text) == false)
             {
                 MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_actualizar_correo_o.BorderBrush = Brushes.Red;
-                txb_actualizar_correo_o.Background = Brushes.Tomato;
+                txb_correo_o.BorderBrush = Brushes.Red;
+                txb_correo_o.Background = Brushes.Tomato;
             }
             else
             {
-                txb_actualizar_correo_o.BorderBrush = Brushes.White;
-                txb_actualizar_correo_o.Background = Brushes.White;
+                txb_correo_o.BorderBrush = Brushes.White;
+                txb_correo_o.Background = Brushes.White;
             }
         }
 
-        private void validar_tel_oficina(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            string tele1 = txb_ingresar_TelOf.Text;
-            if(tele1.Length < 8)
-            {
-                MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_ingresar_TelOf.BorderBrush = Brushes.Red;
-                txb_ingresar_TelOf.Background = Brushes.Tomato;
-            }
-            else
-            {
-                txb_ingresar_TelOf.BorderBrush = Brushes.White;
-                txb_ingresar_TelOf.Background = Brushes.White;
-            }
-        }
 
-        private void validar_tel_Movil(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            string tele1 = txb_ingresar_TelMov.Text;
-            if (tele1.Length < 8)
-            {
-                MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_ingresar_TelMov.BorderBrush = Brushes.Red;
-                txb_ingresar_TelMov.Background = Brushes.Tomato;
-            }
-            else
-            {
-                txb_ingresar_TelMov.BorderBrush = Brushes.White;
-                txb_ingresar_TelMov.Background = Brushes.White;
-            }
-        }
+
 
         private void validar_actualizar_oficina(object sender, KeyboardFocusChangedEventArgs e)
         {
-            string tele1 = txb_actualizar_TelOf.Text;
+            string tele1 = txb_TelOf.Text;
             if (tele1.Length < 8)
             {
                 MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_actualizar_TelOf.BorderBrush = Brushes.Red;
-                txb_actualizar_TelOf.Background = Brushes.Tomato;
+                txb_TelOf.BorderBrush = Brushes.Red;
+                txb_TelOf.Background = Brushes.Tomato;
             }
             else
             {
-                txb_actualizar_TelOf.BorderBrush = Brushes.White;
-                txb_actualizar_TelOf.Background = Brushes.White;
+                txb_TelOf.BorderBrush = Brushes.White;
+                txb_TelOf.Background = Brushes.White;
             }
         }
 
         private void validar_actualizar_movil(object sender, KeyboardFocusChangedEventArgs e)
         {
-            string tele1 = txb_actualizar_TelMov.Text;
+            string tele1 = txb_TelMov.Text;
             if (tele1.Length < 8)
             {
                 MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_actualizar_TelMov.BorderBrush = Brushes.Red;
-                txb_actualizar_TelMov.Background = Brushes.Tomato;
+                txb_TelMov.BorderBrush = Brushes.Red;
+                txb_TelMov.Background = Brushes.Tomato;
             }
             else
             {
-                txb_actualizar_TelMov.BorderBrush = Brushes.White;
-                txb_actualizar_TelMov.Background = Brushes.White;
+                txb_TelMov.BorderBrush = Brushes.White;
+                txb_TelMov.Background = Brushes.White;
             }
         }
         public void Modificar_Si_Editable()
         {
-            txb_actualizar_nombre.IsEnabled = true;
-            txb_actualizar_correo.IsEnabled = true;
-            txb_actualizar_correo_o.IsEnabled = true;
-            txb_actualizar_TelOf.IsEnabled = true;
-            txb_actualizar_TelMov.IsEnabled = true;
-            txb_actualizar_observaciones.IsEnabled = true;
-            rb_no_actualizar.IsEnabled = true;
-            rb_si_actualizar.IsEnabled = true;
+            txb_nombre.IsEnabled = true;
+            txb_correo.IsEnabled = true;
+            txb_correo_o.IsEnabled = true;
+            txb_TelOf.IsEnabled = true;
+            txb_TelMov.IsEnabled = true;
+            txb_observaciones.IsEnabled = true;
+            rb_no.IsEnabled = true;
+            rb_si.IsEnabled = true;
         }
         public void Modificar_No_Editable()
         {
-            txb_actualizar_nombre.IsEnabled = false;
-            txb_actualizar_correo.IsEnabled = false;
-            txb_actualizar_correo_o.IsEnabled = false;
-            txb_actualizar_TelOf.IsEnabled = false;
-            txb_actualizar_TelMov.IsEnabled = false;
-            txb_actualizar_observaciones.IsEnabled = false;
-            rb_no_actualizar.IsEnabled = false;
-            rb_si_actualizar.IsEnabled = false;
+            txb_nombre.IsEnabled = false;
+            txb_correo.IsEnabled = false;
+            txb_correo_o.IsEnabled = false;
+            txb_TelOf.IsEnabled = false;
+            txb_TelMov.IsEnabled = false;
+            txb_observaciones.IsEnabled = false;
+            rb_no.IsEnabled = false;
+            rb_si.IsEnabled = false;
         }
 
         private void Grid_Initialized(object sender, EventArgs e)
         {
             Modificar_No_Editable();
+            btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
+        }
+
+        private void btn_agregar_Cliente_Click(object sender, RoutedEventArgs e)
+        {
+            Int32 inactivo;
+            try
+            {
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "")
+                {
+                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    if (rb_si.IsChecked == true)
+                        inactivo = 1;
+                    else
+                        inactivo = 0;
+                    clt.v_NombreCompleto = txb_nombre.Text;
+                    clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
+                    clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
+
+                    clt.v_Correo = txb_correo.Text;
+
+                    if (txb_correo_o.Text == "")
+                        clt.v_CorreoOpc = "N/A";
+                    else
+                        clt.v_CorreoOpc = txb_correo_o.Text;
+
+                    clt.v_Inactividad = inactivo;
+
+                    if (txb_observaciones.Text == "")
+                        clt.v_Observaciones = "N/A";
+                    else
+                        clt.v_Observaciones = txb_observaciones.Text;
+
+                    int v_Resultado = model.AgregarClientes(clt);
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Limpiar_Actualizar_Cliente();
+                    }
+
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m.ToString());
+                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
