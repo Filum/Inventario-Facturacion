@@ -238,5 +238,8 @@
   <ItemGroup>
     <Folder Include="System\Windows\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\bitacora.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

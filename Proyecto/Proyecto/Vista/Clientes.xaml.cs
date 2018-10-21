@@ -87,8 +87,8 @@ namespace Proyecto
             txb_observaciones.Text = "";
             txb_TelMov.Text = "";
             txb_TelOf.Text = "";
-            rb_si.IsChecked = false;
-            rb_no.IsChecked = false;
+            rb_activo.IsChecked = false;
+            rb_inactivo.IsChecked = false;
             txb_correo_o.BorderBrush = Brushes.White;
             txb_correo_o.Background = Brushes.White;
             txb_correo.BorderBrush = Brushes.White;
@@ -97,6 +97,10 @@ namespace Proyecto
             txb_TelMov.Background = Brushes.White;
             txb_TelOf.BorderBrush = Brushes.White;
             txb_TelOf.Background = Brushes.White;
+            txt_error_telM.Visibility = Visibility.Hidden;
+            txt_error_TelO.Visibility = Visibility.Hidden;
+            txt_error_correo.Visibility = Visibility.Hidden;
+            txt_error_correo_o.Visibility = Visibility.Hidden;
         }
         private void btn_Regresar_Click_1(object sender, RoutedEventArgs e)
         {
@@ -130,17 +134,17 @@ namespace Proyecto
         {
             try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
             {
-                int inactivo;
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "")
+                string inactivo;
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible )
                 {
                     MessageBox.Show("No se puede modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    if (rb_si.IsChecked == true)
-                        inactivo = 1;
+                    if (rb_activo.IsChecked == true)
+                        inactivo = "Activo";
                     else
-                        inactivo = 0;
+                        inactivo = "Inactivo";
 
                     //Extraemos los datos de la pantlla de actualizar clientes y los ingresamos al objeto de clientes.
                     clt.v_NombreCompleto = txb_nombre.Text;
@@ -231,21 +235,29 @@ namespace Proyecto
         {
             if (date_historial_clientes_inicio.SelectedDate != null && date_historial_clientes_final.SelectedDate != null)
             {
-
+                DateTime date1 = DateTime.Parse(date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString());
+                DateTime date2 = DateTime.Parse(date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString());
                 String fecha1;
                 fecha1 = date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString();
                 String fecha2;
                 fecha2 = date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString();
-                dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(fecha1, fecha2).DefaultView;
-                dtg_listar_clientes.Columns[0].Header = "Código";
-                dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
-                dtg_listar_clientes.Columns[2].Header = "Nombre Completo";
-                dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
-                dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
-                dtg_listar_clientes.Columns[5].Header = "Correo";
-                dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
-                dtg_listar_clientes.Columns[7].Header = "Estado";
-                dtg_listar_clientes.Columns[8].Header = "Observaciones";
+                if (date1 > date2)
+                {
+                    MessageBox.Show("El rango de fechas es incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(fecha1, fecha2).DefaultView;
+                    dtg_listar_clientes.Columns[0].Header = "Código";
+                    dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
+                    dtg_listar_clientes.Columns[2].Header = "Nombre Completo";
+                    dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
+                    dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
+                    dtg_listar_clientes.Columns[5].Header = "Correo";
+                    dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
+                    dtg_listar_clientes.Columns[7].Header = "Estado";
+                    dtg_listar_clientes.Columns[8].Header = "Observaciones";
+                }
 
             }
             else
@@ -295,12 +307,14 @@ namespace Proyecto
 
             if (email_correcto(txb_correo.Text) == false)
             {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extensión", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 txb_correo.BorderBrush = Brushes.Red;
                 txb_correo.Background = Brushes.Tomato;
+                txt_error_correo.Content = "Formato correcto: usuario@dominio.extensión";
+                txt_error_correo.Visibility = Visibility.Visible;
             }
             else
             {
+                txt_error_correo.Visibility = Visibility.Hidden;
                 txb_correo.BorderBrush = Brushes.White;
                 txb_correo.Background = Brushes.White;
             }
@@ -365,13 +379,13 @@ namespace Proyecto
             txb_TelMov.Text = (dtg_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
 
             String vInact = (dtg_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
-            if (vInact == "0")
+            if (vInact == "Inactivo")
             {
-                rb_no.IsChecked = true;
+                rb_inactivo.IsChecked = true;
             }
-            else if (vInact == "1")
+            else if (vInact == "Activo")
             {
-                rb_si.IsChecked = true;
+                rb_activo.IsChecked = true;
             }
 
             Modificar_Si_Editable();
@@ -385,12 +399,14 @@ namespace Proyecto
         {
             if (email_correcto(txb_correo_o.Text) == false)
             {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 txb_correo_o.BorderBrush = Brushes.Red;
                 txb_correo_o.Background = Brushes.Tomato;
+                txt_error_correo_o.Content = "Formato correcto: usuario@dominio.extensión";
+                txt_error_correo_o.Visibility = Visibility.Visible;
             }
             else
             {
+                txt_error_correo_o.Visibility = Visibility.Hidden;
                 txb_correo_o.BorderBrush = Brushes.White;
                 txb_correo_o.Background = Brushes.White;
             }
@@ -404,12 +420,14 @@ namespace Proyecto
             string tele1 = txb_TelOf.Text;
             if (tele1.Length < 8)
             {
-                MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 txb_TelOf.BorderBrush = Brushes.Red;
                 txb_TelOf.Background = Brushes.Tomato;
+                txt_error_TelO.Content = "Los números telefónicos tiene que tener un formato valido de 8 dígitos.";
+                txt_error_TelO.Visibility = Visibility.Visible;
             }
             else
             {
+                txt_error_TelO.Visibility = Visibility.Hidden;
                 txb_TelOf.BorderBrush = Brushes.White;
                 txb_TelOf.Background = Brushes.White;
             }
@@ -420,12 +438,14 @@ namespace Proyecto
             string tele1 = txb_TelMov.Text;
             if (tele1.Length < 8)
             {
-                MessageBox.Show("Los números telefónicos tiene que tener un formato valido de 8 dígitos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 txb_TelMov.BorderBrush = Brushes.Red;
                 txb_TelMov.Background = Brushes.Tomato;
+                txt_error_telM.Content = "Los números telefónicos tiene que tener un formato valido de 8 dígitos.";
+                txt_error_telM.Visibility = Visibility.Visible;
             }
             else
             {
+                txt_error_telM.Visibility = Visibility.Hidden;
                 txb_TelMov.BorderBrush = Brushes.White;
                 txb_TelMov.Background = Brushes.White;
             }
@@ -438,8 +458,8 @@ namespace Proyecto
             txb_TelOf.IsEnabled = true;
             txb_TelMov.IsEnabled = true;
             txb_observaciones.IsEnabled = true;
-            rb_no.IsEnabled = true;
-            rb_si.IsEnabled = true;
+            rb_inactivo.IsEnabled = true;
+            rb_activo.IsEnabled = true;
         }
         public void Modificar_No_Editable()
         {
@@ -449,8 +469,8 @@ namespace Proyecto
             txb_TelOf.IsEnabled = false;
             txb_TelMov.IsEnabled = false;
             txb_observaciones.IsEnabled = false;
-            rb_no.IsEnabled = false;
-            rb_si.IsEnabled = false;
+            rb_inactivo.IsEnabled = false;
+            rb_activo.IsEnabled = false;
         }
 
         private void Grid_Initialized(object sender, EventArgs e)
@@ -461,19 +481,19 @@ namespace Proyecto
 
         private void btn_agregar_Cliente_Click(object sender, RoutedEventArgs e)
         {
-            Int32 inactivo;
+            string inactivo;
             try
             {
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "")
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible )
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    if (rb_si.IsChecked == true)
-                        inactivo = 1;
+                    if (rb_activo.IsChecked == true)
+                        inactivo = "Activo";
                     else
-                        inactivo = 0;
+                        inactivo = "Inactivo";
                     clt.v_NombreCompleto = txb_nombre.Text;
                     clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
                     clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);

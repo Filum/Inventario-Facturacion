@@ -164,5 +164,15 @@ namespace Proyecto
             ventana.Show();
             this.Close();
         }
+
+        private void Bitacora_Selected(object sender, RoutedEventArgs e)
+        {
+            btn_Clientes.Visibility = Visibility.Collapsed;
+            btn_Productos.Visibility = Visibility.Collapsed;
+            btn_Proveedores.Visibility = Visibility.Collapsed;
+            btn_Mantenimiento.Visibility = Visibility.Collapsed;
+            btn_Roles.Visibility = Visibility.Collapsed;
+            btn_Facturar.Visibility = Visibility.Collapsed;
+        }
     }
 }

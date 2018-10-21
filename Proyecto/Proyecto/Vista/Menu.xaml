@@ -92,6 +92,14 @@
                     <TextBlock Text="Facturar"  VerticalAlignment="Center" Margin="10,0,10,9.6" Foreground="White" FontSize="14" FontFamily="Global Sans Serif" Height="40" />
                 </StackPanel>
             </ListViewItem>
+            <ListViewItem x:Name="Bitacora" Width="185" Height="60"  Selected="Bitacora_Selected">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="50" Width="175">
+                    <Border BorderBrush="Black" BorderThickness="1" Width="9" Background="#FF3472DE"/>
+                    <Image Source="Imagenes/bitacora.png" Width="30" Height="30" VerticalAlignment="Center" Margin="5" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Bitácora"  VerticalAlignment="Center" Margin="10,16,10,16.6" Foreground="White" FontSize="14" FontFamily="Global Sans Serif" />
+                </StackPanel>
+            </ListViewItem>
+
 
 
         </ListView>
