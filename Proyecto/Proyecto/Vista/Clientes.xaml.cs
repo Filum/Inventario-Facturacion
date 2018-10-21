@@ -47,35 +47,25 @@ namespace Proyecto
         //funcion para mostar mensajes de ayuda para el usuario.
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Sección Mantenimiento de Clientes:\n\n" + "Listar: usted podra imprimir la lista de clientes, aparte de ordenarlos ya sea por código o por nombre.\n" +
-                             "Actualizar: aca usted podra actualizar la informacion del cliente que desee.\n" +
-                             "Ingresar: esta sección le permite la creación de un nuevo cliente.\n" +
-                             "Buscar: aca usted podra buscar los clientes que desee.\n" +
-                             "Historial: esta ventana le mostrara todos los cambios realizados en esta sección.\n\n" +
+            MessageBox.Show("Sección Mantenimiento de Clientes:\n\n" + "Listar:\n 1 - Si desea listar clientes primero debe seleccionar el rango de fecha en el cual los quiere listar. \n"+
+                            "2 - Después se le da “click” en el botón de listar, este desplegara los datos de los clientes. \n"+
+                            "3 - También se puede ordenar alfabéticamente o en orden descendente, dando “click” en la columna que se desea. \n"+
                              "Actualizar Clientes\n" +
-                             "1 - Si desea actualiar un cliente primero debe buscarlo por nombre o por el código.\n" +
+                             "1 - Si desea actualiar un cliente primero debe buscarlo por nombre del mismo.\n" +
                              "2 - Una ves que lo encontró lo puede seleccionar,editar y guardar los cambios.\n\n" +
 
                              "Ingresar Clientes\n" +
-
-                             "1 - Debera completar cada uno de los espacios requeridos para la creación del nuevo cliente.\n" +
-                             "2 - En caso de que cometa algún error el sistema le noticará.\n" +
-                             "3 - En caso de que toos los datos esten corectos, proceda crearlo.\n\n" +
+                             "1 - Si desea ingresar un cliente primero debe buscarlo por nombre del mismo, para comprobar que este no exista previamente.\n" +
+                             "2 - Debera completar cada uno de los espacios requeridos para la creación del nuevo cliente.\n" +
+                             "3 - En caso de que cometa algún error el sistema le noticará.\n" +
+                             "4 - En caso de que todos los datos esten corectos, proceda a crearlo.\n\n" +
 
                              "Recuerde:\n" +
                              "*Nombre: puede utilizar letras mayúscula y minúsculas.\n" +
                              "* Correo: debe cumplir con el formato de usuario@dominio.extensión\n" +
                              "* Teléfono: solo se aceptan números y no debe contener espacios ni separadores.\n" +
-                             "* Observaciones: acá posee la libertad de escribir loq que desee, ya sean letras, números o símbolos.\n\n" +
+                             "* Observaciones: acá posee la libertad de escribir lo que desee, ya sean letras, números o símbolos.\n\n"
 
-                             "Buscar Clientes\n" +
-
-                             "1 - Deberá buscar por nombre del cliente.\n" +
-                             "2 - Se le  mostrará el código, nombre completo, correo y teléfono del cliente seleccionado.\n\n" +
-
-                             "Historial de Clientes\n" +
-
-                             "1 - Acá podra ver los cambios realizados por los usuarios, por ejemplo el ingreso de nuevos clientes o actualización de los mismos."
                  , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -525,6 +515,20 @@ namespace Proyecto
             {
                 Console.WriteLine(m.ToString());
                 MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btn_usuario_roles_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Desea cerrar sesión?",
+                                          "Cerrar Sesión",
+                                          MessageBoxButton.YesNo,
+                                          MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Login ventana = new Login();
+                this.Close();
+                ventana.Show();
             }
         }
     }
