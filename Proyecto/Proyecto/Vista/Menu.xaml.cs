@@ -164,5 +164,29 @@ namespace Proyecto
             ventana.Show();
             this.Close();
         }
+
+        private void Bitacora_Selected(object sender, RoutedEventArgs e)
+        {
+            btn_Clientes.Visibility = Visibility.Collapsed;
+            btn_Productos.Visibility = Visibility.Collapsed;
+            btn_Proveedores.Visibility = Visibility.Collapsed;
+            btn_Mantenimiento.Visibility = Visibility.Collapsed;
+            btn_Roles.Visibility = Visibility.Collapsed;
+            btn_Facturar.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Desea cerrar sesión?",
+                              "Cerrar Sesión",
+                              MessageBoxButton.YesNo,
+                              MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Login ventana = new Login();
+                this.Close();
+                ventana.Show();
+            }
+        }
     }
 }

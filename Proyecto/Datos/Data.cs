@@ -27,7 +27,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("TELMOVIL", clt.v_Telemovil));
             comando.Parameters.Add(new OracleParameter("CORRE", clt.v_Correo));
             comando.Parameters.Add(new OracleParameter("CORREOPC", clt.v_CorreoOpc));
-            comando.Parameters.Add(new OracleParameter("INACT", clt.v_Inactividad));
+            comando.Parameters.Add(new OracleParameter("EST", clt.v_Inactividad));
             comando.Parameters.Add(new OracleParameter("OBVS", clt.v_Observaciones));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
@@ -46,7 +46,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("ID_CLIENTE", clt.v_Codigo));
             comando.Parameters.Add(new OracleParameter("CORRE", clt.v_Correo));
             comando.Parameters.Add(new OracleParameter("CORREOPC", clt.v_CorreoOpc));
-            comando.Parameters.Add(new OracleParameter("INACT", clt.v_Inactividad));
+            comando.Parameters.Add(new OracleParameter("EST", clt.v_Inactividad));
             comando.Parameters.Add(new OracleParameter("OBVS", clt.v_Observaciones));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
@@ -128,7 +128,7 @@ namespace Datos
                     cliente.v_Telemovil = Convert.ToInt32(dr.GetValue(4));
                     cliente.v_Correo = dr.GetString(5);
                     cliente.v_CorreoOpc = dr.GetString(6);
-                    cliente.v_Inactividad = dr.GetInt32(7);
+                    cliente.v_Inactividad = dr.GetString(7);
                     cliente.v_Observaciones = dr.GetString(8);
                     Lista.Add(cliente);
                 }
