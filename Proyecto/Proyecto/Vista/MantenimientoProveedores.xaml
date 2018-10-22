@@ -170,6 +170,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
                     <Separator  Background="#FF3472DE" Grid.RowSpan="2" Margin="15,111,29,239" Grid.Row="1"/>
+                    <Label x:Name="lbl_actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="404,15,432,0" Grid.Row="2" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+
                     <Grid Height="229" VerticalAlignment="Center" Margin="15,29,96,10" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="67*"/>
@@ -181,7 +183,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <Label x:Name="lbl_email"     Content="Email:"         Margin="0,20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                         </StackPanel>
 
-                        <StackPanel Margin="42,0,355,-1" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+                        <StackPanel Margin="42,0,329,-1" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
                             <TextBox x:Name="txb_cedJur" IsEnabled="True" MaxLength="12" Margin="0,20" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="Auto" MinWidth="150" FontFamily="Global Sans Serif" Height="30" KeyDown="cedJur_KeyDown" LostKeyboardFocus="validar_cedulaJuridica" VerticalContentAlignment="Center" />
                             <Label x:Name="lbl_errorCedJur" Visibility="Collapsed" Margin="0,-20,34.667,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
@@ -205,7 +207,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <Label x:Name="lbl_errorDesc" Visibility="Collapsed" Margin="0,-20,35,-15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
                         </StackPanel>
                     </Grid>
-                    
+
                     <Button x:Name="btn_modificar" Visibility="Collapsed" Foreground="White" IsEnabled="True" Margin="0,63,26,135" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="70" Grid.Row="2" Height="70" VerticalAlignment="Center" Click="btn_modificar_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>

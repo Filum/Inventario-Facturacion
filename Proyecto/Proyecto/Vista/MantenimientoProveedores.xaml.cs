@@ -391,6 +391,8 @@ namespace Proyecto
                 btn_limpiar_Click(sender,e);
                 btn_agregar.Visibility = Visibility.Collapsed;
                 btn_modificar.Visibility = Visibility.Collapsed;
+                lbl_actividad.Visibility = Visibility.Collapsed;
+
             }
             else// el usuario no existe
             {
@@ -399,6 +401,8 @@ namespace Proyecto
                     habilitar_componentes();
                     btn_agregar.Visibility = Visibility.Visible;
                     btn_modificar.Visibility = Visibility.Collapsed;
+                    lbl_actividad.Content = "Agregar proveedor";
+                    lbl_actividad.Visibility = Visibility.Visible;
 
                     if (Regex.IsMatch(this.txb_busqueda.Text, @"[\p{L}\s]"))
                     {
@@ -413,7 +417,9 @@ namespace Proyecto
                 else
                 {
                     btn_agregar.Visibility = Visibility.Collapsed;
-                    btn_modificar.Visibility = Visibility.Visible;
+                    btn_modificar.Visibility = Visibility.Collapsed;
+                    lbl_actividad.Content = "Proveedores existentes";
+                    lbl_actividad.Visibility = Visibility.Visible;
                     deshabilitar_componentes();
                 }
             }
@@ -430,6 +436,9 @@ namespace Proyecto
             txb_telefono.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
             txb_email.Text = (dtg_proveedores.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
             txb_descripcion.Text = (dtg_proveedores.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
+            btn_modificar.Visibility = Visibility.Visible;
+            lbl_actividad.Content = "Modificar proveedor";
+            lbl_actividad.Visibility = Visibility.Visible;
             habilitar_componentes();
         }
 
