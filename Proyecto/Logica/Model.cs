@@ -41,9 +41,9 @@ namespace Logica
         {
             return data.MostrarListaClientes(fecha1,fecha2);
         }
-        public int validar_cedJur_proveedores(long v_CedJur)
+        public List<EntidadProveedores> validar_cedJur_proveedores(String v_busqueda)
         {
-            return data.validar_cedJur_proveedores(v_CedJur);
+            return data.validar_cedJur_proveedores(v_busqueda);
         }
     }
 }

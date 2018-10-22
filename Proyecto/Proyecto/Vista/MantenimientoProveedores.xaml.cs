@@ -121,11 +121,11 @@ namespace Proyecto
                 {
                     try
                     {
-                        clt.v_cedulaJuridica = Convert.ToInt64(txb_busqueda.Text);
+                        //clt.v_cedulaJuridica = txb_busqueda.Text;
                         clt.v_nombre = txb_nombre.Text;
                         clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
                         clt.v_correo = txb_email.Text;
-                        clt.v_descripccion = txb_descripcion.Text;
+                        clt.v_descripcion = txb_descripcion.Text;
                         int v_Resultado = model.AgregarProveedores(clt);
 
                         if (v_Resultado == -1)
@@ -151,17 +151,19 @@ namespace Proyecto
 
         private void btn_limpiar_Click(object sender, RoutedEventArgs e)
         {
+            txb_cedJur.Text = "";
             txb_telefono.Text = "";
             txb_busqueda.Text = "";
             txb_nombre.Text = "";
             txb_email.Text = "";
             txb_descripcion.Text = "";
+            dtg_proveedores.ItemsSource = null;
+            lbl_errorCedJur.Visibility = Visibility.Collapsed;
             lbl_errorBusqueda.Visibility = Visibility.Collapsed;
             lbl_errorNombre.Visibility = Visibility.Collapsed;
             lbl_errorTelefono.Visibility = Visibility.Collapsed;
             lbl_errorEmail.Visibility = Visibility.Collapsed;
-            lbl_errorDesc.Visibility = Visibility.Collapsed;
-            
+            lbl_errorDesc.Visibility = Visibility.Collapsed;   
         }
 
         private void telefono_KeyDown(object sender, KeyEventArgs e)
@@ -177,6 +179,21 @@ namespace Proyecto
                 lbl_errorTelefono.Content = "No se permite ingresar letras";
                 lbl_errorTelefono.Visibility = Visibility.Visible;
             }  
+        }
+
+        private void cedJur_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                lbl_errorCedJur.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                e.Handled = true;
+                lbl_errorCedJur.Content = "No se permite ingresar letras";
+                lbl_errorCedJur.Visibility = Visibility.Visible;
+            }
         }
 
         private void validar_telefono(object sender, KeyboardFocusChangedEventArgs e)
@@ -331,6 +348,7 @@ namespace Proyecto
             {
                 lbl_errorBusqueda.Content = "Espacio vacío";
                 lbl_errorBusqueda.Visibility = Visibility.Visible;
+                txb_cedJur.IsEnabled = false;
                 txb_nombre.IsEnabled = false;
                 txb_telefono.IsEnabled = false;
                 txb_email.IsEnabled = false;
@@ -340,6 +358,7 @@ namespace Proyecto
             {
                 lbl_errorBusqueda.Content = "Parámetros incorrectos (espacios seguidos).";
                 lbl_errorBusqueda.Visibility = Visibility.Visible;
+                txb_cedJur.IsEnabled = false;
                 txb_nombre.IsEnabled = false;
                 txb_telefono.IsEnabled = false;
                 txb_email.IsEnabled = false;
@@ -347,11 +366,101 @@ namespace Proyecto
             }
             else
             {
+                txb_cedJur.IsEnabled = true;
                 txb_nombre.IsEnabled = true;
                 txb_telefono.IsEnabled = true;
                 txb_email.IsEnabled = true;
                 txb_descripcion.IsEnabled = true;
                 lbl_errorBusqueda.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
+        {
+            string texto;
+            dtg_proveedores.ItemsSource = model.validar_cedJur_proveedores(txb_busqueda.Text);
+            dtg_proveedores.Columns[0].Header = "Código";
+            dtg_proveedores.Columns[1].Header = "Cédula jurídica";
+            dtg_proveedores.Columns[2].Header = "Nombre";
+            dtg_proveedores.Columns[5].Header = "Teléfono";
+            dtg_proveedores.Columns[4].Header = "Correo";
+            dtg_proveedores.Columns[3].Header = "Descripción";
+            dtg_proveedores.Columns[6].Header = "Fecha";
+
+            if (txb_busqueda.Text == "")
+            {
+                txb_nombre.Text = "";
+                deshabilitar_componentes();
+                btn_limpiar_Click(sender,e);
+                btn_agregar.Visibility = Visibility.Collapsed;
+                btn_modificar.Visibility = Visibility.Collapsed;
+            }
+            else// el usuario no existe
+            {
+                if (dtg_proveedores.Items.Count == 0)
+                {
+                    //texto = txb_busqueda.Text;
+                    habilitar_componentes();
+                    btn_agregar.Visibility = Visibility.Visible;
+                    btn_modificar.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    btn_agregar.Visibility = Visibility.Collapsed;
+                    btn_modificar.Visibility = Visibility.Visible;
+                    deshabilitar_componentes();
+                }
+            }
+
+        }
+
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+
+            clt.v_idProveedor = Convert.ToInt64((dtg_proveedores.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+            txb_cedJur.Text = (dtg_proveedores.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+            txb_nombre.Text = (dtg_proveedores.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefono.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+            txb_email.Text = (dtg_proveedores.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
+            txb_descripcion.Text = (dtg_proveedores.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            habilitar_componentes();
+        }
+
+        public void deshabilitar_componentes()
+        {
+            txb_cedJur.IsEnabled = false;
+            txb_nombre.IsEnabled = false;
+            txb_telefono.IsEnabled = false;
+            txb_email.IsEnabled = false;
+            txb_descripcion.IsEnabled = false;
+        }
+
+        public void habilitar_componentes()
+        {
+            txb_cedJur.IsEnabled = true;
+            txb_nombre.IsEnabled = true;
+            txb_telefono.IsEnabled = true;
+            txb_email.IsEnabled = true;
+            txb_descripcion.IsEnabled = true;
+        }
+
+        private void txb_cedJur_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txb_cedJur.Text == "")
+            {
+                lbl_errorCedJur.Content = "Espacio vacío";
+                lbl_errorCedJur.Visibility = Visibility.Visible;
+            }
+            else if (txb_cedJur.Text.Contains(" "))
+            {
+                lbl_errorCedJur.Content = "No se permite el ingreso de espacios";
+                lbl_errorCedJur.Visibility = Visibility.Visible;
+
+            }
+            else
+            {
+                lbl_errorCedJur.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -424,13 +533,44 @@ namespace Proyecto
 
         }
 
-        private void btn_limpiar_actualizar_Click(object sender, RoutedEventArgs e)
+        private void btn_agregar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (txb_email.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_busqueda.Text == "" || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorEmail.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
+                {
+                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    clt.v_nombre = txb_nombre.Text;
+                    clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
+
+                    clt.v_correo = txb_email.Text;
+
+                    int v_Resultado = model.AgregarProveedores(clt);
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btn_limpiar_Click(sender,e);
+                    }
+
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m.ToString());
+                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void dtg_proveedores_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
 
-        private void validar_busqueda(object sender, EventArgs e)
+        /*private int validar_busqueda()
         {
             string v_CedJuridica = txb_busqueda.Text;
             if(v_CedJuridica.Length < 9)
@@ -442,7 +582,7 @@ namespace Proyecto
             {
                 lbl_errorBusqueda.Visibility = Visibility.Collapsed;
                 long v_CedJur = Convert.ToInt64(txb_busqueda.Text);
-                long v_Resultado = model.validar_cedJur_proveedores(v_CedJur);
+                long v_Resultado = model.validar_cedJur_proveedores(txb_busqueda.Text);
                 if (v_Resultado == 1)
                 {
                     lbl_errorBusqueda.Content = "La cédula jurídica ya existe.";
@@ -453,7 +593,8 @@ namespace Proyecto
                     txb_descripcion.IsEnabled = false;
                 }
             }
-        }
+            return 2;
+        }*/
 
     }
 }

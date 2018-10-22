@@ -63,15 +63,13 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("CEDJUR", clt.v_cedulaJuridica));
             comando.Parameters.Add(new OracleParameter("NOMB", clt.v_nombre));
             comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_correo));
-            comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripccion));
+            comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripcion));
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
            
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
         }
-
-
 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
@@ -137,27 +135,33 @@ namespace Datos
             return Lista;
         }
 
-        public int validar_cedJur_proveedores(long v_CedJur)
+        public List<EntidadProveedores> validar_cedJur_proveedores(String v_busqueda)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT CEDULAJURIDICA FROM TBL_PROVEEDORES WHERE CEDULAJURIDICA = " + v_CedJur;
+            comando.CommandText = "SELECT * FROM TBL_PROVEEDORES WHERE NOMBRE LIKE '%" + v_busqueda + "%' OR CEDULAJURIDICA LIKE '%" + v_busqueda + "%'";
             OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadProveedores> Lista = new List<EntidadProveedores>();
 
-            if (v_CedJur != 0)
+            if (v_busqueda != "")
             {
                 while (dr.Read())
                 {
-                    return 1;
+                    EntidadProveedores proveedor = new EntidadProveedores();
+                    proveedor.v_idProveedor = dr.GetInt64(0);
+                    proveedor.v_cedulaJuridica = dr.GetString(2);
+                    proveedor.v_nombre = dr.GetString(3);
+                    proveedor.v_telefono = Convert.ToInt64(dr.GetValue(6));
+                    proveedor.v_correo = dr.GetString(5);
+                    proveedor.v_descripcion = dr.GetString(4);
+                    
+                    Lista.Add(proveedor);
                 }
             }
             conn.Close();
-            return 2;
+            return Lista;
         }
-
-
-
     }
 }

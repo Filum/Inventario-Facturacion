@@ -531,5 +531,15 @@ namespace Proyecto
                 ventana.Show();
             }
         }
+
+        private void dtg_clientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void txb_buscar_cliente_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

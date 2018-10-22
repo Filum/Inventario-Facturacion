@@ -160,9 +160,9 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FF040608"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <TextBox x:Name="txb_buscar_cliente" Margin="311.4,10,21.4,0" TextWrapping="Wrap" Grid.Column="1" Height="22" VerticalAlignment="Top" KeyUp="txb_cliente_modificar_KeyUp"/>
+                    <TextBox x:Name="txb_buscar_cliente" Margin="311.4,10,21.4,0" TextWrapping="Wrap" Grid.Column="1" Height="22" VerticalAlignment="Top" KeyUp="txb_cliente_modificar_KeyUp" TextChanged="txb_buscar_cliente_TextChanged"/>
                     <Label x:Name="txt_nombre_cliente" Content="Ingrese el nombre del cliente:" Margin="1,3,313,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="29" VerticalAlignment="Top"/>
-                    <DataGrid x:Name="dtg_clientes" Margin="1.4,69,5.4,31.6" Grid.Column="1" Grid.ColumnSpan="5"  FontSize="12" Grid.RowSpan="2" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="130" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False" >
+                    <DataGrid x:Name="dtg_clientes" Margin="1.4,69,5.4,31.6" Grid.Column="1" Grid.ColumnSpan="5"  FontSize="12" Grid.RowSpan="2" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="130" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False" SelectionChanged="dtg_clientes_SelectionChanged" >
                         <DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
