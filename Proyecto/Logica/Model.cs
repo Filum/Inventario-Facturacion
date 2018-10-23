@@ -50,5 +50,9 @@ namespace Logica
         {
             return data.validar_busqueda_proveedores(v_busqueda);
         }
+        public int validar_cedJur_proveedores(String v_CedJur)
+        {
+            return data.validar_cedJur_proveedores(v_CedJur);
+        }
     }
 }

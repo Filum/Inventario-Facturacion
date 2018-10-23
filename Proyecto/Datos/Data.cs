@@ -179,5 +179,25 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+
+        public int validar_cedJur_proveedores(String v_CedJur)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT CEDULAJURIDICA FROM TBL_PROVEEDORES WHERE CEDULAJURIDICA = " + v_CedJur;
+            OracleDataReader dr = comando.ExecuteReader();
+
+            if (v_CedJur != "")
+            {
+                while (dr.Read())
+                {
+                    return 1;
+                }
+            }
+            conn.Close();
+            return 2;
+        }
     }
 }
