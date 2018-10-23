@@ -77,6 +77,7 @@ namespace Proyecto
             txb_observaciones.Text = "";
             txb_TelMov.Text = "";
             txb_TelOf.Text = "";
+            txb_buscar_cliente.Text = "";
             rb_activo.IsChecked = false;
             rb_inactivo.IsChecked = false;
             txb_correo_o.BorderBrush = Brushes.White;
@@ -91,6 +92,7 @@ namespace Proyecto
             txt_error_TelO.Visibility = Visibility.Hidden;
             txt_error_correo.Visibility = Visibility.Hidden;
             txt_error_correo_o.Visibility = Visibility.Hidden;
+            dtg_clientes.ItemsSource = null;
         }
         private void btn_Regresar_Click_1(object sender, RoutedEventArgs e)
         {
