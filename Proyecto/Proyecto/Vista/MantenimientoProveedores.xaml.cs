@@ -571,9 +571,10 @@ namespace Proyecto
         {
             try
             {
+                validar_cedJur(sender, e);
                 if (txb_cedJur.Text == "" || txb_email.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_busqueda.Text == "" || lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorEmail.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
                 {
-                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar o errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
