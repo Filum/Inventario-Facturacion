@@ -85,57 +85,57 @@ namespace Proyecto
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
-           
-                if ((lbl_errorBusqueda.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
-                    (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorEmail.Visibility == Visibility.Visible)) ||
-                    (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorCedJur.Visibility == Visibility.Visible) ||
-                    (lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorEmailOpcional.Visibility == Visibility.Visible))
+            validar_cedJur(sender,e);
+            if ((lbl_errorBusqueda.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
+                (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorEmail.Visibility == Visibility.Visible)) ||
+                (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorCedJur.Visibility == Visibility.Visible) ||
+                (lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorEmailOpcional.Visibility == Visibility.Visible))
+            {
+                MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                try
                 {
-                    MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    clt.v_cedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
+                    clt.v_nombre = txb_nombre.Text;
+                    clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
+
+                    if (txb_telefonoOpcional.Text == "")
+                    {
+                        clt.v_telefonoOpcional = 0;
+                    }
+                    else
+                    {
+                        clt.v_telefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
+                    }
+
+                    clt.v_correo = txb_email.Text;
+
+                    if (txb_emailOpcional.Text == "")
+                    {
+                        clt.v_correoOpcional = "N/A";
+                    }
+                    else
+                    {
+                        clt.v_correoOpcional = txb_emailOpcional.Text;
+                    }
+
+                    clt.v_descripcion = txb_descripcion.Text;
+                    int v_Resultado = model.ModificarProveedores(clt);
+
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btn_limpiar_Click(sender, e);
+                    }
                 }
-                else
+                catch (Exception m)
                 {
-                    try
-                    {
-                        clt.v_cedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
-                        clt.v_nombre = txb_nombre.Text;
-                        clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
-
-                        if (txb_telefonoOpcional.Text == "")
-                        {
-                            clt.v_telefonoOpcional = 0;
-                        }
-                        else
-                        {
-                            clt.v_telefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
-                        }
-
-                        clt.v_correo = txb_email.Text;
-
-                        if (txb_emailOpcional.Text == "")
-                        {
-                            clt.v_correoOpcional = "N/A";
-                        }
-                        else
-                        {
-                            clt.v_correoOpcional = txb_emailOpcional.Text;
-                        }
-
-                        clt.v_descripcion = txb_descripcion.Text;
-                        int v_Resultado = model.ModificarProveedores(clt);
-
-                        if (v_Resultado == -1)
-                        {
-                            MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                            btn_limpiar_Click(sender, e);
-                        }
-                    }
-                    catch (Exception m)
-                    {
-                        Console.WriteLine(m.ToString());
-                        MessageBox.Show("Error al agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }    
+                    Console.WriteLine(m.ToString());
+                    MessageBox.Show("Error al agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }    
         }
 
         private void btn_limpiar_Click(object sender, RoutedEventArgs e)
@@ -197,7 +197,7 @@ namespace Proyecto
             }
             
         }
-
+        
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
             dtg_proveedores.ItemsSource = model.validar_busqueda_proveedores(txb_busqueda.Text);
