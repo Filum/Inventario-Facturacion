@@ -203,7 +203,14 @@ namespace Proyecto
             {
                 lbl_errorTelefono.Content = "Espacio vacío";
                 lbl_errorTelefono.Visibility = Visibility.Visible;
-            } else if(v_Telefono.Length < 8)
+            }
+            else if (txb_telefono.Text.Contains(" "))
+            {
+                lbl_errorTelefono.Content = "No se permiten espacios";
+                lbl_errorTelefono.Visibility = Visibility.Visible;
+                txb_telefono.Text = "";
+            }
+            else if(v_Telefono.Length < 8)
             {
                 lbl_errorTelefono.Content = "Los números telefónicos deben tener al menos 8 dígitos";
                 lbl_errorTelefono.Visibility = Visibility.Visible;
@@ -211,6 +218,30 @@ namespace Proyecto
             else
             {
                 lbl_errorTelefono.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void validar_cedulaJuridica(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string v_CedJur = txb_cedJur.Text;
+            if (txb_cedJur.Text == "")
+            {
+                lbl_errorCedJur.Content = "Espacio vacío";
+                lbl_errorCedJur.Visibility = Visibility.Visible;
+            }
+            else if (txb_cedJur.Text.Contains(" "))
+            {
+                lbl_errorCedJur.Content = "No se permiten espacios";
+                lbl_errorCedJur.Visibility = Visibility.Visible;
+                txb_cedJur.Text = "";
+            }
+            else if (v_CedJur.Length < 9)
+            {
+                lbl_errorCedJur.Content = "La cédula jurídica debe tener al menos 9 dígitos";
+                lbl_errorCedJur.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_errorCedJur.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -368,6 +399,16 @@ namespace Proyecto
                     habilitar_componentes();
                     btn_agregar.Visibility = Visibility.Visible;
                     btn_modificar.Visibility = Visibility.Collapsed;
+
+                    if (Regex.IsMatch(this.txb_busqueda.Text, @"[\p{L}\s]"))
+                    {
+                        txb_nombre.Text = txb_busqueda.Text;    
+                    }
+                    else
+                    {    
+                        txb_cedJur.Text = txb_busqueda.Text;
+                        txb_busqueda.MaxLength = 12;
+                    }
                 }
                 else
                 {
@@ -383,11 +424,12 @@ namespace Proyecto
             DataGridRow row = sender as DataGridRow;
 
             clt.v_idProveedor = Convert.ToInt64((dtg_proveedores.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+
             txb_cedJur.Text = (dtg_proveedores.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
             txb_nombre.Text = (dtg_proveedores.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
             txb_telefono.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
-            txb_email.Text = (dtg_proveedores.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
-            txb_descripcion.Text = (dtg_proveedores.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            txb_email.Text = (dtg_proveedores.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            txb_descripcion.Text = (dtg_proveedores.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
             habilitar_componentes();
         }
 
@@ -434,6 +476,11 @@ namespace Proyecto
             if (txb_nombre.Text == "")
             {
                 lbl_errorNombre.Content = "Espacio vacío";
+                lbl_errorNombre.Visibility = Visibility.Visible;
+            }
+            else if (txb_nombre.Text == " ")
+            {
+                lbl_errorNombre.Content = "No deje espacios";
                 lbl_errorNombre.Visibility = Visibility.Visible;
             }
             else if (txb_nombre.Text.Contains("  "))
@@ -486,6 +533,16 @@ namespace Proyecto
                 lbl_errorDesc.Content = "Espacio vacío";
                 lbl_errorDesc.Visibility = Visibility.Visible;
             }
+            else if (txb_descripcion.Text == " ")
+            {
+                lbl_errorDesc.Content = "No deje espacios";
+                lbl_errorDesc.Visibility = Visibility.Visible;
+            }
+            else if (txb_descripcion.Text.Contains("  "))
+            {
+                lbl_errorDesc.Content = "Parámetros incorrectos (espacios seguidos).";
+                lbl_errorDesc.Visibility = Visibility.Visible;
+            }
             else
             {
                 lbl_errorDesc.Visibility = Visibility.Collapsed;
@@ -501,16 +558,17 @@ namespace Proyecto
         {
             try
             {
-                if (txb_email.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_busqueda.Text == "" || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorEmail.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
+                if (txb_cedJur.Text == "" || txb_email.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_busqueda.Text == "" || lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorEmail.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
+                    clt.v_cedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
                     clt.v_nombre = txb_nombre.Text;
                     clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
-
                     clt.v_correo = txb_email.Text;
+                    clt.v_descripcion = txb_descripcion.Text;
 
                     int v_Resultado = model.AgregarProveedores(clt);
                     if (v_Resultado == -1)
@@ -518,7 +576,6 @@ namespace Proyecto
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender,e);
                     }
-
                 }
             }
             catch (Exception m)
