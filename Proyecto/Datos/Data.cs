@@ -7,9 +7,6 @@ using Entidades;
 using System.Data;
 using Oracle.DataAccess.Client;
 
-
-
-
 namespace Datos
 {
     public class Data
@@ -45,6 +42,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_correo));
             comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripcion));
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
+            comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_telefonoOpcional));
 
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
@@ -82,6 +80,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_correo));
             comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripcion));
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
+            comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_telefonoOpcional));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -170,6 +169,7 @@ namespace Datos
                     proveedor.v_cedulaJuridica = Convert.ToInt64(dr.GetValue(2));
                     proveedor.v_nombre = dr.GetString(3);
                     proveedor.v_telefono = Convert.ToInt64(dr.GetValue(6));
+                    proveedor.v_telefonoOpcional = Convert.ToInt64(dr.GetValue(7));
                     proveedor.v_correo = dr.GetString(4);
                     proveedor.v_descripcion = dr.GetString(5);
                     proveedor.v_fecha = Convert.ToDateTime(dr.GetValue(1));
