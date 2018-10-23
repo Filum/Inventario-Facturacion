@@ -15,7 +15,7 @@ namespace Entidades
         }
 
         public Int64 v_idProveedor { set; get; }
-        public string v_cedulaJuridica { set; get; }
+        public Int64 v_cedulaJuridica { set; get; }
         public string v_nombre { set; get; }
         public string v_correo { set; get; }
         public string v_descripcion { set; get; }
@@ -23,7 +23,7 @@ namespace Entidades
         public DateTime v_fecha { set; get; }
 
 
-        public EntidadProveedores(Int64 v_idProveedor, string v_cedulaJuridica, string v_nombre, string v_correo, string v_descripcion, Int64 v_telefono, DateTime v_fecha)
+        public EntidadProveedores(Int64 v_idProveedor, Int64 v_cedulaJuridica, string v_nombre, string v_correo, string v_descripcion, Int64 v_telefono, DateTime v_fecha)
         {
             this.v_idProveedor = v_idProveedor;
             this.v_cedulaJuridica = v_cedulaJuridica;

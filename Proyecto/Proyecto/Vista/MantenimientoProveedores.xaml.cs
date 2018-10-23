@@ -108,12 +108,12 @@ namespace Proyecto
             this.Close();
         }
 
-        private void btn_guardar_Click(object sender, RoutedEventArgs e)
+        private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
            
                 if ((lbl_errorBusqueda.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
                     (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorEmail.Visibility == Visibility.Visible)) ||
-                    (lbl_errorDesc.Visibility == Visibility.Visible))
+                    (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorCedJur.Visibility == Visibility.Visible))
                 {
                     MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -121,12 +121,12 @@ namespace Proyecto
                 {
                     try
                     {
-                        //clt.v_cedulaJuridica = txb_busqueda.Text;
+                        clt.v_cedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
                         clt.v_nombre = txb_nombre.Text;
                         clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
                         clt.v_correo = txb_email.Text;
                         clt.v_descripcion = txb_descripcion.Text;
-                        int v_Resultado = model.AgregarProveedores(clt);
+                        int v_Resultado = model.ModificarProveedores(clt);
 
                         if (v_Resultado == -1)
                         {
@@ -256,39 +256,6 @@ namespace Proyecto
             }
         }
 
-        
-        private void btn_buscar_actualizar_proveedores_Click(object sender, RoutedEventArgs e)
-        {
-            if (txb_busqueda.Text == "")
-            {
-                MessageBox.Show("No hay datos que buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                MessageBox.Show("Buscando...");
-            }
-        }
-
-        private void validar_email_proveedores(object sender, EventArgs e)
-        {
-
-            Console.WriteLine("Correo: " + txb_email.Text);
-
-            Console.WriteLine(email_bien(txb_email.Text));
-
-            if (email_bien(txb_email.Text) == false)
-            {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_email.BorderBrush = Brushes.Red;
-                txb_email.Background = Brushes.Tomato;
-            }
-            else
-            {
-                txb_email.BorderBrush = Brushes.White;
-                txb_email.Background = Brushes.White;
-            }
-        }
-
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Secciones Mantenimiento de Proveedores:\n" +
@@ -377,8 +344,7 @@ namespace Proyecto
 
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
-            string texto;
-            dtg_proveedores.ItemsSource = model.validar_cedJur_proveedores(txb_busqueda.Text);
+            dtg_proveedores.ItemsSource = model.validar_busqueda_proveedores(txb_busqueda.Text);
             dtg_proveedores.Columns[0].Header = "Código";
             dtg_proveedores.Columns[1].Header = "Cédula jurídica";
             dtg_proveedores.Columns[2].Header = "Nombre";
@@ -399,7 +365,6 @@ namespace Proyecto
             {
                 if (dtg_proveedores.Items.Count == 0)
                 {
-                    //texto = txb_busqueda.Text;
                     habilitar_componentes();
                     btn_agregar.Visibility = Visibility.Visible;
                     btn_modificar.Visibility = Visibility.Collapsed;
@@ -411,7 +376,6 @@ namespace Proyecto
                     deshabilitar_componentes();
                 }
             }
-
         }
 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -568,33 +532,6 @@ namespace Proyecto
         {
 
         }
-
-
-        /*private int validar_busqueda()
-        {
-            string v_CedJuridica = txb_busqueda.Text;
-            if(v_CedJuridica.Length < 9)
-            {
-                lbl_errorBusqueda.Content = "La cédula jurídica debe tener al menos 9 dígitos";
-                lbl_errorBusqueda.Visibility = Visibility.Visible;
-            }
-            else if (txb_busqueda.Text != "")
-            {
-                lbl_errorBusqueda.Visibility = Visibility.Collapsed;
-                long v_CedJur = Convert.ToInt64(txb_busqueda.Text);
-                long v_Resultado = model.validar_cedJur_proveedores(txb_busqueda.Text);
-                if (v_Resultado == 1)
-                {
-                    lbl_errorBusqueda.Content = "La cédula jurídica ya existe.";
-                    lbl_errorBusqueda.Visibility = Visibility.Visible;
-                    txb_nombre.IsEnabled = false;
-                    txb_telefono.IsEnabled = false;
-                    txb_email.IsEnabled = false;
-                    txb_descripcion.IsEnabled = false;
-                }
-            }
-            return 2;
-        }*/
 
     }
 }

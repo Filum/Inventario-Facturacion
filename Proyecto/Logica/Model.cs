@@ -23,6 +23,11 @@ namespace Logica
             return data.ModificarClientes(clt);
         }
 
+        public int ModificarProveedores(EntidadProveedores clt)
+        {
+            return data.ModificarProveedores(clt);
+        }
+
         public int AgregarProveedores(EntidadProveedores clt)
         {
             return data.AgregarProveedores(clt);
@@ -41,9 +46,9 @@ namespace Logica
         {
             return data.MostrarListaClientes(fecha1,fecha2);
         }
-        public List<EntidadProveedores> validar_cedJur_proveedores(String v_busqueda)
+        public List<EntidadProveedores> validar_busqueda_proveedores(String v_busqueda)
         {
-            return data.validar_cedJur_proveedores(v_busqueda);
+            return data.validar_busqueda_proveedores(v_busqueda);
         }
     }
 }

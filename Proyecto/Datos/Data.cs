@@ -53,6 +53,21 @@ namespace Datos
             return v_Resultado;
         }
 
+        public int ModificarProveedores(EntidadProveedores clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("act_Proveedores", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("CEDJUR", clt.v_cedulaJuridica));
+            comando.Parameters.Add(new OracleParameter("NOMB", clt.v_nombre));
+            comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_correo));
+            comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripcion));
+            comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
 
         public int AgregarProveedores(EntidadProveedores clt)
         {
@@ -135,7 +150,7 @@ namespace Datos
             return Lista;
         }
 
-        public List<EntidadProveedores> validar_cedJur_proveedores(String v_busqueda)
+        public List<EntidadProveedores> validar_busqueda_proveedores(String v_busqueda)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
@@ -151,12 +166,11 @@ namespace Datos
                 {
                     EntidadProveedores proveedor = new EntidadProveedores();
                     proveedor.v_idProveedor = dr.GetInt64(0);
-                    proveedor.v_cedulaJuridica = dr.GetString(2);
+                    proveedor.v_cedulaJuridica = Convert.ToInt64(dr.GetValue(2));
                     proveedor.v_nombre = dr.GetString(3);
                     proveedor.v_telefono = Convert.ToInt64(dr.GetValue(6));
                     proveedor.v_correo = dr.GetString(5);
                     proveedor.v_descripcion = dr.GetString(4);
-                    
                     Lista.Add(proveedor);
                 }
             }
