@@ -277,8 +277,8 @@ namespace Proyecto
             dtg_proveedores.Columns[2].Header = "Nombre";
             dtg_proveedores.Columns[5].Header = "Teléfono";
             dtg_proveedores.Columns[6].Header = "Tel. opcional";
-            dtg_proveedores.Columns[4].Header = "Correo";
-            dtg_proveedores.Columns[3].Header = "Descripción";
+            dtg_proveedores.Columns[3].Header = "Correo";
+            dtg_proveedores.Columns[4].Header = "Descripción";
             dtg_proveedores.Columns[7].Header = "Fecha";
 
             if (txb_busqueda.Text == "")
