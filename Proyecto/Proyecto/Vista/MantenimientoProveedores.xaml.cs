@@ -233,7 +233,8 @@ namespace Proyecto
 
                     if (Regex.IsMatch(this.txb_busqueda.Text, @"[\p{L}\s]"))
                     {
-                        txb_nombre.Text = txb_busqueda.Text;    
+                        txb_nombre.Text = txb_busqueda.Text;
+                        txb_cedJur.Text = "";
                     }
                     else
                     {    
