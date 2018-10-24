@@ -43,6 +43,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripcion));
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
             comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_telefonoOpcional));
+            comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_correoOpcional));
 
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
@@ -81,6 +82,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripcion));
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
             comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_telefonoOpcional));
+            comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_correoOpcional));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -171,6 +173,7 @@ namespace Datos
                     proveedor.v_telefono = Convert.ToInt64(dr.GetValue(6));
                     proveedor.v_telefonoOpcional = Convert.ToInt64(dr.GetValue(7));
                     proveedor.v_correo = dr.GetString(4);
+                    proveedor.v_correoOpcional = dr.GetString(8);
                     proveedor.v_descripcion = dr.GetString(5);
                     proveedor.v_fecha = Convert.ToDateTime(dr.GetValue(1));
                     Lista.Add(proveedor);

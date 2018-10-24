@@ -88,7 +88,8 @@ namespace Proyecto
            
                 if ((lbl_errorBusqueda.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
                     (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorEmail.Visibility == Visibility.Visible)) ||
-                    (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorCedJur.Visibility == Visibility.Visible))
+                    (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorCedJur.Visibility == Visibility.Visible) ||
+                    (lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorEmailOpcional.Visibility == Visibility.Visible))
                 {
                     MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -99,6 +100,7 @@ namespace Proyecto
                         clt.v_cedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
                         clt.v_nombre = txb_nombre.Text;
                         clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
+
                         if (txb_telefonoOpcional.Text == "")
                         {
                             clt.v_telefonoOpcional = 0;
@@ -107,7 +109,18 @@ namespace Proyecto
                         {
                             clt.v_telefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
                         }
+
                         clt.v_correo = txb_email.Text;
+
+                        if (txb_emailOpcional.Text == "")
+                        {
+                            clt.v_correoOpcional = "N/A";
+                        }
+                        else
+                        {
+                            clt.v_correoOpcional = txb_emailOpcional.Text;
+                        }
+
                         clt.v_descripcion = txb_descripcion.Text;
                         int v_Resultado = model.ModificarProveedores(clt);
 
@@ -133,6 +146,7 @@ namespace Proyecto
             txb_busqueda.Text = "";
             txb_nombre.Text = "";
             txb_email.Text = "";
+            txb_emailOpcional.Text = "";
             txb_descripcion.Text = "";
             dtg_proveedores.ItemsSource = null;
             lbl_errorCedJur.Visibility = Visibility.Collapsed;
@@ -141,16 +155,148 @@ namespace Proyecto
             lbl_errorTelefono.Visibility = Visibility.Collapsed;
             lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
             lbl_errorEmail.Visibility = Visibility.Collapsed;
+            lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
             lbl_errorDesc.Visibility = Visibility.Collapsed;
             lbl_actividad.Visibility = Visibility.Collapsed;
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
         }
 
+        private void btn_listar_listar_Click(object sender, RoutedEventArgs e)
+        {
+            if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
+            {
+                DateTime v_FechaInicio = DateTime.Parse(date_inicio.SelectedDate.Value.Date.ToShortDateString());
+                DateTime v_FechaFinal = DateTime.Parse(date_final.SelectedDate.Value.Date.ToShortDateString());
+                String v_Fecha1;
+                v_Fecha1 = date_inicio.SelectedDate.Value.Date.ToShortDateString();
+                String v_Fecha2;
+                v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
+
+                if (v_FechaInicio > v_FechaFinal)
+                {
+                    MessageBox.Show("El rango de fechas es incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    dtg_lista.ItemsSource = model.mostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView;
+                    dtg_lista.Columns[0].Header = "Código";
+                    dtg_lista.Columns[1].Header = "Fecha";
+                    dtg_lista.Columns[2].Header = "Cédula Jurídica";
+                    dtg_lista.Columns[3].Header = "Nombre";
+                    dtg_lista.Columns[4].Header = "Correo";    
+                    dtg_lista.Columns[5].Header = "Descripción";
+                    dtg_lista.Columns[6].Header = "Teléfono";
+                    dtg_lista.Columns[7].Header = "Tel. Opcional";
+                    dtg_lista.Columns[8].Header = "Correo Opcional";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un rango de fechas","Error",MessageBoxButton.OK,MessageBoxImage.Error );
+            }
+            
+        }
+
+        private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
+        {
+            dtg_proveedores.ItemsSource = model.validar_busqueda_proveedores(txb_busqueda.Text);
+            dtg_proveedores.Columns[0].Header = "Código";
+            dtg_proveedores.Columns[1].Header = "Cédula jurídica";
+            dtg_proveedores.Columns[2].Header = "Nombre";
+            dtg_proveedores.Columns[6].Header = "Teléfono";
+            dtg_proveedores.Columns[7].Header = "Tel. opcional";
+            dtg_proveedores.Columns[3].Header = "Correo";
+            dtg_proveedores.Columns[4].Header = "Correo opcional";
+            dtg_proveedores.Columns[5].Header = "Descripción";
+            dtg_proveedores.Columns[8].Header = "Fecha";
+
+            if (txb_busqueda.Text == "")
+            {
+                txb_nombre.Text = "";
+                deshabilitar_componentes();
+                btn_limpiar_Click(sender,e);
+                btn_agregar.Visibility = Visibility.Collapsed;
+                btn_modificar.Visibility = Visibility.Collapsed;
+                lbl_actividad.Visibility = Visibility.Collapsed;
+
+            }
+            else// el usuario no existe
+            {
+                if (dtg_proveedores.Items.Count == 0)
+                {
+                    habilitar_componentes();
+                    btn_agregar.Visibility = Visibility.Visible;
+                    btn_modificar.Visibility = Visibility.Collapsed;
+                    lbl_actividad.Content = "Agregar proveedor";
+                    lbl_actividad.Visibility = Visibility.Visible;
+
+                    if (Regex.IsMatch(this.txb_busqueda.Text, @"[\p{L}\s]"))
+                    {
+                        txb_nombre.Text = txb_busqueda.Text;    
+                    }
+                    else
+                    {    
+                        txb_cedJur.Text = txb_busqueda.Text;
+                        txb_busqueda.MaxLength = 12;
+                    }
+                }
+                else
+                {
+                    btn_agregar.Visibility = Visibility.Collapsed;
+                    btn_modificar.Visibility = Visibility.Collapsed;
+                    lbl_actividad.Content = "Proveedores existentes";
+                    lbl_actividad.Visibility = Visibility.Visible;
+                    deshabilitar_componentes();
+                }
+            }
+        }
+
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+
+            clt.v_idProveedor = Convert.ToInt64((dtg_proveedores.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+
+            txb_cedJur.Text = (dtg_proveedores.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+            txb_nombre.Text = (dtg_proveedores.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefono.Text = (dtg_proveedores.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefonoOpcional.Text = (dtg_proveedores.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
+            txb_email.Text = (dtg_proveedores.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            txb_emailOpcional.Text = (dtg_proveedores.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
+            txb_descripcion.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+            btn_modificar.Visibility = Visibility.Visible;
+            lbl_actividad.Content = "Modificar proveedor";
+            lbl_actividad.Visibility = Visibility.Visible;
+            habilitar_componentes();
+        }
+
+        public void deshabilitar_componentes()
+        {
+            txb_cedJur.IsEnabled = false;
+            txb_nombre.IsEnabled = false;
+            txb_telefono.IsEnabled = false;
+            txb_telefonoOpcional.IsEnabled = false;
+            txb_email.IsEnabled = false;
+            txb_emailOpcional.IsEnabled = false;
+            txb_descripcion.IsEnabled = false;
+        }
+
+        public void habilitar_componentes()
+        {
+            txb_cedJur.IsEnabled = true;
+            txb_nombre.IsEnabled = true;
+            txb_telefono.IsEnabled = true;
+            txb_telefonoOpcional.IsEnabled = true;
+            txb_email.IsEnabled = true;
+            txb_emailOpcional.IsEnabled = true;
+            txb_descripcion.IsEnabled = true;
+        }
+
         private void telefono_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            { 
+            {
                 e.Handled = false;
                 lbl_errorTelefono.Visibility = Visibility.Collapsed;
             }
@@ -159,7 +305,7 @@ namespace Proyecto
                 e.Handled = true;
                 lbl_errorTelefono.Content = "No se permite ingresar letras";
                 lbl_errorTelefono.Visibility = Visibility.Visible;
-            }  
+            }
         }
 
         private void telefonoOpcional_KeyDown(object sender, KeyEventArgs e)
@@ -234,130 +380,27 @@ namespace Proyecto
             }
         }
 
-        private void btn_listar_listar_Click(object sender, RoutedEventArgs e)
+        private void validar_emailOpcional(object sender, EventArgs e)
         {
-            if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
-            {
-                DateTime v_FechaInicio = DateTime.Parse(date_inicio.SelectedDate.Value.Date.ToShortDateString());
-                DateTime v_FechaFinal = DateTime.Parse(date_final.SelectedDate.Value.Date.ToShortDateString());
-                String v_Fecha1;
-                v_Fecha1 = date_inicio.SelectedDate.Value.Date.ToShortDateString();
-                String v_Fecha2;
-                v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
+            Console.WriteLine("Correo: " + txb_emailOpcional.Text);
+            Console.WriteLine(email_bien(txb_emailOpcional.Text));
 
-                if (v_FechaInicio > v_FechaFinal)
-                {
-                    MessageBox.Show("El rango de fechas es incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    dtg_lista.ItemsSource = model.mostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView;
-                    dtg_lista.Columns[0].Header = "Código";
-                    dtg_lista.Columns[1].Header = "Fecha";
-                    dtg_lista.Columns[2].Header = "Cédula Jurídica";
-                    dtg_lista.Columns[3].Header = "Nombre";
-                    dtg_lista.Columns[4].Header = "Correo";
-                    dtg_lista.Columns[5].Header = "Descripción";
-                    dtg_lista.Columns[6].Header = "Teléfono";
-                    dtg_lista.Columns[7].Header = "Tel. Opcional";
-                }
+            if (txb_emailOpcional.Text == "")
+            {
+                lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
             }
             else
             {
-                MessageBox.Show("Seleccione un rango de fechas","Error",MessageBoxButton.OK,MessageBoxImage.Error );
-            }
-            
-        }
-
-        private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
-        {
-            dtg_proveedores.ItemsSource = model.validar_busqueda_proveedores(txb_busqueda.Text);
-            dtg_proveedores.Columns[0].Header = "Código";
-            dtg_proveedores.Columns[1].Header = "Cédula jurídica";
-            dtg_proveedores.Columns[2].Header = "Nombre";
-            dtg_proveedores.Columns[5].Header = "Teléfono";
-            dtg_proveedores.Columns[6].Header = "Tel. opcional";
-            dtg_proveedores.Columns[3].Header = "Correo";
-            dtg_proveedores.Columns[4].Header = "Descripción";
-            dtg_proveedores.Columns[7].Header = "Fecha";
-
-            if (txb_busqueda.Text == "")
-            {
-                txb_nombre.Text = "";
-                deshabilitar_componentes();
-                btn_limpiar_Click(sender,e);
-                btn_agregar.Visibility = Visibility.Collapsed;
-                btn_modificar.Visibility = Visibility.Collapsed;
-                lbl_actividad.Visibility = Visibility.Collapsed;
-
-            }
-            else// el usuario no existe
-            {
-                if (dtg_proveedores.Items.Count == 0)
+                if (txb_emailOpcional.Text == "N/A")
                 {
-                    habilitar_componentes();
-                    btn_agregar.Visibility = Visibility.Visible;
-                    btn_modificar.Visibility = Visibility.Collapsed;
-                    lbl_actividad.Content = "Agregar proveedor";
-                    lbl_actividad.Visibility = Visibility.Visible;
-
-                    if (Regex.IsMatch(this.txb_busqueda.Text, @"[\p{L}\s]"))
-                    {
-                        txb_nombre.Text = txb_busqueda.Text;    
-                    }
-                    else
-                    {    
-                        txb_cedJur.Text = txb_busqueda.Text;
-                        txb_busqueda.MaxLength = 12;
-                    }
+                    lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
                 }
-                else
+                else if (email_bien(txb_emailOpcional.Text) == false)
                 {
-                    btn_agregar.Visibility = Visibility.Collapsed;
-                    btn_modificar.Visibility = Visibility.Collapsed;
-                    lbl_actividad.Content = "Proveedores existentes";
-                    lbl_actividad.Visibility = Visibility.Visible;
-                    deshabilitar_componentes();
+                    lbl_errorEmailOpcional.Content = "Error de formato (usuario@dominio.extension)";
+                    lbl_errorEmailOpcional.Visibility = Visibility.Visible;
                 }
             }
-        }
-
-        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            DataGridRow row = sender as DataGridRow;
-
-            clt.v_idProveedor = Convert.ToInt64((dtg_proveedores.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
-
-            txb_cedJur.Text = (dtg_proveedores.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
-            txb_nombre.Text = (dtg_proveedores.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
-            txb_telefono.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
-            txb_telefonoOpcional.Text = (dtg_proveedores.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
-            txb_email.Text = (dtg_proveedores.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
-            txb_descripcion.Text = (dtg_proveedores.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
-            btn_modificar.Visibility = Visibility.Visible;
-            lbl_actividad.Content = "Modificar proveedor";
-            lbl_actividad.Visibility = Visibility.Visible;
-            habilitar_componentes();
-        }
-
-        public void deshabilitar_componentes()
-        {
-            txb_cedJur.IsEnabled = false;
-            txb_nombre.IsEnabled = false;
-            txb_telefono.IsEnabled = false;
-            txb_telefonoOpcional.IsEnabled = false;
-            txb_email.IsEnabled = false;
-            txb_descripcion.IsEnabled = false;
-        }
-
-        public void habilitar_componentes()
-        {
-            txb_cedJur.IsEnabled = true;
-            txb_nombre.IsEnabled = true;
-            txb_telefono.IsEnabled = true;
-            txb_telefonoOpcional.IsEnabled = true;
-            txb_email.IsEnabled = true;
-            txb_descripcion.IsEnabled = true;
         }
 
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
@@ -366,32 +409,17 @@ namespace Proyecto
             {
                 lbl_errorBusqueda.Content = "Espacio vacío";
                 lbl_errorBusqueda.Visibility = Visibility.Visible;
-                txb_cedJur.IsEnabled = false;
-                txb_nombre.IsEnabled = false;
-                txb_telefono.IsEnabled = false;
-                txb_telefonoOpcional.IsEnabled = false;
-                txb_email.IsEnabled = false;
-                txb_descripcion.IsEnabled = false;
+                deshabilitar_componentes();
             }
             else if (txb_busqueda.Text.Contains("  "))
             {
                 lbl_errorBusqueda.Content = "Parámetros incorrectos (espacios seguidos).";
                 lbl_errorBusqueda.Visibility = Visibility.Visible;
-                txb_cedJur.IsEnabled = false;
-                txb_nombre.IsEnabled = false;
-                txb_telefono.IsEnabled = false;
-                txb_telefonoOpcional.IsEnabled = false;
-                txb_email.IsEnabled = false;
-                txb_descripcion.IsEnabled = false;
+                deshabilitar_componentes();
             }
             else
             {
-                txb_cedJur.IsEnabled = true;
-                txb_nombre.IsEnabled = true;
-                txb_telefono.IsEnabled = true;
-                txb_telefonoOpcional.IsEnabled = true;
-                txb_email.IsEnabled = true;
-                txb_descripcion.IsEnabled = true;
+                habilitar_componentes();
                 lbl_errorBusqueda.Visibility = Visibility.Collapsed;
             }
         }
@@ -483,7 +511,7 @@ namespace Proyecto
             }
             else if (v_Telefono.Length < 8)
             {
-                lbl_errorTelefono.Content = "Los números telefónicos deben tener al menos 8 dígitos";
+                lbl_errorTelefono.Content = "Deben tener al menos 8 dígitos";
                 lbl_errorTelefono.Visibility = Visibility.Visible;
             }
             else
@@ -518,7 +546,7 @@ namespace Proyecto
                 }
                 else if (v_TelefonoOpcional.Length < 8)
                 {
-                    lbl_errorTelefonoOpcional.Content = "Los números telefónicos deben tener al menos 8 dígitos";
+                    lbl_errorTelefonoOpcional.Content = "Deben tener al menos 8 dígitos";
                     lbl_errorTelefonoOpcional.Visibility = Visibility.Visible;
                 }
             }
@@ -537,9 +565,33 @@ namespace Proyecto
                 lbl_errorEmail.Content = "No se permiten espacios";
                 lbl_errorEmail.Visibility = Visibility.Visible;
             }
+            else if (txb_email.Text.Contains("  "))
+            {
+                lbl_errorEmail.Content = "Parámetros incorrectos (espacios seguidos).";
+                lbl_errorEmail.Visibility = Visibility.Visible;
+            }
             else
             {
                 lbl_errorEmail.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void textbox_emailOpcional_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txb_emailOpcional.Text == " ")
+            {
+                txb_emailOpcional.Text = "";
+                lbl_errorEmailOpcional.Content = "No se permiten espacios";
+                lbl_errorEmailOpcional.Visibility = Visibility.Visible;
+            }
+            else if (txb_emailOpcional.Text.Contains("  "))
+            {
+                lbl_errorEmailOpcional.Content = "Parámetros incorrectos (espacios seguidos).";
+                lbl_errorEmailOpcional.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -572,7 +624,7 @@ namespace Proyecto
             try
             {
                 validar_cedJur(sender, e);
-                if (txb_cedJur.Text == "" || txb_email.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_busqueda.Text == "" || lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorEmail.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
+                if (txb_cedJur.Text == "" || txb_email.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_busqueda.Text == "" || lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorEmail.Visibility == Visibility.Visible || lbl_errorEmailOpcional.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar o errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -592,6 +644,16 @@ namespace Proyecto
                     }
 
                     clt.v_correo = txb_email.Text;
+
+                    if (txb_emailOpcional.Text == "")
+                    {
+                        clt.v_correoOpcional = "N/A";
+                    }
+                    else
+                    {
+                        clt.v_correoOpcional = txb_emailOpcional.Text;
+                    }
+
                     clt.v_descripcion = txb_descripcion.Text;
 
                     int v_Resultado = model.AgregarProveedores(clt);
