@@ -699,5 +699,18 @@ namespace Proyecto
                           , "Ayuda");
         }
 
+        private void btn_usuario_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Desea cerrar sesión?",
+                                          "Cerrar Sesión",
+                                          MessageBoxButton.YesNo,
+                                          MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Login ventana = new Login();
+                this.Close();
+                ventana.Show();
+            }
+        }
     }
 }
