@@ -233,7 +233,8 @@ namespace Proyecto
 
                     if (Regex.IsMatch(this.txb_busqueda.Text, @"[\p{L}\s]"))
                     {
-                        txb_nombre.Text = txb_busqueda.Text;    
+                        txb_nombre.Text = txb_busqueda.Text;
+                        txb_cedJur.Text = "";
                     }
                     else
                     {    
@@ -699,5 +700,18 @@ namespace Proyecto
                           , "Ayuda");
         }
 
+        private void btn_usuario_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Desea cerrar sesión?",
+                                          "Cerrar Sesión",
+                                          MessageBoxButton.YesNo,
+                                          MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Login ventana = new Login();
+                this.Close();
+                ventana.Show();
+            }
+        }
     }
 }
