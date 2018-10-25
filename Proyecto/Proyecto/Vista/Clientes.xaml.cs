@@ -47,9 +47,9 @@ namespace Proyecto
         //funcion para mostar mensajes de ayuda para el usuario.
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Sección Mantenimiento de Clientes:\n\n" + "Listar:\n 1 - Si desea listar clientes primero debe seleccionar el rango de fecha en el cual los quiere listar. \n"+
-                            "2 - Después se le da “click” en el botón de listar, este desplegara los datos de los clientes. \n"+
-                            "3 - También se puede ordenar alfabéticamente o en orden descendente, dando “click” en la columna que se desea. \n"+
+            MessageBox.Show("Sección Mantenimiento de Clientes:\n\n" + "Listar:\n 1 - Si desea listar clientes primero debe seleccionar el rango de fecha en el cual los quiere listar. \n" +
+                            "2 - Después se le da “click” en el botón de listar, este desplegara los datos de los clientes. \n" +
+                            "3 - También se puede ordenar alfabéticamente o en orden descendente, dando “click” en la columna que se desea. \n" +
                              "Actualizar Clientes\n" +
                              "1 - Si desea actualiar un cliente primero debe buscarlo por nombre del mismo.\n" +
                              "2 - Una ves que lo encontró lo puede seleccionar,editar y guardar los cambios.\n\n" +
@@ -92,6 +92,8 @@ namespace Proyecto
             txt_error_TelO.Visibility = Visibility.Hidden;
             txt_error_correo.Visibility = Visibility.Hidden;
             txt_error_correo_o.Visibility = Visibility.Hidden;
+            btn_agregar_Cliente.Visibility = Visibility.Hidden;
+            btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
             dtg_clientes.ItemsSource = null;
         }
         private void btn_Regresar_Click_1(object sender, RoutedEventArgs e)
@@ -126,17 +128,17 @@ namespace Proyecto
         {
             try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
             {
-                string inactivo;
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible )
+                string v_Inactivo;
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
                     if (rb_activo.IsChecked == true)
-                        inactivo = "Activo";
+                        v_Inactivo = "Activo";
                     else
-                        inactivo = "Inactivo";
+                        v_Inactivo = "Inactivo";
 
                     //Extraemos los datos de la pantlla de actualizar clientes y los ingresamos al objeto de clientes.
                     clt.v_NombreCompleto = txb_nombre.Text;
@@ -149,7 +151,7 @@ namespace Proyecto
                     else
                         clt.v_CorreoOpc = txb_correo_o.Text;
 
-                    clt.v_Inactividad = inactivo;
+                    clt.v_Inactividad = v_Inactivo;
 
                     if (txb_correo_o.Text == "")
                         clt.v_Observaciones = "N/A";
@@ -227,19 +229,19 @@ namespace Proyecto
         {
             if (date_historial_clientes_inicio.SelectedDate != null && date_historial_clientes_final.SelectedDate != null)
             {
-                DateTime date1 = DateTime.Parse(date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString());
-                DateTime date2 = DateTime.Parse(date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString());
-                String fecha1;
-                fecha1 = date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString();
-                String fecha2;
-                fecha2 = date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString();
-                if (date1 > date2)
+                DateTime v_Date1 = DateTime.Parse(date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString());
+                DateTime v_Date2 = DateTime.Parse(date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString());
+                String v_Fecha1;
+                v_Fecha1 = date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString();
+                String v_Fecha2;
+                v_Fecha2 = date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString();
+                if (v_Date1 > v_Date2)
                 {
                     MessageBox.Show("El rango de fechas es incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(fecha1, fecha2).DefaultView;
+                    dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(v_Fecha1, v_Fecha2).DefaultView;
                     dtg_listar_clientes.Columns[0].Header = "Código";
                     dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
                     dtg_listar_clientes.Columns[2].Header = "Nombre Completo";
@@ -270,11 +272,11 @@ namespace Proyecto
 
         private Boolean email_correcto(String email)
         {
-            String expresion;
-            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
-            if (Regex.IsMatch(email, expresion))
+            String v_Expresion;
+            v_Expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, v_Expresion))
             {
-                if (Regex.Replace(email, expresion, String.Empty).Length == 0)
+                if (Regex.Replace(email, v_Expresion, String.Empty).Length == 0)
                 {
                     return true;
                 }
@@ -318,7 +320,7 @@ namespace Proyecto
 
         private void txb_cliente_modificar_KeyUp(object sender, KeyEventArgs e)
         {
-            string texto;
+            string v_Texto;
             dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
             dtg_clientes.Columns[0].Header = "Código";
             dtg_clientes.Columns[1].Header = "Nombre";
@@ -338,8 +340,8 @@ namespace Proyecto
             {
                 if (dtg_clientes.Items.Count == 0)
                 {
-                    texto = txb_buscar_cliente.Text;
-                    Agregar(texto);
+                    v_Texto = txb_buscar_cliente.Text;
+                    Agregar(v_Texto);
                     btn_agregar_Cliente.Visibility = Visibility.Visible;
                     btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
                 }
@@ -353,10 +355,10 @@ namespace Proyecto
 
         }
 
-        private void Agregar(string texto)
+        private void Agregar(string v_Texto)
         {
             Modificar_Si_Editable();
-            txb_nombre.Text = texto;
+            txb_nombre.Text = v_Texto;
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -371,7 +373,7 @@ namespace Proyecto
             txb_TelMov.Text = (dtg_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
 
             String vInact = (dtg_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
-            if (vInact == "Inactivo")
+            if (vInact == "v_Inactivo")
             {
                 rb_inactivo.IsChecked = true;
             }
@@ -473,19 +475,19 @@ namespace Proyecto
 
         private void btn_agregar_Cliente_Click(object sender, RoutedEventArgs e)
         {
-            string inactivo;
+            string v_Inactivo;
             try
             {
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible )
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
                     if (rb_activo.IsChecked == true)
-                        inactivo = "Activo";
+                        v_Inactivo = "Activo";
                     else
-                        inactivo = "Inactivo";
+                        v_Inactivo = "Inactivo";
                     clt.v_NombreCompleto = txb_nombre.Text;
                     clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
                     clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
@@ -497,7 +499,7 @@ namespace Proyecto
                     else
                         clt.v_CorreoOpc = txb_correo_o.Text;
 
-                    clt.v_Inactividad = inactivo;
+                    clt.v_Inactividad = v_Inactivo;
 
                     if (txb_observaciones.Text == "")
                         clt.v_Observaciones = "N/A";
@@ -509,6 +511,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
+                        Modificar_No_Editable();
                     }
 
                 }
