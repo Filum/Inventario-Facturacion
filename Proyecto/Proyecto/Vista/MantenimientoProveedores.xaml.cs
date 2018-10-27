@@ -85,7 +85,6 @@ namespace Proyecto
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
-            validar_cedJur(sender,e);
             if ((lbl_errorBusqueda.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
                 (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorEmail.Visibility == Visibility.Visible)) ||
                 (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorCedJur.Visibility == Visibility.Visible) ||
@@ -97,31 +96,31 @@ namespace Proyecto
             {
                 try
                 {
-                    clt.v_cedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
-                    clt.v_nombre = txb_nombre.Text;
-                    clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
+                    clt.v_CedulaJuridica = Convert.ToInt64(txb_cedJur.Text);               
+                    clt.v_Nombre = txb_nombre.Text;
+                    clt.v_Telefono = Convert.ToInt64(txb_telefono.Text);
 
                     if (txb_telefonoOpcional.Text == "")
                     {
-                        clt.v_telefonoOpcional = 0;
+                        clt.v_TelefonoOpcional = 0;
                     }
                     else
                     {
-                        clt.v_telefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
+                        clt.v_TelefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
                     }
 
-                    clt.v_correo = txb_email.Text;
+                    clt.v_Correo = txb_email.Text;
 
                     if (txb_emailOpcional.Text == "")
                     {
-                        clt.v_correoOpcional = "N/A";
+                        clt.v_CorreoOpcional = "N/A";
                     }
                     else
                     {
-                        clt.v_correoOpcional = txb_emailOpcional.Text;
+                        clt.v_CorreoOpcional = txb_emailOpcional.Text;
                     }
 
-                    clt.v_descripcion = txb_descripcion.Text;
+                    clt.v_Descripcion = txb_descripcion.Text;
                     int v_Resultado = model.ModificarProveedores(clt);
 
                     if (v_Resultado == -1)
@@ -175,15 +174,17 @@ namespace Proyecto
 
                 if (v_FechaInicio > v_FechaFinal)
                 {
-                    MessageBox.Show("El rango de fechas es incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    date_inicio.Text = "";
+                    date_final.Text = "";
                 }
                 else
                 {
                     dtg_lista.ItemsSource = model.mostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView;
                     dtg_lista.Columns[0].Header = "Código";
-                    dtg_lista.Columns[1].Header = "Fecha";
+                    dtg_lista.Columns[1].Header = "Fecha de Ingreso";
                     dtg_lista.Columns[2].Header = "Cédula Jurídica";
-                    dtg_lista.Columns[3].Header = "Nombre";
+                    dtg_lista.Columns[3].Header = "Nombre del Proveedor";
                     dtg_lista.Columns[4].Header = "Correo";    
                     dtg_lista.Columns[5].Header = "Descripción";
                     dtg_lista.Columns[6].Header = "Teléfono";
@@ -202,14 +203,14 @@ namespace Proyecto
         {
             dtg_proveedores.ItemsSource = model.validar_busqueda_proveedores(txb_busqueda.Text);
             dtg_proveedores.Columns[0].Header = "Código";
-            dtg_proveedores.Columns[1].Header = "Cédula jurídica";
-            dtg_proveedores.Columns[2].Header = "Nombre";
+            dtg_proveedores.Columns[1].Header = "Cédula Jurídica";
+            dtg_proveedores.Columns[2].Header = "Nombre del Proveedor";
             dtg_proveedores.Columns[6].Header = "Teléfono";
-            dtg_proveedores.Columns[7].Header = "Tel. opcional";
+            dtg_proveedores.Columns[7].Header = "Tel. Opcional";
             dtg_proveedores.Columns[3].Header = "Correo";
-            dtg_proveedores.Columns[4].Header = "Correo opcional";
+            dtg_proveedores.Columns[4].Header = "Correo Opcional";
             dtg_proveedores.Columns[5].Header = "Descripción";
-            dtg_proveedores.Columns[8].Header = "Fecha";
+            dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
 
             if (txb_busqueda.Text == "")
             {
@@ -235,11 +236,13 @@ namespace Proyecto
                     {
                         txb_nombre.Text = txb_busqueda.Text;
                         txb_cedJur.Text = "";
+                        txb_busqueda.MaxLength = 35;
                     }
                     else
                     {    
                         txb_cedJur.Text = txb_busqueda.Text;
                         txb_busqueda.MaxLength = 12;
+                        validar_cedJur(sender, e);
                     }
                 }
                 else
@@ -257,7 +260,7 @@ namespace Proyecto
         {
             DataGridRow row = sender as DataGridRow;
 
-            clt.v_idProveedor = Convert.ToInt64((dtg_proveedores.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+            clt.v_IdProveedor = Convert.ToInt64((dtg_proveedores.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
 
             txb_cedJur.Text = (dtg_proveedores.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
             txb_nombre.Text = (dtg_proveedores.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
@@ -624,38 +627,37 @@ namespace Proyecto
         {
             try
             {
-                validar_cedJur(sender, e);
                 if (txb_cedJur.Text == "" || txb_email.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_busqueda.Text == "" || lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorEmail.Visibility == Visibility.Visible || lbl_errorEmailOpcional.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar o errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    clt.v_cedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
-                    clt.v_nombre = txb_nombre.Text;
-                    clt.v_telefono = Convert.ToInt64(txb_telefono.Text);
+                    clt.v_CedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
+                    clt.v_Nombre = txb_nombre.Text;
+                    clt.v_Telefono = Convert.ToInt64(txb_telefono.Text);
 
                     if (txb_telefonoOpcional.Text == "")
                     {
-                        clt.v_telefonoOpcional = 0;
+                        clt.v_TelefonoOpcional = 0;
                     }
                     else
                     {
-                        clt.v_telefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
+                        clt.v_TelefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
                     }
 
-                    clt.v_correo = txb_email.Text;
+                    clt.v_Correo = txb_email.Text;
 
                     if (txb_emailOpcional.Text == "")
                     {
-                        clt.v_correoOpcional = "N/A";
+                        clt.v_CorreoOpcional = "N/A";
                     }
                     else
                     {
-                        clt.v_correoOpcional = txb_emailOpcional.Text;
+                        clt.v_CorreoOpcional = txb_emailOpcional.Text;
                     }
 
-                    clt.v_descripcion = txb_descripcion.Text;
+                    clt.v_Descripcion = txb_descripcion.Text;
 
                     int v_Resultado = model.AgregarProveedores(clt);
                     if (v_Resultado == -1)
@@ -713,5 +715,6 @@ namespace Proyecto
                 ventana.Show();
             }
         }
+
     }
 }

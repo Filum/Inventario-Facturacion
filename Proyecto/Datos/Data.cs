@@ -37,13 +37,13 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand("ADD_PROVEEDORES", conn as OracleConnection);
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add(new OracleParameter("CEDJUR", clt.v_cedulaJuridica));
-            comando.Parameters.Add(new OracleParameter("NOMB", clt.v_nombre));
-            comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_correo));
-            comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripcion));
-            comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
-            comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_telefonoOpcional));
-            comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_correoOpcional));
+            comando.Parameters.Add(new OracleParameter("CEDJUR", clt.v_CedulaJuridica));
+            comando.Parameters.Add(new OracleParameter("NOMB", clt.v_Nombre));
+            comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_Correo));
+            comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_Descripcion));
+            comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_Telefono));
+            comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_TelefonoOpcional));
+            comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_CorreoOpcional));
 
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
@@ -75,14 +75,14 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand("act_Proveedores", conn as OracleConnection);
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add(new OracleParameter("IDPROVEEDOR", clt.v_idProveedor));
-            comando.Parameters.Add(new OracleParameter("CEDJUR", clt.v_cedulaJuridica));
-            comando.Parameters.Add(new OracleParameter("NOMB", clt.v_nombre));
-            comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_correo));
-            comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_descripcion));
-            comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_telefono));
-            comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_telefonoOpcional));
-            comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_correoOpcional));
+            comando.Parameters.Add(new OracleParameter("IDPROVEEDOR", clt.v_IdProveedor));
+            comando.Parameters.Add(new OracleParameter("CEDJUR", clt.v_CedulaJuridica));
+            comando.Parameters.Add(new OracleParameter("NOMB", clt.v_Nombre));
+            comando.Parameters.Add(new OracleParameter("EMAIL", clt.v_Correo));
+            comando.Parameters.Add(new OracleParameter("DESCRI", clt.v_Descripcion));
+            comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_Telefono));
+            comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_TelefonoOpcional));
+            comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_CorreoOpcional));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -167,15 +167,15 @@ namespace Datos
                 while (dr.Read())
                 {
                     EntidadProveedores proveedor = new EntidadProveedores();
-                    proveedor.v_idProveedor = dr.GetInt64(0);
-                    proveedor.v_cedulaJuridica = Convert.ToInt64(dr.GetValue(2));
-                    proveedor.v_nombre = dr.GetString(3);
-                    proveedor.v_telefono = Convert.ToInt64(dr.GetValue(6));
-                    proveedor.v_telefonoOpcional = Convert.ToInt64(dr.GetValue(7));
-                    proveedor.v_correo = dr.GetString(4);
-                    proveedor.v_correoOpcional = dr.GetString(8);
-                    proveedor.v_descripcion = dr.GetString(5);
-                    proveedor.v_fecha = Convert.ToDateTime(dr.GetValue(1));
+                    proveedor.v_IdProveedor = dr.GetInt64(0);
+                    proveedor.v_CedulaJuridica = Convert.ToInt64(dr.GetValue(2));
+                    proveedor.v_Nombre = dr.GetString(3);
+                    proveedor.v_Telefono = Convert.ToInt64(dr.GetValue(6));
+                    proveedor.v_TelefonoOpcional = Convert.ToInt64(dr.GetValue(7));
+                    proveedor.v_Correo = dr.GetString(4);
+                    proveedor.v_CorreoOpcional = dr.GetString(8);
+                    proveedor.v_Descripcion = dr.GetString(5);
+                    proveedor.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
                     Lista.Add(proveedor);
                 }
             }

@@ -14,28 +14,28 @@ namespace Entidades
 
         }
 
-        public Int64 v_idProveedor { set; get; }
-        public Int64 v_cedulaJuridica { set; get; }
-        public string v_nombre { set; get; }
-        public string v_correo { set; get; }
-        public string v_correoOpcional { set; get; }
-        public string v_descripcion { set; get; }
-        public Int64 v_telefono { set; get; }
-        public Int64 v_telefonoOpcional { set; get; }
-        public DateTime v_fecha { set; get; }
+        public Int64 v_IdProveedor { set; get; }
+        public Int64 v_CedulaJuridica { set; get; }
+        public string v_Nombre { set; get; }
+        public string v_Correo { set; get; }
+        public string v_CorreoOpcional { set; get; }
+        public string v_Descripcion { set; get; }
+        public Int64 v_Telefono { set; get; }
+        public Int64 v_TelefonoOpcional { set; get; }
+        public DateTime v_Fecha { set; get; }
 
 
-        public EntidadProveedores(Int64 v_idProveedor, Int64 v_cedulaJuridica, string v_nombre, string v_correo, string v_correoOpcional, string v_descripcion, Int64 v_telefono, Int64 v_telefonoOpcional, DateTime v_fecha)
+        public EntidadProveedores(Int64 v_IdProveedor, Int64 v_CedulaJuridica, string v_Nombre, string v_Correo, string v_CorreoOpcional, string v_Descripcion, Int64 v_Telefono, Int64 v_TelefonoOpcional, DateTime v_Fecha)
         {
-            this.v_idProveedor = v_idProveedor;
-            this.v_cedulaJuridica = v_cedulaJuridica;
-            this.v_nombre = v_nombre;
-            this.v_correo = v_correo;
-            this.v_correoOpcional = v_correoOpcional;
-            this.v_descripcion = v_descripcion;
-            this.v_telefono = v_telefono;
-            this.v_telefonoOpcional = v_telefonoOpcional;
-            this.v_fecha = v_fecha;
+            this.v_IdProveedor = v_IdProveedor;
+            this.v_CedulaJuridica = v_CedulaJuridica;
+            this.v_Nombre = v_Nombre;
+            this.v_Correo = v_Correo;
+            this.v_CorreoOpcional = v_CorreoOpcional;
+            this.v_Descripcion = v_Descripcion;
+            this.v_Telefono = v_Telefono;
+            this.v_TelefonoOpcional = v_TelefonoOpcional;
+            this.v_Fecha = v_Fecha;
         }
 
     }
