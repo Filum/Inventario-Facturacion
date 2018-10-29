@@ -34,6 +34,9 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+
+            date_inicio.SelectedDate = DateTime.Now.Date;
+            date_final.SelectedDate = DateTime.Now.Date;
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -90,7 +93,7 @@ namespace Proyecto
                 (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorCedJur.Visibility == Visibility.Visible) ||
                 (lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorEmailOpcional.Visibility == Visibility.Visible))
             {
-                MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -171,6 +174,7 @@ namespace Proyecto
                 v_Fecha1 = date_inicio.SelectedDate.Value.Date.ToShortDateString();
                 String v_Fecha2;
                 v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
+                dtg_lista.ItemsSource = null;
 
                 if (v_FechaInicio > v_FechaFinal)
                 {
@@ -180,23 +184,25 @@ namespace Proyecto
                 }
                 else
                 {
-                    dtg_lista.ItemsSource = model.mostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView;
-                    dtg_lista.Columns[0].Header = "Código";
-                    dtg_lista.Columns[1].Header = "Fecha de Ingreso";
-                    dtg_lista.Columns[2].Header = "Cédula Jurídica";
-                    dtg_lista.Columns[3].Header = "Nombre del Proveedor";
-                    dtg_lista.Columns[4].Header = "Correo";    
-                    dtg_lista.Columns[5].Header = "Descripción";
-                    dtg_lista.Columns[6].Header = "Teléfono";
-                    dtg_lista.Columns[7].Header = "Tel. Opcional";
-                    dtg_lista.Columns[8].Header = "Correo Opcional";
+                    if(model.mostrarListaProveedores(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    {
+                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        dtg_lista.ItemsSource = model.mostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView;
+                        dtg_lista.Columns[0].Header = "Código";
+                        dtg_lista.Columns[1].Header = "Fecha de Ingreso";
+                        dtg_lista.Columns[2].Header = "Cédula Jurídica";
+                        dtg_lista.Columns[3].Header = "Nombre del Proveedor";
+                        dtg_lista.Columns[4].Header = "Correo";    
+                        dtg_lista.Columns[5].Header = "Descripción";
+                        dtg_lista.Columns[6].Header = "Teléfono";
+                        dtg_lista.Columns[7].Header = "Tel. Opcional";
+                        dtg_lista.Columns[8].Header = "Correo Opcional";
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Seleccione un rango de fechas","Error",MessageBoxButton.OK,MessageBoxImage.Error );
-            }
-            
+            }            
         }
         
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
@@ -237,10 +243,12 @@ namespace Proyecto
                         txb_nombre.Text = txb_busqueda.Text;
                         txb_cedJur.Text = "";
                         txb_busqueda.MaxLength = 35;
+                        lbl_errorCedJur.Visibility = Visibility.Collapsed;
                     }
                     else
                     {    
                         txb_cedJur.Text = txb_busqueda.Text;
+                        txb_nombre.Text = "";
                         txb_busqueda.MaxLength = 12;
                         validar_cedJur(sender, e);
                     }

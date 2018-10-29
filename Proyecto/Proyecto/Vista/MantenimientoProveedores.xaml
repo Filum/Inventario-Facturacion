@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Mantenimiento de Proveedores" Height="600" Width="1000" WindowState="Maximized" WindowStyle="None" MinWidth="1000" MinHeight="600" ResizeMode="CanResizeWithGrip">
     <Grid>
@@ -84,7 +85,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Grid.Background>
 
                     <Label x:Name="lbl_fechas" Content="Seleccione un rango de fecha del:" Margin="0,30,470.2,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <DatePicker x:Name="date_inicio" Margin="0,31,314.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" FontFamily="Global Sans Serif" VerticalContentAlignment="Center">
+                    <DatePicker x:Name="date_inicio" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,31,314.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" FontFamily="Global Sans Serif" VerticalContentAlignment="Center">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -92,7 +93,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </DatePicker.Resources>
                     </DatePicker>
                     <Label x:Name="lbl_fechas2" Content="al:" HorizontalAlignment="Right" Margin="0,32,280.2,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
-                    <DatePicker x:Name="date_final" Margin="0,30,135.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" VerticalContentAlignment="Center" FontFamily="Global Sans Serif">
+                    <DatePicker x:Name="date_final" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,30,135.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" VerticalContentAlignment="Center" FontFamily="Global Sans Serif">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -106,7 +107,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <TextBlock Text="Listar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="17,0,0,0" Width="36" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_lista" Margin="30,90,30,30" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" >
+                    <DataGrid x:Name="dtg_lista" Margin="30,90,30,30" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />
@@ -114,6 +115,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                                 <Setter Property="Padding" Value="5"/>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
+                      
                     </DataGrid>
                 </Grid>
             </TabItem>
