@@ -112,7 +112,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select * from tbl_Proveedores where trunc(fecha) BETWEEN '" +v_Fecha1+ "' AND '" + v_Fecha2 + "'";
+            comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1+ "' AND '" + v_Fecha2 + "'";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;

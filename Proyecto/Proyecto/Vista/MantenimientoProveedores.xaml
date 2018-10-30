@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Proyecto"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Mantenimiento de Proveedores" Height="600" Width="1000" WindowState="Maximized" WindowStyle="None" MinWidth="1000" MinHeight="600" ResizeMode="CanResizeWithGrip">
+        Title="Mantenimiento de Proveedores" Height="600" Width="1000" WindowState="Maximized" WindowStyle="None" MinWidth="1000" MinHeight="650" ResizeMode="CanResizeWithGrip">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -85,7 +85,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Grid.Background>
 
                     <Label x:Name="lbl_fechas" Content="Seleccione un rango de fecha del:" Margin="0,30,470.2,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <DatePicker x:Name="date_inicio" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,31,314.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" FontFamily="Global Sans Serif" VerticalContentAlignment="Center">
+                    <DatePicker x:Name="date_inicio" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,31,314.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" FontFamily="Global Sans Serif" VerticalContentAlignment="Center">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -93,7 +93,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </DatePicker.Resources>
                     </DatePicker>
                     <Label x:Name="lbl_fechas2" Content="al:" HorizontalAlignment="Right" Margin="0,32,280.2,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
-                    <DatePicker x:Name="date_final" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,30,135.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" VerticalContentAlignment="Center" FontFamily="Global Sans Serif">
+                    <DatePicker x:Name="date_final" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,30,135.2,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" VerticalContentAlignment="Center" FontFamily="Global Sans Serif">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -101,7 +101,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </DatePicker.Resources>
                     </DatePicker>
 
-                    <Button x:Name="btn_listar" Height="70" Width="70" Foreground="White" Margin="0,10,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="3" Click="btn_listar_listar_Click">
+                    <Button x:Name="btn_listar" Height="70" Width="70" Foreground="White" Margin="0,20,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_listar_listar_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Listar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="17,0,0,0" Width="36" HorizontalAlignment="Left"/>
@@ -115,7 +115,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                                 <Setter Property="Padding" Value="5"/>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
-                      
+
                     </DataGrid>
                 </Grid>
             </TabItem>
@@ -156,7 +156,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Grid.Background>
                     <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o la cédula jurídica:" HorizontalAlignment="Left" Margin="15,23,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="310"/>
                     <TextBox x:Name="txb_busqueda" MaxLength="35" Height="32" Margin="325,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" HorizontalAlignment="Left" MinWidth="296" KeyUp="txb_busqueda_KeyUp"/>
-                    <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="325,58,325,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Grid.RowSpan="2"/>
+                    <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="325,58,225,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Grid.RowSpan="2"/>
 
                     <DataGrid x:Name="dtg_proveedores" Margin="15,11,29,0" Grid.Row="1"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
                         <DataGrid.Resources>
@@ -185,7 +185,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <Label x:Name="lbl_emailOpcional"     Content="Corr. Opcional:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                         </StackPanel>
 
-                        <StackPanel Margin="43,0,328,-19" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+                        <StackPanel Margin="43,0,328,-53" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
                             <TextBox x:Name="txb_cedJur" IsEnabled="False" MaxLength="12" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="Auto" MinWidth="150" FontFamily="Global Sans Serif" Height="30" KeyDown="cedJur_KeyDown" LostKeyboardFocus="validar_cedJur" VerticalContentAlignment="Center" />
                             <Label x:Name="lbl_errorCedJur" Visibility="Collapsed" Margin="0,-20,34.667,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
@@ -193,12 +193,12 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <Label x:Name="lbl_errorNombre" Visibility="Collapsed" Margin="0,-20,34.667,-20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
                             <TextBox x:Name="txb_email" IsEnabled="False" MaxLength="50" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif" Height="30" LostKeyboardFocus="validar_email" TextChanged="textbox_email_TextChanged" VerticalContentAlignment="Center"/>
-                            <Label x:Name="lbl_errorEmail" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,34.667,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+                            <Label x:Name="lbl_errorEmail" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,0,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
                             <TextBox x:Name="txb_emailOpcional" IsEnabled="False" MaxLength="50" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif" Height="30" LostKeyboardFocus="validar_emailOpcional" TextChanged="textbox_emailOpcional_TextChanged" VerticalContentAlignment="Center"/>
-                            <Label x:Name="lbl_errorEmailOpcional" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,34.667,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+                            <Label x:Name="lbl_errorEmailOpcional" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,0,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
                         </StackPanel>
-                        
+
                         <StackPanel Margin="390,0,155,0" Grid.Column="1">
                             <Label x:Name="lbl_telefono" Content="Teléfono:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_telefonoOpcional" Content="Tel. Opcional:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="30" FontSize="16"/>

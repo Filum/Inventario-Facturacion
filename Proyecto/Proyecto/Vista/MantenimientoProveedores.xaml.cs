@@ -128,7 +128,7 @@ namespace Proyecto
 
                     if (v_Resultado == -1)
                     {
-                        MessageBox.Show("Datos guardados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
                     }
                 }
@@ -138,6 +138,25 @@ namespace Proyecto
                     MessageBox.Show("Error al agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }    
+        }
+
+        private void limpiarTextbox()
+        {
+            txb_cedJur.Text = "";
+            txb_telefono.Text = "";
+            txb_telefonoOpcional.Text = "";
+            txb_nombre.Text = "";
+            txb_email.Text = "";
+            txb_emailOpcional.Text = "";
+            txb_descripcion.Text = "";
+            lbl_errorCedJur.Visibility = Visibility.Collapsed;
+            lbl_errorNombre.Visibility = Visibility.Collapsed;
+            lbl_errorTelefono.Visibility = Visibility.Collapsed;
+            lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
+            lbl_errorEmail.Visibility = Visibility.Collapsed;
+            lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
+            lbl_errorDesc.Visibility = Visibility.Collapsed;
+            lbl_actividad.Visibility = Visibility.Collapsed;
         }
 
         private void btn_limpiar_Click(object sender, RoutedEventArgs e)
@@ -190,16 +209,15 @@ namespace Proyecto
                     }
                     else
                     {
-                        dtg_lista.ItemsSource = model.mostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView;
-                        dtg_lista.Columns[0].Header = "Código";
-                        dtg_lista.Columns[1].Header = "Fecha de Ingreso";
-                        dtg_lista.Columns[2].Header = "Cédula Jurídica";
-                        dtg_lista.Columns[3].Header = "Nombre del Proveedor";
-                        dtg_lista.Columns[4].Header = "Correo";    
-                        dtg_lista.Columns[5].Header = "Descripción";
-                        dtg_lista.Columns[6].Header = "Teléfono";
-                        dtg_lista.Columns[7].Header = "Tel. Opcional";
-                        dtg_lista.Columns[8].Header = "Correo Opcional";
+                        dtg_lista.ItemsSource = model.mostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView; 
+                        dtg_lista.Columns[0].Header = "Cédula Jurídica";
+                        dtg_lista.Columns[1].Header = "Nombre del Proveedor";
+                        dtg_lista.Columns[2].Header = "Correo";
+                        dtg_lista.Columns[3].Header = "Correo Opcional";
+                        dtg_lista.Columns[4].Header = "Teléfono";
+                        dtg_lista.Columns[5].Header = "Tel. Opcional";
+                        dtg_lista.Columns[6].Header = "Descripción";
+                        dtg_lista.Columns[7].Header = "Fecha de Ingreso";
                     }
                 }
             }            
@@ -207,14 +225,15 @@ namespace Proyecto
         
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
+            limpiarTextbox();
             dtg_proveedores.ItemsSource = model.validar_busqueda_proveedores(txb_busqueda.Text);
             dtg_proveedores.Columns[0].Header = "Código";
             dtg_proveedores.Columns[1].Header = "Cédula Jurídica";
             dtg_proveedores.Columns[2].Header = "Nombre del Proveedor";
-            dtg_proveedores.Columns[6].Header = "Teléfono";
-            dtg_proveedores.Columns[7].Header = "Tel. Opcional";
             dtg_proveedores.Columns[3].Header = "Correo";
             dtg_proveedores.Columns[4].Header = "Correo Opcional";
+            dtg_proveedores.Columns[6].Header = "Teléfono";
+            dtg_proveedores.Columns[7].Header = "Tel. Opcional";  
             dtg_proveedores.Columns[5].Header = "Descripción";
             dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
 
@@ -238,19 +257,42 @@ namespace Proyecto
                     lbl_actividad.Content = "Agregar proveedor";
                     lbl_actividad.Visibility = Visibility.Visible;
 
-                    if (Regex.IsMatch(this.txb_busqueda.Text, @"[\p{L}\s]"))
+                    
+                    if (Regex.IsMatch(this.txb_busqueda.Text, "[a-zA-Z]"))
                     {
-                        txb_nombre.Text = txb_busqueda.Text;
-                        txb_cedJur.Text = "";
-                        txb_busqueda.MaxLength = 35;
-                        lbl_errorCedJur.Visibility = Visibility.Collapsed;
+                        if (caracteresEspeciales(txb_busqueda.Text, "letras") == true)
+                        {
+                            lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
+                            lbl_errorBusqueda.Visibility = Visibility.Visible;
+                            txb_nombre.Text = "";
+                            lbl_errorNombre.Visibility = Visibility.Collapsed;
+                            deshabilitar_componentes();
+                        }
+                        else
+                        {
+                            txb_nombre.Text = txb_busqueda.Text;
+                            txb_cedJur.Text = "";
+                            txb_busqueda.MaxLength = 35;
+                            lbl_errorCedJur.Visibility = Visibility.Collapsed;  
+                        }
                     }
                     else
-                    {    
-                        txb_cedJur.Text = txb_busqueda.Text;
-                        txb_nombre.Text = "";
-                        txb_busqueda.MaxLength = 12;
-                        validar_cedJur(sender, e);
+                    {
+                        if (caracteresEspeciales(txb_busqueda.Text, "numeros") == true)
+                        {
+                            lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
+                            lbl_errorBusqueda.Visibility = Visibility.Visible;
+                            txb_cedJur.Text = "";
+                            lbl_errorCedJur.Visibility = Visibility.Collapsed;
+                            deshabilitar_componentes();
+                        }
+                        else
+                        {
+                            txb_cedJur.Text = txb_busqueda.Text;
+                            txb_nombre.Text = "";
+                            txb_busqueda.MaxLength = 12;
+                            validar_cedJur(sender, e);
+                        }
                     }
                 }
                 else
@@ -259,7 +301,7 @@ namespace Proyecto
                     btn_modificar.Visibility = Visibility.Collapsed;
                     lbl_actividad.Content = "Proveedores existentes";
                     lbl_actividad.Visibility = Visibility.Visible;
-                    deshabilitar_componentes();
+                    deshabilitar_componentes();                    
                 }
             }
         }
@@ -272,11 +314,12 @@ namespace Proyecto
 
             txb_cedJur.Text = (dtg_proveedores.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
             txb_nombre.Text = (dtg_proveedores.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
-            txb_telefono.Text = (dtg_proveedores.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
-            txb_telefonoOpcional.Text = (dtg_proveedores.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
             txb_email.Text = (dtg_proveedores.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
             txb_emailOpcional.Text = (dtg_proveedores.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefono.Text = (dtg_proveedores.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefonoOpcional.Text = (dtg_proveedores.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
             txb_descripcion.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+
             btn_modificar.Visibility = Visibility.Visible;
             lbl_actividad.Content = "Modificar proveedor";
             lbl_actividad.Visibility = Visibility.Visible;
@@ -292,6 +335,8 @@ namespace Proyecto
             txb_email.IsEnabled = false;
             txb_emailOpcional.IsEnabled = false;
             txb_descripcion.IsEnabled = false;
+            btn_agregar.Visibility = Visibility.Collapsed;
+            btn_modificar.Visibility = Visibility.Collapsed;
         }
 
         public void habilitar_componentes()
@@ -303,6 +348,29 @@ namespace Proyecto
             txb_email.IsEnabled = true;
             txb_emailOpcional.IsEnabled = true;
             txb_descripcion.IsEnabled = true;
+        }
+
+        private Boolean caracteresEspeciales(String v_Txb, String v_Identificador)
+        {
+            if(v_Identificador == "numeros")
+            {
+                //caracteres que permite si la cadena es de int
+                String v_Caracteres = "[!@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            else if(v_Identificador == "letras")
+            {
+                //caracteres que permite si la cadena es de string
+                String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void telefono_KeyDown(object sender, KeyEventArgs e)
@@ -337,6 +405,8 @@ namespace Proyecto
 
         private void cedJur_KeyDown(object sender, KeyEventArgs e)
         {
+            
+
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
             {
                 e.Handled = false;
@@ -353,7 +423,7 @@ namespace Proyecto
         private Boolean email_bien(String v_Email)
         {
             String v_Expresion;
-            v_Expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            v_Expresion = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" + @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" + @".)+))([a-zA-Z]{2,3}|[0-9]{1,3})(\]?)$";
             if (Regex.IsMatch(v_Email, v_Expresion))
             {
                 if (Regex.Replace(v_Email, v_Expresion, String.Empty).Length == 0)
@@ -383,7 +453,7 @@ namespace Proyecto
             }
             else if (email_bien(txb_email.Text) == false)
             {
-                lbl_errorEmail.Content = "Error de formato (usuario@dominio.extension)";
+                lbl_errorEmail.Content = "Formato: usuario@dominio.extension(Máx 3 caracteres)";
                 lbl_errorEmail.Visibility = Visibility.Visible;
             }
             else
@@ -409,7 +479,7 @@ namespace Proyecto
                 }
                 else if (email_bien(txb_emailOpcional.Text) == false)
                 {
-                    lbl_errorEmailOpcional.Content = "Error de formato (usuario@dominio.extension)";
+                    lbl_errorEmailOpcional.Content = "Formato: usuario@dominio.extension(Máx 3 caracteres)";
                     lbl_errorEmailOpcional.Visibility = Visibility.Visible;
                 }
             }
@@ -428,6 +498,11 @@ namespace Proyecto
                 lbl_errorBusqueda.Content = "Parámetros incorrectos (espacios seguidos).";
                 lbl_errorBusqueda.Visibility = Visibility.Visible;
                 deshabilitar_componentes();
+            }
+            else if (caracteresEspeciales(txb_busqueda.Text,"letras") == true)
+            {
+                lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
+                lbl_errorBusqueda.Visibility = Visibility.Visible;
             }
             else
             {
@@ -460,6 +535,11 @@ namespace Proyecto
             else if (v_CedJur.Length < 9)
             {
                 lbl_errorCedJur.Content = "La cédula jurídica debe tener al menos 9 dígitos";
+                lbl_errorCedJur.Visibility = Visibility.Visible;
+            }
+            else if (caracteresEspeciales(txb_cedJur.Text,"numeros") == true)
+            {
+                lbl_errorCedJur.Content = "No se permiten caracteres especiales";
                 lbl_errorCedJur.Visibility = Visibility.Visible;
             }
             else
@@ -496,6 +576,11 @@ namespace Proyecto
                 lbl_errorNombre.Content = "Parámetros incorrectos (espacios seguidos).";
                 lbl_errorNombre.Visibility = Visibility.Visible;
             }
+            else if (caracteresEspeciales(txb_nombre.Text,"letras") == true)
+            {
+                lbl_errorNombre.Content = "No se permiten caracteres especiales";
+                lbl_errorNombre.Visibility = Visibility.Visible;
+            }
             else
             {
                 lbl_errorNombre.Visibility = Visibility.Collapsed;
@@ -516,14 +601,19 @@ namespace Proyecto
                 lbl_errorTelefono.Content = "No se permiten espacios";
                 lbl_errorTelefono.Visibility = Visibility.Visible;
             }
-            else if (txb_telefono.Text.Contains(" "))
+            else if (txb_telefono.Text.Contains("  "))
             {
-                lbl_errorTelefono.Content = "No se permiten espacios";
+                lbl_errorTelefono.Content = "Parámetros incorrectos (espacios seguidos)";
                 lbl_errorTelefono.Visibility = Visibility.Visible;
             }
             else if (v_Telefono.Length < 8)
             {
                 lbl_errorTelefono.Content = "Deben tener al menos 8 dígitos";
+                lbl_errorTelefono.Visibility = Visibility.Visible;
+            }
+            else if (caracteresEspeciales(txb_telefono.Text,"numeros") == true)
+            {
+                lbl_errorTelefono.Content = "No se permiten caracteres especiales";
                 lbl_errorTelefono.Visibility = Visibility.Visible;
             }
             else
@@ -545,9 +635,14 @@ namespace Proyecto
                 lbl_errorTelefonoOpcional.Content = "No se permiten espacios";
                 lbl_errorTelefonoOpcional.Visibility = Visibility.Visible;
             }
-            else if (txb_telefonoOpcional.Text.Contains(" "))
+            else if (txb_telefonoOpcional.Text.Contains("  "))
             {
-                lbl_errorTelefonoOpcional.Content = "No se permiten espacios";
+                lbl_errorTelefonoOpcional.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_errorTelefonoOpcional.Visibility = Visibility.Visible;
+            }
+            else if (caracteresEspeciales(txb_telefonoOpcional.Text,"numeros") == true)
+            {
+                lbl_errorTelefonoOpcional.Content = "No se permiten caracteres especiales";
                 lbl_errorTelefonoOpcional.Visibility = Visibility.Visible;
             }
             else
@@ -579,7 +674,7 @@ namespace Proyecto
             }
             else if (txb_email.Text.Contains("  "))
             {
-                lbl_errorEmail.Content = "Parámetros incorrectos (espacios seguidos).";
+                lbl_errorEmail.Content = "Parámetros incorrectos (espacios seguidos)";
                 lbl_errorEmail.Visibility = Visibility.Visible;
             }
             else
@@ -623,6 +718,11 @@ namespace Proyecto
             else if (txb_descripcion.Text.Contains("  "))
             {
                 lbl_errorDesc.Content = "Parámetros incorrectos (espacios seguidos).";
+                lbl_errorDesc.Visibility = Visibility.Visible;
+            }
+            else if (caracteresEspeciales(txb_descripcion.Text,"letras") == true)
+            {
+                lbl_errorDesc.Content = "No se permiten caracteres especiales";
                 lbl_errorDesc.Visibility = Visibility.Visible;
             }
             else
