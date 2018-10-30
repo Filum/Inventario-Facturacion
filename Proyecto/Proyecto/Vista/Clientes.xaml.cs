@@ -36,6 +36,8 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(Hora_Fecha);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+            date_historial_clientes_inicio.SelectedDate = DateTime.Now.Date;
+            date_historial_clientes_final.SelectedDate = DateTime.Now.Date;
         }
         //Se toma el txt_fecha para establecer la hra del sistema.
         private void Hora_Fecha(object sender, EventArgs e)
@@ -80,14 +82,6 @@ namespace Proyecto
             txb_buscar_cliente.Text = "";
             rb_activo.IsChecked = false;
             rb_inactivo.IsChecked = false;
-            txb_correo_o.BorderBrush = Brushes.White;
-            txb_correo_o.Background = Brushes.White;
-            txb_correo.BorderBrush = Brushes.White;
-            txb_correo.Background = Brushes.White;
-            txb_TelMov.BorderBrush = Brushes.White;
-            txb_TelMov.Background = Brushes.White;
-            txb_TelOf.BorderBrush = Brushes.White;
-            txb_TelOf.Background = Brushes.White;
             txt_error_telM.Visibility = Visibility.Hidden;
             txt_error_TelO.Visibility = Visibility.Hidden;
             txt_error_correo.Visibility = Visibility.Hidden;
@@ -95,6 +89,8 @@ namespace Proyecto
             btn_agregar_Cliente.Visibility = Visibility.Hidden;
             btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
             dtg_clientes.ItemsSource = null;
+            txt_actividad.Visibility = Visibility.Hidden;
+            txb_buscar_cliente.IsEnabled = true;
         }
         private void btn_Regresar_Click_1(object sender, RoutedEventArgs e)
         {
@@ -164,7 +160,8 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
-                        Modificar_No_Editable();
+                        Inabilitar_Campos();
+                        txb_buscar_cliente.IsEnabled = true;
                     }
                 }
             }
@@ -237,20 +234,36 @@ namespace Proyecto
                 v_Fecha2 = date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString();
                 if (v_Date1 > v_Date2)
                 {
-                    MessageBox.Show("El rango de fechas es incorrecto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(v_Fecha1, v_Fecha2).DefaultView;
-                    dtg_listar_clientes.Columns[0].Header = "Código";
-                    dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
-                    dtg_listar_clientes.Columns[2].Header = "Nombre Completo";
-                    dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
-                    dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
-                    dtg_listar_clientes.Columns[5].Header = "Correo";
-                    dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
-                    dtg_listar_clientes.Columns[7].Header = "Estado";
-                    dtg_listar_clientes.Columns[8].Header = "Observaciones";
+                    if (model.MostrarListaClientes(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    {
+                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(v_Fecha1, v_Fecha2).DefaultView;
+                        dtg_listar_clientes.Columns[0].Header = "Código";
+                        dtg_listar_clientes.Columns[0].Width = 60;
+                        dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
+                        dtg_listar_clientes.Columns[1].Width = 133;
+                        dtg_listar_clientes.Columns[2].Header = "Nombre Completo";
+                        dtg_listar_clientes.Columns[2].Width = 260;
+                        dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
+                        dtg_listar_clientes.Columns[3].Width = 90;
+                        dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
+                        dtg_listar_clientes.Columns[4].Width = 90;
+                        dtg_listar_clientes.Columns[5].Header = "Correo electrónico";
+                        dtg_listar_clientes.Columns[5].Width = 180;
+                        dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
+                        dtg_listar_clientes.Columns[6].Width = 180;
+                        dtg_listar_clientes.Columns[7].Header = "Estado";
+                        dtg_listar_clientes.Columns[7].Width = 60;
+                        dtg_listar_clientes.Columns[8].Header = "Observaciones";
+                        dtg_listar_clientes.Columns[8].Width = 183;
+                    }
                 }
 
             }
@@ -294,23 +307,14 @@ namespace Proyecto
 
         private void validar_Actualizar_Correo(object sender, EventArgs e)
         {
-
-            Console.WriteLine("Correo: " + txb_correo.Text);
-
-            Console.WriteLine(email_correcto(txb_correo.Text));
-
             if (email_correcto(txb_correo.Text) == false)
             {
-                txb_correo.BorderBrush = Brushes.Red;
-                txb_correo.Background = Brushes.Tomato;
-                txt_error_correo.Content = "Formato correcto: usuario@dominio.extensión";
+                txt_error_correo.Content = "Error de formato(usuario@dominio.extensión)";
                 txt_error_correo.Visibility = Visibility.Visible;
             }
             else
             {
                 txt_error_correo.Visibility = Visibility.Hidden;
-                txb_correo.BorderBrush = Brushes.White;
-                txb_correo.Background = Brushes.White;
             }
 
 
@@ -323,23 +327,36 @@ namespace Proyecto
             string v_Texto;
             dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
             dtg_clientes.Columns[0].Header = "Código";
-            dtg_clientes.Columns[1].Header = "Nombre";
-            dtg_clientes.Columns[2].Header = "Correo";
+            dtg_clientes.Columns[0].Width = 60;
+            dtg_clientes.Columns[1].Header = "Nombre Completo";
+            dtg_clientes.Columns[1].Width = 260;
+            dtg_clientes.Columns[2].Header = "Correo electrónico";
+            dtg_clientes.Columns[2].Width = 180;
             dtg_clientes.Columns[3].Header = "Correo Opcional";
+            dtg_clientes.Columns[3].Width = 180;
             dtg_clientes.Columns[4].Header = "Tel. Oficina";
+            dtg_clientes.Columns[4].Width = 90;
             dtg_clientes.Columns[5].Header = "Tel. Móvil";
+            dtg_clientes.Columns[5].Width = 90;
             dtg_clientes.Columns[6].Header = "Estado";
+            dtg_clientes.Columns[6].Width = 60;
             dtg_clientes.Columns[7].Header = "Observaciones";
+            dtg_clientes.Columns[7].Width = 285;
             if (txb_buscar_cliente.Text == "")
             {
                 txb_nombre.Text = "";
-                Modificar_No_Editable();
+                Inabilitar_Campos();
                 Limpiar_Actualizar_Cliente();
             }
             else
             {
                 if (dtg_clientes.Items.Count == 0)
                 {
+                    txt_actividad.Content = "Agregar Clientes";
+                    rb_inactivo.Visibility = Visibility.Hidden;
+                    rb_activo.IsChecked = true;
+                    rb_activo.IsEnabled = false;
+                    txt_actividad.Visibility = Visibility.Visible;
                     v_Texto = txb_buscar_cliente.Text;
                     Agregar(v_Texto);
                     btn_agregar_Cliente.Visibility = Visibility.Visible;
@@ -347,9 +364,11 @@ namespace Proyecto
                 }
                 else
                 {
+                    txt_actividad.Content = "Clientes Existentes";
+                    txt_actividad.Visibility = Visibility.Visible;
                     btn_agregar_Cliente.Visibility = Visibility.Hidden;
                     btn_guardar_cliente_actualizado.Visibility = Visibility.Visible;
-                    Modificar_No_Editable();
+                    Inabilitar_Campos();
                 }
             }
 
@@ -357,12 +376,17 @@ namespace Proyecto
 
         private void Agregar(string v_Texto)
         {
-            Modificar_Si_Editable();
+            Habilitar_Campos();
             txb_nombre.Text = v_Texto;
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
+            txt_actividad.Content = "Modificar Clientes";
+            txt_actividad.Visibility = Visibility.Visible;
+            rb_inactivo.Visibility = Visibility.Visible;
+            txb_buscar_cliente.IsEnabled = false;
+
 
             clt.v_Codigo = Convert.ToInt32((dtg_clientes.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
 
@@ -372,17 +396,17 @@ namespace Proyecto
             txb_TelOf.Text = (dtg_clientes.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
             txb_TelMov.Text = (dtg_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
 
-            String vInact = (dtg_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
-            if (vInact == "v_Inactivo")
+            String v_Inacto = (dtg_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
+            if (v_Inacto == "Inactivo")
             {
                 rb_inactivo.IsChecked = true;
             }
-            else if (vInact == "Activo")
+            else if (v_Inacto == "Activo")
             {
                 rb_activo.IsChecked = true;
             }
 
-            Modificar_Si_Editable();
+            Habilitar_Campos();
             txb_observaciones.Text = (dtg_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
 
 
@@ -393,16 +417,12 @@ namespace Proyecto
         {
             if (email_correcto(txb_correo_o.Text) == false)
             {
-                txb_correo_o.BorderBrush = Brushes.Red;
-                txb_correo_o.Background = Brushes.Tomato;
-                txt_error_correo_o.Content = "Formato correcto: usuario@dominio.extensión";
+                txt_error_correo_o.Content = "Error de formato(usuario@dominio.extensión)";
                 txt_error_correo_o.Visibility = Visibility.Visible;
             }
             else
             {
                 txt_error_correo_o.Visibility = Visibility.Hidden;
-                txb_correo_o.BorderBrush = Brushes.White;
-                txb_correo_o.Background = Brushes.White;
             }
         }
 
@@ -414,16 +434,12 @@ namespace Proyecto
             string tele1 = txb_TelOf.Text;
             if (tele1.Length < 8)
             {
-                txb_TelOf.BorderBrush = Brushes.Red;
-                txb_TelOf.Background = Brushes.Tomato;
-                txt_error_TelO.Content = "Los números telefónicos tiene que tener un formato valido de 8 dígitos.";
+                txt_error_TelO.Content = "Los números telefónicos deben de tener un formato valido de 8 dígitos.";
                 txt_error_TelO.Visibility = Visibility.Visible;
             }
             else
             {
                 txt_error_TelO.Visibility = Visibility.Hidden;
-                txb_TelOf.BorderBrush = Brushes.White;
-                txb_TelOf.Background = Brushes.White;
             }
         }
 
@@ -432,19 +448,15 @@ namespace Proyecto
             string tele1 = txb_TelMov.Text;
             if (tele1.Length < 8)
             {
-                txb_TelMov.BorderBrush = Brushes.Red;
-                txb_TelMov.Background = Brushes.Tomato;
-                txt_error_telM.Content = "Los números telefónicos tiene que tener un formato valido de 8 dígitos.";
+                txt_error_telM.Content = "Los números telefónicos deben de tener un formato valido de 8 dígitos.";
                 txt_error_telM.Visibility = Visibility.Visible;
             }
             else
             {
                 txt_error_telM.Visibility = Visibility.Hidden;
-                txb_TelMov.BorderBrush = Brushes.White;
-                txb_TelMov.Background = Brushes.White;
             }
         }
-        public void Modificar_Si_Editable()
+        public void Habilitar_Campos()
         {
             txb_nombre.IsEnabled = true;
             txb_correo.IsEnabled = true;
@@ -455,7 +467,7 @@ namespace Proyecto
             rb_inactivo.IsEnabled = true;
             rb_activo.IsEnabled = true;
         }
-        public void Modificar_No_Editable()
+        public void Inabilitar_Campos()
         {
             txb_nombre.IsEnabled = false;
             txb_correo.IsEnabled = false;
@@ -469,7 +481,7 @@ namespace Proyecto
 
         private void Grid_Initialized(object sender, EventArgs e)
         {
-            Modificar_No_Editable();
+            Inabilitar_Campos();
             btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
         }
 
@@ -484,10 +496,7 @@ namespace Proyecto
                 }
                 else
                 {
-                    if (rb_activo.IsChecked == true)
-                        v_Inactivo = "Activo";
-                    else
-                        v_Inactivo = "Inactivo";
+                    v_Inactivo = "Activo";
                     clt.v_NombreCompleto = txb_nombre.Text;
                     clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
                     clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
@@ -511,7 +520,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
-                        Modificar_No_Editable();
+                        Inabilitar_Campos();
                     }
 
                 }
@@ -546,5 +555,6 @@ namespace Proyecto
         {
 
         }
+
     }
 }
