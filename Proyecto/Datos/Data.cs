@@ -158,7 +158,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT * FROM TBL_PROVEEDORES WHERE lower(NOMBRE) LIKE '%" + v_busqueda.ToLower() + "%' OR CEDULAJURIDICA LIKE '%" + v_busqueda + "%'";
+            comando.CommandText = "SELECT * FROM TBL_PROVEEDORES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda  + "%'),'ÁÉÍÓÚ', 'AEIOU') OR CEDULAJURIDICA LIKE '%" + v_busqueda + "%'";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadProveedores> Lista = new List<EntidadProveedores>();
 

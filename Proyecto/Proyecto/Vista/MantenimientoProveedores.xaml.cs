@@ -32,10 +32,10 @@ namespace Proyecto
         {
             InitializeComponent();
             //Formato para la hora
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();
+            System.Windows.Threading.DispatcherTimer v_DispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            v_DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
+            v_DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            v_DispatcherTimer.Start();
 
             date_inicio.SelectedDate = DateTime.Now.Date;
             date_final.SelectedDate = DateTime.Now.Date;
@@ -200,25 +200,6 @@ namespace Proyecto
             }    
         }
 
-        private void limpiarTextbox()
-        {
-            txb_cedJur.Text = "";
-            txb_telefono.Text = "";
-            txb_telefonoOpcional.Text = "";
-            txb_nombre.Text = "";
-            txb_email.Text = "";
-            txb_emailOpcional.Text = "";
-            txb_descripcion.Text = "";
-            lbl_errorCedJur.Visibility = Visibility.Collapsed;
-            lbl_errorNombre.Visibility = Visibility.Collapsed;
-            lbl_errorTelefono.Visibility = Visibility.Collapsed;
-            lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
-            lbl_errorEmail.Visibility = Visibility.Collapsed;
-            lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
-            lbl_errorDesc.Visibility = Visibility.Collapsed;
-            lbl_actividad.Visibility = Visibility.Collapsed;
-        }
-
         private void btn_limpiar_Click(object sender, RoutedEventArgs e)
         {
             txb_cedJur.Text = "";
@@ -243,10 +224,10 @@ namespace Proyecto
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
             v_Actividad_btnAgregar = false;
-            deshabilitar_componentes();
+            DeshabilitarComponentes();
         }
 
-        private void btn_listar_listar_Click(object sender, RoutedEventArgs e)
+        private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
             if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
             {
@@ -285,10 +266,62 @@ namespace Proyecto
                 }
             }            
         }
-        
+
+        private void btn_ayuda_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Mantenimiento de Proveedores: \n\n" +
+               "1. Listar: Seleccione el rango de fechas y oprima el botón 'Listar' para desplegar los datos. \n\n" +
+               "2. Buscar: Ingrese el elemento a buscar, puede ser por cédula jurídica o por nombre del proveedor. \n" +
+               "   Si existe el proveedor se le deslegará los datos y podrá seleccionarlo para modificarlo o deshabilitarlo.\n" +
+               "   Si no existe el proveedor se le permitirá agregarlo al sistema.\n\n" +
+               "   Agregar: \n" +
+               "   Complete todos los campos, excepto los opcionales.\n" +
+               "   Las cajas de texto de los teléfonos y de la cédula jurídica solo permiten números.\n" +
+               "   Formato de correo: usuario@dominio.extension, la extensión debe ser como máximo 3 caracteres. \n" +
+               "   No ingrese caracteres especiales. \n" +
+               "   El teléfono y el correo opcional se pueden dejar en blanco, mientras no tenga errores. \n\n" +
+               "   Deshabilitar: \n" +
+               "   Seleccione el elemento del datagrid e ingrese el motivo por el cual se desea deshabilitar. \n\n" +
+               "   Actualizar: \n" +
+               "   Seleccione el elemento y proceda a editar los campos que desee.\n" +
+               "   Se utiliza el mismo formato de validaciones de ingresar. \n" +
+               "   No deje campos vacíos, excepto los opcionales.", "Ayuda",
+               MessageBoxButton.OK);
+        }
+
+        private void btn_usuario_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult v_Result = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar Sesión", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (v_Result == MessageBoxResult.Yes)
+            {
+                Login v_Ventana = new Login();
+                this.Close();
+                v_Ventana.Show();
+            }
+        }
+
+        private void LimpiarTextbox()
+        {
+            txb_cedJur.Text = "";
+            txb_telefono.Text = "";
+            txb_telefonoOpcional.Text = "";
+            txb_nombre.Text = "";
+            txb_email.Text = "";
+            txb_emailOpcional.Text = "";
+            txb_descripcion.Text = "";
+            lbl_errorCedJur.Visibility = Visibility.Collapsed;
+            lbl_errorNombre.Visibility = Visibility.Collapsed;
+            lbl_errorTelefono.Visibility = Visibility.Collapsed;
+            lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
+            lbl_errorEmail.Visibility = Visibility.Collapsed;
+            lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
+            lbl_errorDesc.Visibility = Visibility.Collapsed;
+            lbl_actividad.Visibility = Visibility.Collapsed;
+        }
+     
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
-            limpiarTextbox();
+            LimpiarTextbox();
             dtg_proveedores.ItemsSource = v_Model.ValidarBusquedaProveedores(txb_busqueda.Text);
             dtg_proveedores.Columns[0].Header = "Código";
             dtg_proveedores.Columns[1].Header = "Cédula Jurídica";
@@ -303,7 +336,7 @@ namespace Proyecto
             if (txb_busqueda.Text == "")
             {
                 txb_nombre.Text = "";
-                deshabilitar_componentes();
+                DeshabilitarComponentes();
                 btn_limpiar_Click(sender,e);
                 btn_agregar.Visibility = Visibility.Collapsed;
                 btn_modificar.Visibility = Visibility.Collapsed;
@@ -314,7 +347,7 @@ namespace Proyecto
             {
                 if (dtg_proveedores.Items.Count == 0)
                 {
-                    habilitar_componentes();
+                    HabilitarComponentes();
                     v_Actividad_btnAgregar = true;
                     btn_modificar.Visibility = Visibility.Collapsed;
                     lbl_actividad.Content = "Agregar proveedor";
@@ -323,13 +356,13 @@ namespace Proyecto
                     
                     if (Regex.IsMatch(this.txb_busqueda.Text, "[a-zA-Z]"))
                     {
-                        if (ValidarCaracteresEspeciales(txb_busqueda.Text, "letras") == true)
-                        {
+                        if (ValidarCaracteresEspeciales(txb_busqueda.Text, "nombre") == true)
+                        { 
                             lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
                             lbl_errorBusqueda.Visibility = Visibility.Visible;
                             txb_nombre.Text = "";
                             lbl_errorNombre.Visibility = Visibility.Collapsed;
-                            deshabilitar_componentes();
+                            DeshabilitarComponentes();
                         }
                         else
                         {
@@ -347,7 +380,7 @@ namespace Proyecto
                             lbl_errorBusqueda.Visibility = Visibility.Visible;
                             txb_cedJur.Text = "";
                             lbl_errorCedJur.Visibility = Visibility.Collapsed;
-                            deshabilitar_componentes();
+                            DeshabilitarComponentes();
                         }
                         else
                         {
@@ -363,7 +396,7 @@ namespace Proyecto
                     btn_modificar.Visibility = Visibility.Collapsed;
                     lbl_actividad.Content = "Proveedores existentes";
                     lbl_actividad.Visibility = Visibility.Visible;
-                    deshabilitar_componentes();                    
+                    DeshabilitarComponentes();                    
                 }
             }
         }
@@ -385,10 +418,10 @@ namespace Proyecto
             lbl_actividad.Content = "Modificar proveedor";
             lbl_actividad.Visibility = Visibility.Visible;
             v_Actividad_btnModificar = true;
-            habilitar_componentes();
+            HabilitarComponentes();
         }
 
-        public void deshabilitar_componentes()
+        public void DeshabilitarComponentes()
         {
             txb_cedJur.IsEnabled = false;
             txb_nombre.IsEnabled = false;
@@ -401,7 +434,7 @@ namespace Proyecto
             btn_modificar.Visibility = Visibility.Collapsed;
         }
 
-        public void habilitar_componentes()
+        public void HabilitarComponentes()
         {
             txb_cedJur.IsEnabled = true;
             txb_nombre.IsEnabled = true;
@@ -412,9 +445,116 @@ namespace Proyecto
             txb_descripcion.IsEnabled = true;
         }
 
+        private void HabilitarBtnModificar()
+        {
+            if (v_Actividad_btnModificar == true)
+            {
+                btn_modificar.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void HabilitarBtnAgregar()
+        {
+            if (v_Actividad_btnAgregar == true)
+            {
+                if (txb_cedJur.Text != "" && txb_email.Text != "" && txb_nombre.Text != "" && txb_telefono.Text != "" && txb_descripcion.Text != "")
+                {
+                    btn_agregar.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btn_agregar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarErroresTxb(txb_busqueda, lbl_errorBusqueda, "");
+            if (lbl_errorBusqueda.Visibility == Visibility.Collapsed)
+            {
+                HabilitarComponentes();
+            }      
+        }
+
+        private void ValidarTxbCedJur(object sender, EventArgs e)
+        {
+            string v_CedJur = txb_cedJur.Text;
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_cedJur, lbl_errorCedJur, "numeros");
+            if (lbl_errorCedJur.Visibility == Visibility.Collapsed)
+            {
+                bool v_Resultado = v_Model.ValidarCedJurProveedores(txb_cedJur.Text);
+                if (v_Resultado == true)
+                {
+                    lbl_errorCedJur.Content = "La cédula jurídica ya existe";
+                    lbl_errorCedJur.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lbl_errorCedJur.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void txb_nombre_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_nombre, lbl_errorNombre, "nombre");
+        }
+
+        private void txb_telefono_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_telefono, lbl_errorTelefono, "numeros");     
+        }
+
+        private void txb_telefonoOpcional_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_telefonoOpcional, lbl_errorTelefonoOpcional, "numeros");
+            if (txb_telefonoOpcional.Text == "")
+            {
+                lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
+            }
+            else if (txb_telefonoOpcional.Text == "0")
+            {
+                lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void txb_email_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_email, lbl_errorEmail, "");
+        }
+
+        private void txb_emailOpcional_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_emailOpcional, lbl_errorEmailOpcional, "");
+            if (txb_emailOpcional.Text == "")
+            {
+                lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void txb_descripcion_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_descripcion,lbl_errorDesc,"descripcion"); 
+        }
+
         private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
         {
-            if(v_Identificador == "numeros")
+            if (v_Identificador == "numeros")
             {
                 //caracteres que permite si la cadena es de int
                 String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
@@ -423,7 +563,7 @@ namespace Proyecto
                     return true;
                 }
             }
-            else if(v_Identificador == "nombre")
+            else if (v_Identificador == "nombre")
             {
                 //caracteres que permite si la cadena es de string
                 String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
@@ -444,13 +584,13 @@ namespace Proyecto
             return false;
         }
 
-        private void telefono_KeyDown(object sender, KeyEventArgs e)
+        private void Telefono_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
             {
                 e.Handled = false;
                 lbl_errorTelefono.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_telefono.Text,"numeros") == true)
+                if (ValidarCaracteresEspeciales(txb_telefono.Text, "numeros") == true)
                 {
                     lbl_errorTelefono.Content = "No se permiten caracteres especiales";
                     lbl_errorTelefono.Visibility = Visibility.Visible;
@@ -464,7 +604,7 @@ namespace Proyecto
             }
         }
 
-        private void telefonoOpcional_KeyDown(object sender, KeyEventArgs e)
+        private void TelefonoOpcional_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
             {
@@ -484,9 +624,9 @@ namespace Proyecto
             }
         }
 
-        private void cedJur_KeyDown(object sender, KeyEventArgs e)
+        private void CedJur_KeyDown(object sender, KeyEventArgs e)
         {
-            
+
 
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
             {
@@ -501,7 +641,7 @@ namespace Proyecto
             }
         }
 
-        private Boolean email_bien(String v_Email)
+        private Boolean EmailCorrecto(String v_Email)
         {
             String v_Expresion;
             v_Expresion = @"^([a-zA-Z0-9_\-\.ñÑ]+)@((\[[0-9]{1,3}" + @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" + @".)+))([a-zA-Z]{2,3}|[0-9]{1,3})(\]?)$";
@@ -522,11 +662,11 @@ namespace Proyecto
             }
         }
 
-        private void validar_email(object sender, EventArgs e)
+        private void ValidarEmail(object sender, EventArgs e)
         {
             Console.WriteLine("Correo: " + txb_email.Text);
-            Console.WriteLine(email_bien(txb_email.Text));
-            if (email_bien(txb_email.Text) == false)
+            Console.WriteLine(EmailCorrecto(txb_email.Text));
+            if (EmailCorrecto(txb_email.Text) == false)
             {
                 if (txb_email.Text == "")
                 {
@@ -541,15 +681,15 @@ namespace Proyecto
             }
         }
 
-        private void validar_emailOpcional(object sender, EventArgs e)
+        private void ValidarEmailOpcional(object sender, EventArgs e)
         {
             Console.WriteLine("Correo: " + txb_emailOpcional.Text);
-            Console.WriteLine(email_bien(txb_emailOpcional.Text));
+            Console.WriteLine(EmailCorrecto(txb_emailOpcional.Text));
             if (txb_emailOpcional.Text == "N/A")
             {
                 lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
             }
-            else if (email_bien(txb_emailOpcional.Text) == false)
+            else if (EmailCorrecto(txb_emailOpcional.Text) == false)
             {
                 if (txb_emailOpcional.Text == "")
                 {
@@ -562,91 +702,7 @@ namespace Proyecto
                 }
             }
         }
-
-        private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            txb_validarErrores(txb_busqueda, lbl_errorBusqueda, "");
-            if (lbl_errorBusqueda.Visibility == Visibility.Collapsed)
-            {
-                habilitar_componentes();
-            }      
-        }
-
-        private void validar_cedJur(object sender, EventArgs e)
-        {
-            string v_CedJur = txb_cedJur.Text;
-            habilitar_btnModificar();
-            txb_validarErrores(txb_cedJur, lbl_errorCedJur, "numeros");
-            if (lbl_errorCedJur.Visibility == Visibility.Collapsed)
-            {
-                bool v_resultado = v_Model.ValidarCedJurProveedores(txb_cedJur.Text);
-                if (v_resultado == true)
-                {
-                    lbl_errorCedJur.Content = "La cédula jurídica ya existe";
-                    lbl_errorCedJur.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    lbl_errorCedJur.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-
-        private void txb_nombre_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            habilitar_btnModificar();
-            habilitar_btnAgregar();
-            txb_validarErrores(txb_nombre, lbl_errorNombre, "nombre");
-        }
-
-        private void txb_telefono_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            habilitar_btnModificar();
-            habilitar_btnAgregar();
-            txb_validarErrores(txb_telefono, lbl_errorTelefono, "numeros");     
-        }
-
-        private void txb_telefonoOpcional_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            habilitar_btnModificar();
-            habilitar_btnAgregar();
-            txb_validarErrores(txb_telefonoOpcional, lbl_errorTelefonoOpcional, "numeros");
-            if (txb_telefonoOpcional.Text == "")
-            {
-                lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
-            }
-            else if (txb_telefonoOpcional.Text == "0")
-            {
-                lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void textbox_email_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            habilitar_btnModificar();
-            habilitar_btnAgregar();
-            txb_validarErrores(txb_email, lbl_errorEmail, "");
-        }
-
-        private void textbox_emailOpcional_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            habilitar_btnModificar();
-            habilitar_btnAgregar();
-            txb_validarErrores(txb_emailOpcional, lbl_errorEmailOpcional, "");
-            if (txb_emailOpcional.Text == "")
-            {
-                lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void txb_descripcion_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            habilitar_btnModificar();
-            habilitar_btnAgregar();
-            txb_validarErrores(txb_descripcion,lbl_errorDesc,"descripcion"); 
-        }
-
-        private void txb_validarErrores(TextBox txb_proveedor, Label lbl_error, string tipo)
+        private void ValidarErroresTxb(TextBox txb_proveedor, Label lbl_error, string tipo)
         {
             string v_TamanoTxb = txb_proveedor.Text;
             if (txb_proveedor.Text == "")
@@ -679,6 +735,13 @@ namespace Proyecto
                     lbl_error.Content = "Deben tener al menos 8 dígitos";
                     lbl_error.Visibility = Visibility.Visible;
                 }
+                else if (v_TamanoTxb.Length <= 12)
+                {
+                    if (ValidarCaracteresEspeciales(txb_proveedor.Text, tipo) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Collapsed;
+                    }
+                }
             }
             else if (txb_proveedor == txb_cedJur)
             {
@@ -687,6 +750,13 @@ namespace Proyecto
                     lbl_error.Content = "Deben tener al menos 9 dígitos";
                     lbl_error.Visibility = Visibility.Visible;
                 }
+                else if (v_TamanoTxb.Length <= 12)
+                {
+                    if (ValidarCaracteresEspeciales(txb_proveedor.Text, tipo) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Collapsed;
+                    }
+                }
             }
             else
             {
@@ -694,69 +764,5 @@ namespace Proyecto
             }
         }
 
-        private void habilitar_btnModificar()
-        {
-            if (v_Actividad_btnModificar == true)
-            {
-                btn_modificar.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void habilitar_btnAgregar()
-        {
-            if (v_Actividad_btnAgregar == true)
-            {
-                if (txb_cedJur.Text == "" || txb_email.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_descripcion.Text == "")
-                {
-                    btn_agregar.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    btn_agregar.Visibility = Visibility.Visible;
-                }
-            }
-        }
-
-        private void btn_ayuda_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Secciones Mantenimiento de Proveedores:\n" +
-                           "Listar: usted podra observar la lista completa de proveedores.\n" +
-                           "Actualizar: esta sección le permite modificar datos de un proveedor en especifico.\n" +
-                           "Ingresar: esta sección le permite ingresar proveedores al sistema.\n" +
-                           "Deshabilitar: esta sección le permite deshabilitar proveedores.\n" +
-                           "Historial: esta ventana le mostrara todos los cambios realizados en esta sección.\n" +
-
-                           "Actualizar Proveedores: \n" +
-                             "1 - Si desea actualiar un proveedor primero debe buscarlo por nombre o por la cedula juridica de la empresa.\n" +
-                             "2 - Una ves que lo encontró lo puede seleccionar, luego edita los datos que desee y guarda los cambios.\n\n" +
-
-                             "Ingresar Proveedores\n" +
-
-                             "1 - Debera completar cada uno de los espacios requeridos para la creación del nuevo proveedor.\n" +
-                             "2 - En caso de que cometa algún error el sistema le notificará.\n" +
-                             "3 - En caso de que todos los datos esten corectos, proceda crearlo.\n\n" +
-
-
-                             "Deshabilitar proveedores:\n" +
-                             "1 - Busca el proveedor que desea deshabilitar, luego de que lo muestre, lo selecciona \n\n" +
-                             "2 - Ingresa el motivo por el que desea deshabilitar el rol \n" +
-                             "3 - Guarda los cambios con los datos necesarios llenos\n\n"
-
-                          , "Ayuda");
-        }
-
-        private void btn_usuario_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("¿Desea cerrar sesión?",
-                                          "Cerrar Sesión",
-                                          MessageBoxButton.YesNo,
-                                          MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                Login ventana = new Login();
-                this.Close();
-                ventana.Show();
-            }
-        }
-    }
-}
+    }//fin de la clase
+}//fin proyecto
