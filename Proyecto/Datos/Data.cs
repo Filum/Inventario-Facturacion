@@ -152,7 +152,7 @@ namespace Datos
             return Lista;
         }
 
-        public List<EntidadProveedores> validar_busqueda_proveedores(String v_busqueda)
+        public List<EntidadProveedores> ValidarBusquedaProveedores(String v_busqueda)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
@@ -183,7 +183,7 @@ namespace Datos
             return Lista;
         }
 
-        public int validar_cedJur_proveedores(String v_CedJur)
+        public bool ValidarCedJurProveedores(String v_CedJur)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
@@ -196,11 +196,32 @@ namespace Datos
             {
                 while (dr.Read())
                 {
-                    return 1;
+                    return true;
                 }
             }
             conn.Close();
-            return 2;
+            return false;
+        }
+
+        public Boolean ValidarModificacionProveedores(EntidadProveedores clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT pk_idProveedor,cedulaJuridica from tbl_Proveedores where pk_idProveedor = " + clt.v_IdProveedor + " AND cedulaJuridica = " + clt.v_CedulaJuridica;
+
+            OracleDataReader dr = comando.ExecuteReader();
+
+            if (clt.v_IdProveedor != 0 && clt.v_CedulaJuridica != 0)
+            {
+                while (dr.Read())
+                {
+                    return true;
+                }
+            }
+            conn.Close();
+            return false;
         }
     }
 }

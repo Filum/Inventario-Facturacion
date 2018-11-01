@@ -11,48 +11,52 @@ namespace Logica
 {
     public class Model
     {
-        Data data = new Data();
+        Data v_Data = new Data();
 
         public int AgregarClientes(EntidadClientes clt)
         {
-            return data.AgregarClientes(clt);
+            return v_Data.AgregarClientes(clt);
         }
 
         public int ModificarClientes(EntidadClientes clt)
         {
-            return data.ModificarClientes(clt);
+            return v_Data.ModificarClientes(clt);
         }
 
         public int ModificarProveedores(EntidadProveedores clt)
         {
-            return data.ModificarProveedores(clt);
+            return v_Data.ModificarProveedores(clt);
         }
-
+        
         public int AgregarProveedores(EntidadProveedores clt)
         {
-            return data.AgregarProveedores(clt);
+            return v_Data.AgregarProveedores(clt);
         }
         public List<EntidadClientes> BuscarClientes(String nombre)
         {
-            return data.BuscarClientes(nombre);
+            return v_Data.BuscarClientes(nombre);
         }
 
-        public DataTable mostrarListaProveedores(String v_Fecha1, String v_Fecha2)
+        public DataTable MostrarListaProveedores(String v_Fecha1, String v_Fecha2)
         {
-            return data.MostarListaProveedores(v_Fecha1, v_Fecha2);
+            return v_Data.MostarListaProveedores(v_Fecha1, v_Fecha2);
         }
 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
-            return data.MostrarListaClientes(fecha1,fecha2);
+            return v_Data.MostrarListaClientes(fecha1,fecha2);
         }
-        public List<EntidadProveedores> validar_busqueda_proveedores(String v_busqueda)
+        public List<EntidadProveedores> ValidarBusquedaProveedores(String v_Busqueda)
         {
-            return data.validar_busqueda_proveedores(v_busqueda);
+            return v_Data.ValidarBusquedaProveedores(v_Busqueda);
         }
-        public int validar_cedJur_proveedores(String v_CedJur)
+        public bool ValidarCedJurProveedores(String v_CedJur)
         {
-            return data.validar_cedJur_proveedores(v_CedJur);
+            return v_Data.ValidarCedJurProveedores(v_CedJur);
+        }
+        public bool ValidarModificacionProveedores(EntidadProveedores clt)
+        {
+            return v_Data.ValidarModificacionProveedores(clt);
         }
     }
 }
