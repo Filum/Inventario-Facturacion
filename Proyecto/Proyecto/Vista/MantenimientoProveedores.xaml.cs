@@ -317,6 +317,7 @@ namespace Proyecto
             lbl_errorEmailOpcional.Visibility = Visibility.Collapsed;
             lbl_errorDesc.Visibility = Visibility.Collapsed;
             lbl_actividad.Visibility = Visibility.Collapsed;
+            v_Actividad_btnAgregar = false;
         }
      
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
@@ -480,8 +481,8 @@ namespace Proyecto
         private void ValidarTxbCedJur(object sender, EventArgs e)
         {
             string v_CedJur = txb_cedJur.Text;
-            HabilitarBtnModificar();
             HabilitarBtnAgregar();
+            HabilitarBtnModificar();       
             ValidarErroresTxb(txb_cedJur, lbl_errorCedJur, "numeros");
             if (lbl_errorCedJur.Visibility == Visibility.Collapsed)
             {
