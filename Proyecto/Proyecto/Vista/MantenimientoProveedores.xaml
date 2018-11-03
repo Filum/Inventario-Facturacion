@@ -181,8 +181,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         <StackPanel Margin="-8,0,618,10" Grid.ColumnSpan="2">
                             <Label x:Name="lbl_cedulaJur" Content="Céd. jurídica:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_nombre"    Content="Nombre:"        Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
-                            <Label x:Name="lbl_email"     Content="Correo:"         Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
-                            <Label x:Name="lbl_emailOpcional"     Content="Corr. Opcional:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
+                            <Label x:Name="lbl_correo"     Content="Correo:"         Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
+                            <Label x:Name="lbl_correoOpcional"     Content="Corr. Opcional:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                         </StackPanel>
 
                         <StackPanel Margin="43,0,328,-53" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
@@ -192,11 +192,11 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <TextBox x:Name="txb_nombre" IsEnabled="False" MaxLength="35" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif" TextChanged="txb_nombre_TextChanged" Height="30" VerticalContentAlignment="Center"/>
                             <Label x:Name="lbl_errorNombre" Visibility="Collapsed" Margin="0,-20,34.667,-20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                            <TextBox x:Name="txb_email" IsEnabled="False" MaxLength="50" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif" Height="30" LostKeyboardFocus="ValidarEmail" TextChanged="txb_email_TextChanged" VerticalContentAlignment="Center"/>
-                            <Label x:Name="lbl_errorEmail" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,0,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+                            <TextBox x:Name="txb_correo" IsEnabled="False" MaxLength="50" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif" Height="30" LostKeyboardFocus="Validarcorreo" TextChanged="txb_correo_TextChanged" VerticalContentAlignment="Center"/>
+                            <Label x:Name="lbl_errorcorreo" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,0,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                            <TextBox x:Name="txb_emailOpcional" IsEnabled="False" MaxLength="50" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif" Height="30" LostKeyboardFocus="ValidarEmailOpcional" TextChanged="txb_emailOpcional_TextChanged" VerticalContentAlignment="Center"/>
-                            <Label x:Name="lbl_errorEmailOpcional" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,0,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+                            <TextBox x:Name="txb_correoOpcional" IsEnabled="False" MaxLength="50" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif" Height="30" LostKeyboardFocus="ValidarcorreoOpcional" TextChanged="txb_correoOpcional_TextChanged" VerticalContentAlignment="Center"/>
+                            <Label x:Name="lbl_errorcorreoOpcional" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,0,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
                         </StackPanel>
 
                         <StackPanel Margin="390,0,155,0" Grid.Column="1">

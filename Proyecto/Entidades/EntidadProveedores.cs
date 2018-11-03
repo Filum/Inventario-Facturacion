@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
+    //Clase la cual va a ser utilizada para enviar datos al Data con el fin de cumplir diferentes actividades
     public class EntidadProveedores
     {
         public EntidadProveedores()
         {
 
         }
-
         public Int64 v_IdProveedor { set; get; }
         public Int64 v_CedulaJuridica { set; get; }
         public string v_Nombre { set; get; }
@@ -37,6 +37,5 @@ namespace Entidades
             this.v_TelefonoOpcional = v_TelefonoOpcional;
             this.v_Fecha = v_Fecha;
         }
-
     }
 }

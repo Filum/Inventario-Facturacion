@@ -23,11 +23,13 @@ namespace Logica
             return v_Data.ModificarClientes(clt);
         }
 
+        //Recibe como referencia una entidad proveedores la cual va a ser enviada a la clase Data para proceder con la modificación del proveedor
         public int ModificarProveedores(EntidadProveedores clt)
         {
             return v_Data.ModificarProveedores(clt);
         }
-        
+
+        //Recibe como referencia una entidad proveedores la cual va a ser enviada a la clase Data para proceder con la agregación del proveedor
         public int AgregarProveedores(EntidadProveedores clt)
         {
             return v_Data.AgregarProveedores(clt);
@@ -37,6 +39,7 @@ namespace Logica
             return v_Data.BuscarClientes(nombre);
         }
 
+        //Recibe como referencia dos fechas las cuales van a ser enviadas a la clase Data para proceder con la actividad de listar proveedores
         public DataTable MostrarListaProveedores(String v_Fecha1, String v_Fecha2)
         {
             return v_Data.MostarListaProveedores(v_Fecha1, v_Fecha2);
@@ -46,14 +49,21 @@ namespace Logica
         {
             return v_Data.MostrarListaClientes(fecha1,fecha2);
         }
+
+        //Recibe como referencia un string necesario para proceder con la existencia de proveedores
         public List<EntidadProveedores> ValidarBusquedaProveedores(String v_Busqueda)
         {
             return v_Data.ValidarBusquedaProveedores(v_Busqueda);
         }
+
+        //Recibe como referencia un string necesario para proceder con la existencia de cédulas jurídicas
         public bool ValidarCedJurProveedores(String v_CedJur)
         {
             return v_Data.ValidarCedJurProveedores(v_CedJur);
         }
+
+        /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
+        cédula jurídica está asociada a dicho id*/
         public bool ValidarModificacionProveedores(EntidadProveedores clt)
         {
             return v_Data.ValidarModificacionProveedores(clt);

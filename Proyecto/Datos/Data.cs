@@ -14,7 +14,6 @@ namespace Datos
         
         public int AgregarClientes(EntidadClientes clt)
         {
-
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand("ADD_CLIENTES", conn as OracleConnection);
@@ -31,6 +30,8 @@ namespace Datos
             return v_Resultado;
         }
 
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo proveedor.
+        Si se modifica correctamente retorna un "-1" */
         public int AgregarProveedores(EntidadProveedores clt)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -69,6 +70,8 @@ namespace Datos
             return v_Resultado;
         }
 
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un nuevo proveedor.
+        Si se modifica correctamente retorna un "-1" */
         public int ModificarProveedores(EntidadProveedores clt)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -90,7 +93,6 @@ namespace Datos
 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
-
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
@@ -105,9 +107,10 @@ namespace Datos
             return tabla;
         }
 
+        /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
+         Además, en caso de encontrar proveedores estos serán retornados mediante una tabla*/
         public DataTable MostarListaProveedores(String v_Fecha1, String v_Fecha2)
-        {
-            
+        {  
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
@@ -152,6 +155,8 @@ namespace Datos
             return Lista;
         }
 
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del proveedor mediante el nombre o la cédula jurídica.
+         Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/
         public List<EntidadProveedores> ValidarBusquedaProveedores(String v_busqueda)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -183,6 +188,8 @@ namespace Datos
             return Lista;
         }
 
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia de la cédula jurídica.
+         Además, en caso de encontrar dicha cédula jurídica retornara un true, en caso contrario retornara un false*/
         public bool ValidarCedJurProveedores(String v_CedJur)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -203,6 +210,10 @@ namespace Datos
             return false;
         }
 
+        /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
+        cédula jurídica está asociada a dicho id.
+        Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
+        usuario ingresa o deja la misma cédula que tenia,no le de error*/
         public Boolean ValidarModificacionProveedores(EntidadProveedores clt)
         {
             OracleConnection conn = DataBase.Conexion();
