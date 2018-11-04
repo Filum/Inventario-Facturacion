@@ -340,28 +340,35 @@ namespace Proyecto
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
             LimpiarTextboxAgregar();
-            dtg_proveedores.ItemsSource = v_Model.ValidarBusquedaProveedores(txb_busqueda.Text);
-            dtg_proveedores.Columns[0].Header = "Código";
-            dtg_proveedores.Columns[1].Header = "Cédula Jurídica";
-            dtg_proveedores.Columns[2].Header = "Nombre del Proveedor";
-            dtg_proveedores.Columns[3].Header = "Correo";
-            dtg_proveedores.Columns[4].Header = "Correo Opcional";
-            dtg_proveedores.Columns[6].Header = "Teléfono";
-            dtg_proveedores.Columns[7].Header = "Tel. Opcional";  
-            dtg_proveedores.Columns[5].Header = "Descripción";
-            dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
-
+            
             if (txb_busqueda.Text == "")
             {
                 txb_nombre.Text = "";
                 DeshabilitarComponentes();
-                btn_limpiar_Click(sender,e);
+                btn_limpiar_Click(sender, e);
                 btn_agregar.Visibility = Visibility.Collapsed;
                 btn_modificar.Visibility = Visibility.Collapsed;
                 lbl_actividad.Visibility = Visibility.Collapsed;
             }
+            else if (txb_busqueda.Text.Contains("'"))
+            {
+                lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
+                lbl_errorBusqueda.Visibility = Visibility.Visible;
+                DeshabilitarComponentes();
+            }
             else
             {
+                dtg_proveedores.ItemsSource = v_Model.ValidarBusquedaProveedores(txb_busqueda.Text);
+                dtg_proveedores.Columns[0].Header = "Código";
+                dtg_proveedores.Columns[1].Header = "Cédula Jurídica";
+                dtg_proveedores.Columns[2].Header = "Nombre del Proveedor";
+                dtg_proveedores.Columns[3].Header = "Correo";
+                dtg_proveedores.Columns[4].Header = "Correo Opcional";
+                dtg_proveedores.Columns[6].Header = "Teléfono";
+                dtg_proveedores.Columns[7].Header = "Tel. Opcional";
+                dtg_proveedores.Columns[5].Header = "Descripción";
+                dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
+
                 if (dtg_proveedores.Items.Count == 0)//El proveedor no existe
                 {
                     HabilitarComponentes();
@@ -373,7 +380,7 @@ namespace Proyecto
                     if (Regex.IsMatch(this.txb_busqueda.Text, "[a-zA-Z]"))
                     {
                         if (ValidarCaracteresEspeciales(txb_busqueda.Text, "nombre") == true)
-                        { 
+                        {
                             lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
                             lbl_errorBusqueda.Visibility = Visibility.Visible;
                             txb_nombre.Text = "";
@@ -385,7 +392,7 @@ namespace Proyecto
                             txb_nombre.Text = txb_busqueda.Text;
                             txb_cedJur.Text = "";
                             txb_busqueda.MaxLength = 35;
-                            lbl_errorCedJur.Visibility = Visibility.Collapsed;  
+                            lbl_errorCedJur.Visibility = Visibility.Collapsed;
                         }
                     }
                     else
@@ -412,7 +419,7 @@ namespace Proyecto
                     btn_modificar.Visibility = Visibility.Collapsed;
                     lbl_actividad.Content = "Proveedores existentes";
                     lbl_actividad.Visibility = Visibility.Visible;
-                    DeshabilitarComponentes();                    
+                    DeshabilitarComponentes();
                 }
             }
         }
