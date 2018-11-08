@@ -27,7 +27,7 @@ namespace Proyecto
         EntidadProveedores v_Clt = new EntidadProveedores();
         Model v_Model = new Model();
         bool v_Actividad_btnModificar = false;
-        bool v_Actividad_btnAgregar = false;
+        bool v_Actividad_btnAgregar = true;
 
         public MantenimientoProveedores()
         {
@@ -200,6 +200,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
+                        inicializarAgregacion();
                     }
                 }
                 catch (Exception m)
@@ -234,8 +235,7 @@ namespace Proyecto
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
-            v_Actividad_btnAgregar = false;
-            DeshabilitarComponentes();
+            inicializarAgregacion();
         }
 
         /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
@@ -331,8 +331,8 @@ namespace Proyecto
             lbl_errorcorreo.Visibility = Visibility.Collapsed;
             lbl_errorcorreoOpcional.Visibility = Visibility.Collapsed;
             lbl_errorDesc.Visibility = Visibility.Collapsed;
-            lbl_actividad.Visibility = Visibility.Collapsed;
-            v_Actividad_btnAgregar = false;
+            v_Actividad_btnModificar = false;
+            inicializarAgregacion();
         }
 
         /*En esta caja de texto se implementa la búsqueda del proveedor que se desea, en caso de ser encontrado este despliega los datos en el DataGrid,
@@ -344,17 +344,14 @@ namespace Proyecto
             if (txb_busqueda.Text == "")
             {
                 txb_nombre.Text = "";
-                DeshabilitarComponentes();
                 btn_limpiar_Click(sender, e);
                 btn_agregar.Visibility = Visibility.Collapsed;
                 btn_modificar.Visibility = Visibility.Collapsed;
-                lbl_actividad.Visibility = Visibility.Collapsed;
             }
             else if (txb_busqueda.Text.Contains("'"))
             {
                 lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
                 lbl_errorBusqueda.Visibility = Visibility.Visible;
-                DeshabilitarComponentes();
             }
             else
             {
@@ -371,11 +368,8 @@ namespace Proyecto
 
                 if (dtg_proveedores.Items.Count == 0)//El proveedor no existe
                 {
-                    HabilitarComponentes();
-                    v_Actividad_btnAgregar = true;
                     btn_modificar.Visibility = Visibility.Collapsed;
-                    lbl_actividad.Content = "Agregar proveedor";
-                    lbl_actividad.Visibility = Visibility.Visible;
+                    inicializarAgregacion();
 
                     if (Regex.IsMatch(this.txb_busqueda.Text, "[a-zA-Z]"))
                     {
@@ -385,7 +379,6 @@ namespace Proyecto
                             lbl_errorBusqueda.Visibility = Visibility.Visible;
                             txb_nombre.Text = "";
                             lbl_errorNombre.Visibility = Visibility.Collapsed;
-                            DeshabilitarComponentes();
                         }
                         else
                         {
@@ -403,7 +396,6 @@ namespace Proyecto
                             lbl_errorBusqueda.Visibility = Visibility.Visible;
                             txb_cedJur.Text = "";
                             lbl_errorCedJur.Visibility = Visibility.Collapsed;
-                            DeshabilitarComponentes();
                         }
                         else
                         {
@@ -415,11 +407,11 @@ namespace Proyecto
                 }
                 else//Proveedores existentes
                 {
+                    v_Actividad_btnAgregar = false;
                     btn_agregar.Visibility = Visibility.Collapsed;
                     btn_modificar.Visibility = Visibility.Collapsed;
                     lbl_actividad.Content = "Proveedores existentes";
                     lbl_actividad.Visibility = Visibility.Visible;
-                    DeshabilitarComponentes();
                 }
             }
         }
@@ -443,33 +435,7 @@ namespace Proyecto
             lbl_actividad.Content = "Modificar proveedor";
             lbl_actividad.Visibility = Visibility.Visible;
             v_Actividad_btnModificar = true;
-            HabilitarComponentes();
-        }
-
-        //Método el cual bloquea los espacios de texto situados en el tab de gestión de proveedores
-        public void DeshabilitarComponentes()
-        {
-            txb_cedJur.IsEnabled = false;
-            txb_nombre.IsEnabled = false;
-            txb_telefono.IsEnabled = false;
-            txb_telefonoOpcional.IsEnabled = false;
-            txb_correo.IsEnabled = false;
-            txb_correoOpcional.IsEnabled = false;
-            txb_descripcion.IsEnabled = false;
-            btn_agregar.Visibility = Visibility.Collapsed;
-            btn_modificar.Visibility = Visibility.Collapsed;
-        }
-
-        //Método el cual desbloquea los espacios de texto situados en el tab de gestión de proveedores
-        public void HabilitarComponentes()
-        {
-            txb_cedJur.IsEnabled = true;
-            txb_nombre.IsEnabled = true;
-            txb_telefono.IsEnabled = true;
-            txb_telefonoOpcional.IsEnabled = true;
-            txb_correo.IsEnabled = true;
-            txb_correoOpcional.IsEnabled = true;
-            txb_descripcion.IsEnabled = true;
+            v_Actividad_btnAgregar = false;
         }
 
         //Método el cual habilita el botón modificar
@@ -479,6 +445,14 @@ namespace Proyecto
             {
                 btn_modificar.Visibility = Visibility.Visible;
             }
+        }
+
+        //Inicializa las opciones de agregar en la ventana 
+        private void inicializarAgregacion()
+        {
+            v_Actividad_btnAgregar = true;
+            lbl_actividad.Content = "Agregar proveedor";
+            lbl_actividad.Visibility = Visibility.Visible;
         }
 
         //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de gestión de proveedores
@@ -500,11 +474,7 @@ namespace Proyecto
         //Método el cual habilita componentes siempre y cuando no hayan errores en la caja de texto de buscar
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidarErroresTxb(txb_busqueda, lbl_errorBusqueda, "");
-            if (lbl_errorBusqueda.Visibility == Visibility.Collapsed)
-            {
-                HabilitarComponentes();
-            }      
+            ValidarErroresTxb(txb_busqueda, lbl_errorBusqueda, "");     
         }
 
         //Método el cual valida si la cédula jurídica es existente o no, en caso de ser existente, mostrar un error

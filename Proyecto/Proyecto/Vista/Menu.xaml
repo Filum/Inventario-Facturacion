@@ -117,7 +117,7 @@
 
             <Label Content="Bienvenido" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="50" Margin="0,20,0,0" Foreground="White" FontSize="36" FontFamily="Global Sans Serif" Width="232" DockPanel.Dock="Top" />
             <Label Content="SIF" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="48" Margin="0,20,0,0" VerticalAlignment="Top" Width="148" Foreground="White" FontSize="36" FontFamily="Global Sans Serif" DockPanel.Dock="Top"/>
-            <Image x:Name="image" Source="Imagenes/img_DELRAM.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="217" Width="293" DockPanel.Dock="Top" Margin="147,0,147.333,0"/>
+            <Image x:Name="image" Source="Imagenes/img_DELRAM.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="234" Width="327" DockPanel.Dock="Top" Margin="130,0,129,0"/>
 
         </DockPanel>
         <Button Foreground="White" Background="{x:Null}" Margin="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Height="100" Click="Button_Click" >
