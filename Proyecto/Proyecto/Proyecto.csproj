@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Vista\AcercaDeSIF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vista\Facturacion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,6 +75,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Vista\AcercaDeSIF.xaml.cs">
+      <DependentUpon>AcercaDeSIF.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vista\Facturacion.xaml.cs">
       <DependentUpon>Facturacion.xaml</DependentUpon>

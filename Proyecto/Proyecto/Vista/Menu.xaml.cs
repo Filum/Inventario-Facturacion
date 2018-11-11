@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto.Vista;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -187,6 +188,12 @@ namespace Proyecto
                 this.Close();
                 ventana.Show();
             }
+        }
+
+        private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
+        {
+            AcercaDeSIF ventana = new AcercaDeSIF();
+            ventana.Show();
         }
     }
 }

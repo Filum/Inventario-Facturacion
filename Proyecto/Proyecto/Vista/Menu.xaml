@@ -109,8 +109,11 @@
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Button x:Name="btn_Ayuda" HorizontalAlignment="Right" Height="55" VerticalAlignment="Top" Width="60" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Grid.ColumnSpan="2" Margin="0,65,9.6,0">
-            <StackPanel/>
+        
+        <Button x:Name="btn_Ayuda" Content="" Margin="0,77,8,0" RenderTransformOrigin="0.252,0.412" FontFamily="Yu Gothic UI Light" FontWeight="Bold" BorderBrush="{x:Null}" Click="btn_Ayuda_Click" HorizontalAlignment="Right" Width="30" Height="30" VerticalAlignment="Top">
+            <Button.Background>
+                <ImageBrush ImageSource="Imagenes/informacion.png"/>
+            </Button.Background>
         </Button>
         <Image x:Name="img_DELRAM_png" Height="100" Source="Imagenes/img_DELRAM.png" Stretch="Fill" VerticalAlignment="Top" Margin="30,10,0,0" RenderTransformOrigin="1.705,1.316" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="150"/>
         <DockPanel LastChildFill="False" Margin="207,60,-0.667,0.333">

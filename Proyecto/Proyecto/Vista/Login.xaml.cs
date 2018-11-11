@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.OracleClient;
 using System.Windows.Threading;
+using Proyecto.Vista;
 
 namespace Proyecto
 {
@@ -112,12 +113,8 @@ namespace Proyecto
 
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("El proyecto SIF(Sistema de Inventario y Facturación), es un sistema creado por la necesidad de la empresa DELRAM" +
-            "de manejar el inventario que se moviliza por parte de la empresa y al mismo tiempo optimizar procesos que se generan " +
-            "por parte de la empresa. Este sistema tambien presentara un modulo de facturacion donde se busca un manejo óptimo " +
-            "de las facturas de la empresa. El proyecto tiene una elaboracion en conjunto de dos grupos de desarrollo, uno que " +
-            "implementa el inventario y otro que implementa facturacion para lograr en el lapso de 3 semestres de trabajo " +
-            "conjunto culminar con el sistema que ayudará a los procesos de DELRAM.", "Acerca", MessageBoxButton.OK, MessageBoxImage.Information);     
+            AcercaDeSIF ventana = new AcercaDeSIF();
+            ventana.Show();
         }
     }
 }
