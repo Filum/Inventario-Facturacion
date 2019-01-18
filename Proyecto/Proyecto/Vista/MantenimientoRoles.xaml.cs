@@ -40,18 +40,7 @@ namespace Proyecto
 
         }
 
-        private void btn_buscar_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_rol_modificar.Text == "")
-            {
-                MessageBox.Show("No hay datos que buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-
-            }
-        }
+        
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -85,7 +74,7 @@ namespace Proyecto
 
         }
 
-        private void btn_guardar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
+       /* private void btn_guardar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
         {
             if (textbox_motivo_deshabilitar.Text == "")
             {
@@ -97,7 +86,7 @@ namespace Proyecto
                 MessageBox.Show("Rol Deshabilitado", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
+        */
         private void btn_salir_roles__Click(object sender, RoutedEventArgs e)
         {
             Menu Ventana = new Menu();
@@ -140,27 +129,19 @@ namespace Proyecto
 
         }
 
-        private void btn_guardar_rol_actualizado_Click(object sender, EventArgs e)
+        private void btn_guardar_rol_Click(object sender, EventArgs e)
         {
-            if (textbox_actualizar_nombre.Text == "" || checkbox_mant_productos_actualizar.IsChecked == false && checkbox_mant_proveedores_actualizar.IsChecked == false && checkbox_mant_roles_actualizar.IsChecked == false && checkbox_mant_usuarios_actualizar.IsChecked == false)
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            }
-            else
-            {
-                MessageBox.Show("Datos Actualizados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
 
         }
 
         private void btn_limpiar_actualizar_rol_Click(object sender, RoutedEventArgs e)
         {
-            textbox_actualizar_nombre.Text = " ";
-            checkbox_mant_productos_actualizar.IsChecked = false;
-            checkbox_mant_usuarios_actualizar.IsChecked = false;
-            checkbox_mant_proveedores_actualizar.IsChecked = false;
-            checkbox_mant_roles_actualizar.IsChecked = false;
+            txb_nomrol.Text = " ";
+            checkbox_mant_productos.IsChecked = false;
+            checkbox_mant_usuarios.IsChecked = false;
+            checkbox_mant_proveedores.IsChecked = false;
+            checkbox_mant_roles.IsChecked = false;
         }
 
         private void textbox_nombre_rol_TextChanged(object sender, TextChangedEventArgs e)
@@ -170,7 +151,7 @@ namespace Proyecto
 
 
 
-        private void btn_buscar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
+      /*  private void btn_buscar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
         {
             if (textbox_rol_modificar.Text == "")
             {
@@ -180,7 +161,7 @@ namespace Proyecto
             {
                 MessageBox.Show("Buscando...");
             }
-        }
+        }*/
 
         private void btn_historial_Click(object sender, RoutedEventArgs e)
         {
@@ -256,24 +237,19 @@ namespace Proyecto
             this.DragMove();
         }
 
-        private void textbox_actualizar_nombre_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void btn_limpiar_rol_Click(object sender, RoutedEventArgs e)
         {
-            textbox_nombre_rol.Text = " ";
+            txb_nomrol.Text = " ";
             checkbox_mant_productos.IsChecked = false;
             checkbox_mant_usuarios.IsChecked = false;
             checkbox_mant_proveedores.IsChecked = false;
             checkbox_mant_roles.IsChecked = false;
         }
 
-        private void btn_limpiar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
+        /*private void btn_limpiar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
         {
             textbox_motivo_deshabilitar.Text = " ";
-        }
+        }*/
 
         private void textbox_motivo_deshabilitar_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -285,18 +261,6 @@ namespace Proyecto
 
         }
 
-        private void btn_guardar_rol_Click(object sender, EventArgs e)
-        {
-            if (textbox_nombre_rol.Text == "" || checkbox_mant_productos.IsChecked == false && checkbox_mant_proveedores.IsChecked == false && checkbox_mant_roles.IsChecked == false && checkbox_mant_usuarios.IsChecked == false)
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-
-        }
+       
     }
 }
