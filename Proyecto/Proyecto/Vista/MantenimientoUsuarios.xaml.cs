@@ -105,105 +105,30 @@ namespace Proyecto
 
         }
 
-        private void btn_ingresar_limpiar_Click(object sender, RoutedEventArgs e)
+        private void btn_limpiar_usuario_Click(object sender, RoutedEventArgs e)
         {
             //limpiar
-            textbox_ingresar_numCed.Text = "";
-            textbox_ingresar_nombre.Text = "";
-            textbox_ingresar_email.Text = "";
-            textbox_ingresar_telHabitacion.Text = "";
-            textbox_ingresar_telMovil.Text = "";
-            textbox_ingresar_usuario.Text = "";
-            textbox_ingresar_contrasenna.Text = "";
-            textbox_ingresar_puesto.Text = "";
-            cmb_ingresar_rol.Text = "";
-            textbox_ingresar_email.BorderBrush = Brushes.White;
-            textbox_ingresar_email.Background = Brushes.White;
+            txb_ced.Text = "";
+            txb_nombre.Text = "";
+            txb_email.Text = "";
+            txb_telHabitacion.Text = "";
+            txb_telMovil.Text = "";
+            txb_idusuario.Text = "";
+            txb_contrasenna.Text = "";
+            txb_puesto.Text = "";
+            cmb_rol.Text = "";
+            txb_email.BorderBrush = Brushes.White;
+            txb_email.Background = Brushes.White;
         }
 
-        private void btn_actualizar_limpiar_Click(object sender, RoutedEventArgs e)
-        {
-            textbox_actualizar_numCed.Text = "";
-            textbox_actualizar_nombre.Text = "";
-            textbox_actualizar_email.Text = "";
-            textbox_actualizar_telHabitacion.Text = "";
-            textbox_actualizar_telMovil.Text = "";
-            textbox_actualizar_usuario.Text = "";
-            textbox_actualizar_contrasenna.Text = "";
-            textbox_actualizar_puesto.Text = "";
-            cmb_actualizar_rol.Text = "";
-            textbox_actualizar_email.BorderBrush = Brushes.White;
-            textbox_actualizar_email.Background = Brushes.White;
-        }
 
-        private void btn_deshabilitar_limpiar_Click(object sender, RoutedEventArgs e)
+        /*private void btn_deshabilitar_limpiar_Click(object sender, RoutedEventArgs e)
         {
             textbox_deshabilitar_motivo.Text = "";
             textbox_deshabilitar_numCed.Text = "";
-        }
+        }*/
 
-        private void Button_ingresar_guardar(object sender, RoutedEventArgs e)
-        {
-            if (textbox_ingresar_numCed.Text == "" && textbox_ingresar_nombre.Text == "" && textbox_ingresar_email.Text == ""
-                && textbox_ingresar_telHabitacion.Text == "" && textbox_ingresar_telMovil.Text == "" && textbox_ingresar_puesto.Text == ""
-                && textbox_ingresar_usuario.Text == "" && textbox_ingresar_contrasenna.Text == "" && cmb_ingresar_rol.Text == "")
-            {
-                MessageBox.Show("Ingrese elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else if (textbox_ingresar_numCed.Text == "" || textbox_ingresar_nombre.Text == "" || textbox_ingresar_email.Text == ""
-                || textbox_ingresar_telHabitacion.Text == "" || textbox_ingresar_telMovil.Text == "" || textbox_ingresar_puesto.Text == ""
-                || textbox_ingresar_usuario.Text == "" || textbox_ingresar_contrasenna.Text == "" || cmb_ingresar_rol.Text == "")
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        private void Button_deshabilitar_guardar(object sender, RoutedEventArgs e)
-        {
-            if (textbox_deshabilitar_numCed.Text == "" && textbox_deshabilitar_motivo.Text == "")
-            {
-                MessageBox.Show("Ingrese elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else if (textbox_deshabilitar_numCed.Text == "" || textbox_deshabilitar_motivo.Text == "")
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                btn_deshabilitar_limpiar_Click(sender, e);
-            }
-        }
-
-        private void Button_actualizar_guardar_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_actualizar_numCed.Text == "" && textbox_actualizar_nombre.Text == "" && textbox_actualizar_email.Text == ""
-                && textbox_actualizar_telHabitacion.Text == "" && textbox_actualizar_telMovil.Text == "" && textbox_actualizar_puesto.Text == ""
-                && textbox_actualizar_usuario.Text == "" && textbox_actualizar_contrasenna.Text == "" && cmb_actualizar_rol.Text == "")
-            {
-                MessageBox.Show("Ingrese elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else if (textbox_actualizar_numCed.Text == "" || textbox_actualizar_nombre.Text == "" || textbox_actualizar_email.Text == ""
-                || textbox_actualizar_telHabitacion.Text == "" || textbox_actualizar_telMovil.Text == "" || textbox_actualizar_puesto.Text == ""
-                || textbox_actualizar_usuario.Text == "" || textbox_actualizar_contrasenna.Text == "" || cmb_actualizar_rol.Text == "")
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                btn_actualizar_limpiar_Click(sender, e);
-            }
-        }
+       
 
         private Boolean email_correcto(String email)
         {
@@ -228,39 +153,39 @@ namespace Proyecto
 
         private void validar_Correo(object sender, EventArgs e)
         {
-            Console.WriteLine("Correo: " + textbox_ingresar_email.Text);
+            Console.WriteLine("Correo: " + txb_email.Text);
 
-            Console.WriteLine(email_correcto(textbox_ingresar_email.Text));
+            Console.WriteLine(email_correcto(txb_email.Text));
 
-            if (email_correcto(textbox_ingresar_email.Text) == false)
+            if (email_correcto(txb_email.Text) == false)
             {
                 MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error");
-                textbox_ingresar_email.BorderBrush = Brushes.Red;
-                textbox_ingresar_email.Background = Brushes.Tomato;
+                txb_email.BorderBrush = Brushes.Red;
+                txb_email.Background = Brushes.Tomato;
             }
             else
             {
-                textbox_ingresar_email.BorderBrush = Brushes.White;
-                textbox_ingresar_email.Background = Brushes.White;
+                txb_email.BorderBrush = Brushes.White;
+                txb_email.Background = Brushes.White;
             }
         }
 
         private void validar_Actualizar_Correo(object sender, EventArgs e)
         {
-            Console.WriteLine("Correo: " + textbox_actualizar_email.Text);
+            Console.WriteLine("Correo: " + txb_email.Text);
 
-            Console.WriteLine(email_correcto(textbox_actualizar_email.Text));
+            Console.WriteLine(email_correcto(txb_email.Text));
 
-            if (email_correcto(textbox_actualizar_email.Text) == false)
+            if (email_correcto(txb_email.Text) == false)
             {
                 MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error");
-                textbox_actualizar_email.BorderBrush = Brushes.Red;
-                textbox_actualizar_email.Background = Brushes.Tomato;
+                txb_email.BorderBrush = Brushes.Red;
+                txb_email.Background = Brushes.Tomato;
             }
             else
             {
-                textbox_actualizar_email.BorderBrush = Brushes.White;
-                textbox_actualizar_email.Background = Brushes.White;
+                txb_email.BorderBrush = Brushes.White;
+                txb_email.Background = Brushes.White;
             }
         }
 
@@ -303,17 +228,10 @@ namespace Proyecto
                 MessageBoxButton.OK);
         }
 
-        private void btn_buscar_buscar_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_buscar_buscar.Text == "")
-            {
-                MessageBox.Show("Ingrese elemento a buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
 
         private void btn_deshabilitar_buscar_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_deshabilitar_numCed.Text == "")
+            if (txb_ced.Text == "")
             {
                 MessageBox.Show("Ingrese elemento a buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -321,7 +239,7 @@ namespace Proyecto
 
         private void btn_actualizar_buscar_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_actualizar_numCed.Text == "")
+            if (txb_ced.Text == "")
             {
                 MessageBox.Show("Ingrese elemento a buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -329,19 +247,19 @@ namespace Proyecto
 
         private void validar_ingresar_contrasenna(object sender, EventArgs e)
         {
-            if(textbox_ingresar_contrasenna.Text.Length < 8)
+            if(txb_contrasenna.Text.Length < 8)
             {
                 MessageBox.Show("Formato incorrecto, debe tener más de 8 caraceres.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                textbox_ingresar_contrasenna.Text = "";
+                txb_contrasenna.Text = "";
             }
         }
 
         private void validar_actualizar_contrasenna(object sender, EventArgs e)
         {
-            if (textbox_actualizar_contrasenna.Text.Length < 8)
+            if (txb_contrasenna.Text.Length < 8)
             {
                 MessageBox.Show("Formato incorrecto, debe tener más de 8 caraceres.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                textbox_actualizar_contrasenna.Text = "";
+                txb_contrasenna.Text = "";
             }
         }
 
@@ -370,19 +288,33 @@ namespace Proyecto
 
         }
 
-        private void textbox_actualizar_nombre_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
         private void dtg_listar_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
-        private void btn_historial_buscar_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void Button_guardar_usuario_Click(object sender, RoutedEventArgs e)
+        {
+            if (txb_ced.Text == "" && txb_nombre.Text == "" && txb_email.Text == ""
+                 && txb_telHabitacion.Text == "" && txb_telMovil.Text == "" && txb_puesto.Text == ""
+                 && txb_idusuario.Text == "" && txb_contrasenna.Text == "" && cmb_rol.Text == "")
+            {
+                MessageBox.Show("Ingrese elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            else if (txb_ced.Text == "" || txb_nombre.Text == "" || txb_email.Text == ""
+                || txb_telHabitacion.Text == "" || txb_telMovil.Text == "" || txb_puesto.Text == ""
+                || txb_idusuario.Text == "" || txb_contrasenna.Text == "" || cmb_rol.Text == "")
+            {
+                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            else
+            {
+                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }
