@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="EntidadClientes.cs" />
     <Compile Include="EntidadProveedores.cs" />
+    <Compile Include="EntidadRoles.cs" />
+    <Compile Include="EntidadUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

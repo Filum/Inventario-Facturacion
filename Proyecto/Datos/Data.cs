@@ -11,7 +11,7 @@ namespace Datos
 {
     public class Data
     {
-        
+        //----------------- A G R E G A R  -----------------------
         public int AgregarClientes(EntidadClientes clt)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -50,7 +50,24 @@ namespace Datos
             conn.Close();
             return v_Resultado;
         }
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo rol.
+        Si se modifica correctamente retorna un "-1" */
+        public int AgregarRoles(EntidadRoles clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("ADD_ROLES", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("NOMBR", clt.v_Nombre));
+            comando.Parameters.Add(new OracleParameter("MANTENIMIENTOS", clt.v_Mantenimientos));
+            comando.Parameters.Add(new OracleParameter("ESTADO", clt.v_Estado));
 
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
+        //------------ M O D I F I C A R ---------------------------------
         public int ModificarClientes(EntidadClientes clt)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -91,6 +108,24 @@ namespace Datos
             return v_Resultado;
         }
 
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un rol.
+       Si se modifica correctamente retorna un "-1" */
+        public int ModificarRoles(EntidadRoles clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("act_Roles", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("IDROL", clt.v_IdRol));
+            comando.Parameters.Add(new OracleParameter("NOMBR", clt.v_Nombre));
+            comando.Parameters.Add(new OracleParameter("MANTENIMIENTOS", clt.v_Mantenimientos));
+            comando.Parameters.Add(new OracleParameter("ESTADO", clt.v_Estado));
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
+        //--------------------- M O S T R A R ----------------------------- 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -125,6 +160,25 @@ namespace Datos
             return tabla;
         }
 
+        /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
+         Además, en caso de encontrar proveedores estos serán retornados mediante una tabla*/
+        public DataTable MostarListaRoles(String v_Fecha1, String v_Fecha2)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select fecha,nombre,mantenimientos,estado from tbl_Roles where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
+        // ----------------- B Ú S Q U E D A -------------------------
         public List<EntidadClientes> BuscarClientes(String v_Nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -182,6 +236,35 @@ namespace Datos
                     proveedor.v_Descripcion = dr.GetString(5);
                     proveedor.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
                     Lista.Add(proveedor);
+                }
+            }
+            conn.Close();
+            return Lista;
+        }
+
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del rol mediante el nombre 
+         Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/
+        public List<EntidadRoles> ValidarBusquedaRoles(String v_busqueda)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT * FROM TBL_ROLES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadRoles> Lista = new List<EntidadRoles>();
+
+            if (v_busqueda != "")
+            {
+                while (dr.Read())
+                {
+                    EntidadRoles rol = new EntidadRoles();
+                    rol.v_IdRol = dr.GetInt64(0);
+                    rol.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
+                    rol.v_Nombre = dr.GetString(2);
+                    rol.v_Mantenimientos = dr.GetString(3); ;
+                    rol.v_Estado = dr.GetString(4); ;
+                    Lista.Add(rol);
                 }
             }
             conn.Close();
