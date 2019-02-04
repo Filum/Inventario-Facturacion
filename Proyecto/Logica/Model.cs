@@ -58,6 +58,12 @@ namespace Logica
             return v_Data.MostarListaProveedores(v_Fecha1, v_Fecha2);
         }
 
+        //Recibe como referencia dos fechas las cuales van a ser enviadas a la clase Data para proceder con la actividad de listar productos
+        public DataTable MostrarListaProductos(String v_Fecha1, String v_Fecha2)
+        {
+            return v_Data.MostarListaProductos(v_Fecha1, v_Fecha2);
+        }
+
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
             return v_Data.MostrarListaClientes(fecha1,fecha2);
