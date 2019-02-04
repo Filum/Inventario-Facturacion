@@ -248,5 +248,14 @@
   <ItemGroup>
     <Resource Include="Vista\Imagenes\bitacora.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\LOGO SIF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\LOGO SIFpequeño.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\LOGO SIFmediano.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
