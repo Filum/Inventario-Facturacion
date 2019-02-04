@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Entidades;
+using Logica;
 
 namespace Proyecto
 {
@@ -19,6 +21,9 @@ namespace Proyecto
     /// </summary>
     public partial class MantenimientoProductos : Window
     {
+        EntidadProveedores v_Clt = new EntidadProveedores();
+        Model v_Model = new Model();
+
         public MantenimientoProductos()
         {
             InitializeComponent();
@@ -34,66 +39,11 @@ namespace Proyecto
 
         }
 
-        private void btn_guardarIng(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_limpiarIng(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void btn_salir_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
             ventana.Show();
             this.Close();
-        }
-
-        private void btn_ayuda_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
@@ -145,59 +95,19 @@ namespace Proyecto
             this.Close();
         }
 
-        private void textbox_ingresar_cantIngresar_TextChanged(object sender, TextChangedEventArgs e)
+        private void btn_limpiar_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void btn_ingresar_limpiar_Click(object sender, RoutedEventArgs e)
-        {
-            textbox_ingresar_codProd.Text = "";
-            textbox_ingresar_nombre.Text = "";
-            textbox_ingresar_proveedor.Text = "";
-            date_ingresar_fechaIngreso.Text = "";
-            textbox_ingresar_precio.Text = "";
-            textbox_ingresar_cantIngresar.Text = "";
-            textbox_ingresar_cantMinima.Text = "";
-            textbox_ingresar_fabricante.Text = "";
-            cmb_ingresar_estado.Text = "";
-            textbox_ingresar_descripcion.Text = "";
-        }
-
-        private void btn_deshabilitar_limpiar_Click(object sender, RoutedEventArgs e)
-        {
-            textbox_deshabilitar_cantDeshabilitar.Text = "";
-            textbox_deshabilitar_motivo.Text = "";
-        }
-
-        private void btn_actualizar_limpiar_Click(object sender, RoutedEventArgs e)
-        {
-            textbox_actualizar_nombre.Text = "";
-            textbox_actualizar_cantActual.Text = "";
-            textbox_actualizar_cantModificar.Text = "";
-            textbox_actualizar_proveedor.Text = "";
-            cmb_actualizar_estado.Text = "";
-            textbox_actualizar_precio.Text = "";
-            textbox_actualizar_cantMinima.Text = "";
-            date_actualizar_fechaIngreso.Text = "";
-            textbox_actualizar_fabricante.Text = "";
-            textbox_actualizar_descripcion.Text = "";
-        }
-
-        private void btn_buscar_buscar_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_buscar_buscar.Text == "")
-            {
-                MessageBox.Show("Ingrese elemento a buscar.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btn_deshabilitar_buscar_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_deshabilitar_buscar.Text == "")
-            {
-                MessageBox.Show("Ingrese elemento a buscar.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            txt_busqueda.Text = "";
+            txb_codProd.Text = "";
+            txb_nombre.Text = "";
+            txb_cantMinima.Text = "";
+            txb_cantModificar.Text = "";
+            txb_cantActual.Text = "";
+            cmb_estado.Text = "";
+            txb_precio.Text = "";
+            cmb_proveedor.Text = "";
+            txb_fabricante.Text = "";
+            txb_descripcion.Text = "";
         }
 
         private void btn_productos_ayuda_Click(object sender, RoutedEventArgs e)
@@ -220,81 +130,9 @@ namespace Proyecto
                 MessageBoxButton.OK);
         }
 
-        private void btn_actualizar_buscar_Click(object sender, RoutedEventArgs e)
+        private void btn_agregar_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_actualizar_buscar.Text == "")
-            {
-                MessageBox.Show("Ingrese el elemento a buscar.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btn_ingresar_guardar_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_ingresar_codProd.Text == "" && textbox_ingresar_nombre.Text == "" && textbox_ingresar_proveedor.Text == ""
-               && date_ingresar_fechaIngreso.Text == "" && textbox_ingresar_precio.Text == "" && textbox_ingresar_cantIngresar.Text == ""
-               && textbox_ingresar_cantMinima.Text == "" && textbox_ingresar_fabricante.Text == "" && cmb_ingresar_estado.Text == ""
-               && textbox_ingresar_descripcion.Text == "")
-            {
-                MessageBox.Show("Ingrese elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else if (textbox_ingresar_codProd.Text == "" || textbox_ingresar_nombre.Text == "" || textbox_ingresar_proveedor.Text == ""
-               || date_ingresar_fechaIngreso.Text == "" || textbox_ingresar_precio.Text == "" || textbox_ingresar_cantIngresar.Text == ""
-               || textbox_ingresar_cantMinima.Text == "" || textbox_ingresar_fabricante.Text == "" || cmb_ingresar_estado.Text == ""
-               || textbox_ingresar_descripcion.Text == "")
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                btn_ingresar_limpiar_Click(sender, e);
-            }
-        }
-
-        private void btn_deshabilitar_guardar_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_deshabilitar_cantDeshabilitar.Text == "" && textbox_deshabilitar_motivo.Text == "")
-            {
-                MessageBox.Show("Ingrese elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else if (textbox_deshabilitar_cantDeshabilitar.Text == "" || textbox_deshabilitar_motivo.Text == "")
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                btn_deshabilitar_limpiar_Click(sender, e);
-            }
-        }
-
-        private void btn_actualizar_guardar_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_actualizar_nombre.Text == "" && textbox_actualizar_cantActual.Text == "" && textbox_actualizar_cantModificar.Text == ""
-               && textbox_actualizar_proveedor.Text == "" && cmb_actualizar_estado.Text == "" && textbox_actualizar_precio.Text == ""
-               && textbox_actualizar_cantMinima.Text == "" && date_actualizar_fechaIngreso.Text == "" && textbox_actualizar_fabricante.Text == ""
-               && textbox_actualizar_descripcion.Text == "")
-            {
-                MessageBox.Show("Ingrese elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else if (textbox_actualizar_nombre.Text == "" || textbox_actualizar_cantActual.Text == "" || textbox_actualizar_cantModificar.Text == ""
-               || textbox_actualizar_proveedor.Text == "" || cmb_actualizar_estado.Text == "" || textbox_actualizar_precio.Text == ""
-               || textbox_actualizar_cantMinima.Text == "" || date_actualizar_fechaIngreso.Text == "" || textbox_actualizar_fabricante.Text == ""
-               || textbox_actualizar_descripcion.Text == "")
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                btn_actualizar_limpiar_Click(sender, e);
-            }
+         
         }
 
         private void soloNumeros_KeyDown(object sender, KeyEventArgs e)
@@ -310,34 +148,61 @@ namespace Proyecto
             }
         }
 
-        private void textbox_ingresar_cantMinima_TextChanged(object sender, TextChangedEventArgs e)
+        private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void textbox_actualizar_precio_TextChanged(object sender, TextChangedEventArgs e)
+        private void btn_usuarios_usuario_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBoxResult v_Result = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar Sesión", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (v_Result == MessageBoxResult.Yes)
+            {
+                Login v_Ventana = new Login();
+                this.Close();
+                v_Ventana.Show();
+            }
         }
 
-        private void textbox_buscar_buscar_TextChanged(object sender, TextChangedEventArgs e)
+        private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
+            if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
+            {
+                DateTime v_FechaInicio = DateTime.Parse(date_inicio.SelectedDate.Value.Date.ToShortDateString());
+                DateTime v_FechaFinal = DateTime.Parse(date_final.SelectedDate.Value.Date.ToShortDateString());
+                String v_Fecha1;
+                v_Fecha1 = date_inicio.SelectedDate.Value.Date.ToShortDateString();
+                String v_Fecha2;
+                v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
+                dtg_lista.ItemsSource = null;
 
-        }
-
-        private void btn_historial_buscar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void textbox_ingresar_fechaIngreso_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+                if (v_FechaInicio > v_FechaFinal)
+                {
+                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    if (v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    {
+                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_Fecha1, v_Fecha2).DefaultView;
+                        dtg_lista.Columns[0].Header = "Código Producto";
+                        dtg_lista.Columns[1].Header = "Nombre del Producto";
+                        dtg_lista.Columns[2].Header = "Marca";
+                        dtg_lista.Columns[3].Header = "Cant en existencia";
+                        dtg_lista.Columns[4].Header = "Cant mínima";
+                        dtg_lista.Columns[5].Header = "Proveedor";
+                        dtg_lista.Columns[6].Header = "Precio";
+                        dtg_lista.Columns[7].Header = "Descripción";
+                        dtg_lista.Columns[8].Header = "Fabricante";
+                        dtg_lista.Columns[9].Header = "Estado";
+                        dtg_lista.Columns[10].Header = "Fecha";
+                    }
+                }
+            }
         }
     }
 }

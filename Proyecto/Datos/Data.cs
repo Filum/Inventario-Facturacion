@@ -125,6 +125,24 @@ namespace Datos
             return tabla;
         }
 
+        /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los productos ingresados en este rango.
+         Además, en caso de encontrar productos estos serán retornados mediante una tabla*/
+        public DataTable MostarListaProductos(String v_Fecha1, String v_Fecha2)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select codigoProducto,nombreProducto,marcaProducto,cantidadExistencia,cantidadMinima,fk_idProveedor,precioUnitario,descripcion,fabricante,estado,fecha from tbl_Productos where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
         public List<EntidadClientes> BuscarClientes(String v_Nombre)
         {
             OracleConnection conn = DataBase.Conexion();
