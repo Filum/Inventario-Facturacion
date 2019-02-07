@@ -271,6 +271,42 @@ namespace Datos
             return Lista;
         }
 
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del producto mediante el nombre o el codigo.
+         Además, en caso de encontrar productos estos serán retornados mediante una lista*/
+        public List<EntidadProductos> ValidarBusquedaProductos(String v_busqueda)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT * FROM TBL_PRODUCTOS WHERE translate(UPPER(NOMBREPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU') OR CODIGOPRODUCTO LIKE '%" + v_busqueda + "%'";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadProductos> Lista = new List<EntidadProductos>();
+
+            if (v_busqueda != "")
+            {
+                while (dr.Read())
+                {
+                    EntidadProductos producto = new EntidadProductos();
+                    producto.v_IdProducto = dr.GetInt64(0);
+                    producto.v_CodigoProducto = dr.GetString(2);
+                    producto.v_NombreProducto = dr.GetString(3);
+                    producto.v_MarcaProducto = dr.GetString(4);
+                    producto.v_CantidadExistencia = Convert.ToInt64(dr.GetValue(5));
+                    producto.v_CantidadMinima = Convert.ToInt32(dr.GetValue(6));
+                    producto.v_Fk_IdProveedor = Convert.ToInt64(dr.GetValue(7));
+                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(8));
+                    producto.v_Descripcion = dr.GetString(9);
+                    producto.v_Fabricante = dr.GetString(10);
+                    producto.v_Estado = dr.GetString(11);
+                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
+                    Lista.Add(producto);
+                }
+            }
+            conn.Close();
+            return Lista;
+        }
+
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia de la cédula jurídica.
          Además, en caso de encontrar dicha cédula jurídica retornara un true, en caso contrario retornara un false*/
         public bool ValidarCedJurProveedores(String v_CedJur)

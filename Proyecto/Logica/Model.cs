@@ -74,16 +74,16 @@ namespace Logica
             return v_Data.MostarListaRoles(fecha1, fecha2);
         }
 
-        //------------------ B U S C A R --------------------------
-
-        public List<EntidadClientes> BuscarClientes(String nombre)
-        {
-            return v_Data.BuscarClientes(nombre);
-        }
         //Recibe como referencia un string necesario para proceder con la existencia de proveedores
         public List<EntidadProveedores> ValidarBusquedaProveedores(String v_Busqueda)
         {
             return v_Data.ValidarBusquedaProveedores(v_Busqueda);
+        }
+
+        //Recibe como referencia un string necesario para proceder con la busqueda de productos
+        public List<EntidadProductos> ValidarBusquedaProductos(String v_Busqueda)
+        {
+            return v_Data.ValidarBusquedaProductos(v_Busqueda);
         }
 
         public List<EntidadRoles> ValidarBusquedaRoles(String v_Busqueda)

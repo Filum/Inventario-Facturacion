@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntidadClientes.cs" />
+    <Compile Include="EntidadProductos.cs" />
     <Compile Include="EntidadProveedores.cs" />
     <Compile Include="EntidadRoles.cs" />
     <Compile Include="EntidadUsuarios.cs" />
