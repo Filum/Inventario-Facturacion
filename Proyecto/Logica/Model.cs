@@ -56,16 +56,10 @@ namespace Logica
             return v_Data.MostrarListaClientes(fecha1,fecha2);
         }
 
-        //Recibe como referencia un string necesario para proceder con la busqueda de proveedores
+        //Recibe como referencia un string necesario para proceder con la existencia de proveedores
         public List<EntidadProveedores> ValidarBusquedaProveedores(String v_Busqueda)
         {
             return v_Data.ValidarBusquedaProveedores(v_Busqueda);
-        }
-
-        //Recibe como referencia un string necesario para proceder con la busqueda de productos
-        public List<EntidadProductos> ValidarBusquedaProductos(String v_Busqueda)
-        {
-            return v_Data.ValidarBusquedaProductos(v_Busqueda);
         }
 
         //Recibe como referencia un string necesario para proceder con la existencia de cédulas jurídicas

@@ -81,15 +81,7 @@
                             <TextBlock Text="Imprimir" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_lista" Margin="40,125,35.333,39" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="FontWeight" Value="Bold" />
-                                <Setter Property="FontSize"  Value="14" />
-                                <Setter Property="Padding" Value="5"/>
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                    </DataGrid>
+                    <DataGrid x:Name="dtg_lista" Margin="40,125,35.333,39" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray"></DataGrid>
                     <Label Content="Seleccione un rango de fecha del:" Margin="0,30,547,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
                     <DatePicker x:Name="date_inicio" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,31,391,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
                         <DatePicker.Resources>
@@ -147,8 +139,7 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o código del producto:" HorizontalAlignment="Left" Margin="15,13,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="327"/>
-                    <TextBox x:Name="txb_busqueda" Height="32" Margin="361,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="238" FontFamily="Global Sans Serif" MaxLength="35" KeyUp="txb_busqueda_KeyUp"/>
-                    <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="361,43,189,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Grid.RowSpan="2"/>
+                    <TextBox x:Name="txt_busqueda" Height="32" Margin="361,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="238"  KeyDown="soloNumeros_KeyDown" FontFamily="Global Sans Serif" MaxLength="35"/>
 
                     <Image x:Name="img_busqueda" Source="Imagenes/buscar.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="619,10,0,0" Grid.RowSpan="2"/>
                     <Grid Grid.Row="3" Height="246" VerticalAlignment="Center" Margin="-1,22,104,0">
@@ -166,19 +157,19 @@
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="88,1,371,-1" >
                             <TextBox x:Name="txb_codProd" HorizontalAlignment="Left" Margin="0,0" TextWrapping="Wrap" Width="132" Height="26" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35"/>
-                            <Label x:Name="lbl_errorCodProd"  Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+                            <Label x:Name="lbl_errorCodProd" Content="Esto es un error" Visibility="Visible" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
 
                             <TextBox x:Name="txb_nombre" HorizontalAlignment="Left" Margin="0,9" TextWrapping="Wrap" Width="210" Height="26" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35"/>
-                            <Label x:Name="lbl_errorNombre" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
+                            <Label x:Name="lbl_errorNombre" Content="Esto es un error" Visibility="Visible" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
 
                             <TextBox x:Name="txb_cantActual" HorizontalAlignment="Left" Margin="0,9" TextWrapping="Wrap" Width="70" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
-                            <Label x:Name="lbl_errorCantActual" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+                            <Label x:Name="lbl_errorCantActual" Content="Esto es un error" Visibility="Visible" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
 
-                            <TextBox x:Name="txb_cantModificar" HorizontalAlignment="Left" Margin="0,9" TextWrapping="Wrap" Width="70" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="4" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
-                            <Label x:Name="lbl_errorCantModificar" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+                            <TextBox x:Name="txb_cantModificar" HorizontalAlignment="Left" Margin="0,9" TextWrapping="Wrap" Width="70" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="4" FontSize="16"  KeyDown="soloNumeros_KeyDown" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
+                            <Label x:Name="lbl_errorCantModificar" Content="Esto es un error" Visibility="Visible" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
 
-                            <TextBox x:Name="txb_cantMinima" Margin="0,9" TextWrapping="Wrap" Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="70" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
-                            <Label x:Name="lbl_errorCantMinima" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12" RenderTransformOrigin="0.476,1.267"/>
+                            <TextBox x:Name="txb_cantMinima" Margin="0,9" TextWrapping="Wrap" Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="70" FontSize="16" KeyDown="soloNumeros_KeyDown" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
+                            <Label x:Name="lbl_errorCantMinima" Content="Esto es un error" Visibility="Visible" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12" RenderTransformOrigin="0.476,1.267"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="328,0,223,35">
@@ -195,19 +186,19 @@
                                 <ComboBoxItem Content="Usado"/>
                                 <ComboBoxItem Content="Dañado"/>
                             </ComboBox>
-                            <Label x:Name="lbl_errorEstado" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="22" FontSize="12"/>
+                            <Label x:Name="lbl_errorEstado" Content="Esto es un error" Visibility="Visible" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="22" FontSize="12"/>
 
-                            <TextBox x:Name="txb_precio" HorizontalAlignment="Left" Margin="0,7" TextWrapping="Wrap" Width="85" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
-                            <Label x:Name="lbl_errorPrecio" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="24" FontSize="12"/>
+                            <TextBox x:Name="txb_precio" HorizontalAlignment="Left" Margin="0,7" TextWrapping="Wrap" Width="85" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" FontSize="16"  KeyDown="soloNumeros_KeyDown" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
+                            <Label x:Name="lbl_errorPrecio" Content="Esto es un error" Visibility="Visible" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="24" FontSize="12"/>
 
-                            <ComboBox x:Name="cmb_proveedor" HorizontalAlignment="Left" Margin="0,9" Width="156" Height="26" SelectionChanged="cmb_proveedor_SelectionChanged"></ComboBox>
-                            <Label x:Name="lbl_errorProveedor" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+                            <ComboBox x:Name="cmb_proveedor" HorizontalAlignment="Left" Margin="0,9" Width="156" Height="26"></ComboBox>
+                            <Label x:Name="lbl_errorProveedor" Content="Esto es un error" Visibility="Visible" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
 
                             <TextBox x:Name="txb_fabricante" Margin="0,9,-18,9" TextWrapping="Wrap" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="152" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" Height="26"/>
-                            <Label x:Name="lbl_errorFabricante" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
+                            <Label x:Name="lbl_errorFabricante" Content="Esto es un error" Visibility="Visible" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
 
                             <TextBox x:Name="txb_descripcion" Margin="0,6" TextWrapping="Wrap" Grid.ColumnSpan="6" Grid.Column="1" Grid.Row="5" Height="52" FontSize="16" FontFamily="Global Sans Serif" MaxLength="300" MaxHeight="100"/>
-                            <Label x:Name="lbl_errorDescripcion" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+                            <Label x:Name="lbl_errorDescripcion" Content="Esto es un error" Visibility="Visible" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
                         </StackPanel>
                     </Grid>
                     <Button x:Name="btn_agregar" Visibility="Collapsed" Foreground="White" Margin="0,69,29,129" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="70" Height="70" VerticalAlignment="Center" Grid.Row="3" Click="btn_agregar_Click">
@@ -217,7 +208,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="btn_modificar" Visibility="Collapsed" Foreground="White" Margin="0,69,29,129" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="70" Height="70" VerticalAlignment="Center" Grid.Row="3" Click="btn_modificar_Click">
+                    <Button x:Name="btn_modificar" Visibility="Visible" Foreground="White" Margin="0,69,29,129" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="70" Height="70" VerticalAlignment="Center" Grid.Row="3" Click="btn_modificar_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
@@ -229,19 +220,7 @@
                             <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_productos" Margin="15,6,60,18" Grid.Row="1"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
-                        <DataGrid.Resources>
-                            <Style TargetType="DataGridRow">
-                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
-                            </Style>
-                        </DataGrid.Resources>
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="FontWeight" Value="Bold" />
-                                <Setter Property="FontSize"  Value="14" />
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                    </DataGrid>
+                    <DataGrid x:Name="dtg_actualizar_busqueda" Margin="15,6,60,18" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" ColumnHeaderHeight="32" Grid.RowSpan="2"></DataGrid>
                     <Separator  Background="#FF3472DE" Grid.RowSpan="3" Margin="34,100,10,251" Grid.Row="1"/>
                     <Label x:Name="lbl_actividad" Content="Agregar producto" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="299,20,269,0" Grid.Row="2" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" RenderTransformOrigin="0.428,-0.5" Grid.RowSpan="2"/>
                 </Grid>
