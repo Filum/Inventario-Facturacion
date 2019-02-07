@@ -105,6 +105,9 @@ namespace Logica
             return v_Data.ValidarModificacionProveedores(clt);
         }
 
-       
+        public List<EntidadClientes> BuscarClientes(String nombre)
+        {
+            return v_Data.BuscarClientes(nombre);
+        }
     }
 }
