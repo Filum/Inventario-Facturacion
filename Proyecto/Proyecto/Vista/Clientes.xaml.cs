@@ -283,7 +283,7 @@ namespace Proyecto
 
 
         //Métodos para controlar los errores que se pueden cometer a la hora de rellenar el formulario.
-        private void telefono_KeyDown(object sender, KeyEventArgs e)
+        private void telefono_Oficina_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
             {
@@ -302,7 +302,25 @@ namespace Proyecto
                 txt_error_TelO.Visibility = Visibility.Visible;
             }
         }
-
+        private void telefono_Movil_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                txt_error_telM.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_TelMov.Text) == true)
+                {
+                    txt_error_telM.Content = "No se permiten caracteres especiales";
+                    txt_error_telM.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                txt_error_telM.Content = "No se permite ingresar letras";
+                txt_error_telM.Visibility = Visibility.Visible;
+            }
+        }
         private Boolean email_correcto(String email)
         {
             String v_Expresion;
@@ -465,8 +483,8 @@ namespace Proyecto
 
         private void validar_actualizar_movil(object sender, KeyboardFocusChangedEventArgs e)
         {
-            string tele1 = txb_TelMov.Text;
-            if (tele1.Length < 8)
+            string tele = txb_TelMov.Text;
+            if (tele.Length < 8)
             {
                 txt_error_telM.Content = "Los números telefónicos deben de tener un formato valido de 8 dígitos.";
                 txt_error_telM.Visibility = Visibility.Visible;
@@ -600,10 +618,6 @@ namespace Proyecto
                 lbl_error.Content = "Espacio vacío";
                 lbl_error.Visibility = Visibility.Visible;
             }
-            else if (txb_clientes == txb_TelOf && txb_clientes.Text == "")
-            {
-                lbl_error.Visibility = Visibility.Collapsed;
-            }
             else if (txb_clientes.Text == " ")
             {
                 txb_clientes.Text = "";
@@ -625,19 +639,31 @@ namespace Proyecto
                     lbl_error.Content = "Deben tener al menos 8 dígitos";
                     lbl_error.Visibility = Visibility.Visible;
                 }
-                else if (v_TamanoTxb.Length <= 12)
-                {
-                    if (ValidarCaracteresEspeciales(txb_clientes.Text) == false)
-                    {
-                        lbl_error.Visibility = Visibility.Collapsed;
-                    }
-                }
             }
             else
             {
                 lbl_error.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void txb_TelOf_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarErroresTxb(txb_TelOf, txt_error_TelO);
+            if (txb_TelOf.Text == "")
+            {
+                txt_error_TelO.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void txb_TelMov_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarErroresTxb(txb_TelMov, txt_error_telM);
+            if (txb_TelMov.Text == "")
+            {
+                txt_error_telM.Visibility = Visibility.Collapsed;
+            }
+        }
+
 
     }
 }
