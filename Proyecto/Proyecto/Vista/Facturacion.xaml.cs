@@ -49,61 +49,6 @@ namespace Proyecto
             this.Close();
         }
 
-        private void cmb_Clientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void dg_Factura_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void rb_Colones_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_Salir_ContextMenuClosing(object sender, ContextMenuEventArgs e)
-        {
-
-        }
-
-        private void tbc_mantProd_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Secciones Mantenimiento de Facturas:\n" + "Listar: usted podra imprimir la lista de facturas, aparte de ordenarlos ya sea por código o por nombre del cliente.\n" +
@@ -112,36 +57,6 @@ namespace Proyecto
                             "Facturación de servicios: esta sección le permite la facturación de servicios.\n" +
                             "Historial: esta ventana le mostrara todos los cambios realizados en esta sección.\n"
                            , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_Colon_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_imprimir_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_ordenarporcodigo_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_ordenarpornombre_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Button_agregar_producto_Click(object sender, RoutedEventArgs e)
@@ -194,11 +109,6 @@ namespace Proyecto
             textbox_total_factura.Text = "";
         }
 
-        private void textbox_subtotal_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -231,66 +141,6 @@ namespace Proyecto
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void btn_buscar_cliente_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void textbox_codigo_factura_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void textbox_cliente_factura_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void textbox_subtotal_factura_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_no_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_si_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void textbox_descuento_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void textbox_total_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_dolar_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void textbox_codigo_factura_servicio_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void textbox_cliente_factura_servicio_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void textbox_descripcion_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void btn_limpiar_factura_Serv_Click(object sender, RoutedEventArgs e)
@@ -326,6 +176,11 @@ namespace Proyecto
                 e.Handled = false;
             else
                 e.Handled = true;
+        }
+
+        private void btn_imprimir_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Logica
 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
-            return v_Data.MostrarListaClientes(fecha1,fecha2);
+            return v_Data.MostrarListaClientes(fecha1, fecha2);
         }
 
         //Recibe como referencia un string necesario para proceder con la busqueda de proveedores
@@ -79,6 +79,10 @@ namespace Logica
         public bool ValidarModificacionProveedores(EntidadProveedores clt)
         {
             return v_Data.ValidarModificacionProveedores(clt);
+        }
+        public DataTable Clientes()
+        {
+            return  v_Data.Clientes();
         }
     }
 }

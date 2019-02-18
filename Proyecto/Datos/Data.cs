@@ -287,5 +287,22 @@ namespace Datos
             conn.Close();
             return false;
         }
+
+        // Funcion para mostrar los clientes activos del sistema.
+        public DataTable Clientes()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT NOMBRE FROM TBL_CLIENTES WHERE ESTADO = 'Activo'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
     }
 }
