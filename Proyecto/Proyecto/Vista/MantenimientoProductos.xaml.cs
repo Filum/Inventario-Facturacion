@@ -39,12 +39,21 @@ namespace Proyecto
             date_inicio.SelectedDate = DateTime.Now.Date;
             date_final.SelectedDate = DateTime.Now.Date;
 
-
+            LlenarComboboxProveedores();
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             txt_fecha.Content = DateTime.Now.ToString();
+        }
 
+        private void LlenarComboboxProveedores()
+        {
+            //Llenar combobox de proveedor
+            var v_ProveedoresExistentes = new List<EntidadProveedores>();
+            v_ProveedoresExistentes = v_Model.ProveedoresExistentes();
+            cmb_proveedor.ItemsSource = v_ProveedoresExistentes;
+            cmb_proveedor.DisplayMemberPath = "v_Nombre";
+            cmb_proveedor.SelectedValuePath = "v_IdProveedor";
         }
 
         private void btn_salir_Click(object sender, RoutedEventArgs e)

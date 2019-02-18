@@ -58,6 +58,11 @@ namespace Logica
             return v_Data.MostarListaProveedores(v_Fecha1, v_Fecha2);
         }
 
+        public List<EntidadProveedores> ProveedoresExistentes()
+        {
+            return v_Data.ProveedoresExistentes();
+        }
+
         //Recibe como referencia dos fechas las cuales van a ser enviadas a la clase Data para proceder con la actividad de listar productos
         public DataTable MostrarListaProductos(String v_Fecha1, String v_Fecha2)
         {
