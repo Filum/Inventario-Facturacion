@@ -71,6 +71,7 @@ namespace Proyecto
                  , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        //Función para limpiar campos en el modulo de clientes. 
         private void Limpiar_Actualizar_Cliente()
         {
             txb_correo.Text = "";
@@ -92,6 +93,8 @@ namespace Proyecto
             txt_actividad.Visibility = Visibility.Hidden;
             txb_buscar_cliente.IsEnabled = true;
         }
+
+        //Botón para regresar al menú principal. 
         private void btn_Regresar_Click_1(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
@@ -99,6 +102,7 @@ namespace Proyecto
             this.Close();//cierra la ventana en la que se esta en ese momento.
         }
 
+        //Botón para salir del sistema. 
         private void btn_salir_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
@@ -106,7 +110,7 @@ namespace Proyecto
             this.Close();
         }
 
-
+        //Botón para cerrar sesión. 
         private void btn_usuario_clientes_Click(object sender, RoutedEventArgs e)
         {
             Login ventana = new Login();
@@ -119,7 +123,7 @@ namespace Proyecto
             MessageBox.Show("No se ha seleccionado ningun cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-
+        //Botón que guarda los cambios que se le realizan a los clientes.
         private void btn_guardar_cliente_actualizado_Click(object sender, RoutedEventArgs e)
         {
             try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
@@ -171,14 +175,14 @@ namespace Proyecto
                 MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        //Botón para limpiar el modulo de clientes.
         private void btn_limpiar_actualizar_cliente_Click(object sender, RoutedEventArgs e)
         {
             Limpiar_Actualizar_Cliente();
         }
 
 
-
+        //Botón para salir del modulo de clientes.
         private void btn_salir_clientes_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
@@ -186,11 +190,13 @@ namespace Proyecto
             this.Close();
         }
 
+        //Botón para minimizar la pantalla.
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
+        //Botón para maximizar la pantalla.
         private void btn_maximizar_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Normal)
@@ -205,6 +211,7 @@ namespace Proyecto
 
             }
         }
+        //Barra en el área superior de la ventana, la cual permite deslizarla de un lugar a otro
         private void barra_movil__MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
@@ -216,12 +223,13 @@ namespace Proyecto
             this.DragMove();
         }
 
+        //Botón cerrar el programa.
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-
+        //Botón para listar los clientes existentes en el sistema.
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
             if (date_historial_clientes_inicio.SelectedDate != null && date_historial_clientes_final.SelectedDate != null)
@@ -274,13 +282,25 @@ namespace Proyecto
         }
 
 
-
+        //Métodos para controlar los errores que se pueden cometer a la hora de rellenar el formulario.
         private void telefono_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
                 e.Handled = false;
+                txt_error_TelO.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_TelOf.Text ) == true)
+                {
+                    txt_error_TelO.Content = "No se permiten caracteres especiales";
+                    txt_error_TelO.Visibility = Visibility.Visible;
+                }
+            }
             else
+            {
                 e.Handled = true;
+                txt_error_TelO.Content = "No se permite ingresar letras";
+                txt_error_TelO.Visibility = Visibility.Visible;
+            }
         }
 
         private Boolean email_correcto(String email)
@@ -456,6 +476,7 @@ namespace Proyecto
                 txt_error_telM.Visibility = Visibility.Hidden;
             }
         }
+        //Funciones para habilitar o inhabilitar campos en el modulo de clientes .
         public void Habilitar_Campos()
         {
             txb_nombre.IsEnabled = true;
@@ -485,6 +506,20 @@ namespace Proyecto
             btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
         }
 
+        //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
+        private Boolean ValidarCaracteresEspeciales(String v_Txb)
+        {
+            //caracteres que permite si la cadena es de int
+            String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
+            if (Regex.IsMatch(v_Txb, v_Caracteres))
+            {
+                return true;
+            }
+            
+            return false;
+        }
+
+        //Botón que se utiliza para agregar clientes inexistentes al sistema 
         private void btn_agregar_Cliente_Click(object sender, RoutedEventArgs e)
         {
             string v_Inactivo;
@@ -554,6 +589,54 @@ namespace Proyecto
         private void txb_buscar_cliente_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        private void ValidarErroresTxb(TextBox txb_clientes, Label lbl_error)
+        {
+            string v_TamanoTxb = txb_clientes.Text;
+            if (txb_clientes.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_clientes == txb_TelOf && txb_clientes.Text == "")
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
+            else if (txb_clientes.Text == " ")
+            {
+                txb_clientes.Text = "";
+            }
+            else if (txb_clientes.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_clientes.Text) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_clientes == txb_TelOf || txb_clientes == txb_TelMov)
+            {
+                if (v_TamanoTxb.Length < 8)
+                {
+                    lbl_error.Content = "Deben tener al menos 8 dígitos";
+                    lbl_error.Visibility = Visibility.Visible;
+                }
+                else if (v_TamanoTxb.Length <= 12)
+                {
+                    if (ValidarCaracteresEspeciales(txb_clientes.Text) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
         }
 
     }
