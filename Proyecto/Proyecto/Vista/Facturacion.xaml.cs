@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Logica;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace Proyecto
     /// </summary>
     public partial class Facturacion : Window
     {
+        Model datos = new Model();
         public Facturacion()
         {
             InitializeComponent();
@@ -177,10 +180,29 @@ namespace Proyecto
             else
                 e.Handled = true;
         }
-
         private void btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
 
         }
+        //Iniciamos los combobox de facturacion de productos y servicios con los clientes activos.
+        private void cmb_Cliente_Productos_Initialized(object sender, EventArgs e)
+        {
+            Iniciar_Clientes(cmb_Cliente_Productos);
+        }
+        private void cmb_Cliente_servicios_Initialized(object sender, EventArgs e)
+        {
+            Iniciar_Clientes(cmb_Cliente_servicios);
+        }
+        private void Iniciar_Clientes(ComboBox combo)
+        {
+            DataTable dt = datos.Clientes();
+
+            foreach (DataRow fila in dt.Rows)
+            {
+                combo.Items.Add(Convert.ToString(fila["NOMBRE"]));
+            }
+        }
+
+
     }
 }
