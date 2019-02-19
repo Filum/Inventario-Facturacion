@@ -384,7 +384,7 @@ namespace Proyecto
             }
             return false;
         }
-
+        //botón que permite llamar a la clase para imprimir, tomando la tabla con información
         private void btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
             Imprimir print = new Imprimir();

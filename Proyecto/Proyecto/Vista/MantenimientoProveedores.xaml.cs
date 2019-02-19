@@ -779,7 +779,7 @@ namespace Proyecto
                 lbl_error.Visibility = Visibility.Collapsed;
             }
         }
-
+        //botón que permite llamar a la clase para imprimir, tomando la tabla con información
         private void btn_imprimir_proveedores_Click(object sender, RoutedEventArgs e)
         {
             Imprimir print = new Imprimir();

@@ -23,7 +23,7 @@ namespace Logica
             if (printDialog.ShowDialog() == true)
             {
                 FlowDocument fd = new FlowDocument();
-
+                //Estilo de la letra, tamaño
                 Paragraph p = new Paragraph(new Run(title));
                 p.FontStyle = dataGrid.FontStyle;
                 p.FontFamily = dataGrid.FontFamily;
@@ -37,6 +37,7 @@ namespace Logica
                 fd.PageHeight = printDialog.PrintableAreaHeight;
                 fd.BringIntoView();
 
+                //alineamiento 
                 fd.TextAlignment = TextAlignment.Center;
                 fd.ColumnWidth = 500;
                 table.CellSpacing = 0;
@@ -47,16 +48,13 @@ namespace Logica
 
                 for (int j = 0; j < headerList.Count; j++)
                 {
-
+                    //Estilo de los headers 
                     r.Cells.Add(new TableCell(new Paragraph(new Run(headerList[j]))));
                     r.Cells[j].ColumnSpan = 4;
                     r.Cells[j].Padding = new Thickness(4);
-
-
-
                     r.Cells[j].BorderBrush = Brushes.Black;
                     r.Cells[j].FontWeight = FontWeights.Bold;
-                    r.Cells[j].Background = Brushes.DarkGray;
+                    r.Cells[j].Background = Brushes.GhostWhite;
                     r.Cells[j].Foreground = Brushes.White;
                     r.Cells[j].BorderThickness = new Thickness(1, 1, 1, 1);
                     var binding = (dataGrid.Columns[j] as DataGridBoundColumn).Binding as Binding;
@@ -98,8 +96,6 @@ namespace Logica
                             r.Cells.Add(new TableCell(new Paragraph(new Run(row.GetType().GetProperty(bindList[j]).GetValue(row, null)))));
 
                         }
-
-
 
                         r.Cells[j].ColumnSpan = 4;
                         r.Cells[j].Padding = new Thickness(4);
