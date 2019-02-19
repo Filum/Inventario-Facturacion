@@ -179,14 +179,14 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <ColumnDefinition Width="67*"/>
                             <ColumnDefinition Width="602*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Margin="-8,0,604,10" Grid.ColumnSpan="2">
+                        <StackPanel Margin="-8,-8,604,10" Grid.ColumnSpan="2">
                             <Label x:Name="lbl_cedulaJur" Content="Céd. jurídica:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_nombre"    Content="Nombre:"        Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_correo"     Content="Correo:"         Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_correoOpcional"     Content="Corr. (Opcional):" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                         </StackPanel>
 
-                        <StackPanel Margin="57,0,314,-53" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+                        <StackPanel Margin="57,-8,314,-53" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
                             <TextBox x:Name="txb_cedJur" MaxLength="12" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="Auto" MinWidth="150" FontFamily="Global Sans Serif" Height="30" KeyDown="CedJur_KeyDown" LostKeyboardFocus="ValidarTxbCedJur" VerticalContentAlignment="Center" />
                             <Label x:Name="lbl_errorCedJur" Visibility="Collapsed" Margin="0,-20,34.667,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
@@ -200,20 +200,25 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <Label x:Name="lbl_errorcorreoOpcional" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,0,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
                         </StackPanel>
 
-                        <StackPanel Margin="389,0,144,0" Grid.Column="1">
+                        <StackPanel Margin="383,-8,144,0" Grid.Column="1">
                             <Label x:Name="lbl_telefono" Content="Teléfono:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_telefonoOpcional" Content="Tel. (Opcional):" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="30" FontSize="16"/>
-                            <Label x:Name="lbl_descripcion" Content="Descripción:" Margin="0,20,-4,20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="30" FontSize="16"/>
+                            <Label x:Name="lbl_estadoSistema" Content="Estado Sistema:" Margin="0,15,-4,20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="30" FontSize="16"/>
+                            <Label x:Name="lbl_descripcion" Content="Descripción:" Margin="0,10,-4,20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="30" FontSize="16"/>
                         </StackPanel>
 
-                        <StackPanel Margin="517,0,0,-19" Grid.Column="1">
+                        <StackPanel Margin="517,-8,0,-33" Grid.Column="1">
                             <TextBox x:Name="txb_telefono" MaxLength="12" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" Width="150" MinWidth="150" FontFamily="Global Sans Serif" Height="30" KeyDown="Telefono_KeyDown" TextChanged="txb_telefono_TextChanged" VerticalContentAlignment="Center" HorizontalAlignment="Left" />
                             <Label x:Name="lbl_errorTelefono" Visibility="Collapsed" Margin="0,-20,34.667,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
                             <TextBox x:Name="txb_telefonoOpcional" MaxLength="12" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" Width="128" MinWidth="150" FontFamily="Global Sans Serif" Height="30" KeyDown="TelefonoOpcional_KeyDown" TextChanged="txb_telefonoOpcional_TextChanged" VerticalContentAlignment="Center" HorizontalAlignment="Left" />
-                            <Label x:Name="lbl_errorTelefonoOpcional" Visibility="Collapsed" Margin="0,-20,34.667,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+                            <Label x:Name="lbl_errorTelefonoOpcional" Visibility="Collapsed" Margin="0,-20,0,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                            <TextBox x:Name="txb_descripcion" MaxLength="100" Margin="0,20,3,20" TextWrapping="Wrap" Grid.Column="2" FontSize="16" Height="74" FontFamily="Global Sans Serif" TextChanged="txb_descripcion_TextChanged" MinWidth="130"/>
+                            <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="0,20" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="69" Checked="rb_activo_Checked" />
+                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="70,-37,-15,-25" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Checked="rb_inactivo_Checked" />
+                            <Label x:Name="lbl_errorRb" Visibility="Collapsed" Margin="0,-20,35,-15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Height="30" FontSize="12"/>
+
+                            <TextBox x:Name="txb_descripcion" MaxLength="100" Margin="0,10,3,20" TextWrapping="Wrap" Grid.Column="2" FontSize="16" Height="55" FontFamily="Global Sans Serif" TextChanged="txb_descripcion_TextChanged" MinWidth="130"/>
                             <Label x:Name="lbl_errorDesc" Visibility="Collapsed" Margin="0,-20,35,-15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
                         </StackPanel>
                     </Grid>

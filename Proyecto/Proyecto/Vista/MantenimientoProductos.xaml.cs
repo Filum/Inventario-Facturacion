@@ -219,16 +219,12 @@ namespace Proyecto
                         dtg_lista.Columns[6].Header = "Precio";
                         dtg_lista.Columns[7].Header = "Descripción";
                         dtg_lista.Columns[8].Header = "Fabricante";
-                        dtg_lista.Columns[9].Header = "Estado";
+                        dtg_lista.Columns[9].Header = "Estado del Producto";
                         dtg_lista.Columns[10].Header = "Fecha";
+                        dtg_lista.Columns[11].Header = "Estado en el Sistema";
                     }
                 }
             }
-        }
-
-        private void cmb_proveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
         }
 
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
@@ -260,8 +256,9 @@ namespace Proyecto
                 dtg_productos.Columns[7].Header = "Precio Unitario";
                 dtg_productos.Columns[8].Header = "Descripción";
                 dtg_productos.Columns[9].Header = "Fabricante";
-                dtg_productos.Columns[10].Header = "Estado";
+                dtg_productos.Columns[10].Header = "Estado del Producto";
                 dtg_productos.Columns[11].Header = "Fecha de Ingreso";
+                dtg_productos.Columns[12].Header = "Estado en el Sistema";
 
                 if (dtg_productos.Items.Count == 0)//El producto no existe
                 {

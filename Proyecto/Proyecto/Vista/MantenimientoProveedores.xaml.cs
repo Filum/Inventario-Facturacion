@@ -101,7 +101,7 @@ namespace Proyecto
         {
             try
             {
-                if (lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorcorreo.Visibility == Visibility.Visible || lbl_errorcorreoOpcional.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
+                if (lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorcorreo.Visibility == Visibility.Visible || lbl_errorcorreoOpcional.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorRb.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar\nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -133,6 +133,15 @@ namespace Proyecto
 
                     v_Clt.v_Descripcion = txb_descripcion.Text;
 
+                    if(rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }
+
                     int v_Resultado = v_Model.AgregarProveedores(v_Clt);
                     if (v_Resultado == -1)
                     {
@@ -151,9 +160,10 @@ namespace Proyecto
         //Botón el cual permite modificar un proveedor seleccionado, este botón posee las validaciones necesarias para la ejecución de su funcionalidad   
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
-            if ((lbl_errorBusqueda.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
-                (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorcorreo.Visibility == Visibility.Visible)) ||
-                (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorcorreoOpcional.Visibility == Visibility.Visible))
+            if ((lbl_errorBusqueda.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible) ||
+                (lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorcorreo.Visibility == Visibility.Visible) ||
+                (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible) ||
+                (lbl_errorcorreoOpcional.Visibility == Visibility.Visible || lbl_errorRb.Visibility == Visibility.Visible))
             {
                 MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -186,7 +196,15 @@ namespace Proyecto
                     }
 
                     v_Clt.v_Descripcion = txb_descripcion.Text;
-                    
+
+                    if (rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";                        
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }
 
                     if (v_Model.ValidarModificacionProveedores(v_Clt) == true)
                     {
@@ -222,6 +240,8 @@ namespace Proyecto
             txb_correo.Text = "";
             txb_correoOpcional.Text = "";
             txb_descripcion.Text = "";
+            rb_activo.IsChecked = false;
+            rb_inactivo.IsChecked = false;
             dtg_proveedores.ItemsSource = null;
             lbl_errorCedJur.Visibility = Visibility.Collapsed;
             lbl_errorBusqueda.Visibility = Visibility.Collapsed;
@@ -231,6 +251,7 @@ namespace Proyecto
             lbl_errorcorreo.Visibility = Visibility.Collapsed;
             lbl_errorcorreoOpcional.Visibility = Visibility.Collapsed;
             lbl_errorDesc.Visibility = Visibility.Collapsed;
+            lbl_errorRb.Visibility = Visibility.Collapsed;
             lbl_actividad.Visibility = Visibility.Collapsed;
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
@@ -273,6 +294,7 @@ namespace Proyecto
                         dtg_lista.Columns[5].Header = "Tel. Opcional";
                         dtg_lista.Columns[6].Header = "Descripción";
                         dtg_lista.Columns[7].Header = "Fecha de Ingreso";
+                        dtg_lista.Columns[8].Header = "Estado en el Sistema";
                     }
                 }
             }
@@ -324,6 +346,8 @@ namespace Proyecto
             txb_correo.Text = "";
             txb_correoOpcional.Text = "";
             txb_descripcion.Text = "";
+            rb_activo.IsChecked = false;
+            rb_inactivo.IsChecked = false;
             lbl_errorCedJur.Visibility = Visibility.Collapsed;
             lbl_errorNombre.Visibility = Visibility.Collapsed;
             lbl_errorTelefono.Visibility = Visibility.Collapsed;
@@ -331,6 +355,7 @@ namespace Proyecto
             lbl_errorcorreo.Visibility = Visibility.Collapsed;
             lbl_errorcorreoOpcional.Visibility = Visibility.Collapsed;
             lbl_errorDesc.Visibility = Visibility.Collapsed;
+            lbl_errorRb.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
             inicializarAgregacion();
         }
@@ -365,6 +390,7 @@ namespace Proyecto
                 dtg_proveedores.Columns[7].Header = "Tel. Opcional";
                 dtg_proveedores.Columns[5].Header = "Descripción";
                 dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
+                dtg_proveedores.Columns[9].Header = "Estado en el Sistema";
 
                 if (dtg_proveedores.Items.Count == 0)//El proveedor no existe
                 {
@@ -403,7 +429,7 @@ namespace Proyecto
                             txb_nombre.Text = "";
                             txb_busqueda.MaxLength = 12;
                         }
-                    }
+                    }                    
                 }
                 else//Proveedores existentes
                 {
@@ -431,7 +457,14 @@ namespace Proyecto
             txb_telefono.Text = (dtg_proveedores.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
             txb_telefonoOpcional.Text = (dtg_proveedores.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
             txb_descripcion.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
-
+            if ((dtg_proveedores.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
+            {
+                 rb_activo.IsChecked = true;
+            }
+            else if ((dtg_proveedores.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text == "INACTIVO")
+            {
+                rb_inactivo.IsChecked = true;
+            }
             lbl_actividad.Content = "Modificar proveedor";
             lbl_actividad.Visibility = Visibility.Visible;
             v_Actividad_btnModificar = true;
@@ -460,13 +493,14 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_cedJur.Text != "" && txb_correo.Text != "" && txb_nombre.Text != "" && txb_telefono.Text != "" && txb_descripcion.Text != "")
+                if (txb_cedJur.Text == "" || txb_correo.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_descripcion.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
                 {
-                    btn_agregar.Visibility = Visibility.Visible;
+                    ValidarRadioButton();
+                    btn_agregar.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    btn_agregar.Visibility = Visibility.Collapsed;
+                    btn_agregar.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -557,6 +591,22 @@ namespace Proyecto
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
             ValidarErroresTxb(txb_descripcion,lbl_errorDesc,"descripcion"); 
+        }
+
+        //Validación en la actividad de los radiobutton
+        private void rb_activo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarRadioButton();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
+        //Validación en la actividad de los radiobutton
+        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarRadioButton();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
         }
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
@@ -776,6 +826,18 @@ namespace Proyecto
             else
             {
                 lbl_error.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ValidarRadioButton() {
+            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
+            {
+                lbl_errorRb.Visibility = Visibility.Visible;
+                lbl_errorRb.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorRb.Visibility = Visibility.Collapsed;
             }
         }
     }//fin de la clase
