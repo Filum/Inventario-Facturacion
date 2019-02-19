@@ -190,11 +190,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="451,0,24,1">
-                            <ComboBox x:Name="cmb_estado" HorizontalAlignment="Left" Margin="0,0" Width="120" Height="26">
-                                <ComboBoxItem Content="Nuevo"/>
-                                <ComboBoxItem Content="Usado"/>
-                                <ComboBoxItem Content="Dañado"/>
-                            </ComboBox>
+                            <ComboBox x:Name="cmb_estado" HorizontalAlignment="Left" Margin="0,0" Width="120" Height="26"></ComboBox>
                             <Label x:Name="lbl_errorEstado" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="22" FontSize="12"/>
 
                             <TextBox x:Name="txb_precio" HorizontalAlignment="Left" Margin="0,7" TextWrapping="Wrap" Width="85" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
