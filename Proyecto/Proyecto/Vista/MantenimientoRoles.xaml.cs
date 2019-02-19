@@ -308,8 +308,8 @@ namespace Proyecto
             //inicializarAgregacion();
         }
 
-        /*En esta caja de texto se implementa la búsqueda del proveedor que se desea, en caso de ser encontrado este despliega los datos en el DataGrid,
-        en caso de que no se encuentre ningún proveedor se podrá agregar uno nuevo, esto en el tab de gestión de proveedores*/
+        /*En esta caja de texto se implementa la búsqueda del rol que se desea, en caso de ser encontrado este despliega los datos en el DataGrid,
+        en caso de que no se encuentre ningún rol se podrá agregar uno nuevo, esto en el tab de gestión de roles*/
         /*private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
             LimpiarTextboxAgregar();
@@ -382,127 +382,193 @@ namespace Proyecto
             }
         }
         */
-        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
-        {
-            Menu Ventana = new Menu();
-            Ventana.Show();
-            this.Close();
+
+        /*Método el cual cumple con la funcionalidad de desplegar los datos en los campos correspondientes de un rol seleccionado 
+ en el DataGrid con la finalidad de ser modificado, esto en el tab de gestión de roles*/
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {/*
+            DataGridRow row = sender as DataGridRow;
+
+            v_Clt.v_IdProveedor = Convert.ToInt64((dtg_proveedores.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+
+            txb_cedJur.Text = (dtg_proveedores.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+            txb_nombre.Text = (dtg_proveedores.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+            txb_correo.Text = (dtg_proveedores.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            txb_correoOpcional.Text = (dtg_proveedores.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefono.Text = (dtg_proveedores.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefonoOpcional.Text = (dtg_proveedores.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
+            txb_descripcion.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+
+            lbl_actividad.Content = "Modificar proveedor";
+            lbl_actividad.Visibility = Visibility.Visible;
+            v_Actividad_btnModificar = true;
+            v_Actividad_btnAgregar = false;*/
         }
 
-        private void btn_buscar_rol_Click(object sender, RoutedEventArgs e)
+        //Método el cual habilita el botón modificar
+        private void HabilitarBtnModificar()
         {
-
-        }
-
-        private void ListViewItem_Selected_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_deshabilitar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-       /* private void btn_guardar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_motivo_deshabilitar.Text == "")
+            if (v_Actividad_btnModificar == true)
             {
-                MessageBox.Show("Ingrese el motivo", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-                MessageBox.Show("Rol Deshabilitado", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                btn_modificar_roles.Visibility = Visibility.Visible;
             }
         }
-        */
-        
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //Inicializa las opciones de agregar en la ventana 
+        private void inicializarAgregacion()
         {
-
+            v_Actividad_btnAgregar = true;
+            lbl_actividad.Content = "Agregar Rol";
+            lbl_actividad.Visibility = Visibility.Visible;
         }
 
-        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de gestión de proveedores
+        private void HabilitarBtnAgregar()
         {
-
-        }
-
-        private void txb_motivo_deshabilitar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void dtg_actualizar_roles_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void btn_editar_rol_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btn_guardar_rol_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void btn_limpiar_actualizar_rol_Click(object sender, RoutedEventArgs e)
-        {
-            txb_nomrol.Text = " ";
-            checkbox_mant_productos.IsChecked = false;
-            checkbox_mant_usuarios.IsChecked = false;
-            checkbox_mant_proveedores.IsChecked = false;
-            checkbox_mant_roles.IsChecked = false;
-        }
-
-        private void textbox_nombre_rol_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-
-
-      /*  private void btn_buscar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
-        {
-            if (textbox_rol_modificar.Text == "")
+            if (v_Actividad_btnAgregar == true)
             {
-                MessageBox.Show("No hay datos que buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (txb_nomrol.Text != "" && checkbox_mant_proveedores.IsChecked != false || checkbox_mant_productos.IsChecked != false || checkbox_mant_usuarios.IsChecked != false || checkbox_mant_roles.IsChecked != false)
+                {
+                    btn_agregar_rol.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btn_agregar_rol.Visibility = Visibility.Collapsed;
+                }
             }
-            else
+        }
+
+
+        //Método el cual habilita componentes siempre y cuando no hayan errores en la caja de texto de buscar
+        private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarErroresTxb(txb_busqueda_rol, lbl_errorBusqueda_rol, "");
+        }
+
+        /*//Método el cual valida si la cédula jurídica es existente o no, en caso de ser existente, mostrar un error
+        private void ValidarTxbCedJur(object sender, EventArgs e)
+        {
+            string v_CedJur = txb_cedJur.Text;
+            HabilitarBtnAgregar();
+            HabilitarBtnModificar();
+            ValidarErroresTxb(txb_cedJur, lbl_errorCedJur, "numeros");
+            if (lbl_errorCedJur.Visibility == Visibility.Collapsed)
             {
-                MessageBox.Show("Buscando...");
+                bool v_Resultado = v_Model.ValidarCedJurProveedores(txb_cedJur.Text);
+                if (v_Resultado == true)
+                {
+                    lbl_errorCedJur.Content = "La cédula jurídica ya existe";
+                    lbl_errorCedJur.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lbl_errorCedJur.Visibility = Visibility.Collapsed;
+                }
             }
         }*/
 
-
-       
-
- 
-
-        /*private void btn_limpiar_deshabilitar_rol_Click(object sender, RoutedEventArgs e)
+        //Validaciones en caja de texto de nombre
+        private void txb_nomrol_TextChanged(object sender, TextChangedEventArgs e)
         {
-            textbox_motivo_deshabilitar.Text = " ";
-        }*/
-
-        private void textbox_motivo_deshabilitar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_nomrol, lbl_errorNomrol, "nombre");
         }
 
-        private void textbox_rol_deshabilitar_TextChanged(object sender, TextChangedEventArgs e)
+        //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
+        private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
         {
-
+            if (v_Identificador == "numeros")
+            {
+                //caracteres que permite si la cadena es de int
+                String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            else if (v_Identificador == "nombre")
+            {
+                //caracteres que permite si la cadena es de string
+                String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            else if (v_Identificador == "descripcion")
+            {
+                //caracteres que permite si la cadena es de string
+                String v_Caracteres = "[!@#$%^*())+=.<>{}¬º´/\"':;|~¡?`¿]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
+        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        private void ValidarErroresTxb(TextBox txb_proveedor, Label lbl_error, string tipo)
+        {/*
+            string v_TamanoTxb = txb_proveedor.Text;
+            if (txb_proveedor.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_proveedor == txb_telefonoOpcional && txb_proveedor.Text == "")
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
+            else if (txb_proveedor.Text == " ")
+            {
+                txb_proveedor.Text = "";
+            }
+            else if (txb_proveedor.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_proveedor.Text, tipo) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_proveedor == txb_telefono || txb_proveedor == txb_telefonoOpcional)
+            {
+                if (v_TamanoTxb.Length < 8)
+                {
+                    lbl_error.Content = "Deben tener al menos 8 dígitos";
+                    lbl_error.Visibility = Visibility.Visible;
+                }
+                else if (v_TamanoTxb.Length <= 12)
+                {
+                    if (ValidarCaracteresEspeciales(txb_proveedor.Text, tipo) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+            else if (txb_busqueda_rol == txb_nomrol)
+            {
+                if (v_TamanoTxb.Length < 9)
+                {
+                    lbl_error.Content = "Deben tener al menos 9 dígitos";
+                    lbl_error.Visibility = Visibility.Visible;
+                }
+                else if (v_TamanoTxb.Length <= 12)
+                {
+                    if (ValidarCaracteresEspeciales(txb_proveedor.Text, tipo) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }*/
+        }
+    }//fin de la clase
+}//fin proyecto
 
- 
-    }
-}

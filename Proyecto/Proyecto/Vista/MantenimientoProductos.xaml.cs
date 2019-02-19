@@ -376,5 +376,10 @@ namespace Proyecto
             return false;
         }
 
+        private void btn_imprimir_Click(object sender, RoutedEventArgs e)
+        {
+            Imprimir print = new Imprimir();
+            print.imprimir(dtg_lista, "Imprimir");
+        }
     }//Fin de la clase
 }
