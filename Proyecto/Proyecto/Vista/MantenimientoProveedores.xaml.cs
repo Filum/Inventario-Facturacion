@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+
 using Entidades;
 using Logica;
 
@@ -777,6 +778,12 @@ namespace Proyecto
             {
                 lbl_error.Visibility = Visibility.Collapsed;
             }
+        }
+        //botón que permite llamar a la clase para imprimir, tomando la tabla con información
+        private void btn_imprimir_proveedores_Click(object sender, RoutedEventArgs e)
+        {
+            Imprimir print = new Imprimir();
+            print.imprimir(dtg_lista, "Imprimir");
         }
     }//fin de la clase
 }//fin proyecto

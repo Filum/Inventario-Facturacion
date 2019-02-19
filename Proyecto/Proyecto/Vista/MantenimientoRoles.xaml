@@ -54,7 +54,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="0,0,0,-0.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="204" Height="25" VerticalAlignment="Bottom"/>
+        <Label x:Name="lbl_fecha" Content="fecha" Margin="0,0,0,-0.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="204" Height="25" VerticalAlignment="Bottom"/>
 
         <TabControl Margin="10,50,130,30" SelectionChanged="TabControl_SelectionChanged" Grid.ColumnSpan="2">
             <TabItem Padding="10" Margin="0">
@@ -90,14 +90,15 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar" Margin="20,99,7,21" FrozenColumnCount="5" SelectionChanged="DataGrid_SelectionChanged" FontWeight="Bold" UseLayoutRounding="False" AlternatingRowBackground="#FF98A1D8" RowBackground="#FF8AA4D1" SelectionUnit="CellOrRowHeader" ColumnHeaderHeight="{DynamicResource {x:Static SystemParameters.IconHeightKey}}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Foreground="#FFE4D7D7" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Rol" Width="110"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Mantenimiento de Usuarios" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Mantenimiento de Productos" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Mantenimiento de Proveedores" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Mantenimiento de Roles" Width="auto"/>
-                        </DataGrid.Columns>
+                    <DataGrid x:Name="dtg_lista" Margin="30,90,30,30" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="FontSize"  Value="14" />
+                                <Setter Property="Padding" Value="5"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
                     </DataGrid>
                     <Button x:Name="btn_listar_roles" Height="70" Width="70" Foreground="White" Margin="0,10,3,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_listar_roles_Click">
                         <StackPanel x:Name="btn_listar_roles_" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -162,28 +163,17 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Grid.Background>
                     <TextBox x:Name="txb_busqueda_rol" Margin="120,17,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="232" Height="22" VerticalAlignment="Top"/>
                     <Label Content="Ingrese el rol:" Margin="4,10,444,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="29" VerticalAlignment="Top" FontWeight="Bold"/>
-
-                    <DataGrid x:Name="dtg_roles" Margin="10,65,33,36" SelectionChanged="dtg_actualizar_roles_SelectionChanged" FontWeight="Bold" ColumnHeaderHeight="{DynamicResource {x:Static SystemParameters.IconHeightKey}}" Grid.ColumnSpan="6" Grid.Column="1">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Foreground="#FFFBFBFB" FontWeight="Bold" FontSize="14" FontFamily="Global Sans Serif" Header="Rol" Width="110"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Mantenimiento de Usuarios" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Mantenimiento de Productos" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Mantenimiento de Proveedores" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Mantenimiento de Roles" Width="auto"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
                     <Label Content="Nombre del Rol:" HorizontalAlignment="Left" Margin="0,55,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Grid.Column="1" Grid.Row="1" Height="25" VerticalAlignment="Top"/>
                     <Label Margin="4,0,-42,2" VerticalAlignment="Bottom" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.ColumnSpan="7" Height="29" Grid.Column="1"/>
-                    <TextBox x:Name="txb_nomrol" Margin="0,92,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Width="217" Height="27" VerticalAlignment="Top"/>
                     <Label Content="Mantenimientos permitidos:" HorizontalAlignment="Left" Margin="0,129,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="203" Grid.Column="1" Grid.Row="1" Height="33" VerticalAlignment="Top"/>
                     <CheckBox x:Name="checkbox_mant_usuarios" Content="Mantenimiento de Usuarios" Margin="5,198,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1" HorizontalAlignment="Left" Width="221" Height="15" VerticalAlignment="Top" Grid.Row="1"/>
                     <CheckBox x:Name="checkbox_mant_productos" Content="Mantenimiento de Productos" Margin="5,167,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1" HorizontalAlignment="Left" Width="227" Height="19" VerticalAlignment="Top" Grid.Row="1"/>
                     <CheckBox x:Name="checkbox_mant_roles" Content="Mantenimiento de Roles" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" Height="18" Grid.Column="1" Margin="231,198,3,0" Grid.Row="1"/>
                     <CheckBox x:Name="checkbox_mant_proveedores" Content="Mantenimiento de Proveedores" Margin="231,167,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1" Grid.Row="1" Height="13" VerticalAlignment="Top" HorizontalAlignment="Left" Width="281"/>
-                    <Button x:Name="btn_guardar_rol" Height="70" Width="70" Foreground="White" Margin="0,12,33,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="5" Grid.Row="1" Click="btn_guardar_rol_Click" Grid.ColumnSpan="2">
+                    <Button x:Name="btn_agregar_rol" Visibility="Collapsed" Height="70" Width="70" Foreground="White" Margin="0,12,33,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="5" Grid.Row="1" Click="btn_agregar_rol_Click" Grid.ColumnSpan="2">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/guardar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Guardar" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
+                            <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                            <TextBlock Text="Agregar" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btn_limpiar_rol" Height="70" Width="70" Foreground="White" Margin="0,92,33,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="5" Grid.Row="1" Click="btn_limpiar_rol_Click" Grid.ColumnSpan="2">
@@ -194,6 +184,28 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Button>
                     <Separator Height="41" Margin="17,0,33,0" VerticalAlignment="Bottom" Background="White" Grid.ColumnSpan="7"/>
                     <Label x:Name="lbl_actividad" Content="Agregar rol" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="276,12,10,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.Column="1" Grid.Row="1"/>
+                    <Button x:Name="btn_modificar_roles"   Foreground="White" IsEnabled="True" Margin="0,22,33,169" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="70" Grid.Row="1" Height="70" VerticalAlignment="Center" Click="btn_modificar_roles_Click" Grid.ColumnSpan="2" Grid.Column="5">
+                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                            <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Button>
+                    <Label x:Name="lbl_errorBusqueda_rol"  Margin="103,35,165,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Grid.Column="1"/>
+                    <TextBox x:Name="txb_nomrol" MaxLength="35" Margin="0,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif"  Height="30" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+                    <Label x:Name="lbl_errorNomrol"  Margin="325,94,17,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+                    <DataGrid x:Name="dtg_roles" Margin="10,65,34,20"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False" Grid.ColumnSpan="7">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="FontSize"  Value="14" />
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                    </DataGrid>
 
                 </Grid>
             </TabItem>

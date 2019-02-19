@@ -11,7 +11,7 @@ namespace Datos
 {
     public class Data
     {
-        
+        //----------------- A G R E G A R  -----------------------
         public int AgregarClientes(EntidadClientes clt)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -50,7 +50,24 @@ namespace Datos
             conn.Close();
             return v_Resultado;
         }
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo rol.
+        Si se modifica correctamente retorna un "-1" */
+        public int AgregarRoles(EntidadRoles clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("ADD_ROLES", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("NOMBR", clt.v_Nombre));
+            comando.Parameters.Add(new OracleParameter("MANTENIMIENTOS", clt.v_Mantenimientos));
+            comando.Parameters.Add(new OracleParameter("ESTADO", clt.v_Estado));
 
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
+        //------------ M O D I F I C A R ---------------------------------
         public int ModificarClientes(EntidadClientes clt)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -91,6 +108,24 @@ namespace Datos
             return v_Resultado;
         }
 
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un rol.
+       Si se modifica correctamente retorna un "-1" */
+        public int ModificarRoles(EntidadRoles clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("act_Roles", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("IDROL", clt.v_IdRol));
+            comando.Parameters.Add(new OracleParameter("NOMBR", clt.v_Nombre));
+            comando.Parameters.Add(new OracleParameter("MANTENIMIENTOS", clt.v_Mantenimientos));
+            comando.Parameters.Add(new OracleParameter("ESTADO", clt.v_Estado));
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
+        //--------------------- M O S T R A R ----------------------------- 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -125,15 +160,16 @@ namespace Datos
             return tabla;
         }
 
-        /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los productos ingresados en este rango.
-         Además, en caso de encontrar productos estos serán retornados mediante una tabla*/
-        public DataTable MostarListaProductos(String v_Fecha1, String v_Fecha2)
+        /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
+         Además, en caso de encontrar proveedores estos serán retornados mediante una tabla*/
+        public DataTable MostarListaRoles(String v_Fecha1, String v_Fecha2)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estado,PROD.fecha from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) where trunc(PROD.fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+            comando.CommandText = "select fecha,nombre,mantenimientos,estado from tbl_Roles where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
             DataTable tabla = new DataTable();
@@ -142,6 +178,7 @@ namespace Datos
             return tabla;
         }
 
+        // ----------------- B Ú S Q U E D A -------------------------
         public List<EntidadClientes> BuscarClientes(String v_Nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -205,6 +242,35 @@ namespace Datos
             return Lista;
         }
 
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del rol mediante el nombre 
+         Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/
+        public List<EntidadRoles> ValidarBusquedaRoles(String v_busqueda)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT * FROM TBL_ROLES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadRoles> Lista = new List<EntidadRoles>();
+
+            if (v_busqueda != "")
+            {
+                while (dr.Read())
+                {
+                    EntidadRoles rol = new EntidadRoles();
+                    rol.v_IdRol = dr.GetInt64(0);
+                    rol.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
+                    rol.v_Nombre = dr.GetString(2);
+                    rol.v_Mantenimientos = dr.GetString(3); ;
+                    rol.v_Estado = dr.GetString(4); ;
+                    Lista.Add(rol);
+                }
+            }
+            conn.Close();
+            return Lista;
+        }
+
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del producto mediante el nombre o el codigo.
          Además, en caso de encontrar productos estos serán retornados mediante una lista*/
         public List<EntidadProductos> ValidarBusquedaProductos(String v_busqueda)
@@ -213,7 +279,9 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT * FROM TBL_PRODUCTOS WHERE translate(UPPER(NOMBREPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU') OR CODIGOPRODUCTO LIKE '%" + v_busqueda + "%'";
+            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estado,PROD.fecha " +
+                "from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON (PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) WHERE translate(UPPER(NOMBREPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU') " +
+                "OR translate(UPPER(CODIGOPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadProductos> Lista = new List<EntidadProductos>();
 
@@ -223,17 +291,17 @@ namespace Datos
                 {
                     EntidadProductos producto = new EntidadProductos();
                     producto.v_IdProducto = dr.GetInt64(0);
-                    producto.v_CodigoProducto = dr.GetString(2);
-                    producto.v_NombreProducto = dr.GetString(3);
-                    producto.v_MarcaProducto = dr.GetString(4);
-                    producto.v_CantidadExistencia = Convert.ToInt64(dr.GetValue(5));
-                    producto.v_CantidadMinima = Convert.ToInt32(dr.GetValue(6));
-                    producto.v_Fk_IdProveedor = Convert.ToInt64(dr.GetValue(7));
-                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(8));
-                    producto.v_Descripcion = dr.GetString(9);
-                    producto.v_Fabricante = dr.GetString(10);
-                    producto.v_Estado = dr.GetString(11);
-                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
+                    producto.v_CodigoProducto = dr.GetString(1);
+                    producto.v_NombreProducto = dr.GetString(2);
+                    producto.v_MarcaProducto = dr.GetString(3);
+                    producto.v_CantidadExistencia = Convert.ToInt64(dr.GetValue(4));
+                    producto.v_CantidadMinima = Convert.ToInt32(dr.GetValue(5));
+                    producto.v_Fk_IdProveedor = dr.GetString(6);
+                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(7));
+                    producto.v_Descripcion = dr.GetString(8);
+                    producto.v_Fabricante = dr.GetString(9);
+                    producto.v_Estado = dr.GetString(10);
+                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(11));
                     Lista.Add(producto);
                 }
             }
@@ -288,15 +356,13 @@ namespace Datos
             return false;
         }
 
-        // Funcion para mostrar los clientes activos del sistema.
-        public DataTable Clientes()
+        public DataTable MostarListaProductos(String v_Fecha1, String v_Fecha2)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT NOMBRE FROM TBL_CLIENTES WHERE ESTADO = 'Activo'";
-
+            comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estado,PROD.fecha from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) where trunc(PROD.fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
             DataTable tabla = new DataTable();
@@ -304,5 +370,28 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+
+        public List<EntidadProveedores> ProveedoresExistentes()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT PK_IDPROVEEDOR, NOMBRE FROM TBL_PROVEEDORES";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadProveedores> Lista = new List<EntidadProveedores>();
+
+
+            while (dr.Read())
+            {
+                EntidadProveedores proveedor = new EntidadProveedores();
+                proveedor.v_IdProveedor = dr.GetInt64(0);
+                proveedor.v_Nombre = dr.GetString(1);
+                Lista.Add(proveedor);
+            }
+            conn.Close();
+            return Lista;
+        }
+
     }
 }
