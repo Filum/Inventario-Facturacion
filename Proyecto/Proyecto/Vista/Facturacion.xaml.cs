@@ -69,7 +69,7 @@ namespace Proyecto
 
         private void Button_agregar_servicio_Click(object sender, RoutedEventArgs e)
         {
-            if ( textbox_codigo_factura_servicio.Text == "" || textbox_descuento_servicios.Text == "" || textbox_subtotal_factura_servicios.Text == "" || textbox_total_factura_servicios.Text == "")
+            if ( txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
             {
                 MessageBox.Show("No se puede agregar\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -93,7 +93,7 @@ namespace Proyecto
 
         private void Button_imprimir_factura_servicio_Click(object sender, RoutedEventArgs e)
         {
-            if ( textbox_codigo_factura_servicio.Text == "" || textbox_descuento_servicios.Text == "" || textbox_subtotal_factura_servicios.Text == "" || textbox_total_factura_servicios.Text == "")
+            if ( txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
             {
                 MessageBox.Show("No se puede imprimir\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -107,9 +107,11 @@ namespace Proyecto
         {
 
             textbox_codigo_factura.Text = "";
-            textbox_descuento_Producto.Text = "";
-            textbox_subtotal_factura.Text = "";
-            textbox_total_factura.Text = "";
+            txb_Cantidad.Text = "0";
+            txb_Precio.Text = "0";
+            txb_subtotal_factura_servicios.Text = "0";
+            txb_descuento_servicios.Text = "0";
+            txb_total_factura_servicios.Text = "0";
         }
 
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
@@ -148,11 +150,11 @@ namespace Proyecto
 
         private void btn_limpiar_factura_Serv_Click(object sender, RoutedEventArgs e)
         {
-            textbox_codigo_factura_servicio.Text = "";
-            textbox_descripcion.Text = "";
-            textbox_descuento_servicios.Text = "";
-            textbox_subtotal_factura_servicios.Text = "";
-            textbox_total_factura_servicios.Text = "";
+            txb_codigo_factura_servicio.Text = "";
+            txb_descripcion.Text = "";
+            txb_descuento_servicios.Text = "";
+            txb_subtotal_factura_servicios.Text = "";
+            txb_total_factura_servicios.Text = "";
             txb_Cantidad.Text = "";
             txb_Precio.Text = "";
         }
@@ -193,6 +195,7 @@ namespace Proyecto
         {
             Iniciar_Clientes(cmb_Cliente_servicios);
         }
+        //Metodo para mostrar los clientes activos en el sistema, por medio de un combobox
         private void Iniciar_Clientes(ComboBox combo)
         {
             DataTable dt = datos.Clientes();
@@ -203,6 +206,93 @@ namespace Proyecto
             }
         }
 
+        //Iniciar la facturacion de servicios con valores en 0
+        private void Grid_Initialized(object sender, EventArgs e)
+        {
+            txb_Cantidad.Text = "0";
+            txb_Precio.Text = "0";
+            txb_subtotal_factura_servicios.Text = "0";
+            txb_descuento_servicios.Text = "0";
+            txb_total_factura_servicios.Text = "0";
+        }
 
+        private void txb_Cantidad_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            float cantidad;
+            float precio;
+            if (txb_Precio.Text == "")
+            txb_Precio.Text = "0";
+            else
+            if (txb_Cantidad.Text == "" )
+            {
+                cantidad = float.Parse("0");
+                precio = float.Parse(txb_Precio.Text);
+                txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
+            }
+            else
+            {
+                cantidad = float.Parse(txb_Cantidad.Text);
+                precio = float.Parse(txb_Precio.Text);
+                txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
+            }
+        }
+
+        private void txb_Precio_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            float cantidad;
+            float precio;
+            if (txb_Cantidad.Text == "")
+                txb_Cantidad.Text = "0";
+            else
+            if (txb_Precio.Text == "")
+            {
+                precio = float.Parse("0");
+                cantidad = float.Parse(txb_Cantidad.Text);
+                txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
+            }
+            else
+            {
+                cantidad = float.Parse(txb_Cantidad.Text);
+                precio = float.Parse(txb_Precio.Text);
+                txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
+            }
+
+        }
+
+        private void txb_Cantidad_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (txb_Cantidad.Text == "")
+                txb_Cantidad.Text = "0";
+        }
+
+        private void txb_Precio_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (txb_Precio.Text == "")
+                txb_Precio.Text = "0";
+        }
+
+        private void txb_subtotal_factura_servicios_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(txb_descuento_servicios.Text=="")
+            {
+                txb_descuento_servicios.Text = "0";
+            }
+            float subtotal = float.Parse(txb_subtotal_factura_servicios.Text);
+            float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text)/100;
+            float descuento = subtotal * porcentaje_descuento;
+            txb_total_factura_servicios.Text = (subtotal-descuento).ToString();
+        }
+
+        private void txb_descuento_servicios_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txb_descuento_servicios.Text == "")
+            {
+                txb_descuento_servicios.Text = "0";
+            }
+            float subtotal = float.Parse(txb_subtotal_factura_servicios.Text);
+            float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text) / 100;
+            float descuento = subtotal * porcentaje_descuento;
+            txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
+        }
     }
 }

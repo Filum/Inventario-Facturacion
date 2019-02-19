@@ -288,7 +288,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         <TextBlock Foreground="Black" VerticalAlignment="Center" Width="170" ><Run Text="  Factura de Servicios"/></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid Margin="0,1,0,-1">
+                <Grid Margin="0,1,0,-1" Initialized="Grid_Initialized">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="154*"/>
                         <ColumnDefinition Width="467*"/>
@@ -304,8 +304,8 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                     <Label Content="Número de factura:" HorizontalAlignment="Left" Margin="0.6,36,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="155" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label Content="Cliente:" HorizontalAlignment="Left" Margin="1,89,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="85" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label Content="Descripción del servicio realizado:" HorizontalAlignment="Left" Margin="0,260,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="266" Height="40" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="textbox_codigo_factura_servicio" Margin="208.6,36,0,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="124"/>
-                    <TextBox x:Name="textbox_descripcion" Margin="0.6,296,5.6,0" TextWrapping="Wrap" Grid.Column="1" Height="99" VerticalAlignment="Top" />
+                    <TextBox x:Name="txb_codigo_factura_servicio" Margin="208.6,36,0,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="124"/>
+                    <TextBox x:Name="txb_descripcion" Margin="0.6,296,5.6,0" TextWrapping="Wrap" Grid.Column="1" Height="99" VerticalAlignment="Top" />
                     <Button x:Name="btn_imprimir_factura_servicios" Height="70" Width="70" Foreground="White" Margin="0,106,15,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="2" Click="Button_imprimir_factura_servicio_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
@@ -319,16 +319,16 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         </StackPanel>
                     </Button>
                     <Label Content="Subtotal:" HorizontalAlignment="Left" Margin="1.6,515,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="textbox_subtotal_factura_servicios" Margin="204.6,515,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top" IsReadOnly="True" HorizontalAlignment="Left" Width="125"/>
+                    <TextBox x:Name="txb_subtotal_factura_servicios" Margin="204.6,515,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top" IsReadOnly="True" HorizontalAlignment="Left" Width="125" TextChanged="txb_subtotal_factura_servicios_TextChanged"/>
                     <Label Content="Descuento:" Margin="1.6,568,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="154" Grid.Column="1"/>
                     <Label Content="Total a facturar:" HorizontalAlignment="Left" Margin="0.6,622,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="textbox_descuento_servicios" Margin="208.6,568,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  KeyDown="descuento_KeyDown" HorizontalAlignment="Left" Width="125"/>
-                    <TextBox x:Name="textbox_total_factura_servicios" Margin="208.6,622,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  IsReadOnly="True" HorizontalAlignment="Left" Width="125"/>
+                    <TextBox x:Name="txb_descuento_servicios" Margin="208.6,568,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  KeyDown="descuento_KeyDown" HorizontalAlignment="Left" Width="125" TextChanged="txb_descuento_servicios_TextChanged"/>
+                    <TextBox x:Name="txb_total_factura_servicios" Margin="208.6,622,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  IsReadOnly="True" HorizontalAlignment="Left" Width="125"/>
                     <Label Content="%" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="337.6,568,0,0" VerticalAlignment="Top" Width="40"/>
                     <Label Content="Precio por hora:" HorizontalAlignment="Left" Margin="1.6,459,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="txb_Precio" Margin="204.6,459,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  IsReadOnly="False" KeyDown="txb_Precio_KeyDown" HorizontalAlignment="Left" Width="125"/>
+                    <TextBox x:Name="txb_Precio" Margin="204.6,459,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  IsReadOnly="False" KeyDown="txb_Precio_KeyDown" HorizontalAlignment="Left" Width="125" TextChanged="txb_Precio_TextChanged" LostKeyboardFocus="txb_Precio_LostKeyboardFocus"/>
                     <Label Content="Cantidad de horas:" HorizontalAlignment="Left" Margin="1.6,404,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="txb_Cantidad" Margin="204.6,404,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  IsReadOnly="False" KeyDown="txb_Cantidad_KeyDown" HorizontalAlignment="Left" Width="125"/>
+                    <TextBox x:Name="txb_Cantidad" Margin="204.6,404,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  IsReadOnly="False" KeyDown="txb_Cantidad_KeyDown" HorizontalAlignment="Left" Width="125" TextChanged="txb_Cantidad_TextChanged" LostKeyboardFocus="txb_Cantidad_LostKeyboardFocus"/>
                     <ComboBox x:Name="cmb_Cliente_servicios" Grid.Column="1" Margin="208.6,92,76.6,0" VerticalAlignment="Top" Initialized="cmb_Cliente_servicios_Initialized"/>
                     <GroupBox x:Name="gb_Moneda_Servicio" Header="Moneda:" HorizontalAlignment="Left" Height="73" Margin="2.6,161,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
                         <StackPanel>
