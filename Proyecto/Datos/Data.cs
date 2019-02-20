@@ -11,6 +11,20 @@ namespace Datos
 {
     public class Data
     {
+        //Conexion con web service de la pagina del banco, para consultar tipo de cambio
+        cr.fi.bccr.gee.wsIndicadoresEconomicos cliente = new cr.fi.bccr.gee.wsIndicadoresEconomicos();
+        
+        //metodo para obtener  
+       public float ObtenerValorDolar()
+        {
+            DateTime dia = DateTime.Now;
+            string fecha = dia.ToShortDateString();
+
+            DataSet tipoCambio = cliente.ObtenerIndicadoresEconomicos("317", fecha, fecha, "Usuario", "N");
+            float valor = float.Parse(tipoCambio.Tables[0].Rows[0].ItemArray[2].ToString());
+            return valor;
+        }
+
         //----------------- A G R E G A R  -----------------------
         public int AgregarClientes(EntidadClientes clt)
         {

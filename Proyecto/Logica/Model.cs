@@ -118,5 +118,10 @@ namespace Logica
         {
             return v_Data.BuscarClientes(nombre);
         }
+
+        public float ObtenerValorDolar()
+        {
+            return v_Data.ObtenerValorDolar();
+        }
     }
 }
