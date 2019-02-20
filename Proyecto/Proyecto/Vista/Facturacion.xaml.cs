@@ -30,6 +30,8 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+            date_historial_datte3.SelectedDate = DateTime.Now.Date;
+            date_historial_datte4.SelectedDate = DateTime.Now.Date;
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -293,6 +295,55 @@ namespace Proyecto
             float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text) / 100;
             float descuento = subtotal * porcentaje_descuento;
             txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
+        }
+
+        private void btn_Listar_Click(object sender, RoutedEventArgs e)
+        {
+            if (date_historial_datte3.SelectedDate != null && date_historial_datte4.SelectedDate != null)
+            {
+                DateTime v_Date1 = DateTime.Parse(date_historial_datte3.SelectedDate.Value.Date.ToShortDateString());
+                DateTime v_Date2 = DateTime.Parse(date_historial_datte4.SelectedDate.Value.Date.ToShortDateString());
+                String v_Fecha1;
+                v_Fecha1 = date_historial_datte3.SelectedDate.Value.Date.ToShortDateString();
+                String v_Fecha2;
+                v_Fecha2 = date_historial_datte4.SelectedDate.Value.Date.ToShortDateString();
+                if (v_Date1 > v_Date2)
+                {
+                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    if (datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    {
+                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        dtg_listar_facturas.ItemsSource = datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).DefaultView;
+                        dtg_listar_facturas.Columns[0].Header = "Código";
+                        dtg_listar_facturas.Columns[0].Width = 60;
+                        dtg_listar_facturas.Columns[1].Header = "Fecha";
+                        dtg_listar_facturas.Columns[1].Width = 133;
+                        dtg_listar_facturas.Columns[2].Header = "Usuario";
+                        dtg_listar_facturas.Columns[2].Width = 260;
+                        dtg_listar_facturas.Columns[3].Header = "Cliente";
+                        dtg_listar_facturas.Columns[3].Width = 260;
+                        dtg_listar_facturas.Columns[4].Header = "Total";
+                        dtg_listar_facturas.Columns[4].Width = 90;
+                        dtg_listar_facturas.Columns[5].Header = "Moneda";
+                        dtg_listar_facturas.Columns[5].Width = 90;
+                        dtg_listar_facturas.Columns[6].Header = "Impuesto";
+                        dtg_listar_facturas.Columns[6].Width = 90;
+                        dtg_listar_facturas.Columns[7].Header = "Descuento";
+                        dtg_listar_facturas.Columns[7].Width = 90;
+                    }
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un rango de fechas", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
