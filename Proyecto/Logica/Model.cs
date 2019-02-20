@@ -109,7 +109,7 @@ namespace Logica
         {
             return v_Data.ValidarModificacionProveedores(clt);
         }
-        public DataTable Clientes()
+       public DataTable Clientes()
         {
             return  v_Data.Clientes();
         }
@@ -117,6 +117,10 @@ namespace Logica
         public List<EntidadClientes> BuscarClientes(String nombre)
         {
             return v_Data.BuscarClientes(nombre);
+        }
+        public DataTable MostrarListaFacturas(String fecha1, String fecha2)
+        {
+            return v_Data.MostrarListaFacturas(fecha1, fecha2);
         }
     }
 }
