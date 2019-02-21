@@ -233,9 +233,19 @@ namespace Proyecto
             }
             else
             {
-                cantidad = float.Parse(txb_Cantidad.Text);
-                precio = float.Parse(txb_Precio.Text);
-                txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
+                if (RadioButton_Colon_Servicio.IsChecked == true)
+                {
+                    cantidad = float.Parse(txb_Cantidad.Text);
+                    precio = float.Parse(txb_Precio.Text);
+                    txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
+                }
+                else
+                {
+                    cantidad = float.Parse(txb_Cantidad.Text);
+                    precio = float.Parse(txb_Precio.Text);
+                    txb_subtotal_factura_servicios.Text = (cantidad * (precio * datos.ObtenerValorDolar())).ToString();
+                }
+                
             }
         }
 
@@ -254,9 +264,19 @@ namespace Proyecto
             }
             else
             {
-                cantidad = float.Parse(txb_Cantidad.Text);
-                precio = float.Parse(txb_Precio.Text);
-                txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
+                if (RadioButton_Colon_Servicio.IsChecked == true)
+                {
+                    cantidad = float.Parse(txb_Cantidad.Text);
+                    precio = float.Parse(txb_Precio.Text);
+                    txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
+                }
+                else
+                {
+                    cantidad = float.Parse(txb_Cantidad.Text);
+                    precio = float.Parse(txb_Precio.Text);
+                    txb_subtotal_factura_servicios.Text = (cantidad * (precio * datos.ObtenerValorDolar())).ToString();
+                }
+                
             }
 
         }
