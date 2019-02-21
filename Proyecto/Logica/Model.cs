@@ -122,8 +122,16 @@ namespace Logica
         {
             return v_Data.MostrarListaFacturas(fecha1, fecha2);
         }
+        public DataTable MostrarDetalleFactura(int codigoFactura)
+        {
+            return v_Data.MostrarDetalleFactura(codigoFactura);
+        }
+        public List<string> DetalleFactura(int codigoFactura)
+        {
+            return v_Data.DetalleFactura(codigoFactura);
+        }
 
-        public float ObtenerValorDolar()
+            public float ObtenerValorDolar()
         {
             return v_Data.ObtenerValorDolar();
         }

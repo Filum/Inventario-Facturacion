@@ -345,5 +345,21 @@ namespace Proyecto
                 MessageBox.Show("Seleccione un rango de fechas", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void btn_imprimir_buscar_Click(object sender, RoutedEventArgs e)
+        {
+            Vista.DetalleFactura ventana = new Vista.DetalleFactura();
+            ventana.Show();
+        }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGrid row = sender as DataGrid;
+            Vista.DetalleFactura ventana = new Vista.DetalleFactura();
+
+            int v_Codigo = Convert.ToInt32((dtg_listar_facturas.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+            ventana.Show();
+        }
+
+
     }
 }

@@ -163,7 +163,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Label x:Name="txt_nombre_cliente" Content="Ingrese el nombre del cliente:" Margin="1.4,9,313.4,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="29" VerticalAlignment="Top"/>
-                    <DataGrid x:Name="dtg_clientes" Margin="1.4,55,33.2,45.2" Grid.Column="1" Grid.ColumnSpan="6"  FontSize="12" Grid.RowSpan="2" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" SelectionChanged="dtg_clientes_SelectionChanged" >
+                    <DataGrid x:Name="dtg_clientes" Margin="1.4,55,33.2,45.2" Grid.Column="1" Grid.ColumnSpan="6"  FontSize="12" Grid.RowSpan="2" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
                         <DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>

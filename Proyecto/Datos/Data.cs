@@ -441,5 +441,42 @@ namespace Datos
             return tabla;
         }
 
+        public DataTable MostrarDetalleFactura(int codigoFactura)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.PK_CODIGOFACTURA,TBL_PRODUCTOS.CODIGOPRODUCTO,TBL_PRODUCTOS.NOMBREPRODUCTO,TBL_PRODUCTOS.MARCAPRODUCTO,TBL_PRODUCTOS.PRECIOUNITARIO,TBL_DETALLES.CANTIDAD_PRODUCTO,TBL_DETALLES.TOTAL,TBL_FACTURAS.MONEDA FROM TBL_DETALLES INNER JOIN TBL_FACTURAS ON TBL_DETALLES.FK_IDFACTURA = TBL_FACTURAS.PK_CODIGOFACTURA AND TBL_FACTURAS.PK_CODIGOFACTURA = '"+codigoFactura+"' INNER JOIN TBL_PRODUCTOS ON TBL_DETALLES.FK_IDPRODUCTO = TBL_PRODUCTOS.PK_IDPRODUCTO";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public List<string> DetalleFactura(int codigoFactura)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO=TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE=TBL_CLIENTES.PK_IDCLIENTE WHERE TBL_FACTURAS.PK_CODIGOFACTURA = '"+codigoFactura+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+            var Lista = new List<string>();
+
+
+            while (dr.Read())
+            {
+                Lista.Add(dr.GetInt64(0).ToString());
+                Lista.Add(dr.GetDateTime(1).ToString());
+                Lista.Add(dr.GetString(2));
+                Lista.Add(dr.GetString(3));
+
+            }
+            conn.Close();
+            return Lista;
+        }
     }
 }
