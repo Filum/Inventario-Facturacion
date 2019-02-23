@@ -371,12 +371,35 @@ namespace Proyecto
             Vista.DetalleFactura ventana = new Vista.DetalleFactura();
             ventana.Show();
         }
-        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e) //Evento declarado en el datagrid
         {
             DataGrid row = sender as DataGrid;
             Vista.DetalleFactura ventana = new Vista.DetalleFactura();
+            ventana.txt_codigo.Content = (dtg_listar_facturas.SelectedCells[0].Column.GetCellContent(0) as TextBlock).Text;
 
-            int v_Codigo = Convert.ToInt32((dtg_listar_facturas.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+            var detalle = new List<string>();
+            detalle = datos.DetalleFactura(1);
+            ventana.txt_fecha.Content = detalle[1];
+            ventana.txt_Usuario.Content = detalle[2];
+            ventana.txt_Cliente.Content = detalle[3];
+            int codigo = Convert.ToInt32(ventana.txt_codigo.Content);
+            ventana.dtg_listar_detalle_facturas.ItemsSource = datos.MostrarDetalleFactura(codigo).DefaultView;
+            /*ventana.dtg_listar_detalle_facturas.Columns[0].Header = "Código Factura";
+            ventana.dtg_listar_detalle_facturas.Columns[1].Width = 60;
+            ventana.dtg_listar_detalle_facturas.Columns[1].Header = "CódigoProducto";
+            ventana.dtg_listar_detalle_facturas.Columns[1].Width = 133;
+            ventana.dtg_listar_detalle_facturas.Columns[2].Header = "NombreProducto";
+            ventana.dtg_listar_detalle_facturas.Columns[2].Width = 260;
+            ventana.dtg_listar_detalle_facturas.Columns[3].Header = "MarcaProducto";
+            ventana.dtg_listar_detalle_facturas.Columns[3].Width = 260;
+            ventana.dtg_listar_detalle_facturas.Columns[4].Header = "PrecioUnitario";
+            ventana.dtg_listar_detalle_facturas.Columns[4].Width = 90;
+            ventana.dtg_listar_detalle_facturas.Columns[5].Header = "Cantidad";
+            ventana.dtg_listar_detalle_facturas.Columns[5].Width = 90;
+            ventana.dtg_listar_detalle_facturas.Columns[6].Header = "Total";
+            ventana.dtg_listar_detalle_facturas.Columns[6].Width = 90;
+            ventana.dtg_listar_detalle_facturas.Columns[7].Header = "Moneda";
+            ventana.dtg_listar_detalle_facturas.Columns[7].Width = 90;*/
             ventana.Show();
         }
 

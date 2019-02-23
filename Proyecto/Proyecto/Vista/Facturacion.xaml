@@ -102,7 +102,12 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_facturas" Margin="10,75,23,50" FrozenColumnCount="5"  Grid.ColumnSpan="2" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False">
+                    <DataGrid x:Name="dtg_listar_facturas" Margin="55,77,10.4,23.6"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="2" >
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.Resources>
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />
