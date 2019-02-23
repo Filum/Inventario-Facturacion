@@ -66,7 +66,8 @@ namespace Proyecto
 
         private void Button_agregar_producto_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("No se puede agregar\n Hacen falta productos en inventario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            dtg_facturar_productos.Items.Add(1);
+            //MessageBox.Show("No se puede agregar\n Hacen falta productos en inventario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void Button_agregar_servicio_Click(object sender, RoutedEventArgs e)
@@ -371,11 +372,13 @@ namespace Proyecto
             Vista.DetalleFactura ventana = new Vista.DetalleFactura();
             ventana.Show();
         }
+
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e) //Evento declarado en el datagrid
         {
-            DataGrid row = sender as DataGrid;
+            DataGridRow row = sender as DataGridRow;
+        
             Vista.DetalleFactura ventana = new Vista.DetalleFactura();
-            ventana.txt_codigo.Content = (dtg_listar_facturas.SelectedCells[0].Column.GetCellContent(0) as TextBlock).Text;
+            ventana.txt_codigo.Content = (dtg_listar_facturas.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text;
 
             var detalle = new List<string>();
             detalle = datos.DetalleFactura(1);

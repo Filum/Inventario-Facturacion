@@ -30,6 +30,11 @@ namespace Logica
             return v_Data.AgregarRoles(clt);
         }
 
+        public int AgregarFacturas(EntidadFacturas fact)
+        {
+            return v_Data.AgregarFacturas(fact);
+        }
+
 
         //------------------- M O D I F I C A R ---------------
 
@@ -131,7 +136,7 @@ namespace Logica
             return v_Data.DetalleFactura(codigoFactura);
         }
 
-            public float ObtenerValorDolar()
+        public float ObtenerValorDolar()
         {
             return v_Data.ObtenerValorDolar();
         }

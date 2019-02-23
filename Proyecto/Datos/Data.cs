@@ -81,6 +81,23 @@ namespace Datos
             return v_Resultado;
         }
 
+        public int AgregarFacturas(EntidadFacturas fact)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("ADD_FACTURAS", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("ID_USU", fact.v_Usuario));
+            comando.Parameters.Add(new OracleParameter("ID_CLIE", fact.v_Cliente));
+            comando.Parameters.Add(new OracleParameter("V_TOTAL", fact.v_Total));
+            comando.Parameters.Add(new OracleParameter("V_DESCUENTO", fact.v_Descuento));
+            comando.Parameters.Add(new OracleParameter("V_MONEDA", fact.v_Moneda));
+            comando.Parameters.Add(new OracleParameter("V_IMP", fact.v_Impuesto));
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
         //------------ M O D I F I C A R ---------------------------------
         public int ModificarClientes(EntidadClientes clt)
         {
