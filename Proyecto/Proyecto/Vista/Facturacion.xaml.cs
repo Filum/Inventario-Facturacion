@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -84,7 +85,7 @@ namespace Proyecto
 
         private void Button_imprimir_factura_producto_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_codigo_factura.Text == "" || textbox_descuento_Producto.Text == "" || textbox_subtotal_factura.Text == "" || textbox_total_factura.Text == "")
+            if (txb_codigo_factura.Text == "" || txb_descuento_Producto.Text == "" || txb_subtotal_factura.Text == "" || txb_total_factura.Text == "")
             {
                 MessageBox.Show("No se puede imprimir\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -109,12 +110,14 @@ namespace Proyecto
         private void btn_limpiar_factura_Prod_Click(object sender, RoutedEventArgs e)
         {
 
-            textbox_codigo_factura.Text = "";
+            txb_codigo_factura.Text = "";
             txb_Cantidad.Text = "0";
             txb_Precio.Text = "0";
             txb_subtotal_factura_servicios.Text = "0";
             txb_descuento_servicios.Text = "0";
             txb_total_factura_servicios.Text = "0";
+            txt_error_numFactura.Visibility = Visibility.Hidden;
+            txt_error_descuento.Visibility = Visibility.Hidden;
         }
 
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
@@ -160,14 +163,27 @@ namespace Proyecto
             txb_total_factura_servicios.Text = "";
             txb_Cantidad.Text = "";
             txb_Precio.Text = "";
+            txt_error_numFactura_servicio.Visibility = Visibility.Hidden;
         }
 
         private void descuento_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
                 e.Handled = false;
+                txt_error_descuento.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_descuento_Producto.Text) == true)
+                {
+                    txt_error_descuento.Content = "No se permiten caracteres especiales";
+                    txt_error_descuento.Visibility = Visibility.Visible;
+                }
+            }
             else
+            {
                 e.Handled = true;
+                txt_error_descuento.Content = "No se permite ingresar letras";
+                txt_error_descuento.Visibility = Visibility.Visible;
+            }
         }
 
         private void txb_Cantidad_KeyDown(object sender, KeyEventArgs e)
@@ -406,6 +422,104 @@ namespace Proyecto
             ventana.Show();
         }
 
+        //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
+        private Boolean ValidarCaracteresEspeciales(String v_Txb)
+        {
+            //caracteres que permite si la cadena es de int
+            String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
+            if (Regex.IsMatch(v_Txb, v_Caracteres))
+            {
+                return true;
+            }
 
+            return false;
+        }
+
+        private void textbox_codigo_factura_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                txt_error_numFactura.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_codigo_factura.Text) == true)
+                {
+                    txt_error_numFactura.Content = "No se permiten caracteres especiales";
+                    txt_error_numFactura.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                txt_error_numFactura.Content = "No se permite ingresar letras";
+                txt_error_numFactura.Visibility = Visibility.Visible;
+            }
+        }
+
+        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        private void ValidarErroresTxb(TextBox txb_facturas, Label lbl_error)
+        {
+            string v_TamanoTxb = txb_facturas.Text;
+            if (txb_facturas.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_facturas.Text == " ")
+            {
+                txb_facturas.Text = "";
+            }
+            else if (txb_facturas.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_facturas.Text) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void txb_codigo_factura_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            /*ValidarErroresTxb(txb_codigo_factura, txt_error_numFactura);
+            if (txb_codigo_factura.Text == "")
+            {
+                txt_error_numFactura.Visibility = Visibility.Collapsed;
+            }*/
+        }
+
+        private void txb_descuento_Producto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           /* ValidarErroresTxb(txb_descuento_Producto, txt_error_descuento);
+            if (txb_descuento_Producto.Text == "")
+            {
+                txt_error_descuento.Visibility = Visibility.Collapsed;
+            }*/
+        }
+
+        private void txb_codigo_factura_servicio_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                txt_error_numFactura_servicio.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_codigo_factura_servicio.Text) == true)
+                {
+                    txt_error_numFactura_servicio.Content = "No se permiten caracteres especiales";
+                    txt_error_numFactura_servicio.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                txt_error_numFactura_servicio.Content = "No se permite ingresar letras";
+                txt_error_numFactura_servicio.Visibility = Visibility.Visible;
+            }
+        }
     }
 }
