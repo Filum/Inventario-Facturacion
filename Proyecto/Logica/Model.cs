@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Entidades;
 using Datos;
 using System.Data;
+using System.Collections.ObjectModel;
 
 namespace Logica
 {
@@ -139,6 +140,10 @@ namespace Logica
         public float ObtenerValorDolar()
         {
             return v_Data.ObtenerValorDolar();
+        }
+        public ObservableCollection<string> ListaProductos()
+        {
+            return v_Data.ListaProductos();
         }
     }
 }
