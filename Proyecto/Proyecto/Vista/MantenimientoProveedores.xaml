@@ -14,7 +14,7 @@
                 <GradientStop Color="#FE2E2672" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid Background="#FF3472DE" Margin="0,93,-274,-63" HorizontalAlignment="Right" Width="120">
+        <Grid Background="#FF3472DE" Margin="0,30,0,0" HorizontalAlignment="Right" Width="120">
             <Button x:Name="btn_ayuda" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_ayuda_Click"  >
                 <StackPanel x:Name="btn_ayuda_roles" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="imagenes/ayuda.png" Width="50" Height="50"
