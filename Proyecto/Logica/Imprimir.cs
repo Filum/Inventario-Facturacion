@@ -41,8 +41,10 @@ namespace Logica
 
                 //alineamiento 
                 fd.TextAlignment = TextAlignment.Center;
-                fd.ColumnWidth = 500;
+                fd.ColumnWidth = 700;
                 table.CellSpacing = 0;
+
+                
                 
 
                 var headerList = dataGrid.Columns.Select(e => e.Header.ToString()).ToList();
@@ -54,7 +56,6 @@ namespace Logica
                     //Estilo de los headers 
                     r.Cells.Add(new TableCell(new Paragraph(new Run(headerList[j]))));
                     r.Cells[j].ColumnSpan = 7;
-                    r.Cells[j].RowSpan = 7;
                     r.Cells[j].Padding = new Thickness(4);
                     r.Cells[j].BorderBrush = Brushes.Black;
                     r.Cells[j].FontWeight = FontWeights.Bold;
@@ -102,7 +103,6 @@ namespace Logica
                         }
 
                         r.Cells[j].ColumnSpan = 7;
-                        r.Cells[j].RowSpan = 7;
                         r.Cells[j].Padding = new Thickness(4);
 
                         r.Cells[j].BorderBrush = Brushes.DarkGray;
@@ -117,6 +117,7 @@ namespace Logica
                 
                 
                 printDialog.PrintDocument(((IDocumentPaginatorSource)fd).DocumentPaginator, "");
+                MessageBoxResult v_Result = MessageBox.Show("Se ha enviado correctamente a imprimir.","", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
         }
