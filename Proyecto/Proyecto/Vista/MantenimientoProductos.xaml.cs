@@ -385,7 +385,12 @@ namespace Proyecto
         private void btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
             Imprimir print = new Imprimir();
-            print.imprimir(dtg_lista, "Imprimir");
+            print.imprimir(dtg_lista, "Productos en Inventario");
+
         }
+
+
+
+
     }//Fin de la clase
 }
