@@ -29,6 +29,7 @@ namespace Proyecto
         Model v_Model = new Model();
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
+        String v_EstadoSistema = "";
 
         public MantenimientoProveedores()
         {
@@ -261,7 +262,8 @@ namespace Proyecto
         }
 
         /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
-         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar*/
+         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar.
+         Además, envía el estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
         private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
             if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
@@ -278,15 +280,19 @@ namespace Proyecto
                 {
                     MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                else if (cmb_tipoBusqueda.SelectedValue == null)
+                {
+                    MessageBox.Show("Debe seleccionar el tipo de búsqueda", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 else
                 {
-                    if(v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    if(v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema).Rows.Count == 0)
                     {
                         MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
-                        dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView; 
+                        dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema).DefaultView; 
                         dtg_lista.Columns[0].Header = "Cédula Jurídica";
                         dtg_lista.Columns[1].Header = "Nombre del Proveedor";
                         dtg_lista.Columns[2].Header = "Correo";
@@ -361,12 +367,40 @@ namespace Proyecto
             inicializarAgregacion();
         }
 
+        //Deshabilita los componentes en el tap de "Gestión de Proveedores"
+        private void DeshabilitarComponentes()
+        {
+            txb_cedJur.IsEnabled = false;
+            txb_telefono.IsEnabled = false;
+            txb_telefonoOpcional.IsEnabled = false;
+            txb_nombre.IsEnabled = false;
+            txb_correo.IsEnabled = false;
+            txb_correoOpcional.IsEnabled = false;
+            txb_descripcion.IsEnabled = false;
+            rb_activo.IsEnabled = false;
+            rb_inactivo.IsEnabled = false;
+        }
+
+        //Habilita los componentes en el tap de "Gestión de Proveedores"
+        private void HabilitarComponentes()
+        {
+            txb_cedJur.IsEnabled = true;
+            txb_telefono.IsEnabled = true;
+            txb_telefonoOpcional.IsEnabled = true;
+            txb_nombre.IsEnabled = true;
+            txb_correo.IsEnabled = true;
+            txb_correoOpcional.IsEnabled = true;
+            txb_descripcion.IsEnabled = true;
+            rb_activo.IsEnabled = true;
+            rb_inactivo.IsEnabled = true;
+        }
+
         /*En esta caja de texto se implementa la búsqueda del proveedor que se desea, en caso de ser encontrado este despliega los datos en el DataGrid,
         en caso de que no se encuentre ningún proveedor se podrá agregar uno nuevo, esto en el tab de gestión de proveedores*/
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
             LimpiarTextboxAgregar();
-            
+
             if (txb_busqueda.Text == "")
             {
                 txb_nombre.Text = "";
@@ -392,9 +426,11 @@ namespace Proyecto
                 dtg_proveedores.Columns[5].Header = "Descripción";
                 dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
                 dtg_proveedores.Columns[9].Header = "Estado en el Sistema";
+                DeshabilitarComponentes();
 
                 if (dtg_proveedores.Items.Count == 0)//El proveedor no existe
                 {
+                    HabilitarComponentes();
                     btn_modificar.Visibility = Visibility.Collapsed;
                     inicializarAgregacion();
 
@@ -466,6 +502,7 @@ namespace Proyecto
             {
                 rb_inactivo.IsChecked = true;
             }
+            HabilitarComponentes();
             lbl_actividad.Content = "Modificar proveedor";
             lbl_actividad.Visibility = Visibility.Visible;
             v_Actividad_btnModificar = true;
@@ -845,6 +882,24 @@ namespace Proyecto
             else
             {
                 lbl_errorRb.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        //Recibe el filtro por el cual el usuario desea realizar el listado de proveedores y se lo asigna a la variable "v_EstadoSistema" 
+        //para que se envie a data y realice la consulta respectiva.
+        private void cmb_tipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmb_tipoBusqueda.SelectedValue == proveedoresActivos)
+            {
+                v_EstadoSistema = "ACTIVO";
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == proveedoresInactivos)
+            {
+                v_EstadoSistema = "INACTIVO";
+            }
+            else if(cmb_tipoBusqueda.SelectedValue == listaProveedores)
+            {
+                v_EstadoSistema = "LISTAPROVEEDORES";
             }
         }
     }//fin de la clase
