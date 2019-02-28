@@ -235,47 +235,40 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         </StackPanel>
                     </Button>
                     <Label Content="Número de factura:" HorizontalAlignment="Left" Margin="0,49,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label Content="Subtotal:" HorizontalAlignment="Left" Margin="0,40,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+                    <Label Content="Subtotal:" HorizontalAlignment="Left" Margin="0,36,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
                     <TextBox x:Name="txb_codigo_factura" Margin="179.6,49,0,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="91"/>
-                    <TextBox x:Name="txb_subtotal_factura" Margin="180,40,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Left" Width="91"/>
+                    <TextBox x:Name="txb_subtotal_factura" Margin="180,36,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Left" Width="91"/>
 
-                    <Label Content="Cliente:" HorizontalAlignment="Left" Margin="0,120,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <DataGrid x:Name="dtg_facturar_productos" Margin="41,271,85,24" FrozenColumnCount="5"  Grid.ColumnSpan="4" FontSize="12">
                     <Label Content="Cliente:" HorizontalAlignment="Left" Margin="0,102,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <DataGrid x:Name="dtg_facturar_productos" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="41,271,85,24" FrozenColumnCount="5"  Grid.ColumnSpan="4" FontSize="12" >
+                    <DataGrid x:Name="dtg_facturar_productos" Margin="41,271,85,24" FrozenColumnCount="5"  Grid.ColumnSpan="4" FontSize="12">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" FontFamily="Global Sans Serif" Width="100" IsReadOnly="True"/>
-                            <DataGridTemplateColumn Header="Producto" Width="300">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <ComboBox x:Name="cmb_producto"  Margin="2" ItemsSource="{Binding Productos}" SelectionChanged="ComboBox_SelectionChanged"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Cantidad " Binding="{Binding Cantidad}" IsReadOnly="False" FontFamily="Global Sans Serif" Width="*"/>
-                            <DataGridTextColumn Header="Precio " Binding="{Binding Precio}" IsReadOnly="True" FontFamily="Global Sans Serif" Width="*"/>
-                            <DataGridTextColumn Header="Subtotal " Binding="{Binding Subtotal}" IsReadOnly="True" FontFamily="Global Sans Serif" Width="*"/>
+                            <DataGridTextColumn Header="Código" FontFamily="Global Sans Serif" Width="100"/>
+                            <DataGridTextColumn Header="Cantidad " FontFamily="Global Sans Serif" Width="100"/>
+                            <DataGridTextColumn Header="Descripción" FontFamily="Global Sans Serif" Width="300"/>
+                            <DataGridTextColumn Header="Precio " FontFamily="Global Sans Serif" Width="200"/>
+                            <DataGridTextColumn Header="Total" FontFamily="Global Sans Serif" Width="110"/>
+
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Label Content="Descuento:" HorizontalAlignment="Left" Margin="0,104,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
-                    <TextBox x:Name="txb_descuento_Producto" Margin="180,104,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  Grid.Row="1" KeyDown="descuento_KeyDown" HorizontalAlignment="Left" Width="91" MaxLength="3" TextChanged="txb_descuento_Producto_TextChanged"/>
-                    <Label Content="Total a facturar:" HorizontalAlignment="Left" Margin="0,172,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
-                    <TextBox x:Name="txb_total_factura" Margin="180,172,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Left" Width="91"/>
+                    <Label Content="Descuento:" HorizontalAlignment="Left" Margin="0,90,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+                    <TextBox x:Name="txb_descuento_Producto" Margin="180,90,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  Grid.Row="1" KeyDown="descuento_KeyDown" HorizontalAlignment="Left" Width="91" MaxLength="3"/>
+                    <Label Content="Total a facturar:" HorizontalAlignment="Left" Margin="0,154,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+                    <TextBox x:Name="txb_total_factura" Margin="179.6,154,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Left" Width="91"/>
                     <Button x:Name="btn_imprimir_factura" Height="70" Width="70" Foreground="White" Margin="0,40,9.8,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="3" Click="Button_imprimir_factura_producto_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Imprimir" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Label Content="%" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="275,100,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40"/>
-                    <ComboBox x:Name="cmb_Cliente_Productos" Grid.Column="1" Margin="180,123,70,0" VerticalAlignment="Top" Initialized="cmb_Cliente_Productos_Initialized"/>
-                    <GroupBox x:Name="gb_Moneda" Header="Moneda:" HorizontalAlignment="Left" Height="73" Margin="7,175,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
+                    <Label Content="%" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="275,90,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40"/>
+                    <ComboBox x:Name="cmb_Cliente_Productos" Grid.Column="1" Margin="179.6,105,70,0" VerticalAlignment="Top" Initialized="cmb_Cliente_Productos_Initialized"/>
+                    <GroupBox x:Name="gb_Moneda" Header="Moneda:" HorizontalAlignment="Left" Height="73" Margin="6.6,161,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
                         <StackPanel>
                             <RadioButton x:Name="RadioButton_Colon" Content="Colón (₡)"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True"/>
                             <RadioButton x:Name="RadioButton_Dolar" Content="Dólar ($)" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" />
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox x:Name="gb_Impuesto" Header="Impuesto:" HorizontalAlignment="Left" Height="73" Margin="213,175,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
+                    <GroupBox x:Name="gb_Impuesto" Header="Impuesto:" HorizontalAlignment="Left" Height="73" Margin="212.6,161,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
                         <StackPanel>
                             <RadioButton x:Name="RadioButton_Si" Content="Si"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True"/>
                             <RadioButton x:Name="RadioButton_No" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" />
@@ -287,8 +280,8 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="  Agregar "/><LineBreak/><Run Text="Productos"/></TextBlock>
                         </StackPanel>
                     </Button>
-                    <Label x:Name="txt_error_numFactura" Visibility="Visible" Margin="178,77,87,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
-                    <Label x:Name="txt_error_descuento" Visibility="Visible" Margin="178,135,87,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1" Grid.Row="1"/>
+                    <Label x:Name="txt_error_descuento" Content="" HorizontalAlignment="Left" Margin="180,125,0,0" Grid.Row="1" VerticalAlignment="Top" Visibility="Visible" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Grid.Column="1" Width="180"/>
+
                 </Grid>
             </TabItem>
 
@@ -321,7 +314,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Label Content="Número de factura:" HorizontalAlignment="Left" Margin="0.6,36,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="155" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label Content="Cliente:" HorizontalAlignment="Left" Margin="1,99,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="85" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label Content="Cliente:" HorizontalAlignment="Left" Margin="1,89,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="85" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label Content="Descripción del servicio realizado:" HorizontalAlignment="Left" Margin="0,260,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="266" Height="40" VerticalAlignment="Top" Grid.Column="1"/>
                     <TextBox x:Name="txb_codigo_factura_servicio" Margin="208.6,36,0,0" TextWrapping="Wrap" Grid.Column="1" Height="27" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="124"/>
                     <TextBox x:Name="txb_descripcion" Margin="0.6,296,5.6,0" TextWrapping="Wrap" Grid.Column="1" Height="99" VerticalAlignment="Top" />
@@ -348,20 +341,19 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                     <TextBox x:Name="txb_Precio" Margin="204.6,459,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  IsReadOnly="False" KeyDown="txb_Precio_KeyDown" HorizontalAlignment="Left" Width="125" TextChanged="txb_Precio_TextChanged" LostKeyboardFocus="txb_Precio_LostKeyboardFocus" MaxLength="10"/>
                     <Label Content="Cantidad de horas:" HorizontalAlignment="Left" Margin="1.6,404,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
                     <TextBox x:Name="txb_Cantidad" Margin="204.6,404,0,0" TextWrapping="Wrap" Grid.Column="1" Height="30" VerticalAlignment="Top"  IsReadOnly="False" KeyDown="txb_Cantidad_KeyDown" HorizontalAlignment="Left" Width="125" TextChanged="txb_Cantidad_TextChanged" LostKeyboardFocus="txb_Cantidad_LostKeyboardFocus" MaxLength="5"/>
-                    <ComboBox x:Name="cmb_Cliente_servicios" Grid.Column="1" Margin="209,102,77,0" VerticalAlignment="Top" Initialized="cmb_Cliente_servicios_Initialized"/>
-                    <GroupBox x:Name="gb_Moneda_Servicio" Header="Moneda:" HorizontalAlignment="Left" Height="73" Margin="3,165,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
+                    <ComboBox x:Name="cmb_Cliente_servicios" Grid.Column="1" Margin="208.6,92,76.6,0" VerticalAlignment="Top" Initialized="cmb_Cliente_servicios_Initialized"/>
+                    <GroupBox x:Name="gb_Moneda_Servicio" Header="Moneda:" HorizontalAlignment="Left" Height="73" Margin="2.6,161,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
                         <StackPanel>
                             <RadioButton x:Name="RadioButton_Colon_Servicio" Content="Colón (₡)"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True"/>
                             <RadioButton x:Name="RadioButton_Dolar_Servicio" Content="Dólar ($)" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" />
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox x:Name="gb_Impuesto_Servicio" Header="Impuesto:" HorizontalAlignment="Left" Height="73" Margin="209,165,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
+                    <GroupBox x:Name="gb_Impuesto_Servicio" Header="Impuesto:" HorizontalAlignment="Left" Height="73" Margin="208.6,161,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1">
                         <StackPanel>
                             <RadioButton x:Name="RadioButton_Si_Servicio" Content="Si"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True"/>
                             <RadioButton x:Name="RadioButton_No_Servicio" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" />
                         </StackPanel>
                     </GroupBox>
-                    <Label x:Name="txt_error_numFactura_servicio" Visibility="Visible" Margin="200,63,65,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
 
                 </Grid>
 

@@ -143,20 +143,17 @@ namespace Proyecto
         private void btn_limpiar_factura_Prod_Click(object sender, RoutedEventArgs e)
         {
 
-            txb_codigo_factura.Text = "";
             txb_Cantidad.Text = "0";
             txb_Precio.Text = "0";
             txb_subtotal_factura_servicios.Text = "0";
             txb_descuento_servicios.Text = "0";
             txb_total_factura_servicios.Text = "0";
-            txt_error_numFactura.Visibility = Visibility.Hidden;
             txt_error_descuento.Visibility = Visibility.Hidden;
-              textbox_codigo_factura.Text = "";
-              txb_Cantidad.Text = "0";
-              txb_Precio.Text = "0";
-              txb_subtotal_factura_servicios.Text = "0";
-              txb_descuento_servicios.Text = "0";
-              txb_total_factura_servicios.Text = "0";
+            txb_Cantidad.Text = "0";
+            txb_Precio.Text = "0";
+            txb_subtotal_factura_servicios.Text = "0";
+            txb_descuento_servicios.Text = "0";
+            txb_total_factura_servicios.Text = "0";
         }
 
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
@@ -202,7 +199,6 @@ namespace Proyecto
             txb_total_factura_servicios.Text = "";
             txb_Cantidad.Text = "";
             txb_Precio.Text = "";
-            txt_error_numFactura_servicio.Visibility = Visibility.Hidden;
         }
 
         private void descuento_KeyDown(object sender, KeyEventArgs e)
