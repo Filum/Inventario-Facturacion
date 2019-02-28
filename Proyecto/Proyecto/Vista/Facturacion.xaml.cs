@@ -86,7 +86,7 @@ namespace Proyecto
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FacturasProductos item = (FacturasProductos)dtg_facturar_productos.SelectedItem;
-            
+
             item.Codigo = "10";
             item.Precio = "10000";
             item.Productos = datos.ListaProductos();
@@ -103,10 +103,10 @@ namespace Proyecto
 
         }
 
-        
+
         private void Button_agregar_servicio_Click(object sender, RoutedEventArgs e)
         {
-            if ( txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
+            if (txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
             {
                 MessageBox.Show("No se puede agregar\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -130,13 +130,13 @@ namespace Proyecto
 
         private void Button_imprimir_factura_servicio_Click(object sender, RoutedEventArgs e)
         {
-            if ( txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
+            if (txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
             {
                 MessageBox.Show("No se puede imprimir\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                MessageBox.Show("Imprimiendo...","Imprimiendo", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Imprimiendo...", "Imprimiendo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -275,9 +275,9 @@ namespace Proyecto
             float cantidad;
             float precio;
             if (txb_Precio.Text == "")
-            txb_Precio.Text = "0";
+                txb_Precio.Text = "0";
             else
-            if (txb_Cantidad.Text == "" )
+            if (txb_Cantidad.Text == "")
             {
                 cantidad = float.Parse("0");
                 precio = float.Parse(txb_Precio.Text);
@@ -297,7 +297,7 @@ namespace Proyecto
                     precio = float.Parse(txb_Precio.Text);
                     txb_subtotal_factura_servicios.Text = (cantidad * (precio * datos.ObtenerValorDolar())).ToString();
                 }
-                
+
             }
         }
 
@@ -328,7 +328,7 @@ namespace Proyecto
                     precio = float.Parse(txb_Precio.Text);
                     txb_subtotal_factura_servicios.Text = (cantidad * (precio * datos.ObtenerValorDolar())).ToString();
                 }
-                
+
             }
 
         }
@@ -347,14 +347,14 @@ namespace Proyecto
 
         private void txb_subtotal_factura_servicios_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(txb_descuento_servicios.Text=="")
+            if (txb_descuento_servicios.Text == "")
             {
                 txb_descuento_servicios.Text = "0";
             }
             float subtotal = float.Parse(txb_subtotal_factura_servicios.Text);
-            float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text)/100;
+            float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text) / 100;
             float descuento = subtotal * porcentaje_descuento;
-            txb_total_factura_servicios.Text = (subtotal-descuento).ToString();
+            txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
         }
 
         private void txb_descuento_servicios_TextChanged(object sender, TextChangedEventArgs e)
@@ -427,7 +427,7 @@ namespace Proyecto
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e) //Evento declarado en el datagrid
         {
             DataGridRow row = sender as DataGridRow;
-        
+
             Vista.DetalleFactura ventana = new Vista.DetalleFactura();
             ventana.txt_codigo.Content = (dtg_listar_facturas.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text;
 
@@ -502,7 +502,7 @@ namespace Proyecto
 
         private void txb_descuento_Producto_TextChanged(object sender, TextChangedEventArgs e)
         {
-           ValidarErroresTxb(txb_descuento_Producto, txt_error_descuento);
+            ValidarErroresTxb(txb_descuento_Producto, txt_error_descuento);
             if (txb_descuento_Producto.Text == "")
             {
                 txt_error_descuento.Visibility = Visibility.Collapsed;

@@ -115,9 +115,9 @@ namespace Logica
         {
             return v_Data.ValidarModificacionProveedores(clt);
         }
-       public DataTable Clientes()
+        public DataTable Clientes()
         {
-            return  v_Data.Clientes();
+            return v_Data.Clientes();
         }
 
         public List<EntidadClientes> BuscarClientes(String nombre)
