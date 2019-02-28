@@ -407,5 +407,44 @@ namespace Proyecto
         }
 
 
+        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        private void ValidarErroresTxb(TextBox txb_facturas, Label lbl_error)
+        {
+            string v_TamanoTxb = txb_facturas.Text;
+            if (txb_facturas.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_facturas.Text == " ")
+            {
+                txb_facturas.Text = "";
+            }
+            else if (txb_facturas.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_facturas.Text) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        private void txb_descuento_Producto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           ValidarErroresTxb(txb_descuento_Producto, txt_error_descuento);
+            if (txb_descuento_Producto.Text == "")
+            {
+                txt_error_descuento.Visibility = Visibility.Collapsed;
+            }
+        }
+
     }
 }
