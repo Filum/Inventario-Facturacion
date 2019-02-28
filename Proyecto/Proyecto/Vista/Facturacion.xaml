@@ -250,8 +250,8 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Cantidad " Binding="{Binding Cantidad}" IsReadOnly="False" FontFamily="Global Sans Serif" Width=""/>
-                            <DataGridTextColumn Header="Precio " Binding="{Binding Precio}" IsReadOnly="True" FontFamily="Global Sans Serif" Width=""/>
+                            <DataGridTextColumn Header="Cantidad " Binding="{Binding Cantidad}" IsReadOnly="False" FontFamily="Global Sans Serif" Width="*"/>
+                            <DataGridTextColumn Header="Precio " Binding="{Binding Precio}" IsReadOnly="True" FontFamily="Global Sans Serif" Width="*"/>
                             <DataGridTextColumn Header="Subtotal " Binding="{Binding Subtotal}" IsReadOnly="True" FontFamily="Global Sans Serif" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
