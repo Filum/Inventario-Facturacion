@@ -1,9 +1,11 @@
 ﻿using Logica;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace Proyecto
 {
@@ -64,15 +67,46 @@ namespace Proyecto
                            , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        private ObservableCollection<FacturasProductos> Factura = new ObservableCollection<FacturasProductos>();
         private void Button_agregar_producto_Click(object sender, RoutedEventArgs e)
         {
-            dtg_facturar_productos.Items.Add(1);
+            Factura.Add(new FacturasProductos()
+            {
+                Codigo = "0",
+                Productos = datos.ListaProductos(),
+                Cantidad = "0",
+                Precio = "0",
+                Subtotal = "0"
+
+            });
+            DataContext = Factura;
             //MessageBox.Show("No se puede agregar\n Hacen falta productos en inventario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FacturasProductos item = (FacturasProductos)dtg_facturar_productos.SelectedItem;
+
+            item.Codigo = "10";
+            item.Precio = "10000";
+            item.Productos = datos.ListaProductos();
+            dtg_facturar_productos.Items.Refresh();
+        }
+
+        public class FacturasProductos
+        {
+            public string Codigo { get; set; }
+            public ObservableCollection<string> Productos { get; set; }
+            public string Cantidad { get; set; }
+            public string Precio { get; set; }
+            public string Subtotal { get; set; }
+
+        }
+
+
         private void Button_agregar_servicio_Click(object sender, RoutedEventArgs e)
         {
-            if ( txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
+            if (txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
             {
                 MessageBox.Show("No se puede agregar\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -84,7 +118,7 @@ namespace Proyecto
 
         private void Button_imprimir_factura_producto_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_codigo_factura.Text == "" || textbox_descuento_Producto.Text == "" || textbox_subtotal_factura.Text == "" || textbox_total_factura.Text == "")
+            if (txb_codigo_factura.Text == "" || txb_descuento_Producto.Text == "" || txb_subtotal_factura.Text == "" || txb_total_factura.Text == "")
             {
                 MessageBox.Show("No se puede imprimir\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -96,20 +130,25 @@ namespace Proyecto
 
         private void Button_imprimir_factura_servicio_Click(object sender, RoutedEventArgs e)
         {
-            if ( txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
+            if (txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
             {
                 MessageBox.Show("No se puede imprimir\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                MessageBox.Show("Imprimiendo...","Imprimiendo", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Imprimiendo...", "Imprimiendo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
         private void btn_limpiar_factura_Prod_Click(object sender, RoutedEventArgs e)
         {
 
-            textbox_codigo_factura.Text = "";
+            txb_Cantidad.Text = "0";
+            txb_Precio.Text = "0";
+            txb_subtotal_factura_servicios.Text = "0";
+            txb_descuento_servicios.Text = "0";
+            txb_total_factura_servicios.Text = "0";
+            txt_error_descuento.Visibility = Visibility.Hidden;
             txb_Cantidad.Text = "0";
             txb_Precio.Text = "0";
             txb_subtotal_factura_servicios.Text = "0";
@@ -165,9 +204,21 @@ namespace Proyecto
         private void descuento_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
                 e.Handled = false;
+                txt_error_descuento.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_descuento_Producto.Text) == true)
+                {
+                    txt_error_descuento.Content = "No se permiten caracteres especiales";
+                    txt_error_descuento.Visibility = Visibility.Visible;
+                }
+            }
             else
+            {
                 e.Handled = true;
+                txt_error_descuento.Content = "No se permite ingresar letras";
+                txt_error_descuento.Visibility = Visibility.Visible;
+            }
         }
 
         private void txb_Cantidad_KeyDown(object sender, KeyEventArgs e)
@@ -224,9 +275,9 @@ namespace Proyecto
             float cantidad;
             float precio;
             if (txb_Precio.Text == "")
-            txb_Precio.Text = "0";
+                txb_Precio.Text = "0";
             else
-            if (txb_Cantidad.Text == "" )
+            if (txb_Cantidad.Text == "")
             {
                 cantidad = float.Parse("0");
                 precio = float.Parse(txb_Precio.Text);
@@ -246,7 +297,7 @@ namespace Proyecto
                     precio = float.Parse(txb_Precio.Text);
                     txb_subtotal_factura_servicios.Text = (cantidad * (precio * datos.ObtenerValorDolar())).ToString();
                 }
-                
+
             }
         }
 
@@ -277,7 +328,7 @@ namespace Proyecto
                     precio = float.Parse(txb_Precio.Text);
                     txb_subtotal_factura_servicios.Text = (cantidad * (precio * datos.ObtenerValorDolar())).ToString();
                 }
-                
+
             }
 
         }
@@ -296,14 +347,14 @@ namespace Proyecto
 
         private void txb_subtotal_factura_servicios_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(txb_descuento_servicios.Text=="")
+            if (txb_descuento_servicios.Text == "")
             {
                 txb_descuento_servicios.Text = "0";
             }
             float subtotal = float.Parse(txb_subtotal_factura_servicios.Text);
-            float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text)/100;
+            float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text) / 100;
             float descuento = subtotal * porcentaje_descuento;
-            txb_total_factura_servicios.Text = (subtotal-descuento).ToString();
+            txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
         }
 
         private void txb_descuento_servicios_TextChanged(object sender, TextChangedEventArgs e)
@@ -376,7 +427,7 @@ namespace Proyecto
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e) //Evento declarado en el datagrid
         {
             DataGridRow row = sender as DataGridRow;
-        
+
             Vista.DetalleFactura ventana = new Vista.DetalleFactura();
             ventana.txt_codigo.Content = (dtg_listar_facturas.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text;
 
@@ -406,6 +457,57 @@ namespace Proyecto
             ventana.Show();
         }
 
+        //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
+        private Boolean ValidarCaracteresEspeciales(String v_Txb)
+        {
+            //caracteres que permite si la cadena es de int
+            String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
+            if (Regex.IsMatch(v_Txb, v_Caracteres))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        private void ValidarErroresTxb(TextBox txb_facturas, Label lbl_error)
+        {
+            string v_TamanoTxb = txb_facturas.Text;
+            if (txb_facturas.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_facturas.Text == " ")
+            {
+                txb_facturas.Text = "";
+            }
+            else if (txb_facturas.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_facturas.Text) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        private void txb_descuento_Producto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarErroresTxb(txb_descuento_Producto, txt_error_descuento);
+            if (txb_descuento_Producto.Text == "")
+            {
+                txt_error_descuento.Visibility = Visibility.Collapsed;
+            }
+        }
 
     }
 }
