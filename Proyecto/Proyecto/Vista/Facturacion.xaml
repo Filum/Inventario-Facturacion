@@ -246,7 +246,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             <DataGridTemplateColumn Header="Producto" Width="300">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Margin="2" ItemsSource="{Binding Productos}"/>
+                                        <ComboBox x:Name="cmb_producto"  Margin="2" ItemsSource="{Binding Productos}" SelectionChanged="ComboBox_SelectionChanged"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

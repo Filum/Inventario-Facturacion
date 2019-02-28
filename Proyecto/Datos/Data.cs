@@ -502,7 +502,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT NOMBREPRODUCTO FROM TBL_PRODUCTOS";
+            comando.CommandText = "SELECT DESCRIPCION FROM TBL_PRODUCTOS";
             OracleDataReader dr = comando.ExecuteReader();
             var Lista = new ObservableCollection<string>();
 
@@ -510,6 +510,26 @@ namespace Datos
             while (dr.Read())
             {
                 Lista.Add(dr.GetString(0));
+            }
+            conn.Close();
+            return Lista;
+        }
+        public List<string> DetalleProducto(string descripcion)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT CODIGOPRODUCTO,PRECIOUNITARIO FROM TBL_PRODUCTOS WHERE DESCRIPCION = '"+descripcion+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+            var Lista = new List<string>();
+
+
+            while (dr.Read())
+            {
+                Lista.Add(dr.GetInt64(0).ToString());
+                Lista.Add(dr.GetInt64(1).ToString());
+
             }
             conn.Close();
             return Lista;

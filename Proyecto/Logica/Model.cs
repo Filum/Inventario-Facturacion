@@ -145,5 +145,9 @@ namespace Logica
         {
             return v_Data.ListaProductos();
         }
+        public List<string> DetalleProducto(string descripcion)
+        {
+            return v_Data.DetalleProducto(descripcion);
+        }
     }
 }
