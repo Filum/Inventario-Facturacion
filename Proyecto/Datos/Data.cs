@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Entidades;
 using System.Data;
 using Oracle.DataAccess.Client;
-using System.Collections.ObjectModel;
 
 namespace Datos
 {
@@ -491,44 +490,6 @@ namespace Datos
                 Lista.Add(dr.GetDateTime(1).ToString());
                 Lista.Add(dr.GetString(2));
                 Lista.Add(dr.GetString(3));
-
-            }
-            conn.Close();
-            return Lista;
-        }
-        public ObservableCollection<string> ListaProductos()
-        {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand();
-            comando.Connection = conn;
-            comando.CommandText = "SELECT DESCRIPCION FROM TBL_PRODUCTOS";
-            OracleDataReader dr = comando.ExecuteReader();
-            var Lista = new ObservableCollection<string>();
-
-
-            while (dr.Read())
-            {
-                Lista.Add(dr.GetString(0));
-            }
-            conn.Close();
-            return Lista;
-        }
-        public List<string> DetalleProducto(string descripcion)
-        {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand();
-            comando.Connection = conn;
-            comando.CommandText = "SELECT CODIGOPRODUCTO,PRECIOUNITARIO FROM TBL_PRODUCTOS WHERE DESCRIPCION = '"+descripcion+"'";
-            OracleDataReader dr = comando.ExecuteReader();
-            var Lista = new List<string>();
-
-
-            while (dr.Read())
-            {
-                Lista.Add(dr.GetInt64(0).ToString());
-                Lista.Add(dr.GetInt64(1).ToString());
 
             }
             conn.Close();

@@ -1,7 +1,6 @@
 ﻿using Logica;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -15,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace Proyecto
 {
@@ -67,43 +65,12 @@ namespace Proyecto
                            , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private ObservableCollection<FacturasProductos> Factura = new ObservableCollection<FacturasProductos>();
         private void Button_agregar_producto_Click(object sender, RoutedEventArgs e)
         {
-            Factura.Add(new FacturasProductos()
-            {
-                Codigo = "0",
-                Productos = datos.ListaProductos(),
-                Cantidad = "0",
-                Precio = "0",
-                Subtotal = "0"
-
-            });
-            DataContext = Factura;
+            dtg_facturar_productos.Items.Add(1);
             //MessageBox.Show("No se puede agregar\n Hacen falta productos en inventario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FacturasProductos item = (FacturasProductos)dtg_facturar_productos.SelectedItem;
-            
-            item.Codigo = "10";
-            item.Precio = "10000";
-            item.Productos = datos.ListaProductos();
-            dtg_facturar_productos.Items.Refresh();
-        }
-
-        public class FacturasProductos
-        {
-            public string Codigo { get; set; }
-            public ObservableCollection<string> Productos { get; set; }
-            public string Cantidad { get; set; }
-            public string Precio { get; set; }
-            public string Subtotal { get; set; }
-
-        }
-
-        
         private void Button_agregar_servicio_Click(object sender, RoutedEventArgs e)
         {
             if ( txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
@@ -151,12 +118,6 @@ namespace Proyecto
             txb_total_factura_servicios.Text = "0";
             txt_error_numFactura.Visibility = Visibility.Hidden;
             txt_error_descuento.Visibility = Visibility.Hidden;
-              textbox_codigo_factura.Text = "";
-              txb_Cantidad.Text = "0";
-              txb_Precio.Text = "0";
-              txb_subtotal_factura_servicios.Text = "0";
-              txb_descuento_servicios.Text = "0";
-              txb_total_factura_servicios.Text = "0";
         }
 
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
