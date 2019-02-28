@@ -241,13 +241,20 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
 
                     <Label Content="Cliente:" HorizontalAlignment="Left" Margin="0,120,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
                     <DataGrid x:Name="dtg_facturar_productos" Margin="41,271,85,24" FrozenColumnCount="5"  Grid.ColumnSpan="4" FontSize="12">
+                    <Label Content="Cliente:" HorizontalAlignment="Left" Margin="0,102,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
+                    <DataGrid x:Name="dtg_facturar_productos" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="41,271,85,24" FrozenColumnCount="5"  Grid.ColumnSpan="4" FontSize="12" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Código" FontFamily="Global Sans Serif" Width="100"/>
-                            <DataGridTextColumn Header="Cantidad " FontFamily="Global Sans Serif" Width="100"/>
-                            <DataGridTextColumn Header="Descripción" FontFamily="Global Sans Serif" Width="300"/>
-                            <DataGridTextColumn Header="Precio " FontFamily="Global Sans Serif" Width="200"/>
-                            <DataGridTextColumn Header="Total" FontFamily="Global Sans Serif" Width="110"/>
-
+                            <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" FontFamily="Global Sans Serif" Width="100" IsReadOnly="True"/>
+                            <DataGridTemplateColumn Header="Producto" Width="300">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox x:Name="cmb_producto"  Margin="2" ItemsSource="{Binding Productos}" SelectionChanged="ComboBox_SelectionChanged"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Cantidad " Binding="{Binding Cantidad}" IsReadOnly="False" FontFamily="Global Sans Serif" Width="*"/>
+                            <DataGridTextColumn Header="Precio " Binding="{Binding Precio}" IsReadOnly="True" FontFamily="Global Sans Serif" Width="*"/>
+                            <DataGridTextColumn Header="Subtotal " Binding="{Binding Subtotal}" IsReadOnly="True" FontFamily="Global Sans Serif" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Descuento:" HorizontalAlignment="Left" Margin="0,104,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
