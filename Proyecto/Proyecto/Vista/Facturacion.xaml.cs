@@ -435,26 +435,6 @@ namespace Proyecto
             return false;
         }
 
-        private void textbox_codigo_factura_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_numFactura.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_codigo_factura.Text) == true)
-                {
-                    txt_error_numFactura.Content = "No se permiten caracteres especiales";
-                    txt_error_numFactura.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_numFactura.Content = "No se permite ingresar letras";
-                txt_error_numFactura.Visibility = Visibility.Visible;
-            }
-        }
-
         //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
         private void ValidarErroresTxb(TextBox txb_facturas, Label lbl_error)
         {
@@ -484,42 +464,15 @@ namespace Proyecto
             }
         }
 
-        private void txb_codigo_factura_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            /*ValidarErroresTxb(txb_codigo_factura, txt_error_numFactura);
-            if (txb_codigo_factura.Text == "")
-            {
-                txt_error_numFactura.Visibility = Visibility.Collapsed;
-            }*/
-        }
 
         private void txb_descuento_Producto_TextChanged(object sender, TextChangedEventArgs e)
         {
-           /* ValidarErroresTxb(txb_descuento_Producto, txt_error_descuento);
+           ValidarErroresTxb(txb_descuento_Producto, txt_error_descuento);
             if (txb_descuento_Producto.Text == "")
             {
                 txt_error_descuento.Visibility = Visibility.Collapsed;
-            }*/
+            }
         }
 
-        private void txb_codigo_factura_servicio_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_numFactura_servicio.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_codigo_factura_servicio.Text) == true)
-                {
-                    txt_error_numFactura_servicio.Content = "No se permiten caracteres especiales";
-                    txt_error_numFactura_servicio.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_numFactura_servicio.Content = "No se permite ingresar letras";
-                txt_error_numFactura_servicio.Visibility = Visibility.Visible;
-            }
-        }
     }
 }
