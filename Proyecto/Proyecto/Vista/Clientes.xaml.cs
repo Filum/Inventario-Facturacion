@@ -661,6 +661,10 @@ namespace Proyecto
             }
         }
 
-
+        private void btn_imprimirClientes_Click(object sender, RoutedEventArgs e)
+        {
+            Imprimir print = new Imprimir();
+            print.imprimir(dtg_listar_clientes, "Imprimir");
+        }
     }
 }
