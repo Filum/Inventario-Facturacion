@@ -1,5 +1,4 @@
-﻿using Entidades;
-using Logica;
+﻿using Logica;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -76,7 +75,7 @@ namespace Proyecto
                 Codigo = "0",
                 Productos = datos.ListaProductos(),
                 Cantidad = "0",
-                Precio = 0,
+                Precio = "0",
                 Subtotal = "0"
 
             });
@@ -89,7 +88,7 @@ namespace Proyecto
             FacturasProductos item = (FacturasProductos)dtg_facturar_productos.SelectedItem;
 
             item.Codigo = "10";
-            item.Precio = 10000;
+            item.Precio = "10000";
             item.Productos = datos.ListaProductos();
             dtg_facturar_productos.Items.Refresh();
         }
@@ -99,7 +98,7 @@ namespace Proyecto
             public string Codigo { get; set; }
             public ObservableCollection<string> Productos { get; set; }
             public string Cantidad { get; set; }
-            public long Precio { get; set; }
+            public string Precio { get; set; }
             public string Subtotal { get; set; }
 
         }
@@ -510,15 +509,5 @@ namespace Proyecto
             }
         }
 
-        private void ComboBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            EntidadProductos producto = new EntidadProductos();
-            DataGridRow row = sender as DataGridRow;
-
-         
-            producto = datos.mostrarProducto((dtg_listar_facturas.SelectedCells[1].Column.GetCellContent(0) as TextBlock).Text);
-
-            
-        }
     }
 }

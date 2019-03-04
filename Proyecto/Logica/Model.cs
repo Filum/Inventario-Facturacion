@@ -149,9 +149,5 @@ namespace Logica
         {
             return v_Data.DetalleProducto(descripcion);
         }
-        public EntidadProductos mostrarProducto(string descripcion)
-        {
-            return v_Data.mostrarProducto(descripcion);
-        }
     }
 }
