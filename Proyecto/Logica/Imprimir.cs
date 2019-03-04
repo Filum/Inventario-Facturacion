@@ -23,29 +23,24 @@ namespace Logica
             if (printDialog.ShowDialog() == true)
             {
                 FlowDocument fd = new FlowDocument();
-                
                 //Estilo de la letra, tamaño
                 Paragraph p = new Paragraph(new Run(title));
                 p.FontStyle = dataGrid.FontStyle;
                 p.FontFamily = dataGrid.FontFamily;
                 p.FontSize = 18;
                 fd.Blocks.Add(p);
-                
 
                 Table table = new Table();
                 TableRowGroup tableRowGroup = new TableRowGroup();
                 TableRow r = new TableRow();
-                fd.PageWidth = printDialog.PrintableAreaHeight;
-                fd.PageHeight = printDialog.PrintableAreaWidth;
+                fd.PageWidth = printDialog.PrintableAreaWidth;
+                fd.PageHeight = printDialog.PrintableAreaHeight;
                 fd.BringIntoView();
 
                 //alineamiento 
                 fd.TextAlignment = TextAlignment.Center;
-                fd.ColumnWidth = 700;
+                fd.ColumnWidth = 500;
                 table.CellSpacing = 0;
-
-                
-                
 
                 var headerList = dataGrid.Columns.Select(e => e.Header.ToString()).ToList();
                 List<dynamic> bindList = new List<dynamic>();
@@ -55,12 +50,12 @@ namespace Logica
                 {
                     //Estilo de los headers 
                     r.Cells.Add(new TableCell(new Paragraph(new Run(headerList[j]))));
-                    r.Cells[j].ColumnSpan = 7;
+                    r.Cells[j].ColumnSpan = 4;
                     r.Cells[j].Padding = new Thickness(4);
                     r.Cells[j].BorderBrush = Brushes.Black;
                     r.Cells[j].FontWeight = FontWeights.Bold;
                     r.Cells[j].Background = Brushes.GhostWhite;
-                    r.Cells[j].Foreground = Brushes.Black;
+                    r.Cells[j].Foreground = Brushes.White;
                     r.Cells[j].BorderThickness = new Thickness(1, 1, 1, 1);
                     var binding = (dataGrid.Columns[j] as DataGridBoundColumn).Binding as Binding;
 
@@ -73,11 +68,11 @@ namespace Logica
 
                     dynamic row;
                     if (dataGrid.ItemsSource.ToString().ToLower() == "system.data.linqdataview")
-                    { row = (DataRow)dataGrid.Items.GetItemAt(i);}
+                    { row = (DataRowView)dataGrid.Items.GetItemAt(i); }
                     else
                     {
-                        
-                     row = (DataRowView)dataGrid.Items.GetItemAt(i);
+                        row = (DataRow)dataGrid.Items.GetItemAt(i);
+
                     }
 
                     table.BorderBrush = Brushes.Gray;
@@ -87,22 +82,22 @@ namespace Logica
                     table.FontSize = 13;
                     tableRowGroup = new TableRowGroup();
                     r = new TableRow();
-                    for (int j = 0; j < dataGrid.Columns.Count; j++)
+                    for (int j = 0; j < row.ItemArray.Count(); j++)
                     {
 
                         if (dataGrid.ItemsSource.ToString().ToLower() == "system.data.linqdataview")
                         {
-                             r.Cells.Add(new TableCell(new Paragraph(new Run(row.GetType().GetProperty(bindList[j]).GetValue(row, null)))));
+                            r.Cells.Add(new TableCell(new Paragraph(new Run(row.Row.ItemArray[j].ToString()))));
 
                         }
                         else
                         {
 
-                           r.Cells.Add(new TableCell(new Paragraph(new Run(row.Row.ItemArray[j].ToString()))));
+                            r.Cells.Add(new TableCell(new Paragraph(new Run(row.GetType().GetProperty(bindList[j]).GetValue(row, null)))));
 
                         }
 
-                        r.Cells[j].ColumnSpan = 7;
+                        r.Cells[j].ColumnSpan = 4;
                         r.Cells[j].Padding = new Thickness(4);
 
                         r.Cells[j].BorderBrush = Brushes.DarkGray;
@@ -114,10 +109,8 @@ namespace Logica
 
                 }
                 fd.Blocks.Add(table);
-                
-                
+
                 printDialog.PrintDocument(((IDocumentPaginatorSource)fd).DocumentPaginator, "");
-                MessageBoxResult v_Result = MessageBox.Show("Se ha enviado correctamente a imprimir.","", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
         }

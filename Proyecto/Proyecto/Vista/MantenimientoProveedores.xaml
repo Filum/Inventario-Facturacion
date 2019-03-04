@@ -14,7 +14,7 @@
                 <GradientStop Color="#FE2E2672" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid Background="#FF3472DE" Margin="0,30,0,0" HorizontalAlignment="Right" Width="120">
+        <Grid Background="#FF3472DE" Margin="0,30,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="120">
             <Button x:Name="btn_ayuda" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_ayuda_Click"  >
                 <StackPanel x:Name="btn_ayuda_roles" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="imagenes/ayuda.png" Width="50" Height="50"
@@ -85,15 +85,15 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </Grid.Background>
 
                     <Label x:Name="lbl_fechas" Content="Seleccione un rango de fecha del:" Margin="0,32,547,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <DatePicker x:Name="date_inicio" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,30,388,0" VerticalAlignment="Top" Height="30" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="140">
+                    <DatePicker x:Name="date_inicio" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,30,388,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" FontFamily="Global Sans Serif" VerticalContentAlignment="Center">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
                             </Style>
                         </DatePicker.Resources>
                     </DatePicker>
-                    <Label x:Name="lbl_fechas2" Content="al:" Margin="0,32,354,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="29"/>
-                    <DatePicker x:Name="date_final" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,30,214,0" VerticalAlignment="Top" Height="30" FontSize="16" VerticalContentAlignment="Center" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="140">
+                    <Label x:Name="lbl_fechas2" Content="al:" HorizontalAlignment="Right" Margin="0,32,354,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
+                    <DatePicker x:Name="date_final" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,30,214,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140" VerticalContentAlignment="Center" FontFamily="Global Sans Serif">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
@@ -101,13 +101,13 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </DatePicker.Resources>
                     </DatePicker>
 
-                    <Button x:Name="btn_listar" Height="70" Foreground="White" Margin="0,44,117,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_listar_Click" HorizontalAlignment="Right" Width="70">
+                    <Button x:Name="btn_listar" Height="70" Width="70" Foreground="White" Margin="0,20,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_listar_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Listar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="17,0,0,0" Width="36" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_lista" Margin="30,138,30,30" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
+                    <DataGrid x:Name="dtg_lista" Margin="30,90,30,30" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />
@@ -117,18 +117,12 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </DataGrid.ColumnHeaderStyle>
 
                     </DataGrid>
-                    <Button  x:Name="btn_imprimir_proveedores" Height="70" Foreground="White" Margin="0,44,30,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_proveedores_Click" HorizontalAlignment="Right" Width="70">
+                    <Button  x:Name="btn_imprimir_proveedores" Height="70" Width="70" Foreground="White" Margin="0,10,119,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_proveedores_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Imprimir" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,85,547,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,85,354,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged">
-                        <ComboBoxItem Name="proveedoresActivos">Proveedores Activos</ComboBoxItem>
-                        <ComboBoxItem Name="proveedoresInactivos">Proveedores Inactivos</ComboBoxItem>
-                        <ComboBoxItem Name="listaProveedores">Todos los Proveedores</ComboBoxItem>
-                    </ComboBox>
                 </Grid>
             </TabItem>
 
@@ -191,14 +185,14 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <ColumnDefinition Width="67*"/>
                             <ColumnDefinition Width="602*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Margin="-8,-8,604,10" Grid.ColumnSpan="2">
+                        <StackPanel Margin="-8,0,604,10" Grid.ColumnSpan="2">
                             <Label x:Name="lbl_cedulaJur" Content="Céd. jurídica:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_nombre"    Content="Nombre:"        Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_correo"     Content="Correo:"         Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_correoOpcional"     Content="Corr. (Opcional):" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="30" FontSize="16"/>
                         </StackPanel>
 
-                        <StackPanel Margin="57,-8,314,-53" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+                        <StackPanel Margin="57,0,314,-53" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
                             <TextBox x:Name="txb_cedJur" MaxLength="12" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="Auto" MinWidth="150" FontFamily="Global Sans Serif" Height="30" KeyDown="CedJur_KeyDown" LostKeyboardFocus="ValidarTxbCedJur" VerticalContentAlignment="Center" />
                             <Label x:Name="lbl_errorCedJur" Visibility="Collapsed" Margin="0,-20,34.667,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
@@ -212,25 +206,20 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <Label x:Name="lbl_errorcorreoOpcional" IsEnabled="False" Visibility="Collapsed" Margin="0,-20,0,-18" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
                         </StackPanel>
 
-                        <StackPanel Margin="383,-8,144,0" Grid.Column="1">
+                        <StackPanel Margin="389,0,144,0" Grid.Column="1">
                             <Label x:Name="lbl_telefono" Content="Teléfono:" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="30" FontSize="16"/>
                             <Label x:Name="lbl_telefonoOpcional" Content="Tel. (Opcional):" Margin="0,15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Height="30" FontSize="16"/>
-                            <Label x:Name="lbl_estadoSistema" Content="Estado Sistema:" Margin="0,15,-4,20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="30" FontSize="16"/>
-                            <Label x:Name="lbl_descripcion" Content="Descripción:" Margin="0,10,-4,20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="30" FontSize="16"/>
+                            <Label x:Name="lbl_descripcion" Content="Descripción:" Margin="0,20,-4,20" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="30" FontSize="16"/>
                         </StackPanel>
 
-                        <StackPanel Margin="517,-8,0,-33" Grid.Column="1">
+                        <StackPanel Margin="517,0,0,-19" Grid.Column="1">
                             <TextBox x:Name="txb_telefono" MaxLength="12" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" Width="150" MinWidth="150" FontFamily="Global Sans Serif" Height="30" KeyDown="Telefono_KeyDown" TextChanged="txb_telefono_TextChanged" VerticalContentAlignment="Center" HorizontalAlignment="Left" />
                             <Label x:Name="lbl_errorTelefono" Visibility="Collapsed" Margin="0,-20,34.667,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
                             <TextBox x:Name="txb_telefonoOpcional" MaxLength="12" Margin="0,15" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" FontSize="16" Width="128" MinWidth="150" FontFamily="Global Sans Serif" Height="30" KeyDown="TelefonoOpcional_KeyDown" TextChanged="txb_telefonoOpcional_TextChanged" VerticalContentAlignment="Center" HorizontalAlignment="Left" />
-                            <Label x:Name="lbl_errorTelefonoOpcional" Visibility="Collapsed" Margin="0,-20,0,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+                            <Label x:Name="lbl_errorTelefonoOpcional" Visibility="Collapsed" Margin="0,-20,34.667,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                            <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="0,20" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="69" Checked="rb_activo_Checked" />
-                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="70,-37,-15,-25" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Checked="rb_inactivo_Checked" />
-                            <Label x:Name="lbl_errorRb" Visibility="Collapsed" Margin="0,-20,35,-15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Height="30" FontSize="12"/>
-
-                            <TextBox x:Name="txb_descripcion" MaxLength="100" Margin="0,10,3,20" TextWrapping="Wrap" Grid.Column="2" FontSize="16" Height="55" FontFamily="Global Sans Serif" TextChanged="txb_descripcion_TextChanged" MinWidth="130"/>
+                            <TextBox x:Name="txb_descripcion" MaxLength="100" Margin="0,20,3,20" TextWrapping="Wrap" Grid.Column="2" FontSize="16" Height="74" FontFamily="Global Sans Serif" TextChanged="txb_descripcion_TextChanged" MinWidth="130"/>
                             <Label x:Name="lbl_errorDesc" Visibility="Collapsed" Margin="0,-20,35,-15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
                         </StackPanel>
                     </Grid>

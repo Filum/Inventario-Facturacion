@@ -90,6 +90,22 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
+                    <Label Content="Seleccione un rango de fecha del:" Margin="0,30,547,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
+                    <DatePicker x:Name="date_inicio" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,31,391,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                <Setter Property="IsReadOnly" Value="True"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                    <Label Content="al:" HorizontalAlignment="Right" Margin="0,32,357,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
+                    <DatePicker x:Name="date_final" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,30,212,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                <Setter Property="IsReadOnly" Value="True"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
 
                 </Grid>
             </TabItem>
@@ -180,7 +196,7 @@
                             <TextBox x:Name="txb_precio" HorizontalAlignment="Left" Margin="0,7" TextWrapping="Wrap" Width="85" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
                             <Label x:Name="lbl_errorPrecio" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="24" FontSize="12"/>
 
-                            <ComboBox x:Name="cmb_proveedor" HorizontalAlignment="Left" Margin="0,9" Width="156" Height="26"></ComboBox>
+                            <ComboBox x:Name="cmb_proveedor" HorizontalAlignment="Left" Margin="0,9" Width="156" Height="26" SelectionChanged="cmb_proveedor_SelectionChanged"></ComboBox>
                             <Label x:Name="lbl_errorProveedor" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
 
                             <TextBox x:Name="txb_fabricante" Margin="0,9,-18,9" TextWrapping="Wrap" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="152" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" Height="26"/>
