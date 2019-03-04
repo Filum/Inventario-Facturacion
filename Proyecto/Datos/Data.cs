@@ -60,6 +60,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_Telefono));
             comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_TelefonoOpcional));
             comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_CorreoOpcional));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
 
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
@@ -135,6 +136,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_Telefono));
             comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_TelefonoOpcional));
             comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_CorreoOpcional));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -175,14 +177,21 @@ namespace Datos
         }
 
         /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
-         Además, en caso de encontrar proveedores estos serán retornados mediante una tabla*/
-        public DataTable MostarListaProveedores(String v_Fecha1, String v_Fecha2)
-        {
+         Además, recibe un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta. En caso de encontrar proveedores estos serán retornados mediante una tabla*/
+        public DataTable MostarListaProveedores(String v_Fecha1, String v_Fecha2, String v_EstadoSistema)
+        {  
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+            if (v_EstadoSistema == "LISTAPROVEEDORES")
+            {
+                comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1+ "' AND '" + v_Fecha2 + "'";
+            }
+            else
+            {
+                comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha,estadoSistema from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "' AND estadoSistema = '" + v_EstadoSistema + "'";
+            }
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
@@ -267,6 +276,7 @@ namespace Datos
                     proveedor.v_CorreoOpcional = dr.GetString(8);
                     proveedor.v_Descripcion = dr.GetString(5);
                     proveedor.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
+                    proveedor.v_EstadoSistema = dr.GetString(9);
                     Lista.Add(proveedor);
                 }
             }
@@ -311,7 +321,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estado,PROD.fecha " +
+            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.estadoSistema " +
                 "from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON (PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) WHERE translate(UPPER(NOMBREPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU') " +
                 "OR translate(UPPER(CODIGOPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
@@ -332,8 +342,9 @@ namespace Datos
                     producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(7));
                     producto.v_Descripcion = dr.GetString(8);
                     producto.v_Fabricante = dr.GetString(9);
-                    producto.v_Estado = dr.GetString(10);
+                    producto.v_EstadoProducto = dr.GetString(10);
                     producto.v_Fecha = Convert.ToDateTime(dr.GetValue(11));
+                    producto.v_EstadoSistema = dr.GetString(12);
                     Lista.Add(producto);
                 }
             }
@@ -388,13 +399,13 @@ namespace Datos
             return false;
         }
 
-        public DataTable MostarListaProductos(String v_Fecha1, String v_Fecha2)
+        public DataTable MostarListaProductos()
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estado,PROD.fecha from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) where trunc(PROD.fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+            comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) where prod.estadosistema= 'ACTIVO'";
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
             DataTable tabla = new DataTable();

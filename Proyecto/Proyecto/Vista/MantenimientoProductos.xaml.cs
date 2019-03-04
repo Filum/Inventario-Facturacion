@@ -35,11 +35,8 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
-
-            date_inicio.SelectedDate = DateTime.Now.Date;
-            date_final.SelectedDate = DateTime.Now.Date;
-
             LlenarComboboxProveedores();
+
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -187,47 +184,29 @@ namespace Proyecto
 
         private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
-            if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
-            {
-                DateTime v_FechaInicio = DateTime.Parse(date_inicio.SelectedDate.Value.Date.ToShortDateString());
-                DateTime v_FechaFinal = DateTime.Parse(date_final.SelectedDate.Value.Date.ToShortDateString());
-                String v_Fecha1;
-                v_Fecha1 = date_inicio.SelectedDate.Value.Date.ToShortDateString();
-                String v_Fecha2;
-                v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
+       
                 dtg_lista.ItemsSource = null;
 
-                if (v_FechaInicio > v_FechaFinal)
-                {
-                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    if (v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2).Rows.Count == 0)
+
+                    if (v_Model.MostrarListaProductos().Rows.Count == 0)
                     {
                         MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
-                        dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_Fecha1, v_Fecha2).DefaultView;
+                        dtg_lista.ItemsSource = v_Model.MostrarListaProductos().DefaultView;
                         dtg_lista.Columns[0].Header = "Código Producto";
                         dtg_lista.Columns[1].Header = "Nombre del Producto";
                         dtg_lista.Columns[2].Header = "Marca";
-                        dtg_lista.Columns[3].Header = "Cant en existencia";
-                        dtg_lista.Columns[4].Header = "Cant mínima";
-                        dtg_lista.Columns[5].Header = "Proveedor";
-                        dtg_lista.Columns[6].Header = "Precio";
-                        dtg_lista.Columns[7].Header = "Descripción";
-                        dtg_lista.Columns[8].Header = "Fabricante";
-                        dtg_lista.Columns[9].Header = "Estado";
-                        dtg_lista.Columns[10].Header = "Fecha";
+                        dtg_lista.Columns[3].Header = "Cantidad en existencia";
+                        dtg_lista.Columns[4].Header = "Proveedor";
+                        dtg_lista.Columns[5].Header = "Precio";
+                        dtg_lista.Columns[6].Header = "Descripción";
+                        dtg_lista.Columns[7].Header = "Fabricante";
+                        dtg_lista.Columns[8].Header = "Estado del Producto";
+                        dtg_lista.Columns[9].Header = "Fecha";
+                        
                     }
-                }
-            }
-        }
-
-        private void cmb_proveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
             
         }
 
@@ -260,8 +239,9 @@ namespace Proyecto
                 dtg_productos.Columns[7].Header = "Precio Unitario";
                 dtg_productos.Columns[8].Header = "Descripción";
                 dtg_productos.Columns[9].Header = "Fabricante";
-                dtg_productos.Columns[10].Header = "Estado";
+                dtg_productos.Columns[10].Header = "Estado del Producto";
                 dtg_productos.Columns[11].Header = "Fecha de Ingreso";
+                dtg_productos.Columns[12].Header = "Estado en el Sistema";
 
                 if (dtg_productos.Items.Count == 0)//El producto no existe
                 {
@@ -388,7 +368,12 @@ namespace Proyecto
         private void btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
             Imprimir print = new Imprimir();
-            print.imprimir(dtg_lista, "Imprimir");
+            print.imprimir(dtg_lista, "Productos en Inventario");
+
         }
+
+
+
+
     }//Fin de la clase
 }
