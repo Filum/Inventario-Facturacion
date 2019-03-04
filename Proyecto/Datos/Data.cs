@@ -534,5 +534,25 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+
+        public EntidadProductos mostrarProducto(string descripcion)
+        {
+            EntidadProductos producto = new EntidadProductos();
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT CODIGOPRODUCTO, CANTIDADEXISTENCIA, PRECIOUNITARIO FROM TBL_PRODUCTOS WHERE DESCRIPCION = '" + descripcion + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            while (dr.Read())
+            {
+                producto.v_CodigoProducto = dr.GetString(0);
+                producto.v_CantidadExistencia = dr.GetInt32(1);
+                producto.v_PrecioUnitario = dr.GetInt32(2);                
+            }
+            conn.Close();
+            return producto;
+        }
     }
 }
