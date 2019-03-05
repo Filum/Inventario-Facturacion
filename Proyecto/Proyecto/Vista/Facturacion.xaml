@@ -102,7 +102,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_facturas" Margin="55,77,10.4,23.6"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="2" >
+                    <DataGrid x:Name="dtg_listar_facturas" Margin="55,77,24,23.6"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="3" >
                         <DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
@@ -115,29 +115,29 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
-                    <Button x:Name="btn_imprimir" Height="70" Width="70" Foreground="White" Margin="0,48,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_Click" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Button x:Name="btn_imprimir" Height="70" Width="70" Foreground="White" Margin="0,4,18,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_Click" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel x:Name="_" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Imprimir" Height="22" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="53" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Label Content="Seleccione un rango de fecha del:" Margin="0,27,371.2,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1" HorizontalAlignment="Right" Width="269"/>
-                    <DatePicker x:Name="date_historial_datte3" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}"  Margin="0,29,234,0" VerticalAlignment="Top" Height="30" FontSize="16" Grid.Column="1" HorizontalAlignment="Right" Width="140">
+                    <Label Content="Seleccione un rango de fecha del:" Margin="0,27,481.4,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269" Grid.ColumnSpan="2"/>
+                    <DatePicker x:Name="date_historial_datte3" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}"  Margin="0,29,344.4,0" VerticalAlignment="Top" Height="30" FontSize="16" Grid.Column="1" HorizontalAlignment="Right" Width="140">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
                             </Style>
                         </DatePicker.Resources>
                     </DatePicker>
-                    <Label Content="al:" HorizontalAlignment="Right" Margin="0,29,181.2,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1"/>
-                    <DatePicker x:Name="date_historial_datte4" Margin="0,27,36.2,0" VerticalAlignment="Top" Height="30" FontSize="16" Grid.Column="1" HorizontalAlignment="Right" Width="140">
+                    <Label Content="al:" HorizontalAlignment="Right" Margin="0,29,305.4,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1"/>
+                    <DatePicker x:Name="date_historial_datte4" Margin="0,27,146.4,0" VerticalAlignment="Top" Height="30" FontSize="16" Grid.Column="1" HorizontalAlignment="Right" Width="140">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
                             </Style>
                         </DatePicker.Resources>
                     </DatePicker>
-                    <Button x:Name="btn_Listar" Height="112" Width="79" Foreground="White" Margin="0,123,1,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Button x:Name="btn_Listar" Height="67" Width="79" Foreground="White" Margin="0,7,31.4,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click" Grid.Column="1">
                         <StackPanel x:Name="stp_ordenarcodigo" Width="70" Height="79" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock x:Name="txb_ordenarcodigo" Height="45" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left" Text="Listar" Margin="18,0,-7.6,0"/>
@@ -246,7 +246,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             <DataGridTemplateColumn Header="Producto" Width="300">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Margin="2" ItemsSource="{Binding Productos}"/>
+                                        <ComboBox x:Name="micombo" Margin="2" ItemsSource="{Binding Productos}" SelectionChanged="ComboBox_SelectionChanged" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

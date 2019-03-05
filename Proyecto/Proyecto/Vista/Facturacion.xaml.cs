@@ -67,10 +67,10 @@ namespace Proyecto
                            , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private ObservableCollection<FacturasProductos> Factura = new ObservableCollection<FacturasProductos>();
+        private ObservableCollection<FacturasProductos> Row = new ObservableCollection<FacturasProductos>();
         private void Button_agregar_producto_Click(object sender, RoutedEventArgs e)
         {
-            Factura.Add(new FacturasProductos()
+            Row.Add(new FacturasProductos()
             {
                 Codigo = "0",
                 Productos = datos.ListaProductos(),
@@ -79,18 +79,26 @@ namespace Proyecto
                 Subtotal = "0"
 
             });
-            DataContext = Factura;
+            DataContext = Row;
+            //dtg_facturar_productos.Items.Add(Row);
             //MessageBox.Show("No se puede agregar\n Hacen falta productos en inventario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FacturasProductos item = (FacturasProductos)dtg_facturar_productos.SelectedItem;
+            ComboBox row = sender as ComboBox;
+            string valor = row.SelectedItem.ToString();
+            var detalle = new List<string>();
+            detalle = datos.DetalleProducto(valor);
+            (dtg_facturar_productos.SelectedCells[0].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = detalle[0];
+            (dtg_facturar_productos.SelectedCells[3].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = detalle[1];
 
-            item.Codigo = "10";
-            item.Precio = "10000";
-            item.Productos = datos.ListaProductos();
-            dtg_facturar_productos.Items.Refresh();
+            // FacturasProductos item = (FacturasProductos)dtg_facturar_productos.SelectedItem;
+
+            //item.Codigo = "10";
+            //item.Precio = "10000";
+            //item.Productos = datos.ListaProductos();
+            //dtg_facturar_productos.Items.Refresh();
         }
 
         public class FacturasProductos
@@ -238,7 +246,8 @@ namespace Proyecto
         }
         private void btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
-
+            Imprimir print = new Imprimir();
+            print.imprimir(dtg_listar_facturas, "Imprimir");
         }
         //Iniciamos los combobox de facturacion de productos y servicios con los clientes activos.
         private void cmb_Cliente_Productos_Initialized(object sender, EventArgs e)

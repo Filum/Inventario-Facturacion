@@ -527,7 +527,7 @@ namespace Datos
 
             while (dr.Read())
             {
-                Lista.Add(dr.GetInt64(0).ToString());
+                Lista.Add(dr.GetString(0));
                 Lista.Add(dr.GetInt64(1).ToString());
 
             }
