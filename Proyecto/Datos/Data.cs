@@ -535,5 +535,34 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+        public List<EntidadFacturas> BuscarFactura(String v_Nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE NOMBRE LIKE '%"+v_Nombre+"%'";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadFacturas> Lista = new List<EntidadFacturas>();
+
+            if (v_Nombre != "")
+            {
+                while (dr.Read())
+                {
+                    EntidadFacturas facturas = new EntidadFacturas();
+                    facturas.v_Codigo = dr.GetInt32(0);
+                    facturas.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
+                    facturas.v_Usuario = dr.GetString(2);
+                    facturas.v_Cliente = dr.GetString(3);
+                    facturas.v_Total = Convert.ToInt32(dr.GetValue(4));
+                    facturas.v_Moneda = dr.GetString(5);
+                    facturas.v_Impuesto = dr.GetString(6);
+                    facturas.v_Descuento = Convert.ToInt32(dr.GetValue(7));
+                    Lista.Add(facturas);
+                }
+            }
+            conn.Close();
+            return Lista;
+        }
     }
 }

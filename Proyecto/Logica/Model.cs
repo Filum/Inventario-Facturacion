@@ -149,5 +149,9 @@ namespace Logica
         {
             return v_Data.DetalleProducto(descripcion);
         }
-    }
+        public List<EntidadFacturas> BuscarFactura(String v_Nombre)
+        {
+            return v_Data.BuscarFactura(v_Nombre);
+        }
+        }
 }

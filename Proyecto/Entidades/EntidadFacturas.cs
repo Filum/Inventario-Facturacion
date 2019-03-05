@@ -15,9 +15,9 @@ namespace Entidades
         public Int32 v_Total { get; set; }
         public Int32 v_Descuento { get; set; }
         public string v_Moneda { get; set; }
-        public Int32 v_Impuesto { get; set; }
+        public String v_Impuesto { get; set; }
 
-        public List<EntidadDetalles> v_ListaDetalles { get; set; }
+        //public List<EntidadDetalles> v_ListaDetalles { get; set; }
 
 
         public EntidadFacturas()
@@ -25,7 +25,7 @@ namespace Entidades
 
         }
 
-        public EntidadFacturas(Int32 v_Codigo, DateTime v_Fecha, string v_Usuario, string v_Cliente, Int32 v_Total, Int32 v_Descuento, string v_Moneda, Int32 v_Impuesto, List<EntidadDetalles> v_ListaDetalles)
+        public EntidadFacturas(Int32 v_Codigo, DateTime v_Fecha, string v_Usuario, string v_Cliente, Int32 v_Total, Int32 v_Descuento, string v_Moneda, String v_Impuesto, List<EntidadDetalles> v_ListaDetalles)
         {
             this.v_Codigo = v_Codigo;
             this.v_Fecha = v_Fecha;

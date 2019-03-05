@@ -79,14 +79,12 @@ namespace Proyecto
                 Subtotal = "0"
 
             });
-            DataContext = Row;
-            
             //dtg_facturar_productos.Items.Add(Row);
+            dtg_facturar_productos.ItemsSource = Row;
             //MessageBox.Show("No se puede agregar\n Hacen falta productos en inventario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        { 
             ComboBox row = sender as ComboBox;
             string valor = row.SelectedItem.ToString();
             var detalle = new List<string>();
@@ -104,6 +102,7 @@ namespace Proyecto
             prueba += subtotal;
             (dtg_facturar_productos.SelectedCells[4].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = subtotal.ToString();
             txb_subtotal_factura.Text = prueba.ToString();
+            //MessageBox.Show("Cantidad en existencia \n ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
 
@@ -525,5 +524,27 @@ namespace Proyecto
             }
         }
 
+
+        //-------------------------Metodo que busca las facturas por nombre del cliente--------------
+        private void txb_buscar_cliente_factura_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text);
+            dtg_listar_facturas.Columns[0].Header = "Código";
+            dtg_listar_facturas.Columns[0].Width = 60;
+            dtg_listar_facturas.Columns[1].Header = "Fecha";
+            dtg_listar_facturas.Columns[1].Width = 133;
+            dtg_listar_facturas.Columns[2].Header = "Usuario";
+            dtg_listar_facturas.Columns[2].Width = 260;
+            dtg_listar_facturas.Columns[3].Header = "Cliente";
+            dtg_listar_facturas.Columns[3].Width = 260;
+            dtg_listar_facturas.Columns[4].Header = "Total";
+            dtg_listar_facturas.Columns[4].Width = 90;
+            dtg_listar_facturas.Columns[5].Header = "Moneda";
+            dtg_listar_facturas.Columns[5].Width = 90;
+            dtg_listar_facturas.Columns[6].Header = "Impuesto";
+            dtg_listar_facturas.Columns[6].Width = 90;
+            dtg_listar_facturas.Columns[7].Header = "Descuento";
+            dtg_listar_facturas.Columns[7].Width = 90;
+        }
     }
 }
