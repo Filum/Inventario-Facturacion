@@ -520,7 +520,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT CODIGOPRODUCTO,PRECIOUNITARIO FROM TBL_PRODUCTOS WHERE DESCRIPCION = '" + descripcion + "'";
+            comando.CommandText = "SELECT CODIGOPRODUCTO,PRECIOUNITARIO,CANTIDADEXISTENCIA FROM TBL_PRODUCTOS WHERE DESCRIPCION = '" + descripcion + "'";
             OracleDataReader dr = comando.ExecuteReader();
             var Lista = new List<string>();
 
@@ -529,6 +529,7 @@ namespace Datos
             {
                 Lista.Add(dr.GetString(0));
                 Lista.Add(dr.GetInt64(1).ToString());
+                Lista.Add(dr.GetInt64(2).ToString());
 
             }
             conn.Close();

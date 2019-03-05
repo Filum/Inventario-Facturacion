@@ -95,6 +95,16 @@ namespace Proyecto
             (dtg_facturar_productos.SelectedCells[3].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = detalle[1];
 
         }
+        private int prueba=0;
+        private void dtg_facturar_productos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            int precio = Int32.Parse((dtg_facturar_productos.SelectedCells[3].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text);
+            int cantidad = Int32.Parse((dtg_facturar_productos.SelectedCells[2].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBox).Text);
+            int subtotal = cantidad * precio;
+            prueba += subtotal;
+            (dtg_facturar_productos.SelectedCells[4].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = subtotal.ToString();
+            txb_subtotal_factura.Text = prueba.ToString();
+        }
 
 
 
@@ -107,13 +117,7 @@ namespace Proyecto
             public string Subtotal { get; set; }
 
         }
-        private void dtg_facturar_productos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            int precio = Int32.Parse((dtg_facturar_productos.SelectedCells[3].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text);
-            int cantidad = Int32.Parse((dtg_facturar_productos.SelectedCells[2].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text);
-            int subtotal = cantidad * precio;
-            (dtg_facturar_productos.SelectedCells[4].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = subtotal.ToString();
-        }
+
 
         private void Button_agregar_servicio_Click(object sender, RoutedEventArgs e)
         {
@@ -520,7 +524,6 @@ namespace Proyecto
                 txt_error_descuento.Visibility = Visibility.Collapsed;
             }
         }
-
 
     }
 }
