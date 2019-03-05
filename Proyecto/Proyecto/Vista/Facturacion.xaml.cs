@@ -80,6 +80,7 @@ namespace Proyecto
 
             });
             DataContext = Row;
+            
             //dtg_facturar_productos.Items.Add(Row);
             //MessageBox.Show("No se puede agregar\n Hacen falta productos en inventario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -93,13 +94,9 @@ namespace Proyecto
             (dtg_facturar_productos.SelectedCells[0].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = detalle[0];
             (dtg_facturar_productos.SelectedCells[3].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = detalle[1];
 
-            // FacturasProductos item = (FacturasProductos)dtg_facturar_productos.SelectedItem;
-
-            //item.Codigo = "10";
-            //item.Precio = "10000";
-            //item.Productos = datos.ListaProductos();
-            //dtg_facturar_productos.Items.Refresh();
         }
+
+
 
         public class FacturasProductos
         {
@@ -110,7 +107,13 @@ namespace Proyecto
             public string Subtotal { get; set; }
 
         }
-
+        private void dtg_facturar_productos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            int precio = Int32.Parse((dtg_facturar_productos.SelectedCells[3].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text);
+            int cantidad = Int32.Parse((dtg_facturar_productos.SelectedCells[2].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text);
+            int subtotal = cantidad * precio;
+            (dtg_facturar_productos.SelectedCells[4].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = subtotal.ToString();
+        }
 
         private void Button_agregar_servicio_Click(object sender, RoutedEventArgs e)
         {
@@ -517,6 +520,7 @@ namespace Proyecto
                 txt_error_descuento.Visibility = Visibility.Collapsed;
             }
         }
+
 
     }
 }
