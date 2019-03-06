@@ -546,5 +546,17 @@ namespace Proyecto
             dtg_listar_facturas.Columns[7].Header = "Descuento";
             dtg_listar_facturas.Columns[7].Width = 90;
         }
+
+        private void txb_descuento_Producto_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            if (txb_descuento_Producto.Text == "")
+            {
+                txb_descuento_Producto.Text = "0";
+            }
+            float subtotal = float.Parse(txb_subtotal_factura.Text);
+            float porcentaje_descuento = float.Parse(txb_descuento_Producto.Text) / 100;
+            float descuento = subtotal * porcentaje_descuento;
+            txb_total_factura.Text = (subtotal - descuento).ToString();
+        }
     }
 }
