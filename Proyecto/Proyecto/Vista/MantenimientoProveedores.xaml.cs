@@ -39,6 +39,7 @@ namespace Proyecto
             v_DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             v_DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             v_DispatcherTimer.Start();
+            ocultarFormulario();
 
             date_inicio.SelectedDate = DateTime.Now.Date;
             date_final.SelectedDate = DateTime.Now.Date;
@@ -254,11 +255,34 @@ namespace Proyecto
             lbl_errorcorreoOpcional.Visibility = Visibility.Collapsed;
             lbl_errorDesc.Visibility = Visibility.Collapsed;
             lbl_errorRb.Visibility = Visibility.Collapsed;
-            lbl_actividad.Visibility = Visibility.Collapsed;
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
             inicializarAgregacion();
+        }
+
+
+        private void mostrarProveedoresExistentes() {
+             
+            lbl_actividad.Content = "Proveedores existentes";
+            grd_proveedoresExistentes.Visibility = Visibility.Visible;
+        }
+
+        private void ocultarProveedoresExistentes()
+        {
+            grd_proveedoresExistentes.Visibility = Visibility.Collapsed;
+        }
+
+        private void ocultarFormulario()
+        {
+            grd_formularioProveedor.Visibility = Visibility.Collapsed;
+            mostrarProveedoresExistentes();
+        }
+
+        private void mostrarFormulario()
+        {
+            grd_formularioProveedor.Visibility = Visibility.Visible;
+            ocultarProveedoresExistentes();
         }
 
         /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
@@ -405,8 +429,7 @@ namespace Proyecto
             {
                 txb_nombre.Text = "";
                 btn_limpiar_Click(sender, e);
-                btn_agregar.Visibility = Visibility.Collapsed;
-                btn_modificar.Visibility = Visibility.Collapsed;
+                
             }
             else if (txb_busqueda.Text.Contains("'"))
             {
@@ -426,7 +449,7 @@ namespace Proyecto
                 dtg_proveedores.Columns[5].Header = "Descripción";
                 dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
                 dtg_proveedores.Columns[9].Header = "Estado en el Sistema";
-                DeshabilitarComponentes();
+               // DeshabilitarComponentes();
 
                 if (dtg_proveedores.Items.Count == 0)//El proveedor no existe
                 {
@@ -502,11 +525,11 @@ namespace Proyecto
             {
                 rb_inactivo.IsChecked = true;
             }
-            HabilitarComponentes();
+            //HabilitarComponentes();
             lbl_actividad.Content = "Modificar proveedor";
-            lbl_actividad.Visibility = Visibility.Visible;
             v_Actividad_btnModificar = true;
-            v_Actividad_btnAgregar = false;
+            mostrarFormulario();
+
         }
 
         //Método el cual habilita el botón modificar
@@ -521,9 +544,11 @@ namespace Proyecto
         //Inicializa las opciones de agregar en la ventana 
         private void inicializarAgregacion()
         {
-            v_Actividad_btnAgregar = true;
-            lbl_actividad.Content = "Agregar proveedor";
-            lbl_actividad.Visibility = Visibility.Visible;
+            //v_Actividad_btnAgregar = true;
+            //lbl_actividad.Content = "Agregar proveedor";
+            //lbl_actividad.Visibility = Visibility.Visible;
+            //dtg_proveedores.Height = 121;
+            //mostrarFormulario();
         }
 
         //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de gestión de proveedores
@@ -901,6 +926,19 @@ namespace Proyecto
             {
                 v_EstadoSistema = "LISTAPROVEEDORES";
             }
+        }
+
+        private void btn_agregarProveedor_Click(object sender, RoutedEventArgs e)
+        {
+            lbl_actividad.Content = "Agregar proveedor";
+            btn_limpiar_Click(sender, e);
+            mostrarFormulario();
+            //btn_modificar.Visibility = Visibility.Collapsed;
+        }
+
+        private void btn_volver_Click(object sender, RoutedEventArgs e)
+        {
+            ocultarFormulario();
         }
     }//fin de la clase
 }//fin proyecto
