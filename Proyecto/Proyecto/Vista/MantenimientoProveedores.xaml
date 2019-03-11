@@ -117,12 +117,6 @@
                         </DataGrid.ColumnHeaderStyle>
 
                     </DataGrid>
-                    <Button  x:Name="btn_imprimir_proveedores" Height="70" Foreground="White" Margin="0,44,30,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_proveedores_Click" HorizontalAlignment="Right" Width="70">
-                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Imprimir" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
-                        </StackPanel>
-                    </Button>
                     <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,85,547,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
                     <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,85,354,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged">
                         <ComboBoxItem Name="proveedoresActivos">Proveedores Activos</ComboBoxItem>
@@ -142,7 +136,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Imagenes/actualizar-16.png" />
-                        <TextBlock Text="  Gestión de Proveedores" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" />
+                        <TextBlock Text="  Configuración de Proveedores" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
