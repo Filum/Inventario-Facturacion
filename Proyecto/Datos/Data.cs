@@ -60,7 +60,13 @@ namespace Datos
             OracleCommand comando = new OracleCommand("ADD_ROLES", conn as OracleConnection);
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add(new OracleParameter("NOMBR", clt.v_Nombre));
-            comando.Parameters.Add(new OracleParameter("MANTENIMIENTOS", clt.v_Mantenimientos));
+            comando.Parameters.Add(new OracleParameter("MANTCLIENTES", clt.v_Mantenimiento_Clientes));
+            comando.Parameters.Add(new OracleParameter("MANTPROV", clt.v_Mantenimiento_Proveedores));
+            comando.Parameters.Add(new OracleParameter("MANTPROD", clt.v_Mantenimiento_Productos));
+            comando.Parameters.Add(new OracleParameter("MANTUSER", clt.v_Mantenimiento_Usuarios));
+            comando.Parameters.Add(new OracleParameter("MANTROL", clt.v_Mantenimiento_Roles));
+            comando.Parameters.Add(new OracleParameter("FACTU", clt.v_facturacion));
+            comando.Parameters.Add(new OracleParameter("BITACORA", clt.v_bitacora));
             comando.Parameters.Add(new OracleParameter("ESTADO", clt.v_Estado));
 
             int v_Resultado = comando.ExecuteNonQuery();
@@ -120,7 +126,13 @@ namespace Datos
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add(new OracleParameter("IDROL", clt.v_IdRol));
             comando.Parameters.Add(new OracleParameter("NOMBR", clt.v_Nombre));
-            comando.Parameters.Add(new OracleParameter("MANTENIMIENTOS", clt.v_Mantenimientos));
+            comando.Parameters.Add(new OracleParameter("MANTCLIENTES", clt.v_Mantenimiento_Clientes));
+            comando.Parameters.Add(new OracleParameter("MANTPROV", clt.v_Mantenimiento_Proveedores));
+            comando.Parameters.Add(new OracleParameter("MANTPROD", clt.v_Mantenimiento_Productos));
+            comando.Parameters.Add(new OracleParameter("MANTUSER", clt.v_Mantenimiento_Usuarios));
+            comando.Parameters.Add(new OracleParameter("MANTROL", clt.v_Mantenimiento_Roles));
+            comando.Parameters.Add(new OracleParameter("FACTU", clt.v_facturacion));
+            comando.Parameters.Add(new OracleParameter("BITACORA", clt.v_bitacora));
             comando.Parameters.Add(new OracleParameter("ESTADO", clt.v_Estado));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
@@ -171,13 +183,13 @@ namespace Datos
 
         /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
          Además, en caso de encontrar proveedores estos serán retornados mediante una tabla*/
-        public DataTable MostarListaRoles(String v_Fecha1, String v_Fecha2)
+        public DataTable MostarListaRoles()
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select fecha,nombre,mantenimientos,estado from tbl_Roles where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+            comando.CommandText = "select fecha,nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora,estado from tbl_Roles ";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
@@ -272,8 +284,14 @@ namespace Datos
                     rol.v_IdRol = dr.GetInt64(0);
                     rol.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
                     rol.v_Nombre = dr.GetString(2);
-                    rol.v_Mantenimientos = dr.GetString(3); ;
-                    rol.v_Estado = dr.GetString(4); ;
+                    rol.v_Mantenimiento_Clientes = dr.GetString(3);
+                    rol.v_Mantenimiento_Proveedores = dr.GetString(4);
+                    rol.v_Mantenimiento_Productos = dr.GetString(5);
+                    rol.v_Mantenimiento_Usuarios = dr.GetString(6);
+                    rol.v_Mantenimiento_Roles = dr.GetString(7);
+                    rol.v_facturacion = dr.GetString(8);
+                    rol.v_bitacora= dr.GetString(9);
+                    rol.v_Estado = dr.GetString(10);
                     Lista.Add(rol);
                 }
             }
