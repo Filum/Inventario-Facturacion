@@ -36,6 +36,8 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+
+           
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -127,23 +129,17 @@ namespace Proyecto
         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar*/
         private void btn_listar_roles_Click(object sender, RoutedEventArgs e)
         {
-                    if (v_Model.MostrarListaRoles().Rows.Count == 0)
-                    {
-                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    else
-                    {
+                   
                         dtg_lista.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
                         dtg_lista.Columns[0].Header = "Nombre";
-                        dtg_lista.Columns[1].Header = "Mant. Clientes";
-                        dtg_lista.Columns[2].Header = "Mant. Proveedores";
-                        dtg_lista.Columns[3].Header = "Mant. Productos";
-                        dtg_lista.Columns[4].Header = "Mant. Usuarios";
-                        dtg_lista.Columns[5].Header = "Mant. Roles";
+                        dtg_lista.Columns[1].Header = "Mantenimiento Clientes";
+                        dtg_lista.Columns[2].Header = "Mantenimiento Proveedores";
+                        dtg_lista.Columns[3].Header = "Mantenimiento Productos";
+                        dtg_lista.Columns[4].Header = "Mantenimiento Usuarios";
+                        dtg_lista.Columns[5].Header = "ManMantenimiento Roles";
                         dtg_lista.Columns[6].Header = "Facturacion";
                         dtg_lista.Columns[7].Header = "Bitacora";
-                        dtg_lista.Columns[8].Header = "Estado";
-                    }
+                    
              
         }
 

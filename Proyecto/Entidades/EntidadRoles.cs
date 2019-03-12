@@ -26,7 +26,7 @@ namespace Entidades
         public string v_bitacora { set; get; }
         public string v_Estado { set; get; }
 
-        public EntidadRoles(Int64 v_IdRol, DateTime v_Fecha, string v_Nombre, string v_Mant_clientes, string v_Mant_proveedores, string v_Mant_productos, string v_Mant_usuarios, string v_Mant_roles, string v_factu, string v_bitacora, string v_Estado)
+        public EntidadRoles(Int64 v_IdRol, DateTime v_Fecha, string v_Nombre,string v_Estado, string v_Mant_clientes, string v_Mant_proveedores, string v_Mant_productos, string v_Mant_usuarios, string v_Mant_roles, string v_factu, string v_bitacora)
         {
             this.v_IdRol = v_IdRol;
             this.v_Fecha = v_Fecha;
