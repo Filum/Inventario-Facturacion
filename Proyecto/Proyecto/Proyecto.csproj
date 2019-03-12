@@ -273,5 +273,11 @@
   <ItemGroup>
     <Resource Include="Vista\Imagenes\icono barra de tareas.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\regresar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

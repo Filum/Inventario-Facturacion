@@ -106,6 +106,7 @@ namespace Proyecto
             btn_limpiar_Click(sender, e);
             lbl_actividad.Content = "Agregar proveedor";
             ValidarRadioButton();
+            btn_limpiar.Visibility = Visibility.Visible;
             MostrarFormulario();
         }
 
@@ -478,6 +479,7 @@ namespace Proyecto
             }
             HabilitarComponentes();
             lbl_actividad.Content = "Modificar proveedor";
+            btn_limpiar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = true;
             MostrarFormulario();
         }

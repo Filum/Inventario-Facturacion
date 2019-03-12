@@ -39,7 +39,7 @@
         <ListView x:Name="menuVertical" BorderBrush="#FF020202" HorizontalAlignment="Left" Width="207" Background="#FF111429" Grid.ColumnSpan="2" Margin="0">
             <Image x:Name="___Proyecto_component_LOGO_SIFpequeño_png" Height="140" Source="/Proyecto;component/LOGO SIFpequeño.png" Width="160" VerticalAlignment="Center" Stretch="Fill" HorizontalAlignment="Center" Margin="17,0,0,0"/>
             <Separator Height="10" Margin="0" Background="#FF3472DE"/>
-            <ListViewItem x:Name="Mantenimiento"   Background="{x:Null}" Width="185" Height="60"  Selected="Mantenimiento_Selected_1">
+            <ListViewItem x:Name="Mantenimiento"   Background="{x:Null}" Width="185" Height="60"  Selected="Mantenimiento_Selected_1"  >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="50" Width="175">
                     <Border BorderBrush="Black" BorderThickness="1" Width="9" Background="#FF3472DE"/>
                     <Image Source="Imagenes\customer-support.png" VerticalAlignment="Center" Margin="5,10,5,9.6" HorizontalAlignment="Left"/>

@@ -92,24 +92,25 @@ namespace Proyecto
 
         private void Mantenimiento_Selected_1(object sender, RoutedEventArgs e)
         {
-            btn_Clientes.Visibility = Visibility.Visible;
-            btn_Productos.Visibility = Visibility.Visible;
-            btn_Proveedores.Visibility = Visibility.Visible;
-            btn_Mantenimiento.Visibility = Visibility.Collapsed;
-            btn_Roles.Visibility = Visibility.Collapsed;
-            btn_Facturar.Visibility = Visibility.Collapsed;
+            
+                btn_Clientes.Visibility = Visibility.Visible;
+                btn_Productos.Visibility = Visibility.Visible;
+                btn_Proveedores.Visibility = Visibility.Visible;
+                btn_Mantenimiento.Visibility = Visibility.Collapsed;
+                btn_Roles.Visibility = Visibility.Collapsed;
+                btn_Facturar.Visibility = Visibility.Collapsed;
             
         }
 
         private void Usuarios_Selected_1(object sender, RoutedEventArgs e)
         {
-   
                 btn_Clientes.Visibility = Visibility.Collapsed;
                 btn_Productos.Visibility = Visibility.Collapsed;
                 btn_Proveedores.Visibility = Visibility.Collapsed;
                 btn_Mantenimiento.Visibility = Visibility.Visible;
                 btn_Roles.Visibility = Visibility.Visible;
-                btn_Facturar.Visibility = Visibility.Collapsed;       
+                btn_Facturar.Visibility = Visibility.Collapsed;   
+            
         }
 
         private void Facturas_Selected(object sender, RoutedEventArgs e)
