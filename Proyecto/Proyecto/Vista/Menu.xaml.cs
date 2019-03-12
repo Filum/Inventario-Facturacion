@@ -136,6 +136,7 @@ namespace Proyecto
             MantenimientoRoles ventana = new MantenimientoRoles();
             ventana.Show();
             this.Close();
+            
         }
 
         private void btn_Clientes_Selected(object sender, RoutedEventArgs e)

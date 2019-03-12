@@ -30,14 +30,20 @@ namespace Proyecto
         public MantenimientoRoles()
         {
             InitializeComponent();
-
+            llenardtg();
             //Formato para la hora
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
-           
+
+        }
+
+        public void llenardtg()
+        {
+            dtg_lista.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
+            
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -97,7 +103,12 @@ namespace Proyecto
         //Botón el cual permite agregar un nuevo rol, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
         private void btn_agregar_rol_Click(object sender, RoutedEventArgs e)
         {
-
+            //HabilitarComponentes();
+            //btn_limpiar_Click(sender, e);
+            lbl_actividad.Content = "Agregar Rol";
+            //ValidarRadioButton();
+            btn_limpiar_rol.Visibility = Visibility.Visible;
+            //MostrarFormulario();
         }
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -136,7 +147,7 @@ namespace Proyecto
                         dtg_lista.Columns[2].Header = "Mantenimiento Proveedores";
                         dtg_lista.Columns[3].Header = "Mantenimiento Productos";
                         dtg_lista.Columns[4].Header = "Mantenimiento Usuarios";
-                        dtg_lista.Columns[5].Header = "ManMantenimiento Roles";
+                        dtg_lista.Columns[5].Header = "Mantenimiento Roles";
                         dtg_lista.Columns[6].Header = "Facturacion";
                         dtg_lista.Columns[7].Header = "Bitacora";
                     
