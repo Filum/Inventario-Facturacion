@@ -148,12 +148,6 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="517"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black"/>
@@ -166,20 +160,20 @@
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="20,12,24,419"/>
-                    <Label x:Name="lbl_actividad" Content="" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="304,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278"/>
+                    <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="20,13,24.2,418.6" Grid.ColumnSpan="2"/>
+                    <Label x:Name="lbl_actividad" Content="" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="305,20,264.2,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.ColumnSpan="2"/>
 
-                    <Grid Visibility="Visible"  x:Name="grd_proveedoresExistentes" Margin="0,0,0,-5">
-                        <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o la cédula jurídica:" Margin="136,86,400,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28"/>
-                        <TextBox x:Name="txb_busqueda" MaxLength="35" Height="32" Margin="446,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_busqueda_KeyUp" HorizontalAlignment="Left" Width="296"/>
-                        <Label x:Name="lbl_errorBusqueda" Visibility="Visible" Margin="424,117,126,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
-                        <Button x:Name="btn_agregarProveedor" Visibility="Visible" Foreground="White" HorizontalAlignment="Left" Margin="28,75,0,0" VerticalAlignment="Top" Width="76" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarProveedor_Click" Height="70">
+                    <Grid Visibility="Hidden"  x:Name="grd_proveedoresExistentes" Margin="0" Grid.ColumnSpan="2">
+                        <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o la cédula jurídica:" Margin="100,85,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
+                        <TextBox x:Name="txb_busqueda" MaxLength="35" Height="32" Margin="405,83,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_busqueda_KeyUp" HorizontalAlignment="Left" Width="296"/>
+                        <Label x:Name="lbl_errorBusqueda" Visibility="Visible" Margin="407,117,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" HorizontalAlignment="Left" Width="294"/>
+                        <Button x:Name="btn_agregarProveedor" Visibility="Visible" Foreground="White" HorizontalAlignment="Left" Margin="20,60,0,0" VerticalAlignment="Top" Width="76" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarProveedor_Click" Height="70">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                 <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,3"/>
                                 <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="8,0,0,0" Width="56" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <DataGrid x:Name="dtg_proveedores" Margin="15,158,29,22" Visibility="Visible" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
+                        <DataGrid x:Name="dtg_proveedores" Margin="20,150,20,20" Visibility="Visible" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridRow">
                                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
@@ -193,7 +187,7 @@
                             </DataGrid.ColumnHeaderStyle>
                         </DataGrid>
                     </Grid>
-                    <Grid Visibility="Collapsed" x:Name="grd_formularioProveedor" Margin="45,174,66,15">
+                    <Grid Visibility="Visible" x:Name="grd_formularioProveedor" Margin="45,174,66.2,14.6" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="67*"/>
                             <ColumnDefinition Width="602*"/>
