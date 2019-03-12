@@ -8,7 +8,7 @@
        Title="Menu" Height="500" Width="800"
          WindowState="Maximized" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True" MinWidth="800" MinHeight="500" BorderBrush="Black" >
     <Window.Icon >
-        <BitmapImage UriSource="Imagenes\img_DELRAM.png"/>
+        <BitmapImage UriSource="Imagenes\icono barra de tareas.png"/>
     </Window.Icon>
 
 
@@ -37,8 +37,7 @@
             <TextBlock FontSize="22" Foreground="White" Margin="0" RenderTransformOrigin="0.593,0.555" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Sistema de Inventario y Facturaci"/><Run Text="ón"/></TextBlock>
         </Grid>
         <ListView x:Name="menuVertical" BorderBrush="#FF020202" HorizontalAlignment="Left" Width="207" Background="#FF111429" Grid.ColumnSpan="2" Margin="0">
-
-            <ListViewItem Width="185" Height="104" Visibility="Hidden" />
+            <Image x:Name="___Proyecto_component_LOGO_SIFpequeño_png" Height="140" Source="/Proyecto;component/LOGO SIFpequeño.png" Width="160" VerticalAlignment="Center" Stretch="Fill" HorizontalAlignment="Center" Margin="17,0,0,0"/>
             <Separator Height="10" Margin="0" Background="#FF3472DE"/>
             <ListViewItem x:Name="Mantenimiento"   Background="{x:Null}" Width="185" Height="60"  Selected="Mantenimiento_Selected_1">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="50" Width="175">
@@ -109,7 +108,6 @@
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Image x:Name="img_DELRAM_png" Height="100" Source="Imagenes/img_DELRAM.png" Stretch="Fill" VerticalAlignment="Top" Margin="30,10,0,0" RenderTransformOrigin="1.705,1.316" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="150"/>
         <Grid Margin="207,60,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="152*"/>
@@ -152,11 +150,7 @@
                 </Button>
                 <Button Foreground="White" Background="{x:Null}" BorderBrush="#FFFAFAFA" VerticalAlignment="Bottom" Height="43" Click="Button_Click" Margin="10,10,10,20" Content="Cerrar Sesión" />
             </Grid>
-            <Grid Grid.Column="1" Margin="0" MaxHeight="500" Background="#FFE78A2D">
-                <Label Content="SIF" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="48" Margin="35,117,74,0" VerticalAlignment="Top" Width="148" Foreground="White" FontSize="36" FontFamily="Global Sans Serif"/>
-                <Label Content="Bienvenido" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="10,38,15,192" Foreground="White" FontSize="36" FontFamily="Global Sans Serif" Width="232" />
-                <Image x:Name="image" Source="Imagenes/img_DELRAM.png" VerticalAlignment="Bottom" Height="144" Margin="10,0,26.8,10"/>
-            </Grid>
+            <Grid Grid.Column="1" Margin="0" MaxHeight="500" Background="#FFE78A2D"/>
         </Grid>
 
 

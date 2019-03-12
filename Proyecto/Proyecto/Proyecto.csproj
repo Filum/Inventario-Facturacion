@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
@@ -260,6 +263,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Vista\Imagenes\LOGO SIFmediano.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LOGO SIF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LOGO SIFpequeño.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\icono barra de tareas.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

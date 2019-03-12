@@ -7,6 +7,11 @@
         mc:Ignorable="d"
     Title="Mantenimiento por Roles" Height="600" Width="1000" 
     WindowState="Maximized" ResizeMode="CanResizeWithGrip" WindowStyle="None" FontFamily="Global Sans Serif" MinWidth="1000" MinHeight="600" >
+
+    <Window.Icon >
+        <BitmapImage UriSource="Imagenes\icono barra de tareas.png"/>
+    </Window.Icon>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="761*"/>
