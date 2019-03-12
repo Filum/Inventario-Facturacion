@@ -37,8 +37,7 @@ namespace Proyecto
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
-            date_inicio_roles.SelectedDate = DateTime.Now.Date;
-            date_final_roles.SelectedDate = DateTime.Now.Date;
+           
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -233,35 +232,35 @@ namespace Proyecto
         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar*/
         private void btn_listar_roles_Click(object sender, RoutedEventArgs e)
         {
-            if (date_inicio_roles.SelectedDate != null && date_final_roles.SelectedDate != null)
-            {
-                DateTime v_FechaInicio = DateTime.Parse(date_inicio_roles.SelectedDate.Value.Date.ToShortDateString());
-                DateTime v_FechaFinal = DateTime.Parse(date_final_roles.SelectedDate.Value.Date.ToShortDateString());
-                String v_Fecha1;
-                v_Fecha1 = date_inicio_roles.SelectedDate.Value.Date.ToShortDateString();
-                String v_Fecha2;
-                v_Fecha2 = date_final_roles.SelectedDate.Value.Date.ToShortDateString();
-                dtg_lista.ItemsSource = null;
+            //if (date_inicio_roles.SelectedDate != null && date_final_roles.SelectedDate != null)
+            //{
+            //    DateTime v_FechaInicio = DateTime.Parse(date_inicio_roles.SelectedDate.Value.Date.ToShortDateString());
+            //    DateTime v_FechaFinal = DateTime.Parse(date_final_roles.SelectedDate.Value.Date.ToShortDateString());
+            //    String v_Fecha1;
+            //    v_Fecha1 = date_inicio_roles.SelectedDate.Value.Date.ToShortDateString();
+            //    String v_Fecha2;
+            //    v_Fecha2 = date_final_roles.SelectedDate.Value.Date.ToShortDateString();
+            //    dtg_lista.ItemsSource = null;
 
-                if (v_FechaInicio > v_FechaFinal)
-                {
-                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    if (v_Model.MostrarListaRoles(v_Fecha1, v_Fecha2).Rows.Count == 0)
-                    {
-                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    else
-                    {
-                        dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_Fecha1, v_Fecha2).DefaultView;
-                        dtg_lista.Columns[0].Header = "Nombre";
-                        dtg_lista.Columns[1].Header = "Mantenimientos";
-                        dtg_lista.Columns[2].Header = "Estado";
-                    }
-                }
-            }
+            //    if (v_FechaInicio > v_FechaFinal)
+            //    {
+            //        MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    }
+            //    else
+            //    {
+            //        if (v_Model.MostrarListaRoles(v_Fecha1, v_Fecha2).Rows.Count == 0)
+            //        {
+            //            MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //        }
+            //        else
+            //        {
+            //            dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_Fecha1, v_Fecha2).DefaultView;
+            //            dtg_lista.Columns[0].Header = "Nombre";
+            //            dtg_lista.Columns[1].Header = "Mantenimientos";
+            //            dtg_lista.Columns[2].Header = "Estado";
+            //        }
+            //    }
+            //}
         }
 
         //Botón de ayuda 
