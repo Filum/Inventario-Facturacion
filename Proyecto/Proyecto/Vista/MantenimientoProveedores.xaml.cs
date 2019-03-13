@@ -29,6 +29,7 @@ namespace Proyecto
         Model v_Model = new Model();
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
+        String v_EstadoSistema = "";
 
         public MantenimientoProveedores()
         {
@@ -120,7 +121,7 @@ namespace Proyecto
         {
             try
             {
-                if (lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorcorreo.Visibility == Visibility.Visible || lbl_errorcorreoOpcional.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible)
+                if (lbl_errorCedJur.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorcorreo.Visibility == Visibility.Visible || lbl_errorcorreoOpcional.Visibility == Visibility.Visible || lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorRb.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar\nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -152,6 +153,15 @@ namespace Proyecto
 
                     v_Clt.v_Descripcion = txb_descripcion.Text;
 
+                    if (rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }
+
                     int v_Resultado = v_Model.AgregarProveedores(v_Clt);
                     if (v_Resultado == -1)
                     {
@@ -170,9 +180,10 @@ namespace Proyecto
         //Botón el cual permite modificar un proveedor seleccionado, este botón posee las validaciones necesarias para la ejecución de su funcionalidad   
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
-            if ((lbl_errorBusqueda.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) ||
-                (lbl_errorTelefono.Visibility == Visibility.Visible || (lbl_errorcorreo.Visibility == Visibility.Visible)) ||
-                (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorcorreoOpcional.Visibility == Visibility.Visible))
+            if ((lbl_errorBusqueda.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible) ||
+                (lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorcorreo.Visibility == Visibility.Visible) ||
+                (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible) ||
+                (lbl_errorcorreoOpcional.Visibility == Visibility.Visible || lbl_errorRb.Visibility == Visibility.Visible))
             {
                 MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -180,7 +191,7 @@ namespace Proyecto
             {
                 try
                 {
-                    v_Clt.v_CedulaJuridica = Convert.ToInt64(txb_cedJur.Text);               
+                    v_Clt.v_CedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
                     v_Clt.v_Nombre = txb_nombre.Text;
                     v_Clt.v_Telefono = Convert.ToInt64(txb_telefono.Text);
 
@@ -205,12 +216,20 @@ namespace Proyecto
                     }
 
                     v_Clt.v_Descripcion = txb_descripcion.Text;
-                    
+
+                    if (rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }
 
                     if (v_Model.ValidarModificacionProveedores(v_Clt) == true)
                     {
                         lbl_errorCedJur.Visibility = Visibility.Collapsed;
-                    }              
+                    }
                     if (lbl_errorCedJur.Visibility == Visibility.Visible)
                     {
                         MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -228,7 +247,7 @@ namespace Proyecto
                     Console.WriteLine(m.ToString());
                     MessageBox.Show("Error al modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }    
+            }
         }
 
         //Botón el cual cumple con la funcionalidad de eliminar todos los datos existentes en las cajas de texto situadas en el tab de gestión de proveedores
@@ -242,6 +261,8 @@ namespace Proyecto
             txb_correo.Text = "";
             txb_correoOpcional.Text = "";
             txb_descripcion.Text = "";
+            rb_activo.IsChecked = false;
+            rb_inactivo.IsChecked = false;
             dtg_proveedores.ItemsSource = null;
             lbl_errorCedJur.Visibility = Visibility.Collapsed;
             lbl_errorBusqueda.Visibility = Visibility.Collapsed;
@@ -259,7 +280,8 @@ namespace Proyecto
         }
 
         /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
-         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar*/
+         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar.
+         Además, envía el estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
         private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
             if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
@@ -276,15 +298,19 @@ namespace Proyecto
                 {
                     MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                else if (cmb_tipoBusqueda.SelectedValue == null)
+                {
+                    MessageBox.Show("Debe seleccionar el tipo de búsqueda", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 else
                 {
-                    if(v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    if (v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema).Rows.Count == 0)
                     {
                         MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
-                        dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2).DefaultView; 
+                        dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema).DefaultView;
                         dtg_lista.Columns[0].Header = "Cédula Jurídica";
                         dtg_lista.Columns[1].Header = "Nombre del Proveedor";
                         dtg_lista.Columns[2].Header = "Correo";
@@ -293,6 +319,7 @@ namespace Proyecto
                         dtg_lista.Columns[5].Header = "Tel. Opcional";
                         dtg_lista.Columns[6].Header = "Descripción";
                         dtg_lista.Columns[7].Header = "Fecha de Ingreso";
+                        dtg_lista.Columns[8].Header = "Estado en el Sistema";
                     }
                 }
             }
@@ -442,7 +469,15 @@ namespace Proyecto
             txb_telefono.Text = (dtg_proveedores.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
             txb_telefonoOpcional.Text = (dtg_proveedores.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
             txb_descripcion.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
-
+            if ((dtg_proveedores.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
+            {
+                rb_activo.IsChecked = true;
+            }
+            else if ((dtg_proveedores.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text == "INACTIVO")
+            {
+                rb_inactivo.IsChecked = true;
+            }
+            HabilitarComponentes();
             lbl_actividad.Content = "Modificar proveedor";
             btn_limpiar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = true;
@@ -463,13 +498,14 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_cedJur.Text != "" && txb_correo.Text != "" && txb_nombre.Text != "" && txb_telefono.Text != "" && txb_descripcion.Text != "")
+                if (txb_cedJur.Text == "" || txb_correo.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_descripcion.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
                 {
-                    btn_agregar.Visibility = Visibility.Visible;
+                    ValidarRadioButton();
+                    btn_agregar.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    btn_agregar.Visibility = Visibility.Collapsed;
+                    btn_agregar.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -477,7 +513,7 @@ namespace Proyecto
         //Método el cual habilita componentes siempre y cuando no hayan errores en la caja de texto de buscar
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidarErroresTxb(txb_busqueda, lbl_errorBusqueda, "");     
+            ValidarErroresTxb(txb_busqueda, lbl_errorBusqueda, "");
         }
 
         //Método el cual valida si la cédula jurídica es existente o no, en caso de ser existente, mostrar un error
@@ -485,7 +521,7 @@ namespace Proyecto
         {
             string v_CedJur = txb_cedJur.Text;
             HabilitarBtnAgregar();
-            HabilitarBtnModificar();       
+            HabilitarBtnModificar();
             ValidarErroresTxb(txb_cedJur, lbl_errorCedJur, "numeros");
             if (lbl_errorCedJur.Visibility == Visibility.Collapsed)
             {
@@ -515,7 +551,7 @@ namespace Proyecto
         {
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
-            ValidarErroresTxb(txb_telefono, lbl_errorTelefono, "numeros");     
+            ValidarErroresTxb(txb_telefono, lbl_errorTelefono, "numeros");
         }
 
         //Validaciones en caja de texto de teléfono opcional
@@ -559,7 +595,23 @@ namespace Proyecto
         {
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
-            ValidarErroresTxb(txb_descripcion,lbl_errorDesc,"descripcion"); 
+            ValidarErroresTxb(txb_descripcion, lbl_errorDesc, "descripcion");
+        }
+
+        //Validación en la actividad de los radiobutton
+        private void rb_activo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarRadioButton();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
+        //Validación en la actividad de los radiobutton
+        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarRadioButton();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
         }
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
@@ -783,7 +835,8 @@ namespace Proyecto
         }
 
         //Valida si se selecciona el estado del proveedor (Activo - Inactivo) en el sistema
-        private void ValidarRadioButton() {
+        private void ValidarRadioButton()
+        {
             if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
             {
                 lbl_errorRb.Visibility = Visibility.Visible;
@@ -807,7 +860,7 @@ namespace Proyecto
             {
                 v_EstadoSistema = "INACTIVO";
             }
-            else if(cmb_tipoBusqueda.SelectedValue == listaProveedores)
+            else if (cmb_tipoBusqueda.SelectedValue == listaProveedores)
             {
                 v_EstadoSistema = "LISTAPROVEEDORES";
             }
