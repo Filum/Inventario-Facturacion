@@ -24,6 +24,9 @@ namespace Proyecto
         public Menu()
         {
             InitializeComponent();
+            if (Bitacora.IsEnabled == true)
+                Bitacora.Visibility = Visibility.Visible;
+
             //Formato para la hora
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
@@ -92,10 +95,15 @@ namespace Proyecto
 
         private void Mantenimiento_Selected_1(object sender, RoutedEventArgs e)
         {
-            
-                btn_Clientes.Visibility = Visibility.Visible;
-                btn_Productos.Visibility = Visibility.Visible;
-                btn_Proveedores.Visibility = Visibility.Visible;
+                if(btn_Clientes.IsEnabled == true)
+                    btn_Clientes.Visibility = Visibility.Visible;
+
+                if (btn_Productos.IsEnabled == true)
+                    btn_Productos.Visibility = Visibility.Visible;
+
+                if (btn_Proveedores.IsEnabled == true)
+                    btn_Proveedores.Visibility = Visibility.Visible;
+
                 btn_Mantenimiento.Visibility = Visibility.Collapsed;
                 btn_Roles.Visibility = Visibility.Collapsed;
                 btn_Facturar.Visibility = Visibility.Collapsed;
@@ -107,9 +115,13 @@ namespace Proyecto
                 btn_Clientes.Visibility = Visibility.Collapsed;
                 btn_Productos.Visibility = Visibility.Collapsed;
                 btn_Proveedores.Visibility = Visibility.Collapsed;
-                btn_Mantenimiento.Visibility = Visibility.Visible;
-                btn_Roles.Visibility = Visibility.Visible;
-                btn_Facturar.Visibility = Visibility.Collapsed;   
+                btn_Facturar.Visibility = Visibility.Collapsed;
+
+                if (btn_Mantenimiento.IsEnabled == true)
+                    btn_Mantenimiento.Visibility = Visibility.Visible;
+
+                if (btn_Roles.IsEnabled == true)
+                    btn_Roles.Visibility = Visibility.Visible; 
             
         }
 
@@ -121,7 +133,9 @@ namespace Proyecto
             btn_Proveedores.Visibility = Visibility.Collapsed;
             btn_Mantenimiento.Visibility = Visibility.Collapsed;
             btn_Roles.Visibility = Visibility.Collapsed;
-            btn_Facturar.Visibility = Visibility.Visible;
+
+            if (btn_Facturar.IsEnabled == true)
+                btn_Facturar.Visibility = Visibility.Visible;
         }
 
         private void btn_Facturar_Selected_1(object sender, RoutedEventArgs e)

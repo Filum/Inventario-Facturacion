@@ -460,10 +460,39 @@ namespace Datos
             return Lista;
         }
 
+        //--------------------------------PERFIL -----------------------------------------------------------------------
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del usuario mediante el nombre 
+    Además, en caso de encontrar el usuario este será retornado mediante una lista*/
+        public List<string> consultarUsuario(string nombreUsuario)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT usuariosistema,contrasena,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora FROM TBL_USUARIOS INNER JOIN TBL_ROLES ON TBL_USUARIOS.FK_IDROL = TBL_ROLES.PK_IDROL AND TBL_USUARIOS.USUARIOSISTEMA = '"+nombreUsuario+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<string> Lista = new List<string>();
 
-    //----------------------------------FACTURACION----------------------------------------------------------------
-    //Metodo para cargar los clientes activos del sistema
-    public DataTable Clientes()
+            while (dr.Read())
+            {
+                Lista.Add(dr.GetString(0));
+                Lista.Add(dr.GetString(1));
+                Lista.Add(dr.GetString(2));
+                Lista.Add(dr.GetString(3));
+                Lista.Add(dr.GetString(4));
+                Lista.Add(dr.GetString(5));
+                Lista.Add(dr.GetString(6));
+                Lista.Add(dr.GetString(7));
+                Lista.Add(dr.GetString(8));
+            }
+            conn.Close();
+            return Lista;
+        }
+
+
+        //----------------------------------FACTURACION----------------------------------------------------------------
+        //Metodo para cargar los clientes activos del sistema
+        public DataTable Clientes()
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();

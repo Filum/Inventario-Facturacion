@@ -82,14 +82,14 @@
                 <SolidColorBrush Color="#FF353434" Opacity="0.6"/>
             </DockPanel.Background>
             <Image x:Name="padlock__1__png" Margin="10,0" Source="Imagenes\padlock.png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="textbox_contraseña"  Height="30"  VerticalAlignment="Center"  FontFamily="Yu Gothic UI Light" FontSize="18" Background="{x:Null}" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10" Password="hola" Foreground="White" BorderBrush="{x:Null}" HorizontalContentAlignment="Center"  MaxLength="20" />
+            <PasswordBox x:Name="txb_contrasena"  Height="30"  VerticalAlignment="Center"  FontFamily="Yu Gothic UI Light" FontSize="18" Background="{x:Null}" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10"  Foreground="White" BorderBrush="{x:Null}" HorizontalContentAlignment="Center"  MaxLength="20" />
         </DockPanel>
         <DockPanel x:Name="pan_usuario" HorizontalAlignment="Center" Height="70"  Margin="0,315,0,0" UseLayoutRounding="True" VerticalAlignment="Top" LastChildFill="False" MinWidth="300" MaxWidth="450">
             <DockPanel.Background>
                 <SolidColorBrush Color="#FF353434" Opacity="0.6"/>
             </DockPanel.Background>
             <Image x:Name="usuario_png" Margin="10,0" Source="Imagenes\user.png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox x:Name="txt_usuario" Height="35" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Yu Gothic UI Light" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10" Background="{x:Null}" Foreground="White" TextChanged="txt_usuario_TextChanged" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" Style="{StaticResource placeHolder}" Tag="USUARIO"/>
+            <TextBox x:Name="txb_usuario" Height="35" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Yu Gothic UI Light" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10" Background="{x:Null}" Foreground="White" TextChanged="txt_usuario_TextChanged" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" Style="{StaticResource placeHolder}" Tag="USUARIO"/>
         </DockPanel>
         <Label x:Name="txt_fecha" Content="fecha" Margin="16,0,0,1.6" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="150" Height="32" VerticalAlignment="Bottom"/>
         <StackPanel HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" Orientation="Horizontal">
@@ -105,7 +105,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Foreground="White" Background="{x:Null}" Margin="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Height="100" Click="click_Ingresar" >
+            <Button x:Name="btn_Ingresar" Foreground="White" Background="{x:Null}" Margin="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Height="100" Click="click_Ingresar"  >
                 <StackPanel x:Name="stk_Ingresar" Height="100" VerticalAlignment="Center" Width="150">
                     <Image Source="Imagenes/Ingresar.png" VerticalAlignment="Center" Margin="0,10" HorizontalAlignment="Center" Width="50" Height="50"/>
                     <TextBlock Text="Ingresar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>

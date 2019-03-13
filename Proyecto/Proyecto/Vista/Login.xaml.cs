@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Data.OracleClient;
 using System.Windows.Threading;
 using Proyecto.Vista;
+using Logica;
 
 namespace Proyecto
 {
@@ -22,6 +23,7 @@ namespace Proyecto
     /// </summary>
     public partial class Login : Window
     {
+        Model datos = new Model();
         public Login()
         {
             InitializeComponent();
@@ -40,9 +42,9 @@ namespace Proyecto
 
         private void txt_usuario_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txt_usuario.Text == "USUARIO")
+            if (txb_usuario.Text == "USUARIO")
             {
-                txt_usuario.Text = "USUARIO";
+                txb_usuario.Text = "USUARIO";
 
             }
         }
@@ -85,29 +87,13 @@ namespace Proyecto
 
         private void click_Limpiar_Datos(object sender, RoutedEventArgs e)
         {
-            txt_usuario.Text = "";
-            textbox_contraseña.Password = "";
+            txb_usuario.Text = "";
+            txb_contrasena.Password = "";
         }
 
         private void click_Ingresar(object sender, RoutedEventArgs e)
         {
-            /* try
-             {
-                 OracleConnection oracle = new OracleConnection("DATA SOURCE = XE ; PASSWORD = root ; USER ID = DELRAM");
-                 oracle.Open();
-                 MessageBox.Show("Conectado");
-                 oracle.Close();
-
-             }
-             catch (Exception)
-             {
-                 MessageBox.Show("No se ha podido conectar con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                 //CREAR BOTON CONECTAR
-             }*/
-
-            Menu ventana = new Menu();
-            ventana.Show();
-            this.Close();
+             verificar();
 
         }
 
@@ -115,6 +101,92 @@ namespace Proyecto
         {
             AcercaDeSIF ventana = new AcercaDeSIF();
             ventana.Show();
+        }
+        private void verificar()
+        {
+            var detalleUsuario = new List<string>();
+            if (txb_usuario.Text == "" || txb_contrasena.Password == "")
+            {
+                MessageBox.Show("El usuario o la contraseña son incorrectos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                detalleUsuario = datos.consultarUsuario(txb_usuario.Text);
+                if (detalleUsuario.Count() == 0)
+                {
+                    MessageBox.Show("El usuario o la contraseña son incorrectos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    if (detalleUsuario[1] == txb_contrasena.Password.ToString())
+                    {
+                        MessageBox.Show("Bienvenido " + detalleUsuario[0], "Bienvenido", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Roles(detalleUsuario[2], detalleUsuario[3], detalleUsuario[4], detalleUsuario[5], detalleUsuario[6], detalleUsuario[7], detalleUsuario[8]);
+                    }
+                    else
+                    {
+                        MessageBox.Show("El usuario o la contraseña son incorrectos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
+        private void Roles(string m_clientes,string m_proveedores,string m_productos,string m_usuarios,string m_roles,string facturacion ,string bitacora)
+        {
+            Menu ventana = new Menu();
+
+            if (m_clientes == "✓")
+                ventana.btn_Clientes.IsEnabled = true; 
+            else if(m_clientes == "X")
+                ventana.btn_Clientes.IsEnabled = false;
+
+            if (m_proveedores == "✓")
+                ventana.btn_Proveedores.IsEnabled = true;
+            else if (m_proveedores == "X")
+                ventana.btn_Proveedores.IsEnabled = false;
+
+            if (m_productos == "✓")
+                ventana.btn_Productos.IsEnabled = true;
+            else if (m_productos == "X")
+                ventana.btn_Productos.IsEnabled = false;
+
+            if (m_usuarios == "✓")
+                ventana.btn_Mantenimiento.IsEnabled = true;
+            else if (m_usuarios == "X")
+                ventana.btn_Mantenimiento.IsEnabled = false;
+
+            if (m_roles == "✓")
+                ventana.btn_Roles.IsEnabled = true;
+            else if (m_roles == "X")
+                ventana.btn_Roles.IsEnabled = false;
+
+            if (facturacion == "✓")
+                ventana.btn_Facturar.IsEnabled = true;
+            else if (facturacion == "X")
+                ventana.btn_Facturar.IsEnabled = false;
+
+            if (ventana.btn_Clientes.IsEnabled == false && ventana.btn_Proveedores.IsEnabled == false && ventana.btn_Productos.IsEnabled == false)
+                ventana.Mantenimiento.Visibility = Visibility.Collapsed;
+            else 
+                ventana.Mantenimiento.Visibility = Visibility.Visible;
+
+            if (ventana.btn_Mantenimiento.IsEnabled == false && ventana.btn_Roles.IsEnabled == false)
+                ventana.Usuarios.Visibility = Visibility.Collapsed;
+            else 
+                ventana.Usuarios.Visibility = Visibility.Visible;
+
+            if (ventana.btn_Facturar.IsEnabled == false)
+                ventana.Facturas.Visibility = Visibility.Collapsed;
+            else 
+                ventana.Facturas.Visibility = Visibility.Visible;
+
+            if (bitacora == "✓")
+                ventana.Bitacora.Visibility = Visibility.Visible;
+            else if (bitacora == "X")
+                ventana.Bitacora.Visibility = Visibility.Collapsed;
+
+            ventana.Show();
+            this.Close();
         }
     }
 }

@@ -153,5 +153,9 @@ namespace Logica
         {
             return v_Data.BuscarFactura(v_Nombre);
         }
+        public List<string> consultarUsuario(string nombreUsuario)
+        {
+            return v_Data.consultarUsuario(nombreUsuario);
+        }
         }
 }
