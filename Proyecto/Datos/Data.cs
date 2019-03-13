@@ -59,15 +59,16 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand("ADD_ROLES", conn as OracleConnection);
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add(new OracleParameter("NOMBR", clt.v_Nombre));
-            comando.Parameters.Add(new OracleParameter("MANTCLIENTES", clt.v_Mantenimiento_Clientes));
+            comando.Parameters.Add(new OracleParameter("NOM", clt.v_Nombre));
+            comando.Parameters.Add(new OracleParameter("MANTCLIENT", clt.v_Mantenimiento_Clientes));
             comando.Parameters.Add(new OracleParameter("MANTPROV", clt.v_Mantenimiento_Proveedores));
             comando.Parameters.Add(new OracleParameter("MANTPROD", clt.v_Mantenimiento_Productos));
             comando.Parameters.Add(new OracleParameter("MANTUSER", clt.v_Mantenimiento_Usuarios));
             comando.Parameters.Add(new OracleParameter("MANTROL", clt.v_Mantenimiento_Roles));
             comando.Parameters.Add(new OracleParameter("FACTU", clt.v_facturacion));
-            comando.Parameters.Add(new OracleParameter("BITACORA", clt.v_bitacora));
-            comando.Parameters.Add(new OracleParameter("ESTADO", clt.v_Estado));
+            comando.Parameters.Add(new OracleParameter("BITAC", clt.v_bitacora));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_Estado));
+
 
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
