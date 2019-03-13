@@ -423,5 +423,31 @@ namespace Datos
             return Lista;
         }
 
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del usuario mediante el nombre 
+ Además, en caso de encontrar el usuario este será retornado mediante una lista*/
+        public List<EntidadUsuarios> ValidarUsuario(String nombreUsuario)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select USUARIOSISTEMA,CONTRASENA,FK_IDROL from tbl_usuarios where  usuariosistema = '"+nombreUsuario+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadUsuarios> Lista = new List<EntidadUsuarios>();
+
+                while (dr.Read())
+                {
+                    EntidadUsuarios usuario = new EntidadUsuarios();
+                    usuario.v_UsuarioSistema = dr.GetString(0);
+                    usuario.v_Contrasena = dr.GetString(1);
+                    usuario.v_IdRol = Convert.ToInt64(dr.GetValue(2));
+                    Lista.Add(usuario);
+                }
+            conn.Close();
+            return Lista;
+        }
+
+
+
     }
 }

@@ -115,5 +115,10 @@ namespace Logica
         {
             return v_Data.BuscarClientes(nombre);
         }
-    }
+        public List<EntidadUsuarios> ValidarUsuario(String nombreUsuario)
+        {
+            return v_Data.ValidarUsuario(nombreUsuario);
+        }
+
+   }
 }

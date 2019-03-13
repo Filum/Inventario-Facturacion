@@ -82,7 +82,7 @@
                 <SolidColorBrush Color="#FF353434" Opacity="0.6"/>
             </DockPanel.Background>
             <Image x:Name="padlock__1__png" Margin="10,0" Source="Imagenes\padlock.png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="textbox_contraseña"  Height="30"  VerticalAlignment="Center"  FontFamily="Yu Gothic UI Light" FontSize="18" Background="{x:Null}" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10" Password="hola" Foreground="White" BorderBrush="{x:Null}" HorizontalContentAlignment="Center"  MaxLength="20" />
+            <PasswordBox x:Name="textbox_contraseña"  Height="30"  VerticalAlignment="Center"  FontFamily="Yu Gothic UI Light" FontSize="18" Background="{x:Null}" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10"   Foreground="White" BorderBrush="{x:Null}" HorizontalContentAlignment="Center"  MaxLength="20" />
         </DockPanel>
         <DockPanel x:Name="pan_usuario" HorizontalAlignment="Center" Height="70"  Margin="0,315,0,0" UseLayoutRounding="True" VerticalAlignment="Top" LastChildFill="False" MinWidth="300" MaxWidth="450">
             <DockPanel.Background>
