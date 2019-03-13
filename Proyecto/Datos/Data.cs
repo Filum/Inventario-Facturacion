@@ -45,6 +45,7 @@ namespace Datos
             return v_Resultado;
         }
 
+
         /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo proveedor.
         Si se modifica correctamente retorna un "-1" */
         public int AgregarProveedores(EntidadProveedores clt)
@@ -60,11 +61,13 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_Telefono));
             comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_TelefonoOpcional));
             comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_CorreoOpcional));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
 
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
         }
+
         /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo rol.
         Si se modifica correctamente retorna un "-1" */
         public int AgregarRoles(EntidadRoles clt)
@@ -127,7 +130,7 @@ namespace Datos
         }
 
         /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un nuevo proveedor.
-        Si se modifica correctamente retorna un "-1" */
+       Si se modifica correctamente retorna un "-1" */
         public int ModificarProveedores(EntidadProveedores clt)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -142,10 +145,12 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("TELEFO", clt.v_Telefono));
             comando.Parameters.Add(new OracleParameter("TELOPCIONAL", clt.v_TelefonoOpcional));
             comando.Parameters.Add(new OracleParameter("EMAILOPC", clt.v_CorreoOpcional));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
         }
+
 
         /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un rol.
        Si se modifica correctamente retorna un "-1" */
@@ -188,14 +193,21 @@ namespace Datos
         }
 
         /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
-         Además, en caso de encontrar proveedores estos serán retornados mediante una tabla*/
-        public DataTable MostarListaProveedores(String v_Fecha1, String v_Fecha2)
+          Además, recibe un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta. En caso de encontrar proveedores estos serán retornados mediante una tabla*/
+        public DataTable MostarListaProveedores(String v_Fecha1, String v_Fecha2, String v_EstadoSistema)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+            if (v_EstadoSistema == "LISTAPROVEEDORES")
+            {
+                comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+            }
+            else
+            {
+                comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha,estadoSistema from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "' AND estadoSistema = '" + v_EstadoSistema + "'";
+            }
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
@@ -280,12 +292,14 @@ namespace Datos
                     proveedor.v_CorreoOpcional = dr.GetString(8);
                     proveedor.v_Descripcion = dr.GetString(5);
                     proveedor.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
+                    proveedor.v_EstadoSistema = dr.GetString(9);
                     Lista.Add(proveedor);
                 }
             }
             conn.Close();
             return Lista;
         }
+
 
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del rol mediante el nombre 
          Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/
@@ -361,7 +375,7 @@ namespace Datos
         }
 
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia de la cédula jurídica.
-         Además, en caso de encontrar dicha cédula jurídica retornara un true, en caso contrario retornara un false*/
+       Además, en caso de encontrar dicha cédula jurídica retornara un true, en caso contrario retornara un false*/
         public bool ValidarCedJurProveedores(String v_CedJur)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -381,6 +395,7 @@ namespace Datos
             conn.Close();
             return false;
         }
+
 
         /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
         cédula jurídica está asociada a dicho id.
@@ -422,6 +437,7 @@ namespace Datos
             return tabla;
         }
 
+
         public List<EntidadProveedores> ProveedoresExistentes()
         {
             OracleConnection conn = DataBase.Conexion();
@@ -445,9 +461,9 @@ namespace Datos
         }
 
 
-        //----------------------------------FACTURACION----------------------------------------------------------------
-        //Metodo para cargar los clientes activos del sistema
-        public DataTable Clientes()
+    //----------------------------------FACTURACION----------------------------------------------------------------
+    //Metodo para cargar los clientes activos del sistema
+    public DataTable Clientes()
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();

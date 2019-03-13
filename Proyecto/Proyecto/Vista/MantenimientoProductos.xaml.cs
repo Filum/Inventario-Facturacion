@@ -203,7 +203,7 @@ namespace Proyecto
                 }
                 else
                 {
-                    if (v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    if (v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2,"activo").Rows.Count == 0)
                     {
                         MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }

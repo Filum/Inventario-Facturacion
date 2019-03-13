@@ -11,7 +11,7 @@
     <Window.Icon >
         <BitmapImage UriSource="Imagenes\icono barra de tareas.png"/>
     </Window.Icon>
-    
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -30,8 +30,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
             </Button>
             <Button x:Name="btn_salir_clientes" Foreground="White" Margin="7,196,0,117.2" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" Width="90" Height="90" Click="btn_salir_Click">
                 <StackPanel x:Name="btn_salir_roles" VerticalAlignment="Center" Width="90" Height="90">
-                    <Image Source="Imagenes/salir.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10"/>
-                    <TextBlock Text="Salir" FontSize="14" FontFamily="Global Sans Serif" Margin="0" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Image Source="Imagenes/menu.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10"/>
+                    <TextBlock Text="Menu" FontSize="14" FontFamily="Global Sans Serif" Margin="0" Width="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
             <Button x:Name="btn_usuario_roles" Width="75" Height="90" Foreground="White" Margin="7,0,7,5" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_usuario_roles_Click"  >
@@ -95,10 +95,10 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
-                    <Button x:Name="btn_imprimirClientes" Height="73" Width="70" Foreground="White" Margin="0,0,22.2,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"  Grid.Column="1" Grid.ColumnSpan="2" Click="btn_imprimirClientes_Click">
-                        <StackPanel x:Name="stp_imprimirclientes" Width="70" Height="61" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:Name="btn_imprimirClientes" Height="70" Width="70" Foreground="White" Margin="0,0,22.2,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"  Grid.Column="1" Grid.ColumnSpan="2" Click="btn_imprimirClientes_Click">
+                        <StackPanel x:Name="stp_imprimirclientes" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Imprimir" Height="19" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="53" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Imprimir" Height="22" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="53" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btn_Listar" Height="66" Width="79" Foreground="White" Margin="0,4,47,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click" Grid.Column="1">
