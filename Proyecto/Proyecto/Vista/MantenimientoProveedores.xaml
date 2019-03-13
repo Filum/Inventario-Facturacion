@@ -144,7 +144,9 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Imagenes/actualizar-16.png" />
-                        <TextBlock Text="  Configuración de Proveedores" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" />
+                        <TextBlock Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" ><Run Text="  Configuración de Proveedores"/><InlineUIContainer>
+                                <RadioButton x:Name="radioButton" Content="RadioButton"/>
+                            </InlineUIContainer></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>

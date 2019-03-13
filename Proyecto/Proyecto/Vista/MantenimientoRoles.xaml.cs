@@ -100,15 +100,14 @@ namespace Proyecto
             this.Close();
         }
 
+        
+
         //Botón el cual permite agregar un nuevo rol, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
         private void btn_agregar_rol_Click(object sender, RoutedEventArgs e)
         {
-            //HabilitarComponentes();
-            //btn_limpiar_Click(sender, e);
-            lbl_actividad.Content = "Agregar Rol";
-            //ValidarRadioButton();
-            btn_limpiar_rol.Visibility = Visibility.Visible;
-            //MostrarFormulario();
+            GridBuscar.Visibility = Visibility.Hidden;
+            GridAgregar.Visibility = Visibility.Visible;
+
         }
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -121,9 +120,11 @@ namespace Proyecto
         }
 
         //Botón el cual permite modificar un rol seleccionado, este botón posee validaciones según funcionalidad 
-        private void btn_modificar_roles_Click(object sender, RoutedEventArgs e)
+        private void btn_volver(object sender, RoutedEventArgs e)
         {
-           
+            GridAgregar.Visibility = Visibility.Hidden;
+            GridBuscar.Visibility = Visibility.Visible;
+            
         }
 
         //Botón encargado de limpiar toda la información ingresada y las opciones seleccionadas
@@ -288,6 +289,16 @@ namespace Proyecto
         //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
         private void ValidarErroresTxb(TextBox txb_proveedor, Label lbl_error, string tipo)
         {
+        }
+
+        private void Rb_activo_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }//fin de la clase
 }//fin proyecto
