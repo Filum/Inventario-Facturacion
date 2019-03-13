@@ -378,6 +378,16 @@ namespace Proyecto
             checkbox_mant_usuarios.IsChecked = false;
             txb_nomrol.Text = "";
         }
+
+        private void Rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Rb_activo_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }//fin de la clase
 }//fin proyecto
 
