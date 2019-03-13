@@ -42,9 +42,12 @@ namespace Proyecto
 
         public void llenardtg()
         {
+
             dtg_lista.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
-            
+          
         }
+
+       
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             lbl_fecha.Content = DateTime.Now.ToString();
@@ -107,7 +110,7 @@ namespace Proyecto
             //btn_limpiar_Click(sender, e);
             lbl_actividad.Content = "Agregar Rol";
             //ValidarRadioButton();
-            btn_limpiar_rol.Visibility = Visibility.Visible;
+            //btn_limpiar_rol.Visibility = Visibility.Visible;
             //MostrarFormulario();
         }
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -127,14 +130,7 @@ namespace Proyecto
         }
 
         //Botón encargado de limpiar toda la información ingresada y las opciones seleccionadas
-        private void btn_limpiar_rol_Click(object sender, RoutedEventArgs e)
-        {
-            txb_nomrol.Text = " ";
-            checkbox_mant_productos.IsChecked = false;
-            checkbox_mant_usuarios.IsChecked = false;
-            checkbox_mant_proveedores.IsChecked = false;
-            checkbox_mant_roles.IsChecked = false;
-        }
+      
 
         /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar*/
@@ -185,18 +181,7 @@ namespace Proyecto
         }
         /*Botón el cual cumple con la funcionalidad de eliminar todos los datos existentes en las cajas de texto a la hora de agregar proveedores
        situadas en el tab de gestión de roles*/
-        private void LimpiarTextboxAgregar()
-        {
-            txb_nomrol.Text = "";
-            checkbox_mant_productos.IsChecked = false;
-            checkbox_mant_usuarios.IsChecked = false;
-            checkbox_mant_proveedores.IsChecked = false;
-            checkbox_mant_roles.IsChecked = false;
-            //lbl_errorCedJur.Visibility = Visibility.Collapsed;
-            //lbl_errorNombre.Visibility = Visibility.Collapsed;
-            v_Actividad_btnModificar = false;
-            //inicializarAgregacion();
-        }
+       
 
         /*Método el cual cumple con la funcionalidad de desplegar los datos en los campos correspondientes de un rol seleccionado 
  en el DataGrid con la finalidad de ser modificado, esto en el tab de gestión de roles*/
@@ -288,6 +273,109 @@ namespace Proyecto
         //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
         private void ValidarErroresTxb(TextBox txb_proveedor, Label lbl_error, string tipo)
         {
+        }
+        //Boton para garegar un rol
+        private void btn_agregar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (lbl_error.Visibility == Visibility.Visible)
+                {
+                    MessageBox.Show("No se permiten caracteres especiales en el nombre");
+                }
+                else
+                {
+                    v_ER.v_Nombre = txb_nomrol.Text;
+
+                    if (checkbox_mant_clientes.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Clientes = "No";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Clientes = "Si";
+                    }
+                    if (checkbox_mant_proveedores.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Proveedores = "No";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Proveedores = "Si";
+                    }
+                    if (checkbox_mant_productos.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Productos = "No";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Productos = "Si";
+                    }
+                    if (checkbox_mant_usuarios.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Usuarios = "No";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Usuarios = "Si";
+                    }
+                    if (checkbox_mant_roles.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Roles = "No";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Roles = "Si";
+                    }
+                    if (checkbox_facturacion.IsChecked == false)
+                    {
+                        v_ER.v_facturacion = "No";
+                    }
+                    else
+                    {
+                        v_ER.v_facturacion = "Si";
+                    }
+                    if (checkbox_bitacora.IsChecked == false)
+                    {
+                        v_ER.v_bitacora = "No";
+                    }
+                    else
+                    {
+                        v_ER.v_bitacora = "Si";
+                    }
+                    /*if (rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }*/
+
+                    int v_Resultado = v_Model.AgregarRoles(v_ER);
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        limpiar();
+                    }
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m.ToString());
+                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void limpiar()
+        {
+            checkbox_bitacora.IsChecked = false;
+            checkbox_mant_proveedores.IsChecked = false;
+            checkbox_mant_productos.IsChecked = false;
+            checkbox_mant_clientes.IsChecked = false;
+            checkbox_mant_roles.IsChecked = false;
+            checkbox_mant_usuarios.IsChecked = false;
+            txb_nomrol.Text = "";
         }
     }//fin de la clase
 }//fin proyecto

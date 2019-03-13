@@ -136,13 +136,13 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                                     <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="btn_agregar_rol1" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_limpiar_rol_Click" Margin="10,0">
+                            <Button x:Name="btn_agregar" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Click" Margin="10,0">
                                 <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                     <TextBlock Text="Agregar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="btn_deshabilitar_rol" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_limpiar_rol_Click" Margin="10,0" Height="73">
+                            <Button x:Name="btn_deshabilitar_rol" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0" Height="73">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="Imagenes/deshabilitar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                     <TextBlock Text="Deshabilitar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
@@ -156,7 +156,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </StackPanel>
                         </Button>
                         <Grid Margin="20,120,20,100">
-                            <Label Content="Nombre del Rol:" HorizontalAlignment="Left" Margin="20,20,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="25" VerticalAlignment="Top"/>
+                            <Label Name="nom" Content="Nombre del Rol:" HorizontalAlignment="Left" Margin="30,20,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="128" Height="25" VerticalAlignment="Top"/>
                             <Label Content="Seleccione las ventanas a las que puede accesar el rol:" HorizontalAlignment="Left" Margin="59,70,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="33" VerticalAlignment="Top"/>
                             <CheckBox x:Name="checkbox_mant_usuarios" Content="Mantenimiento de Usuarios" Margin="99,150,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <CheckBox x:Name="checkbox_mant_productos" Content="Mantenimiento de Productos" Margin="99,120,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -195,7 +195,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </StackPanel>
                         </Button>
                     </Grid>
-                    <CheckBox x:Name="checkbox_mant_productos_Copy" Content="Mantenimiento de Clientes" Margin="10,236,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" Width="227" Height="19" VerticalAlignment="Top"/>
+                    <Label x:Name="lbl_error" Content="" HorizontalAlignment="Left" Margin="554,143,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="25" VerticalAlignment="Top"/>
 
                 </Grid>
             </TabItem>
