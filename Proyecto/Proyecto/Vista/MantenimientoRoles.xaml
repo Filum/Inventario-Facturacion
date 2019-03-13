@@ -200,7 +200,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </StackPanel>
                         </Button>
                     </Grid>
-                    <Label x:Name="lbl_error" Content="" HorizontalAlignment="Left" Margin="554,143,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="25" VerticalAlignment="Top"/>
+                    <Label x:Name="lbl_error" Content="" HorizontalAlignment="Left" Margin="624,111,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="128" Height="25" VerticalAlignment="Top"/>
+                    <Label x:Name="lbl_errorRB" Content="" HorizontalAlignment="Left" Margin="514,156,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="128" Height="26" VerticalAlignment="Top"/>
 
                 </Grid>
             </TabItem>

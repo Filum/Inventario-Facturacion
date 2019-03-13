@@ -280,12 +280,7 @@ namespace Proyecto
         {
             try
             {
-                if (lbl_error.Visibility == Visibility.Visible)
-                {
-                    MessageBox.Show("No se permiten caracteres especiales en el nombre");
-                }
-                else
-                {
+                
                     v_ER.v_Nombre = txb_nomrol.Text;
 
                     if (checkbox_mant_clientes.IsChecked == false)
@@ -344,14 +339,14 @@ namespace Proyecto
                     {
                         v_ER.v_bitacora = "Si";
                     }
-                    /*if (rb_inactivo.IsChecked == true)
+                    if (rb_inactivo.IsChecked == true)
                     {
-                        v_Clt.v_EstadoSistema = "INACTIVO";
+                        v_ER.v_Estado = "INACTIVO";
                     }
                     else
                     {
-                        v_Clt.v_EstadoSistema = "ACTIVO";
-                    }*/
+                        v_ER.v_Estado = "ACTIVO";
+                    }
 
                     int v_Resultado = v_Model.AgregarRoles(v_ER);
                     if (v_Resultado == -1)
@@ -359,7 +354,7 @@ namespace Proyecto
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         limpiar();
                     }
-                }
+                
             }
             catch (Exception m)
             {
@@ -378,15 +373,52 @@ namespace Proyecto
             checkbox_mant_usuarios.IsChecked = false;
             txb_nomrol.Text = "";
         }
-
-        private void Rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        private void ValidarTxbNombre(object sender, EventArgs e)
         {
-
+            string v_NomRol = txb_nomrol.Text;
+            HabilitarBtnAgregar();
+            HabilitarBtnModificar();
+            ValidarErroresTxb(txb_nomrol, lbl_error, "numeros");
+            if (lbl_error.Visibility == Visibility.Collapsed)
+            {
+                bool v_Resultado = v_Model.ValidarCedJurProveedores(txb_nomrol.Text);
+                if (v_Resultado == true)
+                {
+                    lbl_error.Content = "La cédula jurídica ya existe";
+                    lbl_error.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lbl_error.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void Rb_activo_Checked(object sender, RoutedEventArgs e)
         {
+            ValidarRadioButton();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
 
+        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarRadioButton();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
+        private void ValidarRadioButton()
+        {
+            if (rb_inactivo .IsChecked == false && rb_activo.IsChecked == false)
+            {
+                lbl_errorRB.Visibility = Visibility.Visible;
+                lbl_errorRB.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorRB.Visibility = Visibility.Collapsed;
+            }
         }
     }//fin de la clase
 }//fin proyecto
