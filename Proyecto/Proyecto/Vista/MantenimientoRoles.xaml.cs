@@ -285,59 +285,59 @@ namespace Proyecto
 
                     if (checkbox_mant_clientes.IsChecked == false)
                     {
-                        v_ER.v_Mantenimiento_Clientes = "No";
+                        v_ER.v_Mantenimiento_Clientes = "X";
                     }
                     else
                     {
-                        v_ER.v_Mantenimiento_Clientes = "Si";
+                        v_ER.v_Mantenimiento_Clientes = "✓";
                     }
                     if (checkbox_mant_proveedores.IsChecked == false)
                     {
-                        v_ER.v_Mantenimiento_Proveedores = "No";
+                        v_ER.v_Mantenimiento_Proveedores = "X";
                     }
                     else
                     {
-                        v_ER.v_Mantenimiento_Proveedores = "Si";
+                        v_ER.v_Mantenimiento_Proveedores = "✓";
                     }
                     if (checkbox_mant_productos.IsChecked == false)
                     {
-                        v_ER.v_Mantenimiento_Productos = "No";
+                        v_ER.v_Mantenimiento_Productos = "X";
                     }
                     else
                     {
-                        v_ER.v_Mantenimiento_Productos = "Si";
+                        v_ER.v_Mantenimiento_Productos = "✓";
                     }
                     if (checkbox_mant_usuarios.IsChecked == false)
                     {
-                        v_ER.v_Mantenimiento_Usuarios = "No";
+                        v_ER.v_Mantenimiento_Usuarios = "X";
                     }
                     else
                     {
-                        v_ER.v_Mantenimiento_Usuarios = "Si";
+                        v_ER.v_Mantenimiento_Usuarios = "✓";
                     }
                     if (checkbox_mant_roles.IsChecked == false)
                     {
-                        v_ER.v_Mantenimiento_Roles = "No";
+                        v_ER.v_Mantenimiento_Roles = "X";
                     }
                     else
                     {
-                        v_ER.v_Mantenimiento_Roles = "Si";
+                        v_ER.v_Mantenimiento_Roles = "✓";
                     }
                     if (checkbox_facturacion.IsChecked == false)
                     {
-                        v_ER.v_facturacion = "No";
+                        v_ER.v_facturacion = "X";
                     }
                     else
                     {
-                        v_ER.v_facturacion = "Si";
+                        v_ER.v_facturacion = "✓";
                     }
                     if (checkbox_bitacora.IsChecked == false)
                     {
-                        v_ER.v_bitacora = "No";
+                        v_ER.v_bitacora = "X";
                     }
                     else
                     {
-                        v_ER.v_bitacora = "Si";
+                        v_ER.v_bitacora = "✓";
                     }
                     if (rb_inactivo.IsChecked == true)
                     {
