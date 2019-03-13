@@ -128,7 +128,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FE2E2672" Offset="1"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Grid x:Name="GridAgregar" Visibility="Visible" Margin="0">
+                    <Grid x:Name="GridAgregar" Visibility="Collapsed" Margin="0">
                         <StackPanel x:Name="panel_botones" Margin="20,0,20,20" VerticalAlignment="Bottom" Orientation="Horizontal" FlowDirection="RightToLeft">
                             <Button x:Name="btn_modificar_roles"  Visibility="Visible" Foreground="White" IsEnabled="True" Margin="10,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top">
                                 <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -170,10 +170,10 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="198,76,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Checked="Rb_activo_Checked" />
                             <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="298,76,309,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18"   />
                         </Grid>
-                        <Label x:Name="lbl_actividad_Copy" Content="Buscar Roles" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="348.4,15,348.4,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+                        <Label x:Name="lbl_actividad_Copy" Content="Agregar Rol" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="348.4,15,348.4,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
                         <Separator Height="41" Margin="20,50,20,0" VerticalAlignment="Top" Background="White"/>
                     </Grid>
-                    <Grid x:Name="GridBuscar" Visibility="Hidden" Margin="0">
+                    <Grid x:Name="GridBuscar" Visibility="Visible" Margin="0">
                         <TextBox x:Name="txb_busqueda_rol" Margin="325,105,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="250" Height="32" VerticalAlignment="Top"/>
                         <Label Content="Ingrese el nombre del rol:" Margin="110,105,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Left" Height="32"/>
                         <Label x:Name="lbl_actividad" Content="Buscar Roles" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="0,15,0,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
