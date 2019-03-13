@@ -203,7 +203,6 @@ namespace Proyecto
         private void inicializarAgregacion()
         {
             v_Actividad_btnAgregar = true;
-            lbl_actividad.Content = "Agregar Rol";
             lbl_actividad.Visibility = Visibility.Visible;
         }
 
@@ -212,13 +211,13 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_nomrol.Text != "" && checkbox_mant_proveedores.IsChecked != false || checkbox_mant_productos.IsChecked != false || checkbox_mant_usuarios.IsChecked != false || checkbox_mant_roles.IsChecked != false)
+                if (txb_nomrol.Text != "" && rb_inactivo.IsChecked == true|| rb_activo.IsChecked == true)
                 {
-                    btn_agregar_rol.Visibility = Visibility.Visible;
+                    btn_agregar.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    btn_agregar_rol.Visibility = Visibility.Collapsed;
+                    btn_agregar.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -401,7 +400,7 @@ namespace Proyecto
             HabilitarBtnAgregar();
         }
 
-        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        private void Rb_inactivo_Checked(object sender, RoutedEventArgs e)
         {
             ValidarRadioButton();
             HabilitarBtnModificar();
