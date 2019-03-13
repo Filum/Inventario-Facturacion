@@ -8,6 +8,10 @@
         mc:Ignorable="d"
         Title="Mantenimiento de Clientes      
         SIF" Height="783.6" Width="1000" FontFamily="Global Sans Serif"    WindowState="Maximized" ResizeMode="CanResizeWithGrip" WindowStyle="None" FontSize="16" MinWidth="1000" MinHeight="600" >
+    <Window.Icon >
+        <BitmapImage UriSource="Imagenes\icono barra de tareas.png"/>
+    </Window.Icon>
+    
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

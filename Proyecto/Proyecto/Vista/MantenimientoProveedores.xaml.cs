@@ -38,6 +38,7 @@ namespace Proyecto
             v_DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             v_DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             v_DispatcherTimer.Start();
+            OcultarFormulario();
 
             date_inicio.SelectedDate = DateTime.Now.Date;
             date_final.SelectedDate = DateTime.Now.Date;
@@ -95,6 +96,23 @@ namespace Proyecto
             Menu v_Ventana = new Menu();
             v_Ventana.Show();
             this.Close();
+        }
+
+        //Presenta formulario para agregar un nuevo proveedor y oculta el panel de búsqueda, esto en el tab de configuración de proveedores.
+        private void btn_agregarProveedor_Click(object sender, RoutedEventArgs e)
+        {
+            HabilitarComponentes();
+            btn_limpiar_Click(sender, e);
+            lbl_actividad.Content = "Agregar proveedor";
+            ValidarRadioButton();
+            btn_limpiar.Visibility = Visibility.Visible;
+            MostrarFormulario();
+        }
+
+        //Vuelve al panel de búsqueda en el tab de configuración de proveedores y oculta el formulario
+        private void btn_volver_Click(object sender, RoutedEventArgs e)
+        {
+            OcultarFormulario();
         }
 
         //Botón el cual permite agregar un nuevo proveedor, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
@@ -201,7 +219,8 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
-                        inicializarAgregacion();
+                        v_Actividad_btnAgregar = true;
+                        DeshabilitarComponentes();
                     }
                 }
                 catch (Exception m)
@@ -232,11 +251,11 @@ namespace Proyecto
             lbl_errorcorreo.Visibility = Visibility.Collapsed;
             lbl_errorcorreoOpcional.Visibility = Visibility.Collapsed;
             lbl_errorDesc.Visibility = Visibility.Collapsed;
-            lbl_actividad.Visibility = Visibility.Collapsed;
+            lbl_errorRb.Visibility = Visibility.Collapsed;
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
-            inicializarAgregacion();
+            v_Actividad_btnAgregar = true;
         }
 
         /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
@@ -314,42 +333,66 @@ namespace Proyecto
             }
         }
 
-        /*Botón el cual cumple con la funcionalidad de eliminar todos los datos existentes en las cajas de texto a la hora de agregar proveedores
-        situadas en el tab de gestión de proveedores*/
-        private void LimpiarTextboxAgregar()
+        //Muestra el panel de búsqueda en el tab de configuración de proveedores
+        private void MostrarProveedoresExistentes()
         {
-            txb_cedJur.Text = "";
-            txb_telefono.Text = "";
-            txb_telefonoOpcional.Text = "";
-            txb_nombre.Text = "";
-            txb_correo.Text = "";
-            txb_correoOpcional.Text = "";
-            txb_descripcion.Text = "";
-            lbl_errorCedJur.Visibility = Visibility.Collapsed;
-            lbl_errorNombre.Visibility = Visibility.Collapsed;
-            lbl_errorTelefono.Visibility = Visibility.Collapsed;
-            lbl_errorTelefonoOpcional.Visibility = Visibility.Collapsed;
-            lbl_errorcorreo.Visibility = Visibility.Collapsed;
-            lbl_errorcorreoOpcional.Visibility = Visibility.Collapsed;
-            lbl_errorDesc.Visibility = Visibility.Collapsed;
-            v_Actividad_btnModificar = false;
-            inicializarAgregacion();
+            lbl_actividad.Content = "Proveedores existentes";
+            grd_proveedoresExistentes.Visibility = Visibility.Visible;
+        }
+
+        //Oculta el panel de búsqueda en el tab de configuración de proveedores
+        private void OcultarProveedoresExistentes()
+        {
+            grd_proveedoresExistentes.Visibility = Visibility.Collapsed;
+        }
+
+        //Oculta el panel del formulario en el tab de configuración de proveedores
+        private void OcultarFormulario()
+        {
+            grd_formularioProveedor.Visibility = Visibility.Collapsed;
+            MostrarProveedoresExistentes();
+        }
+
+        //Muestra el panel del formulario en el tab de configuración de proveedores
+        private void MostrarFormulario()
+        {
+            grd_formularioProveedor.Visibility = Visibility.Visible;
+            OcultarProveedoresExistentes();
+        }
+
+        //Deshabilita los componentes en el tap de "Gestión de Proveedores"
+        private void DeshabilitarComponentes()
+        {
+            txb_cedJur.IsEnabled = false;
+            txb_telefono.IsEnabled = false;
+            txb_telefonoOpcional.IsEnabled = false;
+            txb_nombre.IsEnabled = false;
+            txb_correo.IsEnabled = false;
+            txb_correoOpcional.IsEnabled = false;
+            txb_descripcion.IsEnabled = false;
+            rb_activo.IsEnabled = false;
+            rb_inactivo.IsEnabled = false;
+        }
+
+        //Habilita los componentes en el tap de "Gestión de Proveedores"
+        private void HabilitarComponentes()
+        {
+            txb_cedJur.IsEnabled = true;
+            txb_telefono.IsEnabled = true;
+            txb_telefonoOpcional.IsEnabled = true;
+            txb_nombre.IsEnabled = true;
+            txb_correo.IsEnabled = true;
+            txb_correoOpcional.IsEnabled = true;
+            txb_descripcion.IsEnabled = true;
+            rb_activo.IsEnabled = true;
+            rb_inactivo.IsEnabled = true;
         }
 
         /*En esta caja de texto se implementa la búsqueda del proveedor que se desea, en caso de ser encontrado este despliega los datos en el DataGrid,
-        en caso de que no se encuentre ningún proveedor se podrá agregar uno nuevo, esto en el tab de gestión de proveedores*/
+        de lo contrario se podrá agregar un nuevo proveedor*/
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
-            LimpiarTextboxAgregar();
-            
-            if (txb_busqueda.Text == "")
-            {
-                txb_nombre.Text = "";
-                btn_limpiar_Click(sender, e);
-                btn_agregar.Visibility = Visibility.Collapsed;
-                btn_modificar.Visibility = Visibility.Collapsed;
-            }
-            else if (txb_busqueda.Text.Contains("'"))
+            if (txb_busqueda.Text.Contains("'"))
             {
                 lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
                 lbl_errorBusqueda.Visibility = Visibility.Visible;
@@ -366,45 +409,12 @@ namespace Proyecto
                 dtg_proveedores.Columns[7].Header = "Tel. Opcional";
                 dtg_proveedores.Columns[5].Header = "Descripción";
                 dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
+                dtg_proveedores.Columns[9].Header = "Estado en el Sistema";
 
                 if (dtg_proveedores.Items.Count == 0)//El proveedor no existe
                 {
                     btn_modificar.Visibility = Visibility.Collapsed;
-                    inicializarAgregacion();
-
-                    if (Regex.IsMatch(this.txb_busqueda.Text, "[a-zA-Z]"))
-                    {
-                        if (ValidarCaracteresEspeciales(txb_busqueda.Text, "nombre") == true)
-                        {
-                            lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
-                            lbl_errorBusqueda.Visibility = Visibility.Visible;
-                            txb_nombre.Text = "";
-                            lbl_errorNombre.Visibility = Visibility.Collapsed;
-                        }
-                        else
-                        {
-                            txb_nombre.Text = txb_busqueda.Text;
-                            txb_cedJur.Text = "";
-                            txb_busqueda.MaxLength = 35;
-                            lbl_errorCedJur.Visibility = Visibility.Collapsed;
-                        }
-                    }
-                    else
-                    {
-                        if (ValidarCaracteresEspeciales(txb_busqueda.Text, "numeros") == true)
-                        {
-                            lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
-                            lbl_errorBusqueda.Visibility = Visibility.Visible;
-                            txb_cedJur.Text = "";
-                            lbl_errorCedJur.Visibility = Visibility.Collapsed;
-                        }
-                        else
-                        {
-                            txb_cedJur.Text = txb_busqueda.Text;
-                            txb_nombre.Text = "";
-                            txb_busqueda.MaxLength = 12;
-                        }
-                    }
+                    v_Actividad_btnAgregar = true;
                 }
                 else//Proveedores existentes
                 {
@@ -418,7 +428,7 @@ namespace Proyecto
         }
 
         /*Método el cual cumple con la funcionalidad de desplegar los datos en los campos correspondientes de un proveedor seleccionado 
-        en el DataGrid con la finalidad de ser modificado, esto en el tab de gestión de proveedores*/
+        en el DataGrid con la finalidad de ser modificado, esto en el panel del formulario en el tab de configuración de proveedores*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
@@ -434,9 +444,9 @@ namespace Proyecto
             txb_descripcion.Text = (dtg_proveedores.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
 
             lbl_actividad.Content = "Modificar proveedor";
-            lbl_actividad.Visibility = Visibility.Visible;
+            btn_limpiar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = true;
-            v_Actividad_btnAgregar = false;
+            MostrarFormulario();
         }
 
         //Método el cual habilita el botón modificar
@@ -446,14 +456,6 @@ namespace Proyecto
             {
                 btn_modificar.Visibility = Visibility.Visible;
             }
-        }
-
-        //Inicializa las opciones de agregar en la ventana 
-        private void inicializarAgregacion()
-        {
-            v_Actividad_btnAgregar = true;
-            lbl_actividad.Content = "Agregar proveedor";
-            lbl_actividad.Visibility = Visibility.Visible;
         }
 
         //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de gestión de proveedores
@@ -779,11 +781,37 @@ namespace Proyecto
                 lbl_error.Visibility = Visibility.Collapsed;
             }
         }
-        //botón que permite llamar a la clase para imprimir, tomando la tabla con información
-        private void btn_imprimir_proveedores_Click(object sender, RoutedEventArgs e)
-        {
-            Imprimir print = new Imprimir();
-            print.imprimir(dtg_lista, "Imprimir");
+
+        //Valida si se selecciona el estado del proveedor (Activo - Inactivo) en el sistema
+        private void ValidarRadioButton() {
+            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
+            {
+                lbl_errorRb.Visibility = Visibility.Visible;
+                lbl_errorRb.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorRb.Visibility = Visibility.Collapsed;
+            }
         }
+
+        //Recibe el filtro por el cual el usuario desea realizar el listado de proveedores y se lo asigna a la variable "v_EstadoSistema" 
+        //para que se envie a data y realice la consulta respectiva.
+        private void cmb_tipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmb_tipoBusqueda.SelectedValue == proveedoresActivos)
+            {
+                v_EstadoSistema = "ACTIVO";
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == proveedoresInactivos)
+            {
+                v_EstadoSistema = "INACTIVO";
+            }
+            else if(cmb_tipoBusqueda.SelectedValue == listaProveedores)
+            {
+                v_EstadoSistema = "LISTAPROVEEDORES";
+            }
+        }
+
     }//fin de la clase
 }//fin proyecto

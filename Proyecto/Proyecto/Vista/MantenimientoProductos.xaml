@@ -10,6 +10,9 @@
     <Window.Resources>
         <DataGridLength x:Key="DataGridLength1">Auto</DataGridLength>
     </Window.Resources>
+    <Window.Icon >
+        <BitmapImage UriSource="Imagenes\icono barra de tareas.png"/>
+    </Window.Icon>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
