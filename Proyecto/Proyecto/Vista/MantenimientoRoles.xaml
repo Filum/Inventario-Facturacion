@@ -136,13 +136,13 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                                     <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="btn_agregar_rol1" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_limpiar_rol_Click" Margin="10,0">
+                            <Button x:Name="btn_agregar" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Click" Margin="10,0">
                                 <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                     <TextBlock Text="Agregar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="btn_deshabilitar_rol" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_limpiar_rol_Click" Margin="10,0" Height="73">
+                            <Button x:Name="btn_deshabilitar_rol" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0" Height="73">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="Imagenes/deshabilitar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                     <TextBlock Text="Deshabilitar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
@@ -200,6 +200,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </StackPanel>
                         </Button>
                     </Grid>
+                    <Label x:Name="lbl_error" Content="" HorizontalAlignment="Left" Margin="554,143,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="25" VerticalAlignment="Top"/>
 
                 </Grid>
             </TabItem>
