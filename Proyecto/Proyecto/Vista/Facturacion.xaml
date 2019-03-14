@@ -46,7 +46,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
             <Button x:Name="btn_Usuario" Width="75" Height="90" Foreground="White" Margin="7,0,7,5" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Usuario_Click" >
                 <StackPanel x:Name="btn_usuario" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="imagenes/user.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                    <TextBlock Text="Usuario" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0"/>
+                    <TextBlock x:Name="t_Usuario" Text="Usuario" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="19,0,7.2,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
             <Button x:Name="btn_ayuda_Copy" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_ayuda_Click" >

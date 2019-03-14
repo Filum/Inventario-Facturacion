@@ -84,6 +84,7 @@ namespace Proyecto
         {
             Facturacion ventana = new Facturacion();
             ventana.nombreUsuario = nombreUser;
+            ventana.t_Usuario.Text = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -92,6 +93,7 @@ namespace Proyecto
         {
             MantenimientoUsuarios ventana = new MantenimientoUsuarios();
             ventana.nombreUsuario = nombreUser;
+            ventana.t_Usuario.Text = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -145,6 +147,7 @@ namespace Proyecto
         {
             Facturacion ventana = new Facturacion();
             ventana.nombreUsuario = nombreUser;
+            ventana.t_Usuario.Text = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -153,6 +156,7 @@ namespace Proyecto
         {
             MantenimientoRoles ventana = new MantenimientoRoles();
             ventana.nombreUsuario = nombreUser;
+            ventana.t_Usuario.Text = nombreUser;
             ventana.Show();
             this.Close();
             
@@ -162,6 +166,7 @@ namespace Proyecto
         {
             Clientes ventana = new Clientes();
             ventana.nombreUsuario = nombreUser;
+            ventana.Usuario_clientes.Text = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -170,6 +175,7 @@ namespace Proyecto
         {
             MantenimientoProductos ventana = new MantenimientoProductos();
             ventana.nombreUsuario = nombreUser;
+            ventana.t_Usuario.Text = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -186,6 +192,7 @@ namespace Proyecto
         {
             MantenimientoProveedores ventana = new MantenimientoProveedores();
             ventana.nombreUsuario = nombreUser;
+            ventana.t_Usuario.Text = nombreUser;
             ventana.Show();
             this.Close();
         }
