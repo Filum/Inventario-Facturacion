@@ -83,6 +83,7 @@ namespace Proyecto
         private void btn_Facturar_Selected(object sender, MouseButtonEventArgs e)
         {
             Facturacion ventana = new Facturacion();
+
             ventana.nombreUsuario = nombreUser;
             ventana.t_Usuario.Text = nombreUser;
             ventana.Show();
