@@ -15,6 +15,7 @@ using System.Data.OracleClient;
 using System.Windows.Threading;
 using Proyecto.Vista;
 using Logica;
+using Entidades;
 
 namespace Proyecto
 {
@@ -104,6 +105,7 @@ namespace Proyecto
         }
         private void verificar()
         {
+            Menu ventana = new Menu();
             var detalleUsuario = new List<string>();
             if (txb_usuario.Text == "" || txb_contrasena.Password == "")
             {
@@ -121,7 +123,9 @@ namespace Proyecto
                     if (detalleUsuario[1] == txb_contrasena.Password.ToString())
                     {
                         MessageBox.Show("Bienvenido " + detalleUsuario[0], "Bienvenido", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Roles(detalleUsuario[2], detalleUsuario[3], detalleUsuario[4], detalleUsuario[5], detalleUsuario[6], detalleUsuario[7], detalleUsuario[8]);
+                        ventana.cargarMenu(txb_usuario.Text);
+                        ventana.nombreUser = txb_usuario.Text;
+                        this.Close();
                     }
                     else
                     {
@@ -131,62 +135,6 @@ namespace Proyecto
             }
         }
 
-        private void Roles(string m_clientes,string m_proveedores,string m_productos,string m_usuarios,string m_roles,string facturacion ,string bitacora)
-        {
-            Menu ventana = new Menu();
-
-            if (m_clientes == "✓")
-                ventana.btn_Clientes.IsEnabled = true; 
-            else if(m_clientes == "X")
-                ventana.btn_Clientes.IsEnabled = false;
-
-            if (m_proveedores == "✓")
-                ventana.btn_Proveedores.IsEnabled = true;
-            else if (m_proveedores == "X")
-                ventana.btn_Proveedores.IsEnabled = false;
-
-            if (m_productos == "✓")
-                ventana.btn_Productos.IsEnabled = true;
-            else if (m_productos == "X")
-                ventana.btn_Productos.IsEnabled = false;
-
-            if (m_usuarios == "✓")
-                ventana.btn_Mantenimiento.IsEnabled = true;
-            else if (m_usuarios == "X")
-                ventana.btn_Mantenimiento.IsEnabled = false;
-
-            if (m_roles == "✓")
-                ventana.btn_Roles.IsEnabled = true;
-            else if (m_roles == "X")
-                ventana.btn_Roles.IsEnabled = false;
-
-            if (facturacion == "✓")
-                ventana.btn_Facturar.IsEnabled = true;
-            else if (facturacion == "X")
-                ventana.btn_Facturar.IsEnabled = false;
-
-            if (ventana.btn_Clientes.IsEnabled == false && ventana.btn_Proveedores.IsEnabled == false && ventana.btn_Productos.IsEnabled == false)
-                ventana.Mantenimiento.Visibility = Visibility.Collapsed;
-            else 
-                ventana.Mantenimiento.Visibility = Visibility.Visible;
-
-            if (ventana.btn_Mantenimiento.IsEnabled == false && ventana.btn_Roles.IsEnabled == false)
-                ventana.Usuarios.Visibility = Visibility.Collapsed;
-            else 
-                ventana.Usuarios.Visibility = Visibility.Visible;
-
-            if (ventana.btn_Facturar.IsEnabled == false)
-                ventana.Facturas.Visibility = Visibility.Collapsed;
-            else 
-                ventana.Facturas.Visibility = Visibility.Visible;
-
-            if (bitacora == "✓")
-                ventana.Bitacora.Visibility = Visibility.Visible;
-            else if (bitacora == "X")
-                ventana.Bitacora.Visibility = Visibility.Collapsed;
-
-            ventana.Show();
-            this.Close();
-        }
+      
     }
 }

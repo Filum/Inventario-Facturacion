@@ -22,8 +22,10 @@ namespace Proyecto
     /// <summary>
     /// Interaction logic for Facturacion.xaml
     /// </summary>
+
     public partial class Facturacion : Window
     {
+        public string nombreUsuario;
         Model datos = new Model();
         public Facturacion()
         {
@@ -44,6 +46,8 @@ namespace Proyecto
         private void btn_Salir_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
+            ventana.cargarMenu(nombreUsuario);
+            ventana.nombreUser = nombreUsuario;
             ventana.Show();
             this.Close();
         }
@@ -558,5 +562,6 @@ namespace Proyecto
             float descuento = subtotal * porcentaje_descuento;
             txb_total_factura.Text = (subtotal - descuento).ToString();
         }
+
     }
 }

@@ -28,6 +28,7 @@ namespace Proyecto
         //Declaramos dos objetos, uno de la entidad de clientes y otro del model.
         EntidadClientes clt = new EntidadClientes();
         Model model = new Model();
+        public string nombreUsuario;
         public Clientes()
         {
             InitializeComponent();
@@ -106,7 +107,8 @@ namespace Proyecto
         private void btn_salir_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
-            ventana.Show();
+            ventana.cargarMenu(nombreUsuario);
+            ventana.nombreUser = nombreUsuario;
             this.Close();
         }
 

@@ -13,5 +13,6 @@ namespace Proyecto
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

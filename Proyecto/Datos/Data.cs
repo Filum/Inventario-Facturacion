@@ -469,7 +469,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT usuariosistema,contrasena,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora FROM TBL_USUARIOS INNER JOIN TBL_ROLES ON TBL_USUARIOS.FK_IDROL = TBL_ROLES.PK_IDROL AND TBL_USUARIOS.USUARIOSISTEMA = '"+nombreUsuario+"'";
+            comando.CommandText = "SELECT usuariosistema,contrasena,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora,nombreusuario,apellidos,puesto,nombre FROM TBL_USUARIOS INNER JOIN TBL_ROLES ON TBL_USUARIOS.FK_IDROL = TBL_ROLES.PK_IDROL AND TBL_USUARIOS.USUARIOSISTEMA = '" + nombreUsuario+"'";
             OracleDataReader dr = comando.ExecuteReader();
             List<string> Lista = new List<string>();
 
@@ -484,6 +484,10 @@ namespace Datos
                 Lista.Add(dr.GetString(6));
                 Lista.Add(dr.GetString(7));
                 Lista.Add(dr.GetString(8));
+                Lista.Add(dr.GetString((9)));
+                Lista.Add(dr.GetString(10));
+                Lista.Add(dr.GetString(11));
+                Lista.Add(dr.GetString(12));
             }
             conn.Close();
             return Lista;

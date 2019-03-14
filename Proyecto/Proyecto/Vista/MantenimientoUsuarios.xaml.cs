@@ -22,6 +22,7 @@ namespace Proyecto
     /// </summary>
     public partial class MantenimientoUsuarios : Window
     {
+        public string nombreUsuario;
         public MantenimientoUsuarios()
         {
             InitializeComponent();
@@ -76,6 +77,8 @@ namespace Proyecto
         private void btn_salir_usuarios__Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
+            ventana.cargarMenu(nombreUsuario);
+            ventana.nombreUser = nombreUsuario;
             ventana.Show();
             this.Close();
         }

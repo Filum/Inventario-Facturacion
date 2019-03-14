@@ -1,4 +1,6 @@
-﻿using Proyecto.Vista;
+﻿using Entidades;
+using Logica;
+using Proyecto.Vista;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +23,12 @@ namespace Proyecto
     /// </summary>
     public partial class Menu : Window
     {
+        public string nombreUser;
+        Model datos = new Model();
         public Menu()
         {
             InitializeComponent();
-            if (Bitacora.IsEnabled == true)
-                Bitacora.Visibility = Visibility.Visible;
 
-            //Formato para la hora
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
@@ -82,6 +83,7 @@ namespace Proyecto
         private void btn_Facturar_Selected(object sender, MouseButtonEventArgs e)
         {
             Facturacion ventana = new Facturacion();
+            ventana.nombreUsuario = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -89,6 +91,7 @@ namespace Proyecto
         private void btn_Mantenimiento_Selected(object sender, RoutedEventArgs e)
         {
             MantenimientoUsuarios ventana = new MantenimientoUsuarios();
+            ventana.nombreUsuario = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -141,6 +144,7 @@ namespace Proyecto
         private void btn_Facturar_Selected_1(object sender, RoutedEventArgs e)
         {
             Facturacion ventana = new Facturacion();
+            ventana.nombreUsuario = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -148,6 +152,7 @@ namespace Proyecto
         private void btn_Roles_Selected(object sender, RoutedEventArgs e)
         {
             MantenimientoRoles ventana = new MantenimientoRoles();
+            ventana.nombreUsuario = nombreUser;
             ventana.Show();
             this.Close();
             
@@ -156,6 +161,7 @@ namespace Proyecto
         private void btn_Clientes_Selected(object sender, RoutedEventArgs e)
         {
             Clientes ventana = new Clientes();
+            ventana.nombreUsuario = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -163,6 +169,7 @@ namespace Proyecto
         private void btn_Productos_Selected(object sender, RoutedEventArgs e)
         {
             MantenimientoProductos ventana = new MantenimientoProductos();
+            ventana.nombreUsuario = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -178,6 +185,7 @@ namespace Proyecto
         private void btn_Proveedores_Selected(object sender, RoutedEventArgs e)
         {
             MantenimientoProveedores ventana = new MantenimientoProveedores();
+            ventana.nombreUsuario = nombreUser;
             ventana.Show();
             this.Close();
         }
@@ -210,6 +218,73 @@ namespace Proyecto
         {
             AcercaDeSIF ventana = new AcercaDeSIF();
             ventana.Show();
+        }
+
+        public void cargarMenu(string valor)
+        {
+            var detalleUsuario = new List<string>();
+            detalleUsuario = datos.consultarUsuario(valor);
+            Roles(detalleUsuario[2], detalleUsuario[3], detalleUsuario[4], detalleUsuario[5], detalleUsuario[6], detalleUsuario[7], detalleUsuario[8], detalleUsuario[9], detalleUsuario[10], detalleUsuario[11], detalleUsuario[12]);
+        }
+        private void Roles(string m_clientes, string m_proveedores, string m_productos, string m_usuarios, string m_roles, string facturacion, string bitacora, string nombreUsuario, string apellidos, string puesto, string nombreRol)
+        {
+
+            if (m_clientes == "✓")
+                btn_Clientes.IsEnabled = true;
+            else if (m_clientes == "X")
+                btn_Clientes.IsEnabled = false;
+
+            if (m_proveedores == "✓")
+                btn_Proveedores.IsEnabled = true;
+            else if (m_proveedores == "X")
+                btn_Proveedores.IsEnabled = false;
+
+            if (m_productos == "✓")
+                btn_Productos.IsEnabled = true;
+            else if (m_productos == "X")
+                btn_Productos.IsEnabled = false;
+
+            if (m_usuarios == "✓")
+                btn_Mantenimiento.IsEnabled = true;
+            else if (m_usuarios == "X")
+                btn_Mantenimiento.IsEnabled = false;
+
+            if (m_roles == "✓")
+                btn_Roles.IsEnabled = true;
+            else if (m_roles == "X")
+                btn_Roles.IsEnabled = false;
+
+            if (facturacion == "✓")
+                btn_Facturar.IsEnabled = true;
+            else if (facturacion == "X")
+                btn_Facturar.IsEnabled = false;
+
+            if (btn_Clientes.IsEnabled == false && btn_Proveedores.IsEnabled == false && btn_Productos.IsEnabled == false)
+                Mantenimiento.Visibility = Visibility.Collapsed;
+            else
+                Mantenimiento.Visibility = Visibility.Visible;
+
+            if (btn_Mantenimiento.IsEnabled == false && btn_Roles.IsEnabled == false)
+                Usuarios.Visibility = Visibility.Collapsed;
+            else
+                Usuarios.Visibility = Visibility.Visible;
+
+            if (btn_Facturar.IsEnabled == false)
+                Facturas.Visibility = Visibility.Collapsed;
+            else
+                Facturas.Visibility = Visibility.Visible;
+
+            if (bitacora == "✓")
+                Bitacora.Visibility = Visibility.Visible;
+            else if (bitacora == "X")
+                Bitacora.Visibility = Visibility.Collapsed;
+
+            txt_nombreUsuario.Text = nombreUsuario;
+            txt_apellidoUsuario.Text = apellidos;
+            txt_Puesto.Text = puesto;
+            txt_Rol.Text = nombreRol;
+
+            this.Show();
         }
     }
 }

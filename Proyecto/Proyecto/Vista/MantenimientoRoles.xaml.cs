@@ -26,6 +26,7 @@ namespace Proyecto
         Model v_Model = new Model();
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
+        public string nombreUsuario;
 
         public MantenimientoRoles()
         {
@@ -98,8 +99,10 @@ namespace Proyecto
         //Botón el cual permite devolverse a la ventana "Menú"
         private void btn_salir_roles__Click(object sender, RoutedEventArgs e)
         {
-            Menu Ventana = new Menu();
-            Ventana.Show();
+            Menu ventana = new Menu();
+            ventana.cargarMenu(nombreUsuario);
+            ventana.nombreUser = nombreUsuario;
+            ventana.Show();
             this.Close();
         }
 

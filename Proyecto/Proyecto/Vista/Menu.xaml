@@ -133,11 +133,11 @@
                 </Rectangle>
                 <StackPanel Height="282" VerticalAlignment="Top" Margin="10,45,10.4,0">
                     <Image Source="Imagenes/user.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" Margin="0,10"/>
-                    <TextBlock FontSize="14" FontFamily="Global Sans Serif" Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Text="Luis "/>
-                    <TextBlock FontSize="14" FontFamily="Global Sans Serif" Margin="-53,0,-52.4,10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"><Run Text="Oviedo Quesada"/></TextBlock>
+                    <TextBlock x:Name="txt_nombreUsuario" FontSize="14" FontFamily="Global Sans Serif" Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Text="Luis "/>
+                    <TextBlock x:Name="txt_apellidoUsuario" FontSize="14" FontFamily="Global Sans Serif" Margin="-53,0,-52.4,10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"><Run Text="Oviedo Quesada"/></TextBlock>
                     <Separator Height="10" Margin="0" Background="#FF3472DE"/>
-                    <TextBlock FontSize="14" FontFamily="Global Sans Serif" Margin="28,10,26.6,10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"><Run Text="Ingeniero"/><Run Text=" TI"/></TextBlock>
-                    <TextBlock FontSize="14" FontFamily="Global Sans Serif" Margin="22,10,20.6,10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"><Run Text="Administrador"/><InlineUIContainer>
+                    <TextBlock x:Name="txt_Puesto" FontSize="14" FontFamily="Global Sans Serif" Margin="28,10,26.6,10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"><Run Text="Ingeniero"/><Run Text=" TI"/></TextBlock>
+                    <TextBlock x:Name="txt_Rol" FontSize="14" FontFamily="Global Sans Serif" Margin="22,10,20.6,10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"><Run Text="Administrador"/><InlineUIContainer>
                             <Separator Height="10" Margin="0" Background="#FF3472DE"/>
                         </InlineUIContainer><InlineUIContainer>
                             <Separator Height="10" Margin="0" Background="#FF3472DE"/>

@@ -30,6 +30,7 @@ namespace Proyecto
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
         String v_EstadoSistema = "";
+        public string nombreUsuario;
 
         public MantenimientoProveedores()
         {
@@ -95,6 +96,8 @@ namespace Proyecto
         private void btn_salir_proveedores__Click(object sender, RoutedEventArgs e)
         {
             Menu v_Ventana = new Menu();
+            v_Ventana.cargarMenu(nombreUsuario);
+            v_Ventana.nombreUser = nombreUsuario;
             v_Ventana.Show();
             this.Close();
         }
