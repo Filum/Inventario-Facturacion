@@ -91,19 +91,6 @@ namespace Proyecto
 
         private void click_Ingresar(object sender, RoutedEventArgs e)
         {
-            /* try
-             {
-                 OracleConnection oracle = new OracleConnection("DATA SOURCE = XE ; PASSWORD = root ; USER ID = DELRAM");
-                 oracle.Open();
-                 MessageBox.Show("Conectado");
-                 oracle.Close();
-
-             }
-             catch (Exception)
-             {
-                 MessageBox.Show("No se ha podido conectar con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                 //CREAR BOTON CONECTAR
-             }*/
 
             Menu ventana = new Menu();
             ventana.Show();
@@ -115,6 +102,10 @@ namespace Proyecto
         {
             AcercaDeSIF ventana = new AcercaDeSIF();
             ventana.Show();
+        }
+        private void Validar_Usuario ()
+        {
+
         }
     }
 }

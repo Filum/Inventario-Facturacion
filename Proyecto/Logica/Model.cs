@@ -75,9 +75,9 @@ namespace Logica
             return v_Data.MostrarListaClientes(fecha1,fecha2);
         }
 
-        public DataTable MostrarListaRoles(String fecha1, String fecha2)
+        public DataTable MostrarListaRoles()
         {
-            return v_Data.MostarListaRoles(fecha1, fecha2);
+            return v_Data.MostarListaRoles();
         }
 
         //Recibe como referencia un string necesario para proceder con la existencia de proveedores
@@ -115,5 +115,10 @@ namespace Logica
         {
             return v_Data.BuscarClientes(nombre);
         }
-    }
+        public List<EntidadUsuarios> ValidarUsuario(String nombreUsuario)
+        {
+            return v_Data.ValidarUsuario(nombreUsuario);
+        }
+
+   }
 }

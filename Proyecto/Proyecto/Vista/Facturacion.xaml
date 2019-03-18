@@ -8,7 +8,7 @@
         Title="Gestión de Facturas                                                                                            SIF" Height="790" Width="1000"        
         WindowState="Maximized" ResizeMode="CanResizeWithGrip" WindowStyle="None" FontSize="16" >
     <Window.Icon >
-        <BitmapImage UriSource="Imagenes\delram.png"/>
+        <BitmapImage UriSource="Imagenes\icono barra de tareas.png"/>
     </Window.Icon>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo/>
