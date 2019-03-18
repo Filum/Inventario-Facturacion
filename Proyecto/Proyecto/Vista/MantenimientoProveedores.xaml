@@ -115,7 +115,7 @@
                             <TextBlock Text="Listar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="17,0,0,0" Width="36" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_lista" Margin="30,138,30,-24" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray" Height="403" VerticalAlignment="Top">
+                    <DataGrid x:Name="dtg_lista" Margin="30,138,30,29" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />
@@ -143,9 +143,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Imagenes/actualizar-16.png" />
-                        <TextBlock Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" ><Run Text="  Configuración de Proveedores"/><InlineUIContainer>
-                                <RadioButton x:Name="radioButton" Content="RadioButton"/>
-                            </InlineUIContainer></TextBlock>
+                        <TextBlock Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" ><Run Text="  Configuración de Proveedores"/></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
@@ -161,14 +159,14 @@
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="20,13,24.2,418.6" Grid.ColumnSpan="2"/>
-                    <Label x:Name="lbl_actividad" Content="" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="305,20,264.2,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.ColumnSpan="2"/>
+                    <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="34,20,34,0" Height="85" VerticalAlignment="Top"/>
+                    <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="305,20,264.2,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.ColumnSpan="2"/>
 
-                    <Grid Visibility="Hidden"  x:Name="grd_proveedoresExistentes" Margin="0" Grid.ColumnSpan="2">
-                        <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o la cédula jurídica:" Margin="100,85,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
-                        <TextBox x:Name="txb_busqueda" MaxLength="35" Height="32" Margin="405,83,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_busqueda_KeyUp" HorizontalAlignment="Left" Width="296"/>
+                    <Grid Visibility="Visible"  x:Name="grd_proveedoresExistentes" Margin="0" Grid.ColumnSpan="2">
+                        <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o la cédula jurídica:" Margin="129,81,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
+                        <TextBox x:Name="txb_busqueda" MaxLength="35" Height="32" Margin="452,81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_busqueda_KeyUp" HorizontalAlignment="Left" Width="296"/>
                         <Label x:Name="lbl_errorBusqueda" Visibility="Visible" Margin="407,117,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" HorizontalAlignment="Left" Width="294"/>
-                        <Button x:Name="btn_agregarProveedor" Visibility="Visible" Foreground="White" HorizontalAlignment="Left" Margin="20,60,0,0" VerticalAlignment="Top" Width="76" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarProveedor_Click" Height="70">
+                        <Button x:Name="btn_agregarProveedor" Visibility="Visible" Foreground="White" HorizontalAlignment="Left" Margin="35,75,0,0" VerticalAlignment="Top" Width="76" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarProveedor_Click" Height="70">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                 <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,3"/>
                                 <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="8,0,0,0" Width="56" HorizontalAlignment="Left"/>
@@ -188,12 +186,13 @@
                             </DataGrid.ColumnHeaderStyle>
                         </DataGrid>
                     </Grid>
-                    <Grid Visibility="Visible" x:Name="grd_formularioProveedor" Margin="45,174,66.2,14.6" Grid.ColumnSpan="2">
+                    <Grid Visibility="Collapsed" x:Name="grd_formularioProveedor" Margin="34,174,66,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="67*"/>
                             <ColumnDefinition Width="602*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btn_volver" HorizontalAlignment="Left" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-18,-102,0,0" VerticalAlignment="Top" Width="71" Height="72" Click="btn_volver_Click">
+
+                        <Button x:Name="btn_volver" HorizontalAlignment="Left" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-2,-99,0,0" VerticalAlignment="Top" Width="71" Height="72" Click="btn_volver_Click">
                             <StackPanel  VerticalAlignment="Center" Width="76" Height="73">
                                 <Image Source="Imagenes/regresar.png" Width="41" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,8,25,8"/>
                                 <TextBlock Text="Volver" FontSize="14" FontFamily="Global Sans Serif" Margin="11,0,16,0" Width="49" VerticalAlignment="Center" HorizontalAlignment="Center" Height="15"/>
@@ -242,7 +241,7 @@
                             <TextBox x:Name="txb_descripcion" MaxLength="100" Margin="0,10,3,20" TextWrapping="Wrap" Grid.Column="2" FontSize="16" Height="55" FontFamily="Global Sans Serif" TextChanged="txb_descripcion_TextChanged" MinWidth="130"/>
                             <Label x:Name="lbl_errorDesc" Visibility="Collapsed" Margin="0,-20,35,-15" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
                         </StackPanel>
-                        <Button x:Name="btn_modificar"   Foreground="White" IsEnabled="True" Margin="0,0,4,-18" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_modificar_Click" Visibility="Visible">
+                        <Button x:Name="btn_modificar"   Foreground="White" IsEnabled="True" Margin="0,0,4,-7" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_modificar_Click" Visibility="Visible">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,5,0,5"/>
                                 <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
@@ -254,24 +253,19 @@
                                 <TextBlock Text="Deshabilitar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btn_agregar" Visibility="Visible" Height="70" Foreground="White" Margin="-6,0,6,-22" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Click">
+                        <Button x:Name="btn_agregar" Visibility="Visible" Height="70" Foreground="White" Margin="-6,0,6,-7" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Click">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                 <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,3"/>
                                 <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="8,0,0,0" Width="56" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btn_limpiar" Width="70" Foreground="White" Margin="0,0,3,-17"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_limpiar_Click" Grid.Column="1">
+                        <Button x:Name="btn_limpiar" Width="70" Foreground="White" Margin="0,0,0,-7"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_limpiar_Click" Grid.Column="1">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
                     </Grid>
-
-
-
-
-
                 </Grid>
             </TabItem>
 
