@@ -25,7 +25,7 @@
             <Button x:Name="btn_salir" Foreground="White" Margin="22,300,22,222" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" Width="76" Height="90" Click="btn_salir_proveedores__Click">
                 <StackPanel x:Name="btn_salir_roles" VerticalAlignment="Center" Width="90" Height="90">
                     <Image Source="Imagenes/menu.png" Width="54" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,26,10"/>
-                    <TextBlock Text="Menú" FontSize="14" FontFamily="Global Sans Serif" Margin="22,0,30,0" Width="39" Height="20"/>
+                    <TextBlock Text="Menú" FontSize="14" FontFamily="Global Sans Serif" Margin="19,0,26,0" Height="20" RenderTransformOrigin="0.244,0.575"/>
                 </StackPanel>
             </Button>
             <Button x:Name="btn_usuario" Width="75" Height="90" Foreground="White" Margin="7,0,7,5" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_usuario_Click"  >
@@ -115,7 +115,6 @@
                                 <Setter Property="Padding" Value="5"/>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
-
                     </DataGrid>
                     <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,85,547,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
                     <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,85,354,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged">
@@ -164,7 +163,7 @@
                     <Grid Visibility="Visible"  x:Name="grd_proveedoresExistentes" Margin="0,0,0,-5">
                         <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o la cédula jurídica:" Margin="136,86,400,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28"/>
                         <TextBox x:Name="txb_busqueda" MaxLength="35" Height="32" Margin="446,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_busqueda_KeyUp" HorizontalAlignment="Left" Width="296"/>
-                        <Label x:Name="lbl_errorBusqueda" Visibility="Visible" Margin="424,117,126,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
+                        <Label x:Name="lbl_errorBusqueda" Visibility="Visible" Margin="446,119,104,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
                         <Button x:Name="btn_agregarProveedor" Visibility="Visible" Foreground="White" HorizontalAlignment="Left" Margin="28,75,0,0" VerticalAlignment="Top" Width="76" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarProveedor_Click" Height="70">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                 <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,3"/>

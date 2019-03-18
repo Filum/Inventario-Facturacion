@@ -73,137 +73,28 @@ namespace Proyecto
             this.DragMove();
         }
 
-        private void btn_salir_usuarios__Click(object sender, RoutedEventArgs e)
+        private void btn_regresarMenu_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
             ventana.Show();
             this.Close();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void btn_limpiar_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_buscar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txb_usuario_ingresar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void btn_limpiar_usuario_Click(object sender, RoutedEventArgs e)
-        {
-            //limpiar
-            txb_ced.Text = "";
+            txb_busqueda.Text = "";
+            txb_numCed.Text = "";
             txb_nombre.Text = "";
+            txb_apellidos.Text = "";
             txb_email.Text = "";
-            txb_telHabitacion.Text = "";
-            txb_telMovil.Text = "";
-            txb_idusuario.Text = "";
+            txb_telefono.Text = "";
+            txb_telefonoOpcional.Text = "";
             txb_contrasenna.Text = "";
             txb_puesto.Text = "";
             cmb_rol.Text = "";
-            txb_email.BorderBrush = Brushes.White;
-            txb_email.Background = Brushes.White;
-        }
-
-
-        /*private void btn_deshabilitar_limpiar_Click(object sender, RoutedEventArgs e)
-        {
-            textbox_deshabilitar_motivo.Text = "";
-            textbox_deshabilitar_numCed.Text = "";
-        }*/
-
-       
-
-        private Boolean email_correcto(String email)
-        {
-            String expresion;
-            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
-            if (Regex.IsMatch(email, expresion))
-            {
-                if (Regex.Replace(email, expresion, String.Empty).Length == 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private void validar_Correo(object sender, EventArgs e)
-        {
-            Console.WriteLine("Correo: " + txb_email.Text);
-
-            Console.WriteLine(email_correcto(txb_email.Text));
-
-            if (email_correcto(txb_email.Text) == false)
-            {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error");
-                txb_email.BorderBrush = Brushes.Red;
-                txb_email.Background = Brushes.Tomato;
-            }
-            else
-            {
-                txb_email.BorderBrush = Brushes.White;
-                txb_email.Background = Brushes.White;
-            }
-        }
-
-        private void validar_Actualizar_Correo(object sender, EventArgs e)
-        {
-            Console.WriteLine("Correo: " + txb_email.Text);
-
-            Console.WriteLine(email_correcto(txb_email.Text));
-
-            if (email_correcto(txb_email.Text) == false)
-            {
-                MessageBox.Show("Error en el formato del correo\n" + "Formato correcto: usuario@dominio.extension", "Error");
-                txb_email.BorderBrush = Brushes.Red;
-                txb_email.Background = Brushes.Tomato;
-            }
-            else
-            {
-                txb_email.BorderBrush = Brushes.White;
-                txb_email.Background = Brushes.White;
-            }
-        }
-
-        private void validarNumeros_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-                e.Handled = false;
-            else
-            {
-                MessageBox.Show("Sólo se permite ingresar números en este espacio.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                e.Handled = true;
-            }
-            
-        }
-
-        private void textbox_ingresar_email_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            txb_usuario.Text = "";
+            rb_activo.IsChecked = false;
+            rb_inactivo.IsChecked = false;
         }
 
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
@@ -228,93 +119,61 @@ namespace Proyecto
                 MessageBoxButton.OK);
         }
 
-
-        private void btn_deshabilitar_buscar_Click(object sender, RoutedEventArgs e)
+        private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
-            if (txb_ced.Text == "")
-            {
-                MessageBox.Show("Ingrese elemento a buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MostrarUsuariosExistentes();
         }
 
-        private void btn_actualizar_buscar_Click(object sender, RoutedEventArgs e)
+        private void btn_agregarUsuario_Click(object sender, RoutedEventArgs e)
         {
-            if (txb_ced.Text == "")
-            {
-                MessageBox.Show("Ingrese elemento a buscar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MostrarFormulario();
         }
 
-        private void validar_ingresar_contrasenna(object sender, EventArgs e)
+        //Muestra el panel de búsqueda en el tab de configuración de usuarios
+        private void MostrarUsuariosExistentes()
         {
-            if(txb_contrasenna.Text.Length < 8)
-            {
-                MessageBox.Show("Formato incorrecto, debe tener más de 8 caraceres.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_contrasenna.Text = "";
-            }
+            OcultarFormulario();
+            lbl_actividad.Content = "Usuarios existentes";
+            grd_usuariosExistentes.Visibility = Visibility.Visible;
         }
 
-        private void validar_actualizar_contrasenna(object sender, EventArgs e)
+        //Oculta el panel de búsqueda en el tab de configuración de usuarios
+        private void OcultarUsuariosExistentes()
         {
-            if (txb_contrasenna.Text.Length < 8)
-            {
-                MessageBox.Show("Formato incorrecto, debe tener más de 8 caraceres.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                txb_contrasenna.Text = "";
-            }
+            grd_usuariosExistentes.Visibility = Visibility.Collapsed;
         }
 
-        private void textbox_ingresar_contrasenna_TextChanged(object sender, TextChangedEventArgs e)
+        //Oculta el panel del formulario en el tab de configuración de usuarios
+        private void OcultarFormulario()
         {
-
+            grd_formularioUsuario.Visibility = Visibility.Collapsed;
         }
 
-        private void textbox_actualizar_contrasenna_TextChanged(object sender, TextChangedEventArgs e)
+        //Muestra el panel del formulario en el tab de configuración de usuarios
+        private void MostrarFormulario()
+        {
+            OcultarUsuariosExistentes();
+            grd_formularioUsuario.Visibility = Visibility.Visible;
+        }
+
+        private void rb_activo_Checked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_guardarUsuario_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void textbox_ingresar_numCed_TextChanged(object sender, TextChangedEventArgs e)
+        private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-        }
-
-
-        private void dtg_listar_lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-
-        private void Button_guardar_usuario_Click(object sender, RoutedEventArgs e)
-        {
-            if (txb_ced.Text == "" && txb_nombre.Text == "" && txb_email.Text == ""
-                 && txb_telHabitacion.Text == "" && txb_telMovil.Text == "" && txb_puesto.Text == ""
-                 && txb_idusuario.Text == "" && txb_contrasenna.Text == "" && cmb_rol.Text == "")
-            {
-                MessageBox.Show("Ingrese elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else if (txb_ced.Text == "" || txb_nombre.Text == "" || txb_email.Text == ""
-                || txb_telHabitacion.Text == "" || txb_telMovil.Text == "" || txb_puesto.Text == ""
-                || txb_idusuario.Text == "" || txb_contrasenna.Text == "" || cmb_rol.Text == "")
-            {
-                MessageBox.Show("Faltan elementos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
-            else
-            {
-                MessageBox.Show("Datos Ingresados", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
         }
     }
 }

@@ -36,7 +36,6 @@ namespace Proyecto
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
             LlenarComboboxProveedores();
-
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -190,7 +189,7 @@ namespace Proyecto
 
                     if (v_Model.MostrarListaProductos().Rows.Count == 0)
                     {
-                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {

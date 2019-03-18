@@ -438,19 +438,12 @@ namespace Proyecto
                 dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
                 dtg_proveedores.Columns[9].Header = "Estado en el Sistema";
 
-                if (dtg_proveedores.Items.Count == 0)//El proveedor no existe
-                {
-                    btn_modificar.Visibility = Visibility.Collapsed;
-                    v_Actividad_btnAgregar = true;
-                }
-                else//Proveedores existentes
-                {
-                    v_Actividad_btnAgregar = false;
-                    btn_agregar.Visibility = Visibility.Collapsed;
-                    btn_modificar.Visibility = Visibility.Collapsed;
-                    lbl_actividad.Content = "Proveedores existentes";
-                    lbl_actividad.Visibility = Visibility.Visible;
-                }
+                //Proveedores existentes
+                v_Actividad_btnAgregar = false;
+                btn_agregar.Visibility = Visibility.Collapsed;
+                btn_modificar.Visibility = Visibility.Collapsed;
+                lbl_actividad.Content = "Proveedores existentes";
+                lbl_actividad.Visibility = Visibility.Visible;
             }
         }
 
