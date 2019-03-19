@@ -1,4 +1,5 @@
-﻿using Logica;
+﻿using Entidades;
+using Logica;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,6 +44,7 @@ namespace Proyecto
             txt_fecha.Content = DateTime.Now.ToString();
 
         }
+        //funcion para volver al menu , le devolvemos el usuario con el que estamos en sesion
         private void btn_Salir_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
@@ -53,14 +55,14 @@ namespace Proyecto
         }
 
 
-
+        //boton para cerrar sesion
         private void btn_Usuario_Click(object sender, RoutedEventArgs e)
         {
             Login ventana = new Login();
             ventana.Show();
             this.Close();
         }
-
+        //boton para mostrar la ayuda del sistema
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Secciones Mantenimiento de Facturas:\n" + "Listar: usted podra imprimir la lista de facturas, aparte de ordenarlos ya sea por código o por nombre del cliente.\n" +
@@ -71,81 +73,7 @@ namespace Proyecto
                            , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private ObservableCollection<FacturasProductos> Row = new ObservableCollection<FacturasProductos>();
-        private void Button_agregar_producto_Click(object sender, RoutedEventArgs e)
-        {
-            Row.Add(new FacturasProductos()
-            {
-                Codigo = "0",
-                Productos = datos.ListaProductos(),
-                Cantidad = "0",
-                Precio = "0",
-                Subtotal = "0"
-
-            });
-            //dtg_facturar_productos.Items.Add(Row);
-            dtg_facturar_productos.ItemsSource = Row;
-            //MessageBox.Show("No se puede agregar\n Hacen falta productos en inventario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        { 
-            ComboBox row = sender as ComboBox;
-            string valor = row.SelectedItem.ToString();
-            var detalle = new List<string>();
-            detalle = datos.DetalleProducto(valor);
-            (dtg_facturar_productos.SelectedCells[0].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = detalle[0];
-            (dtg_facturar_productos.SelectedCells[3].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = detalle[1];
-
-        }
-        private int prueba=0;
-        private void dtg_facturar_productos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            int precio = Int32.Parse((dtg_facturar_productos.SelectedCells[3].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text);
-            int cantidad = Int32.Parse((dtg_facturar_productos.SelectedCells[2].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBox).Text);
-            int subtotal = cantidad * precio;
-            prueba += subtotal;
-            (dtg_facturar_productos.SelectedCells[4].Column.GetCellContent(dtg_facturar_productos.SelectedItem) as TextBlock).Text = subtotal.ToString();
-            txb_subtotal_factura.Text = prueba.ToString();
-            //MessageBox.Show("Cantidad en existencia \n ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-
-
-        public class FacturasProductos
-        {
-            public string Codigo { get; set; }
-            public ObservableCollection<string> Productos { get; set; }
-            public string Cantidad { get; set; }
-            public string Precio { get; set; }
-            public string Subtotal { get; set; }
-
-        }
-
-
-        private void Button_agregar_servicio_Click(object sender, RoutedEventArgs e)
-        {
-            if (txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
-            {
-                MessageBox.Show("No se puede agregar\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                MessageBox.Show("Datos guardados", "Guardando", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        private void Button_imprimir_factura_producto_Click(object sender, RoutedEventArgs e)
-        {
-            if (txb_codigo_factura.Text == "" || txb_descuento_Producto.Text == "" || txb_subtotal_factura.Text == "" || txb_total_factura.Text == "")
-            {
-                MessageBox.Show("No se puede imprimir\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                MessageBox.Show("Imprimiendo...", "Imprimiendo", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
+        //funcion para imprimir las facturas de servicios
         private void Button_imprimir_factura_servicio_Click(object sender, RoutedEventArgs e)
         {
             if (txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
@@ -156,22 +84,6 @@ namespace Proyecto
             {
                 MessageBox.Show("Imprimiendo...", "Imprimiendo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-        }
-
-        private void btn_limpiar_factura_Prod_Click(object sender, RoutedEventArgs e)
-        {
-
-            txb_Cantidad.Text = "0";
-            txb_Precio.Text = "0";
-            txb_subtotal_factura_servicios.Text = "0";
-            txb_descuento_servicios.Text = "0";
-            txb_total_factura_servicios.Text = "0";
-            txt_error_descuento.Visibility = Visibility.Hidden;
-            txb_Cantidad.Text = "0";
-            txb_Precio.Text = "0";
-            txb_subtotal_factura_servicios.Text = "0";
-            txb_descuento_servicios.Text = "0";
-            txb_total_factura_servicios.Text = "0";
         }
 
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
@@ -208,6 +120,7 @@ namespace Proyecto
             this.Close();
         }
 
+        //funcion para limpiar los datos de la facturas de servicios
         private void btn_limpiar_factura_Serv_Click(object sender, RoutedEventArgs e)
         {
             txb_codigo_factura_servicio.Text = "";
@@ -217,26 +130,6 @@ namespace Proyecto
             txb_total_factura_servicios.Text = "";
             txb_Cantidad.Text = "";
             txb_Precio.Text = "";
-        }
-
-        private void descuento_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_descuento.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_descuento_Producto.Text) == true)
-                {
-                    txt_error_descuento.Content = "No se permiten caracteres especiales";
-                    txt_error_descuento.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_descuento.Content = "No se permite ingresar letras";
-                txt_error_descuento.Visibility = Visibility.Visible;
-            }
         }
 
         private void txb_Cantidad_KeyDown(object sender, KeyEventArgs e)
@@ -258,11 +151,6 @@ namespace Proyecto
         {
             Imprimir print = new Imprimir();
             print.imprimir(dtg_listar_facturas, "Imprimir");
-        }
-        //Iniciamos los combobox de facturacion de productos y servicios con los clientes activos.
-        private void cmb_Cliente_Productos_Initialized(object sender, EventArgs e)
-        {
-            Iniciar_Clientes(cmb_Cliente_Productos);
         }
         private void cmb_Cliente_servicios_Initialized(object sender, EventArgs e)
         {
@@ -288,7 +176,7 @@ namespace Proyecto
             txb_descuento_servicios.Text = "0";
             txb_total_factura_servicios.Text = "0";
         }
-
+        //calcula calculos en la facturacion de servicios
         private void txb_Cantidad_TextChanged(object sender, TextChangedEventArgs e)
         {
             float cantidad;
@@ -319,7 +207,7 @@ namespace Proyecto
 
             }
         }
-
+        //calcula calculos en la facturacion de servicios
         private void txb_Precio_TextChanged(object sender, TextChangedEventArgs e)
         {
             float cantidad;
@@ -351,19 +239,26 @@ namespace Proyecto
             }
 
         }
-
+        private void descuento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+            }
+        }
+        //calcula calculos en la facturacion de servicios
         private void txb_Cantidad_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (txb_Cantidad.Text == "")
                 txb_Cantidad.Text = "0";
         }
-
+        //calcula calculos en la facturacion de servicios
         private void txb_Precio_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (txb_Precio.Text == "")
                 txb_Precio.Text = "0";
         }
-
+        //calcula calculos en la facturacion de servicios
         private void txb_subtotal_factura_servicios_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txb_descuento_servicios.Text == "")
@@ -375,7 +270,7 @@ namespace Proyecto
             float descuento = subtotal * porcentaje_descuento;
             txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
         }
-
+        //calcula calculos en la facturacion de servicios
         private void txb_descuento_servicios_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txb_descuento_servicios.Text == "")
@@ -388,6 +283,7 @@ namespace Proyecto
             txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
         }
 
+        //funcion para listar las facturas
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
             if (date_historial_datte3.SelectedDate != null && date_historial_datte4.SelectedDate != null)
@@ -411,22 +307,6 @@ namespace Proyecto
                     else
                     {
                         dtg_listar_facturas.ItemsSource = datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).DefaultView;
-                        dtg_listar_facturas.Columns[0].Header = "Código";
-                        dtg_listar_facturas.Columns[0].Width = 60;
-                        dtg_listar_facturas.Columns[1].Header = "Fecha";
-                        dtg_listar_facturas.Columns[1].Width = 133;
-                        dtg_listar_facturas.Columns[2].Header = "Usuario";
-                        dtg_listar_facturas.Columns[2].Width = 260;
-                        dtg_listar_facturas.Columns[3].Header = "Cliente";
-                        dtg_listar_facturas.Columns[3].Width = 260;
-                        dtg_listar_facturas.Columns[4].Header = "Total";
-                        dtg_listar_facturas.Columns[4].Width = 90;
-                        dtg_listar_facturas.Columns[5].Header = "Moneda";
-                        dtg_listar_facturas.Columns[5].Width = 90;
-                        dtg_listar_facturas.Columns[6].Header = "Impuesto";
-                        dtg_listar_facturas.Columns[6].Width = 90;
-                        dtg_listar_facturas.Columns[7].Header = "Descuento";
-                        dtg_listar_facturas.Columns[7].Width = 90;
                     }
                 }
 
@@ -437,42 +317,30 @@ namespace Proyecto
             }
         }
 
+        //funcion que imprime todas las facturas solicitadas
         private void btn_imprimir_buscar_Click(object sender, RoutedEventArgs e)
         {
             Vista.DetalleFactura ventana = new Vista.DetalleFactura();
             ventana.Show();
         }
 
+        //Abrimos el detalle de la factura 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e) //Evento declarado en el datagrid
         {
             DataGridRow row = sender as DataGridRow;
 
             Vista.DetalleFactura ventana = new Vista.DetalleFactura();
-            ventana.txt_codigo.Content = (dtg_listar_facturas.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text;
+            ventana.txt_codigo.Content = (dtg_listar_facturas.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+
+           int  n_Factura = int.Parse(((TextBlock)dtg_listar_facturas.Columns[1].GetCellContent(row)).Text);
 
             var detalle = new List<string>();
-            detalle = datos.DetalleFactura(1);
+            detalle = datos.DetalleFactura(n_Factura);
             ventana.txt_fecha.Content = detalle[1];
             ventana.txt_Usuario.Content = detalle[2];
             ventana.txt_Cliente.Content = detalle[3];
             int codigo = Convert.ToInt32(ventana.txt_codigo.Content);
             ventana.dtg_listar_detalle_facturas.ItemsSource = datos.MostrarDetalleFactura(codigo).DefaultView;
-            /*ventana.dtg_listar_detalle_facturas.Columns[0].Header = "Código Factura";
-            ventana.dtg_listar_detalle_facturas.Columns[1].Width = 60;
-            ventana.dtg_listar_detalle_facturas.Columns[1].Header = "CódigoProducto";
-            ventana.dtg_listar_detalle_facturas.Columns[1].Width = 133;
-            ventana.dtg_listar_detalle_facturas.Columns[2].Header = "NombreProducto";
-            ventana.dtg_listar_detalle_facturas.Columns[2].Width = 260;
-            ventana.dtg_listar_detalle_facturas.Columns[3].Header = "MarcaProducto";
-            ventana.dtg_listar_detalle_facturas.Columns[3].Width = 260;
-            ventana.dtg_listar_detalle_facturas.Columns[4].Header = "PrecioUnitario";
-            ventana.dtg_listar_detalle_facturas.Columns[4].Width = 90;
-            ventana.dtg_listar_detalle_facturas.Columns[5].Header = "Cantidad";
-            ventana.dtg_listar_detalle_facturas.Columns[5].Width = 90;
-            ventana.dtg_listar_detalle_facturas.Columns[6].Header = "Total";
-            ventana.dtg_listar_detalle_facturas.Columns[6].Width = 90;
-            ventana.dtg_listar_detalle_facturas.Columns[7].Header = "Moneda";
-            ventana.dtg_listar_detalle_facturas.Columns[7].Width = 90;*/
             ventana.Show();
         }
 
@@ -519,48 +387,503 @@ namespace Proyecto
         }
 
 
-        private void txb_descuento_Producto_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ValidarErroresTxb(txb_descuento_Producto, txt_error_descuento);
-            if (txb_descuento_Producto.Text == "")
-            {
-                txt_error_descuento.Visibility = Visibility.Collapsed;
-            }
-        }
-
-
         //-------------------------Metodo que busca las facturas por nombre del cliente--------------
         private void txb_buscar_cliente_factura_TextChanged(object sender, TextChangedEventArgs e)
         {
-            dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text);
-            dtg_listar_facturas.Columns[0].Header = "Código";
-            dtg_listar_facturas.Columns[0].Width = 60;
-            dtg_listar_facturas.Columns[1].Header = "Fecha";
-            dtg_listar_facturas.Columns[1].Width = 133;
-            dtg_listar_facturas.Columns[2].Header = "Usuario";
-            dtg_listar_facturas.Columns[2].Width = 260;
-            dtg_listar_facturas.Columns[3].Header = "Cliente";
-            dtg_listar_facturas.Columns[3].Width = 260;
-            dtg_listar_facturas.Columns[4].Header = "Total";
-            dtg_listar_facturas.Columns[4].Width = 90;
-            dtg_listar_facturas.Columns[5].Header = "Moneda";
-            dtg_listar_facturas.Columns[5].Width = 90;
-            dtg_listar_facturas.Columns[6].Header = "Impuesto";
-            dtg_listar_facturas.Columns[6].Width = 90;
-            dtg_listar_facturas.Columns[7].Header = "Descuento";
-            dtg_listar_facturas.Columns[7].Width = 90;
+            dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text).DefaultView;
         }
 
-        private void txb_descuento_Producto_TextChanged_1(object sender, TextChangedEventArgs e)
+
+
+        //Facturacion productos ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// </summary>
+        EntidadFacturas miFactura = new EntidadFacturas();
+        EntidadDetalleFactura miDetalle = new EntidadDetalleFactura();
+        private float montos = 0;
+
+        //Clase necesaria para gregar una nueva factura al datagrid
+        public class FacturasProducto
         {
-            if (txb_descuento_Producto.Text == "")
+            public string Servicio { get; set; }
+            public string Codigo { get; set; }
+            public string Producto { get; set; }
+            public string Cantidad { get; set; }
+            public string Precio { get; set; }
+            public string Descuento { get; set; }
+            public string Impuesto { get; set; }
+            public string Total { get; set; }
+
+        }
+        //funcion para limpiar la factura de productos
+        private void limpiar_Facturaprodutcos()
+        {
+            txb_subtotal_factura_prueba.Text = "0";
+            txb_descuento_Producto_prueba.Text = "0";
+            txb_subtotalneto.Text = "0";
+            txb_impuestofactura.Text = "0";
+            txb_total_factura_prueba.Text = "0";
+            txb_descuento_linea_producto.Text = "0";
+            txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
+            cmb_Cliente_Productos_Prueba.SelectedItem = null;
+            Rb_siProducto.IsChecked = true;
+            RadioButton_Si1.IsChecked = true;
+            RadioButton_Colon1.IsChecked = true;
+            cmb_Productos.SelectedItem = null;
+            dtg_facturar_productos_prueba.Items.Clear();
+        }
+        //Iniciamos los valores en el grid de facturacion de productos
+        private void Grid_Initialized_1(object sender, EventArgs e)
+        {
+            txb_subtotal_factura_prueba.Text = "0";
+            txb_descuento_Producto_prueba.Text = "0";
+            txb_subtotalneto.Text = "0";
+            txb_impuestofactura.Text = "0";
+            txb_total_factura_prueba.Text = "0";
+            txb_descuento_linea_producto.Text = "0";
+            txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
+        }
+        //Funcion para gregar un nuevo producto con sus respectivas caracteristicas al datgrid
+        private void AgregarRow ()
+        {
+            ObservableCollection<FacturasProducto> Row2 = new ObservableCollection<FacturasProducto>();// La fila que va a tener los valores del producto
+            var detalle = new List<string>();
+
+            if (txb_catidad_producto.Text != "" || txb_descuento_linea_producto.Text == "")//verificamos que la cantidad de productos tenga algun valor
             {
-                txb_descuento_Producto.Text = "0";
+                detalle = datos.DetalleProducto(cmb_Productos.SelectedItem.ToString());//tomamos el detalle del producto solicitado
+                //Damos los valores del detalle de la factura
+                float precio = float.Parse(detalle[1]);
+                float cantidad = float.Parse(txb_catidad_producto.Text);
+                float impuestoLinea = 0;
+                float descuentoLinea = 0;
+                //verificamos si el usuario quiere ponerle impuesto a sus productos
+                if (Rb_siProducto.IsChecked == true)
+                {
+                    impuestoLinea = 13;
+                }
+                else if (Rb_noProducto.IsChecked == true)
+                {
+                    impuestoLinea = 0;
+                }
+                //Calculamos el descuento que se le aplica al producto
+                descuentoLinea = (((precio * cantidad) * (impuestoLinea / 100) + (precio * cantidad)) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
+                //Establecemos los valores del nuevo producto para agregarlo al datagrid
+                //Lo logramos con un binding al datagrid, el mismo nombre de los atributos de la clase
+                Row2.Add(new FacturasProducto()
+                {
+                    Servicio = "Mercadería",
+                    Codigo = detalle[0],
+                    Producto = cmb_Productos.SelectedItem.ToString(),
+                    Cantidad = txb_catidad_producto.Text,
+                    Precio = detalle[1],
+                    Descuento = txb_descuento_linea_producto.Text,
+                    Impuesto = impuestoLinea.ToString(),
+                    Total = ((precio * cantidad) * (impuestoLinea/100) + (precio * cantidad)-descuentoLinea).ToString()
+
+                });
+                //Le damos valor a "montos" la cual es una variable global para establecer el subtotal de la factura
+                montos += ((precio * cantidad) * (impuestoLinea/100) + (precio * cantidad)-descuentoLinea);
+                txb_subtotal_factura_prueba.Text = montos.ToString();
+                //Verificamos si ya el producto fue ingresado prviamente
+                if (verificarProductoFactura(cmb_Productos.SelectedItem.ToString()) == 1)
+                {
+                    dtg_facturar_productos_prueba.Items.Add(Row2);
+                    txb_catidad_producto.Text = "";
+                    cmb_Productos.SelectedItem = null;
+                    txb_descuento_linea_producto.Text = "0";
+                    Rb_siProducto.IsChecked = true;
+                    float subtotal = float.Parse(txb_subtotal_factura_prueba.Text);
+                    float porcentaje_descuento = float.Parse(txb_descuento_Producto_prueba.Text) / 100;
+                    float descuento = subtotal * porcentaje_descuento;
+                    txb_subtotalneto.Text = (subtotal - descuento).ToString();
+                    CalculaMontos();// Calculamos los montos de la casillas con el nuevo valor
+
+                }
+                else if (verificarProductoFactura(cmb_Productos.SelectedItem.ToString()) == 0)
+                    MessageBox.Show("El producto fue previamente ingresado, por favor verificar.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
-            float subtotal = float.Parse(txb_subtotal_factura.Text);
-            float porcentaje_descuento = float.Parse(txb_descuento_Producto.Text) / 100;
+            else
+            {
+                MessageBox.Show("Seleccione el producto,digite la cantidad,el descuento y seleccione el impuesto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        //Funcion para calcular las respectivas casillas de la factura de productos
+        public void CalculaMontos()
+        {
+            //verificamos los valores que puede tener el descuento
+            if (txb_descuento_Producto_prueba.Text == "" || txb_descuento_Producto_prueba.Text == "0" || txb_descuento_Producto_prueba.Text == " ")
+            {
+                txb_subtotalneto.Text = txb_subtotal_factura_prueba.Text;
+                txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString();//sacamos el 13% del subtotalneto para tener el impuesto de la factura
+
+                //calculamos el total de la factura
+                if (txb_total_factura_prueba.Text != "")
+                    txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+            }
+            else
+            {
+                //calculamos el descuento y le aplicamos el impuesto en caso de que exista 
+                float subtotal = float.Parse(txb_subtotal_factura_prueba.Text);
+                float porcentaje_descuento = float.Parse(txb_descuento_Producto_prueba.Text) / 100;
+                float descuento = subtotal * porcentaje_descuento;
+                txb_subtotalneto.Text = (subtotal - descuento).ToString();
+                if (RadioButton_Si1.IsChecked == true)
+                {
+                    txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString();
+                    txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+                    if (txb_impuestofactura.Text != "")
+                        txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+                }
+                else if (RadioButton_No1.IsChecked == true)
+                {
+                    txb_impuestofactura.Text = "0";
+                    txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+                    if (txb_impuestofactura.Text != "")
+                        txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+                }
+            }
+        }
+        //Evento del boton para gregar una nueva fila
+        private void btn_agregar_producto_prueba_Click(object sender, RoutedEventArgs e)
+        {
+            AgregarRow();
+        }
+        //funcion para eliminar un producto de la lista
+        private void btn_eliminar_producto_Click(object sender, RoutedEventArgs e)
+        {
+            //le descontamos el precio que habia en la lista
+            montos -= float.Parse((dtg_facturar_productos_prueba.SelectedCells[7].Column.GetCellContent(dtg_facturar_productos_prueba.SelectedItem) as TextBlock).Text);
+            txb_subtotal_factura_prueba.Text = montos.ToString();
+            CalculaMontos();//volvemos a recalcular los montos 
+            //vemos cual es la fila que se desea eliminar
+            ObservableCollection<FacturasProducto> row = (ObservableCollection<FacturasProducto>)dtg_facturar_productos_prueba.SelectedItem;
+            //eliminamos la fila seleccionada
+            dtg_facturar_productos_prueba.Items.Remove(row);
+        }
+
+        //Iniciamos el combobox de clientes en la facturacion de productos , con los clientes activos en el sistema
+        private void cmb_Cliente_Productos_Prueba_Initialized(object sender, EventArgs e)
+        {
+            Iniciar_Clientes(cmb_Cliente_Productos_Prueba);
+        }
+        //Iniciaos el combobox de productos en la facturacion de productos, con los productos activos en el sistema,mostramos su respectiva descripcion
+        private void cmb_Productos_Initialized(object sender, EventArgs e)
+        {
+            DataTable dt = datos.Productos();
+
+            foreach (DataRow fila in dt.Rows)
+            {
+                cmb_Productos.Items.Add(Convert.ToString(fila["DESCRIPCION"]));
+            }
+        }
+        //Validamos que solo se puedan digitar numeros
+        private void txb_descuento_linea_producto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                txt_error_descuento_prueba.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_descuento_linea_producto.Text) == true)
+                {
+                    txt_error_descuento_prueba.Content = "No se permiten caracteres especiales";
+                    txt_error_descuento_prueba.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                txt_error_descuento_prueba.Content = "No se permite ingresar letras";
+                txt_error_descuento_prueba.Visibility = Visibility.Visible;
+            }
+        }
+        private void txb_descuento_Producto_prueba_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                txt_error_descuento_prueba.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_descuento_Producto_prueba.Text) == true)
+                {
+                    txt_error_descuento_prueba.Content = "No se permiten caracteres especiales";
+                    txt_error_descuento_prueba.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                txt_error_descuento_prueba.Content = "No se permite ingresar letras";
+                txt_error_descuento_prueba.Visibility = Visibility.Visible;
+            }
+        }
+        //funcion para verificar los valores que se van a cambiar en el textbox de cantidad de producto solicitada
+        private void txb_cantidad_producto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+                var detalle = new List<string>();
+                int cantidadsolicitada = 0;
+            //tomamos los valores del producto solicitado. 
+                detalle = datos.DetalleProducto(cmb_Productos.SelectedItem.ToString());
+            //igualamos la variable existencia con la cantidad de productos existentes en el inventario.
+                int existencia = int.Parse(detalle[2]);
+            //verificamos el valor que tiene la cantidad de productos
+            if(txb_catidad_producto.Text != "")
+            {
+                cantidadsolicitada = int.Parse(txb_catidad_producto.Text);
+            }
+            else
+            {
+                cantidadsolicitada = 0;
+            }
+            //verificamos que la cantidadsolicitada sea menor que la existencia, o nos dira el valor maximo que se puede comprar
+                if (cantidadsolicitada > existencia)
+                {
+                    MessageBox.Show("La cantidad maxima en inventario es " + existencia, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txb_catidad_producto.Text = existencia.ToString();
+                }
+        }
+
+        //verificamos que tenga algun valor el combo de productos para habilitar la cantidad y descuento del producto
+        private void cmb_Productos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(cmb_Productos.SelectedItem == null)
+            {
+                txb_catidad_producto.IsReadOnly = true;
+                txb_descuento_linea_producto.IsReadOnly = true;
+            }
+            else if (cmb_Productos.SelectedItem != null)
+            {
+                txb_catidad_producto.IsReadOnly = false;
+                txb_descuento_linea_producto.IsReadOnly = false;
+            }
+        }
+        //Funcion para modificar los productos ya ingresados en el datagrid 
+        //esta funcion esta declarada en el xaml del datagrid
+        private void Row_Double_Click(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+
+            txt_Estado.Content = "Modificar";
+            btn_agregar_producto_prueba.Visibility = Visibility.Hidden;
+            btn_modificar_producto_prueba.Visibility = Visibility.Visible;
+
+            //establecemos los diferentes valores a los campos correspondientes de la factura de productos
+            montos -= int.Parse((dtg_facturar_productos_prueba.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text);
+            cmb_Productos.SelectedItem = (dtg_facturar_productos_prueba.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+            txb_catidad_producto.Text = (dtg_facturar_productos_prueba.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            txb_descuento_linea_producto.Text = (dtg_facturar_productos_prueba.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+
+            if ((dtg_facturar_productos_prueba.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text == "13")
+            {
+                Rb_siProducto.IsChecked = true;
+            }
+            else if ((dtg_facturar_productos_prueba.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text == "0")
+            {
+                Rb_noProducto.IsChecked = true;
+            }
+
+        }
+
+        //funcion para modificar el producto deseado
+        private void btn_modificar_producto_prueba_Click(object sender, RoutedEventArgs e)
+        {
+            //primero eliminamos el producto que se solicita
+            ObservableCollection<FacturasProducto> row = (ObservableCollection<FacturasProducto>)dtg_facturar_productos_prueba.SelectedItem;
+            dtg_facturar_productos_prueba.Items.Remove(row);
+            //despues agregamos el nuevo o el cambio solicitado
+            AgregarRow();
+            btn_modificar_producto_prueba.Visibility = Visibility.Hidden;
+            txt_Estado.Content = "Agregar";
+            btn_agregar_producto_prueba.Visibility = Visibility.Visible;
+        }
+
+        //Calculamos todos los montos de la factura de productos cuando se modifica el descueto de la factura
+        private void txb_descuento_Producto_prueba_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CalculaMontos();
+        }
+        //verificamos montos cuando se cambia el valor del subtotal de la factura
+        private void txb_subtotal_factura_prueba_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txb_descuento_Producto_prueba.Text == "")
+            {
+                txb_descuento_Producto_prueba.Text = "0";
+            }
+            float subtotal = float.Parse(txb_subtotal_factura_prueba.Text);
+            float porcentaje_descuento = float.Parse(txb_descuento_Producto_prueba.Text) / 100;
             float descuento = subtotal * porcentaje_descuento;
-            txb_total_factura.Text = (subtotal - descuento).ToString();
+            txb_subtotalneto.Text = (subtotal - descuento).ToString();
+            if(txb_impuestofactura.Text != "")
+            txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+        }
+        //se calcula el impuesto dependiendo si el usuario lo quiere incluir.
+        private void RadioButton_Si1_Checked(object sender, RoutedEventArgs e)
+        {
+            if(txb_impuestofactura != null && txb_subtotalneto != null)
+            {
+                txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString();
+                txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+            }
+        }
+
+        private void RadioButton_No1_Checked(object sender, RoutedEventArgs e)
+        {
+            if (txb_impuestofactura != null && txb_subtotalneto != null)
+            {
+                txb_impuestofactura.Text = "0";
+                txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+            }
+        }
+
+        //funcion para verificar si el producto fue previamente agregado a la factura
+        public int verificarProductoFactura(string n_producto)
+        {
+            string producto = "";
+
+            foreach (var item in dtg_facturar_productos_prueba.Items)
+            {
+                DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
+
+                if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBox)
+                {
+                    producto = ((TextBox)dtg_facturar_productos_prueba.Columns[2].GetCellContent(row)).Text;
+                }
+                else if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
+                {
+                    producto = ((TextBlock)dtg_facturar_productos_prueba.Columns[2].GetCellContent(row)).Text;
+                }
+            }
+            if (n_producto == producto)//si ya existe retorna 0 en caso contrario 1
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        //funcion para guardar la factura dentro de la base de datos
+        public void GuardarDetalleFactura ()
+        {
+            string codigo = "";
+            string producto = "";
+            string cantidad = "";
+            string precio = "";
+            string subtotal = "";
+            string descuento = "";
+            string impuesto = "";
+            string nuevo_valor_existencia = "";
+            var detalle = new List<string>();
+
+            //recorremos el datagrid y le damos el valor de cada campo de la fila a las diferentes variables,para agregar cada detalle de la factura solicitada.
+            foreach (var item in dtg_facturar_productos_prueba.Items)
+            {
+                DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
+
+                if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBox)
+                {
+                    codigo = ((TextBox)dtg_facturar_productos_prueba.Columns[1].GetCellContent(row)).Text;
+                    producto = ((TextBox)dtg_facturar_productos_prueba.Columns[2].GetCellContent(row)).Text;
+                    cantidad = ((TextBox)dtg_facturar_productos_prueba.Columns[3].GetCellContent(row)).Text;
+                    precio = ((TextBox)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text;
+                    descuento = ((TextBox)dtg_facturar_productos_prueba.Columns[5].GetCellContent(row)).Text;
+                    impuesto = ((TextBox)dtg_facturar_productos_prueba.Columns[6].GetCellContent(row)).Text;
+                    subtotal = ((TextBox)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text;
+
+                }
+                else if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
+                {
+                    codigo = ((TextBlock)dtg_facturar_productos_prueba.Columns[1].GetCellContent(row)).Text;
+                    producto = ((TextBlock)dtg_facturar_productos_prueba.Columns[2].GetCellContent(row)).Text;
+                    cantidad = ((TextBlock)dtg_facturar_productos_prueba.Columns[3].GetCellContent(row)).Text;
+                    precio = ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text;
+                    descuento = ((TextBlock)dtg_facturar_productos_prueba.Columns[5].GetCellContent(row)).Text;
+                    impuesto = ((TextBlock)dtg_facturar_productos_prueba.Columns[6].GetCellContent(row)).Text;
+                    subtotal = ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text;
+                }
+                try
+                {
+
+                    //tomamos los valores del producto solicitado. 
+                    detalle = datos.DetalleProducto(producto);
+                    //igualamos la variable existencia con la cantidad de productos existentes en el inventario.
+                    int existencia = int.Parse(detalle[2]);
+                    miDetalle.subtotal = subtotal;
+                    miDetalle.descripcion_servicio = null;
+                    miDetalle.id_producto = datos.id_Producto(producto).ToString();
+                    miDetalle.id_factura = txt_codigo_factura.Content.ToString();
+                    miDetalle.cantidad = cantidad;
+                    miDetalle.impuesto = impuesto;
+                    miDetalle.descuento = descuento;
+                    int v_Resultado = datos.AgregarDetalle(miDetalle);
+                    nuevo_valor_existencia = (existencia - int.Parse(cantidad)).ToString();
+                    if (v_Resultado == -1)
+                    {
+                        datos.DescuentoInventario(nuevo_valor_existencia, producto);
+                    }
+                }
+                catch (Exception m)
+                {
+                    MessageBox.Show("Error al agregar detalle", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Console.WriteLine(m.ToString());
+                }
+            }
+        }
+
+        //Agregamos la factura la base de datos 
+        private void btn_imprimir_factura_prueba_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //verificamos que todos los campos tengan sus valores solicitados
+                if (cmb_Cliente_Productos_Prueba.SelectedItem == null || dtg_facturar_productos_prueba.Items.Count == 0 || txb_descuento_Producto_prueba.Text == "")
+                {
+                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    //agregamos los diferentes valores a la entidad de la factura
+                    miFactura.v_Codigo = int.Parse(txt_codigo_factura.Content.ToString());
+                    miFactura.v_Usuario = datos.id_Usuario(t_Usuario.Text).ToString();
+                    miFactura.v_Cliente = datos.id_Cliente(cmb_Cliente_Productos_Prueba.SelectedItem.ToString()).ToString();
+                    miFactura.v_Total = txb_total_factura_prueba.Text;
+                    miFactura.v_Descuento = txb_descuento_Producto_prueba.Text;
+                    if (RadioButton_Colon1.IsChecked == true)
+                    {
+                        miFactura.v_Moneda = "Colones";
+                    }
+                    else if (RadioButton_Dolar1.IsChecked == true)
+                    {
+                        miFactura.v_Moneda = "Dolares";
+                    }
+                    if (RadioButton_Si1.IsChecked == true)
+                    {
+                        miFactura.v_Impuesto = txb_impuestofactura.Text;
+                    }
+                    else if (RadioButton_No1.IsChecked == true)
+                    {
+                        miFactura.v_Impuesto = "0";
+                    }
+                    miFactura.v_tipoFactura = "Productos";
+                    miFactura.v_Subtotal = txb_subtotal_factura_prueba.Text;
+                    miFactura.v_SubtotalNeto = txb_subtotalneto.Text;
+                    //verificamos si se puede agregar la factura o hay errores 
+                        int v_Resultado = datos.AgregarFacturas(miFactura);
+                        if (v_Resultado == -1)
+                        {
+                        GuardarDetalleFactura();
+                        limpiar_Facturaprodutcos();
+                        MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+            catch (Exception m)
+            {
+                MessageBox.Show(m.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine(m.ToString());
+            }
         }
 
     }

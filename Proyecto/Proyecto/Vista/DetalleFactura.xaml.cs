@@ -31,5 +31,6 @@ namespace Proyecto.Vista
             this.Close();
         }
 
+
     }
 }

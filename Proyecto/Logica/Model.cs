@@ -35,11 +35,15 @@ namespace Logica
         {
             return v_Data.AgregarFacturas(fact);
         }
+        public int AgregarDetalle(EntidadDetalleFactura fact)
+        {
+            return v_Data.AgregarDetalle(fact);
+        }
 
 
-        //------------------- M O D I F I C A R ---------------
+            //------------------- M O D I F I C A R ---------------
 
-        public int ModificarClientes(EntidadClientes clt)
+            public int ModificarClientes(EntidadClientes clt)
         {
             return v_Data.ModificarClientes(clt);
         }
@@ -149,13 +153,41 @@ namespace Logica
         {
             return v_Data.DetalleProducto(descripcion);
         }
-        public List<EntidadFacturas> BuscarFactura(String v_Nombre)
+        public DataTable BuscarFactura(String v_Nombre)
         {
             return v_Data.BuscarFactura(v_Nombre);
         }
         public List<string> consultarUsuario(string nombreUsuario)
         {
             return v_Data.consultarUsuario(nombreUsuario);
+        }
+        public DataTable Productos()
+        {
+            return v_Data.Productos();
+        }
+        public Int64 MaximaFactura()
+        {
+            return v_Data.MaximaFactura();
+        }
+        public Int64 MaximoDetalle()
+        {
+            return v_Data.MaximoDetalle();
+        }
+        public Int64 id_Usuario(string nombre)
+        {
+            return v_Data.id_Usuario(nombre);
+        }
+        public Int64 id_Cliente(string nombre)
+        {
+            return v_Data.IdCliente(nombre);
+        }
+        public Int64 id_Producto(string nombre)
+        {
+            return v_Data.IdProducto(nombre);
+        }
+        public void DescuentoInventario(string cantidad, string nombre)
+        {
+            v_Data.DescuentoInventario(cantidad, nombre);
         }
         }
 }

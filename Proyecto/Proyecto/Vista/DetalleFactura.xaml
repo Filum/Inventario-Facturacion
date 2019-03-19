@@ -27,7 +27,18 @@
         </Button>
         <Label Content="Codigo de factura:" HorizontalAlignment="Left" Margin="94,42,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
         <Label Content="Cliente:" HorizontalAlignment="Left" Margin="94,118,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dtg_listar_detalle_facturas" Margin="94,196,49.6,66.6" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False">
+        <DataGrid x:Name="dtg_listar_detalle_facturas" Margin="94,196,49.6,66.6" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding SERVICIO}" FontFamily="Global Sans Serif"  Header="Tipo" Width="*"/>
+                <DataGridTextColumn Binding="{Binding CODIGOPRODUCTO}" FontFamily="Global Sans Serif" Header="CódigoProducto" Width="*"/>
+                <DataGridTextColumn Binding="{Binding DESCRIPCION}" FontFamily="Global Sans Serif" Header="Descripción Producto" Width="*"/>
+                <DataGridTextColumn Binding="{Binding CANTIDAD_PRODUCTO}" FontFamily="Global Sans Serif" Header="Cantidad" Width="*"/>
+                <DataGridTextColumn Binding="{Binding PRECIOUNITARIO}" FontFamily="Global Sans Serif" Header="Precio Unitario" Width="*"/>
+                <DataGridTextColumn Binding="{Binding DESCUENTO}" FontFamily="Global Sans Serif" Header="Descuento" Width="*"/>
+                <DataGridTextColumn Binding="{Binding IMPUESTO}" FontFamily="Global Sans Serif" Header="Impuesto" Width="*"/>
+                <DataGridTextColumn Binding="{Binding TOTAL}" FontFamily="Global Sans Serif" Header="Subtotal" Width="*"/>
+                <DataGridTextColumn Binding="{Binding MONEDA}" FontFamily="Global Sans Serif" Header="Moneda" Width="*"/>
+            </DataGrid.Columns>
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="FontWeight" Value="Bold" />

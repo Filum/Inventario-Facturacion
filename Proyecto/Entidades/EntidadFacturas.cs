@@ -8,14 +8,17 @@ namespace Entidades
 {
     public class EntidadFacturas
     {
-        public Int32 v_Codigo { get; set; }
+        public float v_Codigo { get; set; }
         public DateTime v_Fecha { get; set; }
         public string v_Usuario { get; set; }
         public string v_Cliente { get; set; }
-        public Int32 v_Total { get; set; }
-        public Int32 v_Descuento { get; set; }
+        public string v_Total { get; set; }
+        public string v_Descuento { get; set; }
         public string v_Moneda { get; set; }
-        public String v_Impuesto { get; set; }
+        public string v_Impuesto { get; set; }
+        public string v_tipoFactura { get; set; }
+        public string v_SubtotalNeto { get; set; }
+        public string v_Subtotal { get; set; }
 
         //public List<EntidadDetalles> v_ListaDetalles { get; set; }
 
@@ -25,7 +28,7 @@ namespace Entidades
 
         }
 
-        public EntidadFacturas(Int32 v_Codigo, DateTime v_Fecha, string v_Usuario, string v_Cliente, Int32 v_Total, Int32 v_Descuento, string v_Moneda, String v_Impuesto, List<EntidadDetalles> v_ListaDetalles)
+        public EntidadFacturas(float v_Codigo, DateTime v_Fecha, string v_Usuario, string v_Cliente, string v_Total, string v_Descuento, string v_Moneda, string v_Impuesto)
         {
             this.v_Codigo = v_Codigo;
             this.v_Fecha = v_Fecha;
