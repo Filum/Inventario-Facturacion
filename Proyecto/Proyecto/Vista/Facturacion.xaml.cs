@@ -444,6 +444,7 @@ namespace Proyecto
             txb_descuento_linea_producto.Text = "0";
             txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
         }
+
         //Funcion para gregar un nuevo producto con sus respectivas caracteristicas al datgrid
         private void AgregarRow ()
         {
@@ -459,6 +460,7 @@ namespace Proyecto
                 float cantidad = float.Parse(txb_catidad_producto.Text);
                 float impuestoLinea = 0;
                 float descuentoLinea = 0;
+
                 //verificamos si el usuario quiere ponerle impuesto a sus productos
                 if (Rb_siProducto.IsChecked == true)
                 {
@@ -475,6 +477,7 @@ namespace Proyecto
                 else if (RadioButton_Dolar1.IsChecked == true)
                 {
                     valorUnitario = precio/datos.ObtenerValorDolar();
+                    
                 }
                 //Calculamos el descuento que se le aplica al producto
                 descuentoLinea = (((valorUnitario * cantidad) * (impuestoLinea / 100) + (valorUnitario * cantidad)) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
@@ -486,15 +489,15 @@ namespace Proyecto
                     Codigo = detalle[0],
                     Producto = cmb_Productos.SelectedItem.ToString(),
                     Cantidad = txb_catidad_producto.Text,
-                    Precio = valorUnitario.ToString(),
+                    Precio = valorUnitario.ToString("F"),
                     Descuento = txb_descuento_linea_producto.Text,
-                    Impuesto = impuestoLinea.ToString(),
-                    Total = ((valorUnitario * cantidad) * (impuestoLinea/100) + (valorUnitario * cantidad)-descuentoLinea).ToString()
+                    Impuesto = impuestoLinea.ToString("F"),
+                    Total = ((valorUnitario * cantidad) * (impuestoLinea/100) + (valorUnitario * cantidad)-descuentoLinea).ToString("F")
 
                 });
                 //Le damos valor a "montos" la cual es una variable global para establecer el subtotal de la factura
                 montos += ((valorUnitario * cantidad) * (impuestoLinea/100) + (valorUnitario * cantidad)-descuentoLinea);
-                txb_subtotal_factura_prueba.Text = montos.ToString();
+                txb_subtotal_factura_prueba.Text = montos.ToString("F");
                 //Verificamos si ya el producto fue ingresado prviamente
                 if (verificarProductoFactura(cmb_Productos.SelectedItem.ToString()) == 1)
                 {
@@ -506,7 +509,7 @@ namespace Proyecto
                     float subtotal = float.Parse(txb_subtotal_factura_prueba.Text);
                     float porcentaje_descuento = float.Parse(txb_descuento_Producto_prueba.Text) / 100;
                     float descuento = subtotal * porcentaje_descuento;
-                    txb_subtotalneto.Text = (subtotal - descuento).ToString();
+                    txb_subtotalneto.Text = (subtotal - descuento).ToString("F");
                     CalculaMontos();// Calculamos los montos de la casillas con el nuevo valor
 
                 }
@@ -522,36 +525,39 @@ namespace Proyecto
         //Funcion para calcular las respectivas casillas de la factura de productos
         public void CalculaMontos()
         {
-            //verificamos los valores que puede tener el descuento
-            if (txb_descuento_Producto_prueba.Text == "" || txb_descuento_Producto_prueba.Text == "0" || txb_descuento_Producto_prueba.Text == " ")
+            if (txb_descuento_Producto_prueba != null)
             {
-                txb_subtotalneto.Text = txb_subtotal_factura_prueba.Text;
-                txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString();//sacamos el 13% del subtotalneto para tener el impuesto de la factura
+                //verificamos los valores que puede tener el descuento
+                if (txb_descuento_Producto_prueba.Text == "" || txb_descuento_Producto_prueba.Text == "0" || txb_descuento_Producto_prueba.Text == " ")
+                {
+                    txb_subtotalneto.Text = txb_subtotal_factura_prueba.Text;
+                    txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString("F");//sacamos el 13% del subtotalneto para tener el impuesto de la factura
 
-                //calculamos el total de la factura
-                if (txb_total_factura_prueba.Text != "")
-                    txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
-            }
-            else
-            {
-                //calculamos el descuento y le aplicamos el impuesto en caso de que exista 
-                float subtotal = float.Parse(txb_subtotal_factura_prueba.Text);
-                float porcentaje_descuento = float.Parse(txb_descuento_Producto_prueba.Text) / 100;
-                float descuento = subtotal * porcentaje_descuento;
-                txb_subtotalneto.Text = (subtotal - descuento).ToString();
-                if (RadioButton_Si1.IsChecked == true)
-                {
-                    txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString();
-                    txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
-                    if (txb_impuestofactura.Text != "")
-                        txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+                    //calculamos el total de la factura
+                    if (txb_total_factura_prueba.Text != "")
+                        txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
                 }
-                else if (RadioButton_No1.IsChecked == true)
+                else
                 {
-                    txb_impuestofactura.Text = "0";
-                    txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
-                    if (txb_impuestofactura.Text != "")
-                        txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+                    //calculamos el descuento y le aplicamos el impuesto en caso de que exista 
+                    float subtotal = float.Parse(txb_subtotal_factura_prueba.Text);
+                    float porcentaje_descuento = float.Parse(txb_descuento_Producto_prueba.Text) / 100;
+                    float descuento = subtotal * porcentaje_descuento;
+                    txb_subtotalneto.Text = (subtotal - descuento).ToString("F");
+                    if (RadioButton_Si1.IsChecked == true)
+                    {
+                        txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString();
+                        txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
+                        if (txb_impuestofactura.Text != "")
+                            txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
+                    }
+                    else if (RadioButton_No1.IsChecked == true)
+                    {
+                        txb_impuestofactura.Text = "0";
+                        txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
+                        if (txb_impuestofactura.Text != "")
+                            txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
+                    }
                 }
             }
         }
@@ -722,17 +728,17 @@ namespace Proyecto
             float subtotal = float.Parse(txb_subtotal_factura_prueba.Text);
             float porcentaje_descuento = float.Parse(txb_descuento_Producto_prueba.Text) / 100;
             float descuento = subtotal * porcentaje_descuento;
-            txb_subtotalneto.Text = (subtotal - descuento).ToString();
+            txb_subtotalneto.Text = (subtotal - descuento).ToString("F");
             if(txb_impuestofactura.Text != "")
-            txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+            txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
         }
         //se calcula el impuesto dependiendo si el usuario lo quiere incluir.
         private void RadioButton_Si1_Checked(object sender, RoutedEventArgs e)
         {
             if(txb_impuestofactura != null && txb_subtotalneto != null)
             {
-                txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString();
-                txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+                txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString("F");
+                txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
             }
         }
 
@@ -741,7 +747,7 @@ namespace Proyecto
             if (txb_impuestofactura != null && txb_subtotalneto != null)
             {
                 txb_impuestofactura.Text = "0";
-                txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString();
+                txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
             }
         }
 
@@ -794,10 +800,10 @@ namespace Proyecto
                     }
                     try
                     {
-                        ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_colones) / valor_dolar).ToString();
-                        valor_colones = (float.Parse(valor_colones) / valor_dolar).ToString();
+                        ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_colones) / valor_dolar).ToString("F");
+                        valor_colones = (float.Parse(valor_colones) / valor_dolar).ToString("F");
                         descuento = (((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_colones) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
-                        ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_colones) * float.Parse(cantidad)) - descuento)).ToString();
+                        ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_colones) * float.Parse(cantidad)) - descuento)).ToString("F");
                         CalculaMontos();
                     }
                     catch (Exception m)
@@ -812,13 +818,13 @@ namespace Proyecto
         //funcion para tomar el subtotal de la factura 
         public void subtotalFactura()
         {
-                if (dtg_facturar_productos_prueba != null)
+            string subtotalLinea = "";
+            float subtotal_monto = 0;
+            if (dtg_facturar_productos_prueba != null)
                 {
                     foreach (var item in dtg_facturar_productos_prueba.Items)
                     {
                         DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
-                    string subtotalLinea = "";
-                        float subtotal_monto = 0;
 
                         if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
                         {
@@ -834,6 +840,7 @@ namespace Proyecto
                             Console.WriteLine(m.ToString());
                         }
                     }
+                txb_subtotal_factura_prueba.Text = subtotal_monto.ToString("F");
                 CalculaMontos();
             }
         }
@@ -859,10 +866,10 @@ namespace Proyecto
                     }
                     try
                     {
-                        ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_Producto) * valor_dolar).ToString();
+                        ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_Producto) * valor_dolar).ToString("F");
                         valor_Producto= (float.Parse(valor_Producto) * valor_dolar).ToString();
                         descuento = (((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_Producto) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
-                        ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_Producto) * float.Parse(cantidad)) - descuento)).ToString();
+                        ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_Producto) * float.Parse(cantidad)) - descuento)).ToString("F");
                         CalculaMontos();
                     }
                     catch (Exception m)
@@ -1000,11 +1007,15 @@ namespace Proyecto
         private void RadioButton_Colon1_Checked(object sender, RoutedEventArgs e)
         {
             cambioColon();
+            subtotalFactura();
+            CalculaMontos();
         }
 
         private void RadioButton_Dolar1_Checked(object sender, RoutedEventArgs e)
         {
             cambioDolar();
+            subtotalFactura();
+            CalculaMontos();
         }
     }
 }

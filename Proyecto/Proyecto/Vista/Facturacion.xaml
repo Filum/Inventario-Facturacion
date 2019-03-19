@@ -351,7 +351,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                     <Label Content="Subtotal Neto:" Margin="0,0,170.8,122.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
                     <TextBox x:Name="txb_subtotalneto"  Margin="0,0,53.8,122.8" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom"/>
                     <Label Content="Impuesto:" Margin="0,0,170.8,70.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
-                    <TextBox x:Name="txb_impuestofactura"  Margin="0,0,53.8,70.8" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom"/>
+                    <TextBox x:Name="txb_impuestofactura" MaxLength="3" Margin="0,0,53.8,70.8" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom"/>
 
 
 
