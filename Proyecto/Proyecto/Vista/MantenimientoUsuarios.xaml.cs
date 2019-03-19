@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entidades;
+using Logica;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,12 @@ namespace Proyecto
     /// </summary>
     public partial class MantenimientoUsuarios : Window
     {
+        EntidadUsuarios v_Clt = new EntidadUsuarios();
+        Model v_Model = new Model();
+        bool v_Actividad_btnModificar = false;
+        bool v_Actividad_btnAgregar = true;
+        String v_EstadoSistema = "";
+
         public MantenimientoUsuarios()
         {
             InitializeComponent();
@@ -173,7 +181,35 @@ namespace Proyecto
 
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (txb_busqueda.Text.Contains("'"))
+            {
+                lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
+                lbl_errorBusqueda.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                dtg_usuarios.ItemsSource = v_Model.ValidarBusquedaUsuarios(txb_busqueda.Text);
+                dtg_usuarios.Columns[0].Header = "Código";
+                dtg_usuarios.Columns[1].Header = "Número de Cédula";
+                dtg_usuarios.Columns[2].Header = "Nombre del Usuario";
+                dtg_usuarios.Columns[3].Header = "Apellidos";
+                dtg_usuarios.Columns[4].Header = "Teléfono";
+                dtg_usuarios.Columns[5].Header = "Tel. Opcional";
+                dtg_usuarios.Columns[6].Header = "Correo";
+                dtg_usuarios.Columns[7].Header = "Puesto";
+                dtg_usuarios.Columns[8].Header = "Rol";
+                dtg_usuarios.Columns[9].Header = "Usuario";
+                dtg_usuarios.Columns[10].Header = "Contraseña";
+                dtg_usuarios.Columns[11].Header = "Fecha";
+                dtg_usuarios.Columns[12].Header = "Estado en el Sistema";
 
+                //Usuarios existentes
+                v_Actividad_btnAgregar = false;
+                //btn_agregar.Visibility = Visibility.Collapsed;
+                //btn_modificar.Visibility = Visibility.Collapsed;
+                //lbl_actividad.Content = "Usuarios existentes";
+                lbl_actividad.Visibility = Visibility.Visible;
+            }
         }
     }
 }

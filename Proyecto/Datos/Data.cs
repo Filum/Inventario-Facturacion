@@ -265,6 +265,47 @@ namespace Datos
             return Lista;
         }
 
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del usuario mediante el nombre o número de cédula.
+         Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/
+        public List<EntidadUsuarios> ValidarBusquedaUsuarios(String v_busqueda)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select USU.PK_IDUSUARIO,USU.CEDULAIDENTIFICACION,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA " +
+                "from TBL_USUARIOS USU INNER JOIN TBL_ROLES ROL ON(USU.PK_IDUSUARIO = USU.FK_IDROL)" +
+                "WHERE translate(UPPER(NOMBREUSUARIO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')" +
+                "OR translate(UPPER(APELLIDOS),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')" +
+                "OR translate(UPPER(CEDULAIDENTIFICACION),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadUsuarios> Lista = new List<EntidadUsuarios>();
+
+            if (v_busqueda != "")
+            {
+                while (dr.Read())
+                {
+                    EntidadUsuarios usuario = new EntidadUsuarios();
+                    usuario.v_IdUsuario = dr.GetInt64(0);
+                    usuario.v_CedIdentificacion = Convert.ToInt64(dr.GetValue(1));
+                    usuario.v_NombreUsuario = dr.GetString(2);
+                    usuario.v_Apellidos = dr.GetString(3);
+                    usuario.v_Telefono = Convert.ToInt64(dr.GetValue(4));
+                    usuario.v_TelefonoOpcional = Convert.ToInt64(dr.GetValue(5));
+                    usuario.v_Correo = dr.GetString(6);
+                    usuario.v_Puesto = dr.GetString(7);
+                    usuario.v_NombreRol = dr.GetString(8);
+                    usuario.v_UsuarioSistema = dr.GetString(9);
+                    usuario.v_Contrasena = dr.GetString(10);
+                    usuario.v_Fecha = Convert.ToDateTime(dr.GetValue(11));
+                    usuario.v_estadoSistema = dr.GetString(12);
+                    Lista.Add(usuario);
+                }
+            }
+            conn.Close();
+            return Lista;
+        }
+
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del rol mediante el nombre 
          Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/
         public List<EntidadRoles> ValidarBusquedaRoles(String v_busqueda)

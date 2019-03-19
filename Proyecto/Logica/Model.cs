@@ -86,6 +86,12 @@ namespace Logica
             return v_Data.ValidarBusquedaProveedores(v_Busqueda);
         }
 
+        //Recibe como referencia un string necesario para proceder con la existencia de usuarios
+        public List<EntidadUsuarios> ValidarBusquedaUsuarios(String v_Busqueda)
+        {
+            return v_Data.ValidarBusquedaUsuarios(v_Busqueda);
+        }
+
         //Recibe como referencia un string necesario para proceder con la busqueda de productos
         public List<EntidadProductos> ValidarBusquedaProductos(String v_Busqueda)
         {
