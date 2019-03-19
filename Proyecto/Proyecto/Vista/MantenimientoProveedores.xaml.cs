@@ -39,7 +39,8 @@ namespace Proyecto
             v_DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             v_DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             v_DispatcherTimer.Start();
-            OcultarFormulario();
+            MostrarProveedoresExistentes();
+            CargarProveedores();
 
             date_inicio.SelectedDate = DateTime.Now.Date;
             date_final.SelectedDate = DateTime.Now.Date;
@@ -113,7 +114,7 @@ namespace Proyecto
         //Vuelve al panel de búsqueda en el tab de configuración de proveedores y oculta el formulario
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
-            OcultarFormulario();
+            MostrarProveedoresExistentes();
         }
 
         //Botón el cual permite agregar un nuevo proveedor, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
@@ -360,11 +361,34 @@ namespace Proyecto
             }
         }
 
+        private void CargarProveedores()
+        {
+            dtg_lista.ItemsSource = null;
+            if (v_Model.CargarProveedores().Rows.Count == 0)
+            {
+                MessageBox.Show("No existen proveedores registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.CargarProveedores().DefaultView;
+                //dtg_lista.Columns[0].Header = "Cédula Jurídica";
+                //dtg_lista.Columns[1].Header = "Nombre del Proveedor";
+                //dtg_lista.Columns[2].Header = "Correo";
+                //dtg_lista.Columns[3].Header = "Correo Opcional";
+                //dtg_lista.Columns[4].Header = "Teléfono";
+                //dtg_lista.Columns[5].Header = "Tel. Opcional";
+                //dtg_lista.Columns[6].Header = "Descripción";
+                //dtg_lista.Columns[7].Header = "Fecha de Ingreso";
+                //dtg_lista.Columns[8].Header = "Estado en el Sistema";
+            }
+        }
+
         //Muestra el panel de búsqueda en el tab de configuración de proveedores
         private void MostrarProveedoresExistentes()
         {
             lbl_actividad.Content = "Proveedores existentes";
             grd_proveedoresExistentes.Visibility = Visibility.Visible;
+            OcultarFormulario();
         }
 
         //Oculta el panel de búsqueda en el tab de configuración de proveedores
@@ -377,7 +401,6 @@ namespace Proyecto
         private void OcultarFormulario()
         {
             grd_formularioProveedor.Visibility = Visibility.Collapsed;
-            MostrarProveedoresExistentes();
         }
 
         //Muestra el panel del formulario en el tab de configuración de proveedores

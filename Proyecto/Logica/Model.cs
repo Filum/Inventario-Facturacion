@@ -64,6 +64,11 @@ namespace Logica
             return v_Data.ProveedoresExistentes();
         }
 
+        public DataTable CargarProveedores()
+        {
+            return v_Data.CargarProveedores();
+        }
+
         //Recibe como referencia dos fechas las cuales van a ser enviadas a la clase Data para proceder con la actividad de listar productos
         public DataTable MostrarListaProductos()
         {

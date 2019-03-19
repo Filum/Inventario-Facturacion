@@ -274,7 +274,7 @@ namespace Datos
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
             comando.CommandText = "select USU.PK_IDUSUARIO,USU.CEDULAIDENTIFICACION,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA " +
-                "from TBL_USUARIOS USU INNER JOIN TBL_ROLES ROL ON(USU.PK_IDUSUARIO = USU.FK_IDROL)" +
+                "from TBL_USUARIOS USU INNER JOIN TBL_ROLES ROL ON(ROL.PK_IDROL = USU.FK_IDROL)" +
                 "WHERE translate(UPPER(NOMBREUSUARIO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')" +
                 "OR translate(UPPER(APELLIDOS),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')" +
                 "OR translate(UPPER(CEDULAIDENTIFICACION),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
@@ -464,8 +464,23 @@ namespace Datos
             return Lista;
         }
 
+        public DataTable CargarProveedores()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores";
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del usuario mediante el nombre 
- Además, en caso de encontrar el usuario este será retornado mediante una lista*/
+        Además, en caso de encontrar el usuario este será retornado mediante una lista*/
         public List<EntidadUsuarios> ValidarUsuario(String nombreUsuario)
         {
             OracleConnection conn = DataBase.Conexion();

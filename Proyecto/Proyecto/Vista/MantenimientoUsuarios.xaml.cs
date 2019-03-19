@@ -33,6 +33,7 @@ namespace Proyecto
         public MantenimientoUsuarios()
         {
             InitializeComponent();
+            MostrarUsuariosExistentes();
             //Formato para la hora
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
