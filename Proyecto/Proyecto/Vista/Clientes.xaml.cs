@@ -425,7 +425,7 @@ namespace Proyecto
             txt_actividad.Content = "Modificar Clientes";
             txt_actividad.Visibility = Visibility.Visible;
             rb_inactivo.Visibility = Visibility.Visible;
-            txb_buscar_cliente.IsEnabled = false;
+            txb_buscar_cliente.IsEnabled = true;
 
 
             clt.v_Codigo = Convert.ToInt32((dtg_clientes.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
@@ -435,8 +435,9 @@ namespace Proyecto
             txb_correo_o.Text = (dtg_clientes.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
             txb_TelOf.Text = (dtg_clientes.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
             txb_TelMov.Text = (dtg_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
-
             String v_Inacto = (dtg_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
+            txb_observaciones.Text = (dtg_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
+
             if (v_Inacto == "Inactivo")
             {
                 rb_inactivo.IsChecked = true;
@@ -447,8 +448,10 @@ namespace Proyecto
             }
 
             Habilitar_Campos();
-            txb_observaciones.Text = (dtg_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
-
+            
+            btn_guardar_cliente_actualizado.Visibility = Visibility.Visible;
+            btn_agregar_Cliente.Visibility = Visibility.Collapsed;
+            MostrarFormulario();
 
         }
 
@@ -522,8 +525,9 @@ namespace Proyecto
 
         private void Grid_Initialized(object sender, EventArgs e)
         {
-            Inabilitar_Campos();
-            btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
+            txt_actividad.Visibility = Visibility.Visible;
+            txt_actividad.Content = "Buscar Clientes";
+            btn_agregar_Cliente.Visibility = Visibility.Visible;
         }
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
@@ -668,5 +672,74 @@ namespace Proyecto
             Imprimir print = new Imprimir();
             print.imprimir(dtg_listar_clientes, "Imprimir");
         }
+
+        private void btn_volver_Click(object sender, RoutedEventArgs e)
+        {
+            OcultarFormulario();
+        }
+
+        private void OcultarFormulario()
+        {
+            grd_formularioCliente.Visibility = Visibility.Collapsed;
+            MostrarClientesExistentes();
+        }
+
+        //Muestra el panel de búsqueda en el tab de configuración de proveedores
+        private void MostrarClientesExistentes()
+        {
+            txt_actividad.Content = "Clientes existentes";
+            grd_ClientesExistentes.Visibility = Visibility.Visible;
+        }
+
+        private void OcultarClientesExistentes()
+        {
+            grd_ClientesExistentes.Visibility = Visibility.Collapsed;
+        }
+
+        private void btn_agregarCliente_Click(object sender, RoutedEventArgs e)
+        {
+            Habilitar_Campos();
+            btn_limpiar_actualizar_cliente_Click(sender, e);
+            txt_actividad.Visibility = Visibility.Visible;
+            txt_actividad.Content = "Agregar Nuevo Cliente";
+            btn_limpiar_actualizar_cliente.Visibility = Visibility.Visible;
+            btn_guardar_cliente_actualizado.Visibility = Visibility.Collapsed;
+            btn_agregar_Cliente.Visibility = Visibility.Visible;
+            MostrarFormulario();
+        }
+
+        //Muestra el panel del formulario en el tab de configuración de proveedores
+        private void MostrarFormulario()
+        {
+            grd_formularioCliente.Visibility = Visibility.Visible;
+            OcultarClientesExistentes();
+        }
+
+        private void txb_buscar_cliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            
+            dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
+            dtg_clientes.Columns[0].Header = "Código";
+            dtg_clientes.Columns[0].Width = 60;
+            dtg_clientes.Columns[1].Header = "Nombre Completo";
+            dtg_clientes.Columns[1].Width = 260;
+            dtg_clientes.Columns[2].Header = "Correo electrónico";
+            dtg_clientes.Columns[2].Width = 180;
+            dtg_clientes.Columns[3].Header = "Correo Opcional";
+            dtg_clientes.Columns[3].Width = 180;
+            dtg_clientes.Columns[4].Header = "Tel. Oficina";
+            dtg_clientes.Columns[4].Width = 90;
+            dtg_clientes.Columns[5].Header = "Tel. Móvil";
+            dtg_clientes.Columns[5].Width = 90;
+            dtg_clientes.Columns[6].Header = "Estado";
+            dtg_clientes.Columns[6].Width = 60;
+            dtg_clientes.Columns[7].Header = "Observaciones";
+            dtg_clientes.Columns[7].Width = 285;
+
+            txt_actividad.Content = "Proveedores existentes";
+            txt_actividad.Visibility = Visibility.Visible;               
+        }
+
+        
     }
 }
