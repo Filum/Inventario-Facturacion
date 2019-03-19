@@ -454,6 +454,7 @@ namespace Proyecto
             {
                 detalle = datos.DetalleProducto(cmb_Productos.SelectedItem.ToString());//tomamos el detalle del producto solicitado
                 //Damos los valores del detalle de la factura
+                float valorUnitario = 0;
                 float precio = float.Parse(detalle[1]);
                 float cantidad = float.Parse(txb_catidad_producto.Text);
                 float impuestoLinea = 0;
@@ -467,8 +468,16 @@ namespace Proyecto
                 {
                     impuestoLinea = 0;
                 }
+                if (RadioButton_Colon1.IsChecked == true)
+                {
+                    valorUnitario = precio;
+                }
+                else if (RadioButton_Dolar1.IsChecked == true)
+                {
+                    valorUnitario = precio/datos.ObtenerValorDolar();
+                }
                 //Calculamos el descuento que se le aplica al producto
-                descuentoLinea = (((precio * cantidad) * (impuestoLinea / 100) + (precio * cantidad)) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
+                descuentoLinea = (((valorUnitario * cantidad) * (impuestoLinea / 100) + (valorUnitario * cantidad)) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
                 //Establecemos los valores del nuevo producto para agregarlo al datagrid
                 //Lo logramos con un binding al datagrid, el mismo nombre de los atributos de la clase
                 Row2.Add(new FacturasProducto()
@@ -477,14 +486,14 @@ namespace Proyecto
                     Codigo = detalle[0],
                     Producto = cmb_Productos.SelectedItem.ToString(),
                     Cantidad = txb_catidad_producto.Text,
-                    Precio = detalle[1],
+                    Precio = valorUnitario.ToString(),
                     Descuento = txb_descuento_linea_producto.Text,
                     Impuesto = impuestoLinea.ToString(),
-                    Total = ((precio * cantidad) * (impuestoLinea/100) + (precio * cantidad)-descuentoLinea).ToString()
+                    Total = ((valorUnitario * cantidad) * (impuestoLinea/100) + (valorUnitario * cantidad)-descuentoLinea).ToString()
 
                 });
                 //Le damos valor a "montos" la cual es una variable global para establecer el subtotal de la factura
-                montos += ((precio * cantidad) * (impuestoLinea/100) + (precio * cantidad)-descuentoLinea);
+                montos += ((valorUnitario * cantidad) * (impuestoLinea/100) + (valorUnitario * cantidad)-descuentoLinea);
                 txb_subtotal_factura_prueba.Text = montos.ToString();
                 //Verificamos si ya el producto fue ingresado prviamente
                 if (verificarProductoFactura(cmb_Productos.SelectedItem.ToString()) == 1)
@@ -763,9 +772,111 @@ namespace Proyecto
                 return 1;
             }
         }
+        //funcion que hace el cambio a dolar en los productos del datagrid
+        private void cambioDolar()
+        {
+            if (dtg_facturar_productos_prueba != null)
+            {
+                foreach (var item in dtg_facturar_productos_prueba.Items)
+                {
+                    DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
+                    string valor_colones = "";
+                    string cantidad = "";
+                    string impuesto = "";
+                    float descuento= 0;
+                    float valor_dolar = datos.ObtenerValorDolar();
+
+                    if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
+                    {
+                        cantidad = ((TextBlock)dtg_facturar_productos_prueba.Columns[3].GetCellContent(row)).Text;
+                        valor_colones = ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text;
+                        impuesto = ((TextBlock)dtg_facturar_productos_prueba.Columns[6].GetCellContent(row)).Text;
+                    }
+                    try
+                    {
+                        ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_colones) / valor_dolar).ToString();
+                        valor_colones = (float.Parse(valor_colones) / valor_dolar).ToString();
+                        descuento = (((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_colones) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
+                        ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_colones) * float.Parse(cantidad)) - descuento)).ToString();
+                        CalculaMontos();
+                    }
+                    catch (Exception m)
+                    {
+                        MessageBox.Show("Error al hacer el cambio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Console.WriteLine(m.ToString());
+                    }
+                }
+            }
+        }
+
+        //funcion para tomar el subtotal de la factura 
+        public void subtotalFactura()
+        {
+                if (dtg_facturar_productos_prueba != null)
+                {
+                    foreach (var item in dtg_facturar_productos_prueba.Items)
+                    {
+                        DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
+                    string subtotalLinea = "";
+                        float subtotal_monto = 0;
+
+                        if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
+                        {
+                        subtotalLinea = ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text;
+                        }
+                        try
+                        {
+                        subtotal_monto += float.Parse(subtotalLinea);
+                        }
+                        catch (Exception m)
+                        {
+                            MessageBox.Show("Error al hacer el cambio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            Console.WriteLine(m.ToString());
+                        }
+                    }
+                CalculaMontos();
+            }
+        }
+        //funcion que hace el cambio a dolar en los productos del datagrid
+        private void cambioColon()
+        {
+            if (dtg_facturar_productos_prueba != null)
+            {
+                foreach (var item in dtg_facturar_productos_prueba.Items)
+                {
+                    DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
+                    string valor_Producto = "";
+                    string cantidad = "";
+                    string impuesto = "";
+                    float descuento = 0;
+                    float valor_dolar = datos.ObtenerValorDolar();
+
+                    if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
+                    {
+                        cantidad = ((TextBlock)dtg_facturar_productos_prueba.Columns[3].GetCellContent(row)).Text;
+                        valor_Producto = ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text;
+                        impuesto = ((TextBlock)dtg_facturar_productos_prueba.Columns[6].GetCellContent(row)).Text;
+                    }
+                    try
+                    {
+                        ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_Producto) * valor_dolar).ToString();
+                        valor_Producto= (float.Parse(valor_Producto) * valor_dolar).ToString();
+                        descuento = (((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_Producto) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
+                        ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_Producto) * float.Parse(cantidad)) - descuento)).ToString();
+                        CalculaMontos();
+                    }
+                    catch (Exception m)
+                    {
+                        MessageBox.Show("Error al hacer el cambio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Console.WriteLine(m.ToString());
+                    }
+                }
+            }
+        }
+
 
         //funcion para guardar la factura dentro de la base de datos
-        public void GuardarDetalleFactura ()
+        private void GuardarDetalleFactura ()
         {
             string codigo = "";
             string producto = "";
@@ -886,5 +997,14 @@ namespace Proyecto
             }
         }
 
+        private void RadioButton_Colon1_Checked(object sender, RoutedEventArgs e)
+        {
+            cambioColon();
+        }
+
+        private void RadioButton_Dolar1_Checked(object sender, RoutedEventArgs e)
+        {
+            cambioDolar();
+        }
     }
 }

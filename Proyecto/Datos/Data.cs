@@ -7,6 +7,7 @@ using Entidades;
 using System.Data;
 using Oracle.DataAccess.Client;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Datos
 {
@@ -18,6 +19,7 @@ namespace Datos
         //metodo para obtener  
         public float ObtenerValorDolar()
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
             DateTime dia = DateTime.Now;
             string fecha = dia.ToShortDateString();
 
