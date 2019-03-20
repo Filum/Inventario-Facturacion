@@ -789,21 +789,27 @@ namespace Proyecto
 
         private void txb_buscar_cliente_Lista_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txb_buscar_cliente_Lista.Text == "")
+            try
             {
-                dtg_listar_clientes.ItemsSource = null;
-                dtg_listar_clientes.ItemsSource = model.BuscarClienteEstado(cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
-            }
-            else
-            {
-                if (cmb_estado_Cliente.SelectedItem == null)
+                if (txb_buscar_cliente_Lista.Text == "")
                 {
-                    dtg_listar_clientes.ItemsSource = model.BuscarClienteNombre(txb_buscar_cliente_Lista.Text).DefaultView;
+                    dtg_listar_clientes.ItemsSource = null;
+                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstado(cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
                 }
                 else
                 {
-                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstadoyNombre(txb_buscar_cliente_Lista.Text, cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                    if (cmb_estado_Cliente.SelectedItem == null)
+                    {
+                        dtg_listar_clientes.ItemsSource = model.BuscarClienteNombre(txb_buscar_cliente_Lista.Text).DefaultView;
+                    }
+                    else
+                    {
+                        dtg_listar_clientes.ItemsSource = model.BuscarClienteEstadoyNombre(txb_buscar_cliente_Lista.Text, cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                    }
                 }
+            }catch (Exception m)
+            {
+                Console.Write(m);
             }
         }
     }
