@@ -19,6 +19,12 @@ namespace Entidades
         public string v_tipoFactura { get; set; }
         public string v_SubtotalNeto { get; set; }
         public string v_Subtotal { get; set; }
+        public string v_tipoPago { get; set; }
+        public string v_diasCredito { get; set; }
+        public string v_estadoFactura { get; set; }
+        public string v_fechaPago { get; set; }
+        public string v_fechaCancelacion { get; set; }
+
 
         //public List<EntidadDetalles> v_ListaDetalles { get; set; }
 

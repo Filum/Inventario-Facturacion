@@ -286,5 +286,8 @@
   <ItemGroup>
     <Resource Include="Vista\Imagenes\eliminar.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\cash.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

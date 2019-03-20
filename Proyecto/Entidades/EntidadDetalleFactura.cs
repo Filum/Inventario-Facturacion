@@ -18,6 +18,7 @@ namespace Entidades
 
         public string impuesto { get; set; }
         public string descuento { get; set; }
+        public string precioProducto { get; set; }
 
         public EntidadDetalleFactura()
         {

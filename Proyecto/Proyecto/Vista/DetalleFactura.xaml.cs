@@ -31,6 +31,14 @@ namespace Proyecto.Vista
             this.Close();
         }
 
-
+        private void btn_pagar_Factura_Click(object sender, RoutedEventArgs e)
+        {
+            datos.CambiarestadoFactura("Cancelado", txt_codigo.Content.ToString());
+            Pago.Content = "Pagó";
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            DateTime dia = DateTime.Now;
+            pagoFactura.Content = dia.ToShortDateString();
+            btn_pagar_Factura.Visibility = Visibility.Hidden;
+        }
     }
 }
