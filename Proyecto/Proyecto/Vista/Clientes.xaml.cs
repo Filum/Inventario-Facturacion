@@ -82,13 +82,16 @@ namespace Proyecto
             txb_TelMov.Text = "";
             txb_TelOf.Text = "";
             txb_buscar_cliente.Text = "";
+            txb_cedula.Text = "";
+            txb_representante.Text = "";
+            txb_direccion.Text = "";
             rb_activo.IsChecked = false;
             rb_inactivo.IsChecked = false;
             txt_error_telM.Visibility = Visibility.Hidden;
             txt_error_TelO.Visibility = Visibility.Hidden;
             txt_error_correo.Visibility = Visibility.Hidden;
             txt_error_correo_o.Visibility = Visibility.Hidden;
-            btn_agregar_Cliente.Visibility = Visibility.Hidden;
+            btn_agregar_Cliente.Visibility = Visibility.Visible;
             btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
             dtg_clientes.ItemsSource = null;
             txt_actividad.Visibility = Visibility.Hidden;
@@ -131,7 +134,7 @@ namespace Proyecto
             try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
             {
                 string v_Inactivo;
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txb_cedula.Text == "" || txb_representante.Text == "" || txb_direccion.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -147,6 +150,9 @@ namespace Proyecto
                     clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
                     clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
                     clt.v_Correo = txb_correo.Text;
+                    clt.v_Cedula = txb_cedula.Text;
+                    clt.v_Representante = txb_representante.Text;
+                    clt.v_Direccion = txb_direccion.Text;
                     //A los espacios vacios se rellenan con un "N/A"
                     if (txb_correo_o.Text == "")
                         clt.v_CorreoOpc = "N/A";
@@ -273,6 +279,12 @@ namespace Proyecto
                         dtg_listar_clientes.Columns[7].Width = 60;
                         dtg_listar_clientes.Columns[8].Header = "Observaciones";
                         dtg_listar_clientes.Columns[8].Width = 183;
+                        dtg_listar_clientes.Columns[9].Header = "Cédula";
+                        dtg_listar_clientes.Columns[9].Width = 180;
+                        dtg_listar_clientes.Columns[10].Header = "Representante";
+                        dtg_listar_clientes.Columns[10].Width = 180;
+                        dtg_listar_clientes.Columns[11].Header = "Dirección";
+                        dtg_listar_clientes.Columns[11].Width = 183;
                     }
                 }
 
@@ -382,6 +394,12 @@ namespace Proyecto
             dtg_clientes.Columns[6].Width = 60;
             dtg_clientes.Columns[7].Header = "Observaciones";
             dtg_clientes.Columns[7].Width = 285;
+            dtg_clientes.Columns[8].Header = "Cédula";
+            dtg_clientes.Columns[8].Width = 180;
+            dtg_clientes.Columns[9].Header = "Representante";
+            dtg_clientes.Columns[9].Width = 180;
+            dtg_clientes.Columns[10].Header = "Dirección";
+            dtg_clientes.Columns[10].Width = 285;
             if (txb_buscar_cliente.Text == "")
             {
                 txb_nombre.Text = "";
@@ -437,6 +455,9 @@ namespace Proyecto
             txb_TelMov.Text = (dtg_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
             String v_Inacto = (dtg_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
             txb_observaciones.Text = (dtg_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
+            txb_cedula.Text = (dtg_clientes.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
+            txb_representante.Text = (dtg_clientes.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
+            txb_direccion.Text = (dtg_clientes.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
 
             if (v_Inacto == "Inactivo")
             {
@@ -491,7 +512,7 @@ namespace Proyecto
             string tele = txb_TelMov.Text;
             if (tele.Length < 8)
             {
-                txt_error_telM.Content = "Los números telefónicos deben de tener un formato valido de 8 dígitos.";
+                txt_error_telM.Content = "Los números telefónicos deben de " + String.Format(Environment.NewLine) + "tener un formato " + String.Format(Environment.NewLine) + "valido de 8 dígitos.";
                 txt_error_telM.Visibility = Visibility.Visible;
             }
             else
@@ -549,7 +570,7 @@ namespace Proyecto
             string v_Inactivo;
             try
             {
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txb_cedula.Text == "" || txb_representante.Text == "" || txb_direccion.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -561,6 +582,10 @@ namespace Proyecto
                     clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
 
                     clt.v_Correo = txb_correo.Text;
+                    clt.v_Cedula = txb_cedula.Text;
+                    clt.v_Representante = txb_representante.Text;
+                    clt.v_Direccion = txb_direccion.Text;
+
 
                     if (txb_correo_o.Text == "")
                         clt.v_CorreoOpc = "N/A";
@@ -579,7 +604,6 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
-                        Inabilitar_Campos();
                     }
 
                 }
@@ -735,11 +759,44 @@ namespace Proyecto
             dtg_clientes.Columns[6].Width = 60;
             dtg_clientes.Columns[7].Header = "Observaciones";
             dtg_clientes.Columns[7].Width = 285;
+            dtg_clientes.Columns[8].Header = "Cédula";
+            dtg_clientes.Columns[8].Width = 180;
+            dtg_clientes.Columns[9].Header = "Representante";
+            dtg_clientes.Columns[9].Width = 180;
+            dtg_clientes.Columns[10].Header = "Dirección";
+            dtg_clientes.Columns[10].Width = 285;
 
-            txt_actividad.Content = "Proveedores existentes";
+            txt_actividad.Content = "Clientes existentes";
             txt_actividad.Visibility = Visibility.Visible;               
         }
 
-        
+        private void txb_cedula_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                txt_error_cedula.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb_cedula.Text) == true)
+                {
+                    txt_error_cedula.Content = "No se permiten caracteres especiales";
+                    txt_error_cedula.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                txt_error_cedula.Content = "No se permite ingresar letras";
+                txt_error_cedula.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void txb_cedula_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarErroresTxb(txb_cedula, txt_error_cedula);
+            if (txb_cedula.Text == "")
+            {
+                txt_error_cedula.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

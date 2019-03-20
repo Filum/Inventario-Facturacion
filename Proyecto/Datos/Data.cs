@@ -42,6 +42,9 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("CORREOPC", clt.v_CorreoOpc));
             comando.Parameters.Add(new OracleParameter("EST", clt.v_Inactividad));
             comando.Parameters.Add(new OracleParameter("OBVS", clt.v_Observaciones));
+            comando.Parameters.Add(new OracleParameter("CED", clt.v_Cedula));
+            comando.Parameters.Add(new OracleParameter("REP", clt.v_Representante));
+            comando.Parameters.Add(new OracleParameter("DIREC", clt.v_Direccion));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -147,6 +150,9 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("CORREOPC", clt.v_CorreoOpc));
             comando.Parameters.Add(new OracleParameter("EST", clt.v_Inactividad));
             comando.Parameters.Add(new OracleParameter("OBVS", clt.v_Observaciones));
+            comando.Parameters.Add(new OracleParameter("CED", clt.v_Cedula));
+            comando.Parameters.Add(new OracleParameter("REP", clt.v_Representante));
+            comando.Parameters.Add(new OracleParameter("DIREC", clt.v_Direccion));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -282,6 +288,9 @@ namespace Datos
                     cliente.v_CorreoOpc = dr.GetString(6);
                     cliente.v_Inactividad = dr.GetString(7);
                     cliente.v_Observaciones = dr.GetString(8);
+                    cliente.v_Cedula = dr.GetString(9);
+                    cliente.v_Representante = dr.GetString(10);
+                    cliente.v_Direccion = dr.GetString(11);
                     Lista.Add(cliente);
                 }
             }
@@ -541,7 +550,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT DESCRIPCION FROM TBL_PRODUCTOS WHERE ESTADOSISTEMA='Activo' AND CANTIDADEXISTENCIA > 0";
+            comando.CommandText = "SELECT DESCRIPCION FROM TBL_PRODUCTOS WHERE ESTADOSISTEMA='ACTIVO' AND CANTIDADEXISTENCIA > 0";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;

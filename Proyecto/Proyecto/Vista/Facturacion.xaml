@@ -277,7 +277,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             <RadioButton x:Name="RadioButton_No1" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="RadioButton_No1_Checked" />
                         </StackPanel>
                     </GroupBox>
-                    <Button x:Name="btn_agregar_producto_prueba" Foreground="White" Margin="213,632,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="87" Click="btn_agregar_producto_prueba_Click" Height="104" VerticalAlignment="Top" >
+                    <Button x:Name="btn_agregar_producto_prueba" Foreground="White" Margin="55,175,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="87" Click="btn_agregar_producto_prueba_Click" Height="104" VerticalAlignment="Top" >
                         <StackPanel Width="71" Height="93" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,5,15.2,5"/>
                             <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="  Agregar "/><LineBreak/><Run Text="Productos"/></TextBlock>

@@ -16,13 +16,16 @@ namespace Entidades
         public Int32 v_Telemovil { get ; set ; }
         public string v_Inactividad { get; set ; }
         public string v_Observaciones { get; set ; }
+        public string v_Cedula { get; set; }
+        public string v_Representante { get; set; }
+        public string v_Direccion { get; set; }
 
         public EntidadClientes()
         {
 
         }
 
-        public EntidadClientes(Int32 v_Codigo, string v_NombreCompleto, string v_Correo, string v_CorreoOpc, Int32 v_Teleoficina, Int32 v_Telemovil, string v_Inactividad, string v_Observaciones)
+        public EntidadClientes(Int32 v_Codigo, string v_NombreCompleto, string v_Correo, string v_CorreoOpc, Int32 v_Teleoficina, Int32 v_Telemovil, string v_Inactividad, string v_Observaciones, string v_Cedula, string v_Representante, string v_Direccion)
         {
             this.v_Codigo = v_Codigo;
             this.v_NombreCompleto = v_NombreCompleto;
@@ -32,6 +35,9 @@ namespace Entidades
             this.v_Telemovil = v_Telemovil;
             this.v_Inactividad = v_Inactividad;
             this.v_Observaciones = v_Observaciones;
+            this.v_Cedula = v_Cedula;
+            this.v_Representante = v_Representante;
+            this.v_Direccion = v_Direccion;
         }
     }
 }
