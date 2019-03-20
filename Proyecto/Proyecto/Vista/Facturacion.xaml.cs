@@ -336,9 +336,52 @@ namespace Proyecto
 
             var detalle = new List<string>();
             detalle = datos.DetalleFactura(n_Factura);
-            ventana.txt_fecha.Content = detalle[1];
-            ventana.txt_Usuario.Content = detalle[2];
-            ventana.txt_Cliente.Content = detalle[3];
+            ventana.subtoalFactura.Content = detalle[3];
+            ventana.descuentoFactura.Content = detalle[4];
+            ventana.subtotalNetoFactura.Content = detalle[5];
+            ventana.impuestoFactura.Content = detalle[6];
+            ventana.totalGeneralFactura.Content = detalle[7];
+            ventana.tipoPago.Content = detalle[8];
+            if(detalle[10] == "Cancelado")
+            {
+                ventana.dias.Visibility = Visibility.Hidden;
+                ventana.Dias.Visibility = Visibility.Hidden;
+                ventana.a.Visibility = Visibility.Hidden;
+                ventana.Vence.Visibility = Visibility.Hidden;
+                ventana.fechaVence.Visibility = Visibility.Hidden;
+                ventana.btn_pagar_Factura.Visibility = Visibility.Hidden;
+                ventana.Pago.Content = "Pagó";
+                ventana.pagoFactura.Content = detalle[20];
+                if(detalle[8] == "Credito")
+                {
+                    ventana.dias.Visibility = Visibility.Visible;
+                    ventana.Dias.Visibility = Visibility.Visible;
+                    ventana.a.Visibility = Visibility.Visible;
+                    ventana.Vence.Visibility = Visibility.Visible;
+                    ventana.fechaVence.Visibility = Visibility.Visible;
+                    ventana.dias.Content = detalle[9];
+                    ventana.fechaVence.Content = detalle[11];
+                }
+
+            }
+            else if (detalle[10] == "Pendiente")
+            {
+                ventana.dias.Content = detalle[9];
+                ventana.fechaVence.Content = detalle[11];
+            }
+            ventana.EstadoFactura.Content = detalle[10];
+            ventana.idCLiente.Content = detalle[12];
+            ventana.cedulaCliente.Content = detalle[13];
+            ventana.nombreCliente.Content = detalle[14];
+            ventana.representanteCliente.Content = detalle[15];
+            ventana.direccionCliente.Content = detalle[16];
+            ventana.telefono1.Content = detalle[17];
+            ventana.telefono2.Content = detalle[18];
+            ventana.correCliente.Content = detalle[19];
+            ventana.Garbado.Content = detalle[5];
+            ventana.tipoCambio.Content = datos.ObtenerValorDolar().ToString("F");
+            ventana.txt_fecha.Content = detalle[2];
+            ventana.txt_fecha_emision.Content = detalle[2];
             int codigo = Convert.ToInt32(ventana.txt_codigo.Content);
             ventana.dtg_listar_detalle_facturas.ItemsSource = datos.MostrarDetalleFactura(codigo).DefaultView;
             ventana.Show();
@@ -402,6 +445,10 @@ namespace Proyecto
         EntidadFacturas miFactura = new EntidadFacturas();
         EntidadDetalleFactura miDetalle = new EntidadDetalleFactura();
         private float montos = 0;
+        private string tipoPago = "";
+        private string diasCredito = "";
+        private string estadoFactura = "";
+        private string fechaPago = "";
 
         //Clase necesaria para gregar una nueva factura al datagrid
         public class FacturasProducto
@@ -425,13 +472,20 @@ namespace Proyecto
             txb_impuestofactura.Text = "0";
             txb_total_factura_prueba.Text = "0";
             txb_descuento_linea_producto.Text = "0";
+            txb_diasCredito.Text = "";
             txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
             cmb_Cliente_Productos_Prueba.SelectedItem = null;
             Rb_siProducto.IsChecked = true;
             RadioButton_Si1.IsChecked = true;
             RadioButton_Colon1.IsChecked = true;
             cmb_Productos.SelectedItem = null;
+            Rb_Contado.IsChecked = true;
             dtg_facturar_productos_prueba.Items.Clear();
+            montos = 0;
+            tipoPago = "";
+            diasCredito = "";
+            estadoFactura = "";
+            fechaPago = "";
         }
         //Iniciamos los valores en el grid de facturacion de productos
         private void Grid_Initialized_1(object sender, EventArgs e)
@@ -531,10 +585,16 @@ namespace Proyecto
                 if (txb_descuento_Producto_prueba.Text == "" || txb_descuento_Producto_prueba.Text == "0" || txb_descuento_Producto_prueba.Text == " ")
                 {
                     txb_subtotalneto.Text = txb_subtotal_factura_prueba.Text;
-                    txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString("F");//sacamos el 13% del subtotalneto para tener el impuesto de la factura
-
-                    //calculamos el total de la factura
-                    if (txb_total_factura_prueba.Text != "")
+                    if (RadioButton_Si1.IsChecked == true)
+                    {
+                        txb_impuestofactura.Text = (float.Parse(txb_subtotalneto.Text) * 0.13).ToString("F");//sacamos el 13% del subtotalneto para tener el impuesto de la factura
+                    }
+                    else if (RadioButton_No1.IsChecked == true)
+                    {
+                        txb_impuestofactura.Text = "0";
+                    }
+                        //calculamos el total de la factura
+                        if (txb_total_factura_prueba.Text != "")
                         txb_total_factura_prueba.Text = (float.Parse(txb_subtotalneto.Text) + float.Parse(txb_impuestofactura.Text)).ToString("F");
                 }
                 else
@@ -633,6 +693,13 @@ namespace Proyecto
                 txt_error_descuento_prueba.Visibility = Visibility.Visible;
             }
         }
+        private void txb_diasCredito_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+            }
+            }
         //funcion para verificar los valores que se van a cambiar en el textbox de cantidad de producto solicitada
         private void txb_cantidad_producto_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -781,7 +848,7 @@ namespace Proyecto
         //funcion que hace el cambio a dolar en los productos del datagrid
         private void cambioDolar()
         {
-            if (dtg_facturar_productos_prueba != null)
+            if (dtg_facturar_productos_prueba != null )
             {
                 foreach (var item in dtg_facturar_productos_prueba.Items)
                 {
@@ -801,7 +868,7 @@ namespace Proyecto
                     try
                     {
                         ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_colones) / valor_dolar).ToString("F");
-                        valor_colones = (float.Parse(valor_colones) / valor_dolar).ToString("F");
+                        valor_colones = (float.Parse(valor_colones) / valor_dolar).ToString("F");//F es para que me tire el valor con dos decimales
                         descuento = (((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_colones) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
                         ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_colones) * float.Parse(cantidad)) - descuento)).ToString("F");
                         CalculaMontos();
@@ -820,7 +887,7 @@ namespace Proyecto
         {
             string subtotalLinea = "";
             float subtotal_monto = 0;
-            if (dtg_facturar_productos_prueba != null)
+            if (dtg_facturar_productos_prueba != null )
                 {
                     foreach (var item in dtg_facturar_productos_prueba.Items)
                     {
@@ -847,35 +914,43 @@ namespace Proyecto
         //funcion que hace el cambio a dolar en los productos del datagrid
         private void cambioColon()
         {
-            if (dtg_facturar_productos_prueba != null)
+            if (dtg_facturar_productos_prueba != null )
             {
-                foreach (var item in dtg_facturar_productos_prueba.Items)
+                if (dtg_facturar_productos_prueba.Items.Count != 0)
                 {
-                    DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
-                    string valor_Producto = "";
-                    string cantidad = "";
-                    string impuesto = "";
-                    float descuento = 0;
-                    float valor_dolar = datos.ObtenerValorDolar();
+                    limpiar_Facturaprodutcos();
+                }
+                else
+                {
 
-                    if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
+                    foreach (var item in dtg_facturar_productos_prueba.Items)
                     {
-                        cantidad = ((TextBlock)dtg_facturar_productos_prueba.Columns[3].GetCellContent(row)).Text;
-                        valor_Producto = ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text;
-                        impuesto = ((TextBlock)dtg_facturar_productos_prueba.Columns[6].GetCellContent(row)).Text;
-                    }
-                    try
-                    {
-                        ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_Producto) * valor_dolar).ToString("F");
-                        valor_Producto= (float.Parse(valor_Producto) * valor_dolar).ToString();
-                        descuento = (((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_Producto) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
-                        ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_Producto) * float.Parse(cantidad)) - descuento)).ToString("F");
-                        CalculaMontos();
-                    }
-                    catch (Exception m)
-                    {
-                        MessageBox.Show("Error al hacer el cambio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Console.WriteLine(m.ToString());
+                        DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
+                        string valor_Producto = "";
+                        string cantidad = "";
+                        string impuesto = "";
+                        float descuento = 0;
+                        float valor_dolar = datos.ObtenerValorDolar();
+
+                        if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
+                        {
+                            cantidad = ((TextBlock)dtg_facturar_productos_prueba.Columns[3].GetCellContent(row)).Text;
+                            valor_Producto = ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text;
+                            impuesto = ((TextBlock)dtg_facturar_productos_prueba.Columns[6].GetCellContent(row)).Text;
+                        }
+                        try
+                        {
+                            ((TextBlock)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text = (float.Parse(valor_Producto) * valor_dolar).ToString("F");
+                            valor_Producto = (float.Parse(valor_Producto) * valor_dolar).ToString();
+                            descuento = (((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_Producto) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
+                            ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_Producto) * float.Parse(cantidad)) - descuento)).ToString("F");
+                            CalculaMontos();
+                        }
+                        catch (Exception m)
+                        {
+                            MessageBox.Show("Error al hacer el cambio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            Console.WriteLine(m.ToString());
+                        }
                     }
                 }
             }
@@ -935,6 +1010,7 @@ namespace Proyecto
                     miDetalle.cantidad = cantidad;
                     miDetalle.impuesto = impuesto;
                     miDetalle.descuento = descuento;
+                    miDetalle.precioProducto = precio;
                     int v_Resultado = datos.AgregarDetalle(miDetalle);
                     nuevo_valor_existencia = (existencia - int.Parse(cantidad)).ToString();
                     if (v_Resultado == -1)
@@ -987,13 +1063,18 @@ namespace Proyecto
                     miFactura.v_tipoFactura = "Productos";
                     miFactura.v_Subtotal = txb_subtotal_factura_prueba.Text;
                     miFactura.v_SubtotalNeto = txb_subtotalneto.Text;
+                    miFactura.v_tipoPago = tipoPago;
+                    miFactura.v_diasCredito = diasCredito;
+                    miFactura.v_estadoFactura = estadoFactura;
+                    miFactura.v_fechaPago = fechaPago;
+                    miFactura.v_fechaCancelacion = fechaPago;
                     //verificamos si se puede agregar la factura o hay errores 
                         int v_Resultado = datos.AgregarFacturas(miFactura);
                         if (v_Resultado == -1)
                         {
                         GuardarDetalleFactura();
-                        limpiar_Facturaprodutcos();
                         MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        limpiar_Facturaprodutcos();
                     }
                 }
             }
@@ -1016,6 +1097,49 @@ namespace Proyecto
             cambioDolar();
             subtotalFactura();
             CalculaMontos();
+        }
+
+        private void Rb_Contado_Checked(object sender, RoutedEventArgs e)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            DateTime dia = DateTime.Now;
+            tipoPago = "Contado";
+                diasCredito = "0";
+                estadoFactura = "Cancelado";
+                fechaPago = dia.ToShortDateString();
+            if (txb_diasCredito != null)
+            {
+                txb_diasCredito.Visibility = Visibility.Hidden;
+                btn_agregarCredito.Visibility = Visibility.Hidden;
+                txt_Credito.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void Rb_Credito_Checked(object sender, RoutedEventArgs e)
+        {
+            txb_diasCredito.Visibility = Visibility.Visible;
+            btn_agregarCredito.Visibility = Visibility.Visible;
+            txt_Credito.Visibility = Visibility.Visible;
+        }
+
+        private void btn_agregarCredito_Click(object sender, RoutedEventArgs e)
+        {
+            if(txb_diasCredito.Text != "" )
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+                int diasContado = int.Parse(txb_diasCredito.Text);
+                DateTime dia = DateTime.Now.AddDays(diasContado);
+                tipoPago = "Credito";
+                diasCredito = txb_diasCredito.Text;
+                estadoFactura = "Pendiente";
+                fechaPago = dia.ToShortDateString();
+
+                MessageBox.Show("Tiene credito hasta el "+fechaPago, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                txb_diasCredito.Visibility = Visibility.Hidden;
+                btn_agregarCredito.Visibility = Visibility.Hidden;
+                txt_Credito.Visibility = Visibility.Hidden;
+            }
+
         }
     }
 }

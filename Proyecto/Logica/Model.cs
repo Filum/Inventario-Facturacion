@@ -189,5 +189,10 @@ namespace Logica
         {
             v_Data.DescuentoInventario(cantidad, nombre);
         }
+        public void CambiarestadoFactura(string estado, string codigo)
+        {
+            v_Data.CambiarestadoFactura(estado, codigo);
+        }
+
         }
 }
