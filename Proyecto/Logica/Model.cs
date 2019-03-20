@@ -205,6 +205,18 @@ namespace Logica
         {
             return v_Data.BuscarFacturaEstadoyCliente(v_Nombre,estado);
         }
+        public DataTable BuscarClienteNombre(string nombre)
+        {
+            return v_Data.BuscarClienteNombre(nombre);
+        }
+        public DataTable BuscarClienteEstado(string nombre)
+        {
+            return v_Data.BuscarClienteEstado(nombre);
+        }
+        public DataTable BuscarClienteEstadoyNombre(string nombre, string estado)
+        {
+            return v_Data.BuscarClienteEstadoyNombre(nombre, estado);
+        }
 
         }
 }

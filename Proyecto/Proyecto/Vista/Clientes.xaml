@@ -75,9 +75,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                 </TabItem.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="94*"/>
-                        <ColumnDefinition Width="726*"/>
-                        <ColumnDefinition Width="71*"/>
+                        <ColumnDefinition Width="1525*"/>
+                        <ColumnDefinition Width="132*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -87,7 +86,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_clientes" Margin="10,75,8.8,50.2" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="3">
+                    <DataGrid x:Name="dtg_listar_clientes" Margin="10,119,8.8,50.2" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding PK_IDCLIENTE}" FontFamily="Global Sans Serif"  Header="Código" Width="60"/>
                             <DataGridTextColumn Binding="{Binding NOMBRE}" FontFamily="Global Sans Serif" Header="Nombre Empresa" Width="260"/>
@@ -106,34 +105,38 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
-                    <Button x:Name="btn_imprimirClientes" Height="70" Width="70" Foreground="White" Margin="0,0,22.2,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"  Grid.Column="1" Grid.ColumnSpan="2" Click="btn_imprimirClientes_Click">
+                    <Button x:Name="btn_imprimirClientes" Height="70" Width="70" Foreground="White" Margin="0,6,21.8,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"  Grid.Column="1" Click="btn_imprimirClientes_Click">
                         <StackPanel x:Name="stp_imprimirclientes" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Imprimir" Height="22" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="53" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btn_Listar" Height="66" Width="79" Foreground="White" Margin="0,4,47,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click" Grid.Column="1">
+                    <Button x:Name="btn_Listar" Height="66" Width="79" Foreground="White" Margin="0,10,111.8,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click" Grid.ColumnSpan="2">
                         <StackPanel x:Name="stp_ordenarcodigo" Width="70" Height="79" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock x:Name="txb_ordenarcodigo" Height="45" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left" Text="Listar" Margin="18,0,-7.6,0"></TextBlock>
                         </StackPanel>
                     </Button>
-                    <Label x:Name="txt_rangofecha" Content="Seleccione un rango de fecha del:" Margin="0,30,494,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269" Grid.ColumnSpan="2"/>
-                    <DatePicker x:Name="date_historial_clientes_inicio" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}"  Margin="0,29,326,0" VerticalAlignment="Top" Height="30" FontSize="16" Grid.Column="1" HorizontalAlignment="Right" Width="140">
+                    <Label x:Name="txt_rangofecha" Content="Seleccione un rango de fecha del:" Margin="0,30,443.6,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
+                    <DatePicker x:Name="date_historial_clientes_inicio" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}"  Margin="0,29,275.6,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
                             </Style>
                         </DatePicker.Resources>
                     </DatePicker>
-                    <Label Content="al:" HorizontalAlignment="Right" Margin="0,30,292,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1"/>
-                    <DatePicker x:Name="date_historial_clientes_final" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,29,147,0" VerticalAlignment="Top" Height="30" FontSize="16" Grid.Column="1" HorizontalAlignment="Right" Width="140">
+                    <Label Content="al:" HorizontalAlignment="Right" Margin="0,30,241.6,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
+                    <DatePicker x:Name="date_historial_clientes_final" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}" Margin="0,29,96.6,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
                         <DatePicker.Resources>
                             <Style TargetType="{x:Type DatePickerTextBox}">
                                 <Setter Property="IsReadOnly" Value="True"/>
                             </Style>
                         </DatePicker.Resources>
                     </DatePicker>
+                    <TextBox x:Name="txb_buscar_cliente_Lista" Margin="241,35,767.8,0" Height="24"  TextWrapping="Wrap"   MaxLength="45" VerticalAlignment="Top" TextChanged="txb_buscar_cliente_Lista_TextChanged"/>
+                    <Label Content="Ingrese el nombre del cliente:" HorizontalAlignment="Left" Margin="12,33,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="225" Height="30" VerticalAlignment="Top"/>
+                    <Label Content="Seleccione el estado a buscar:" HorizontalAlignment="Left" Margin="8,68,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="229" Height="30" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmb_estado_Cliente" Margin="242,71,767.8,0" VerticalAlignment="Top" Initialized="cmb_estado_Cliente_Initialized" SelectionChanged="cmb_estado_Cliente_SelectionChanged" />
                 </Grid>
 
             </TabItem>

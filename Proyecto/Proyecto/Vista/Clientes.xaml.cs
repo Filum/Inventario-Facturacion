@@ -267,6 +267,8 @@ namespace Proyecto
                     else
                     {
                         dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(v_Fecha1, v_Fecha2).DefaultView;
+                        txb_buscar_cliente_Lista.Text = "";
+                        cmb_estado_Cliente.SelectedItem = null;
                     }
                 }
 
@@ -757,6 +759,51 @@ namespace Proyecto
             if (txb_cedula.Text == "")
             {
                 txt_error_cedula.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void cmb_estado_Cliente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (txb_buscar_cliente_Lista.Text == "")
+                {
+                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstado(cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                }
+                else
+                {
+                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstadoyNombre(txb_buscar_cliente_Lista.Text, cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
+        }
+
+        private void cmb_estado_Cliente_Initialized(object sender, EventArgs e)
+        {
+            cmb_estado_Cliente.Items.Add("Activo");
+            cmb_estado_Cliente.Items.Add("Inactivo");
+        }
+
+        private void txb_buscar_cliente_Lista_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txb_buscar_cliente_Lista.Text == "")
+            {
+                dtg_listar_clientes.ItemsSource = null;
+                dtg_listar_clientes.ItemsSource = model.BuscarClienteEstado(cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+            }
+            else
+            {
+                if (cmb_estado_Cliente.SelectedItem == null)
+                {
+                    dtg_listar_clientes.ItemsSource = model.BuscarClienteNombre(txb_buscar_cliente_Lista.Text).DefaultView;
+                }
+                else
+                {
+                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstadoyNombre(txb_buscar_cliente_Lista.Text, cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                }
             }
         }
     }

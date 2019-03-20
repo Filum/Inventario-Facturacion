@@ -303,6 +303,51 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+        public DataTable BuscarClienteNombre(string nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  from tbl_Clientes WHERE NOMBRE LIKE '%" + nombre + "%'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BuscarClienteEstado(string nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  from tbl_Clientes WHERE ESTADO LIKE '%" + nombre + "%'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BuscarClienteEstadoyNombre(string nombre,string estado)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  from tbl_Clientes WHERE NOMBRE LIKE '%" + nombre + "%' AND ESTADO = '"+estado+"'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
 
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del proveedor mediante el nombre o la cédula jurídica.
          Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/

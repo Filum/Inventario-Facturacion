@@ -462,12 +462,21 @@ namespace Proyecto
         //-------------------------Metodo que busca las facturas por nombre del cliente--------------
         private void txb_buscar_cliente_factura_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(cmb_estado_Factura.SelectedItem == null)
+            if (txb_buscar_cliente_factura.Text == "")
             {
-                dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text).DefaultView;
-            }else
+                dtg_listar_facturas.ItemsSource = null;
+                dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstado(cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
+            }
+            else
             {
-                dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoyCliente(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
+                if (cmb_estado_Factura.SelectedItem == null)
+                {
+                    dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text).DefaultView;
+                }
+                else
+                {
+                    dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoyCliente(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
+                }
             }
             
         }
