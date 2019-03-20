@@ -87,7 +87,18 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_clientes" Margin="10,75,22.2,50.4" FrozenColumnCount="5"  Grid.ColumnSpan="3" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False">
+                    <DataGrid x:Name="dtg_listar_clientes" Margin="10,75,8.8,50.2" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding PK_IDCLIENTE}" FontFamily="Global Sans Serif"  Header="Código" Width="60"/>
+                            <DataGridTextColumn Binding="{Binding NOMBRE}" FontFamily="Global Sans Serif" Header="Nombre Empresa" Width="260"/>
+                            <DataGridTextColumn Binding="{Binding CORREO}" FontFamily="Global Sans Serif" Header="Correo electrónico" Width="180"/>
+                            <DataGridTextColumn Binding="{Binding TELEFONOOFICINA}" FontFamily="Global Sans Serif" Header="Tel. Oficina" Width="90"/>
+                            <DataGridTextColumn Binding="{Binding TELEFONOMOVIL}" FontFamily="Global Sans Serif" Header="Tel. Móvil" Width="90"/>
+                            <DataGridTextColumn Binding="{Binding ESTADO}" FontFamily="Global Sans Serif" Header="Estado" Width="60"/>
+                            <DataGridTextColumn Binding="{Binding CEDULA}" FontFamily="Global Sans Serif" Header="Cédula" Width="80"/>
+                            <DataGridTextColumn Binding="{Binding REPRESENTANTE}" FontFamily="Global Sans Serif" Header="Representante" Width="180"/>
+                            <DataGridTextColumn Binding="{Binding DIRECCION}" FontFamily="Global Sans Serif" Header="Dirección" Width="*"/>
+                        </DataGrid.Columns>
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />
@@ -140,7 +151,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         <TextBlock Text="  Gestión De Clientes" Foreground="Black" VerticalAlignment="Center" Width="150" />
                     </StackPanel>
                 </TabItem.Header>
-                <Grid Initialized="Grid_Initialized">
+                <Grid Initialized="Grid_Initialized" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="150*"/>
                         <RowDefinition Height="53*"/>
@@ -166,14 +177,27 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FF040608"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Label x:Name="txt_actividad" Content="" Visibility="Visible" VerticalAlignment="Top" FontSize="22" Margin="0,18,49,0" Foreground="White" Height="50" FontWeight="Bold" FontFamily="Global Sans Serif" Grid.Column="1" HorizontalAlignment="Right" Width="369"/>
+                    <Label x:Name="txt_actividad" Content="" Visibility="Visible" VerticalAlignment="Top" FontSize="22" Margin="0,18,157.2,0" Foreground="White" Height="50" FontWeight="Bold" FontFamily="Global Sans Serif" Grid.Column="1" HorizontalAlignment="Right" Width="369"/>
 
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="20,13,24.2,418.6" Grid.ColumnSpan="2"/>
 
-                    <Grid Visibility="Hidden"  x:Name="grd_ClientesExistentes" Margin="0" Grid.ColumnSpan="2">
+                    <Grid Visibility="Visible"  x:Name="grd_ClientesExistentes" Margin="0,0,0.2,0.2" Grid.ColumnSpan="2">
                         <Label x:Name="txt_nombre_cliente" Content="Ingrese el nombre del cliente:" Margin="101,120,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
                         <TextBox x:Name="txb_buscar_cliente" MaxLength="35" Height="32" Margin="354,116,-52,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_buscar_cliente_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_buscar_cliente_KeyUp" HorizontalAlignment="Left" Width="347"/>
-                        <DataGrid x:Name="dtg_clientes"  Margin="20,204,-301,-326" Visibility="Visible" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
+                        <DataGrid x:Name="dtg_clientes"  Margin="20,204,-300.8,-462.8" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding v_Codigo}" FontFamily="Global Sans Serif"  Header="Código" Width="60"/>
+                                <DataGridTextColumn Binding="{Binding v_NombreCompleto}" FontFamily="Global Sans Serif" Header="Nombre Empresa" Width="260"/>
+                                <DataGridTextColumn Binding="{Binding v_Correo}" FontFamily="Global Sans Serif" Header="Correo electrónico" Width="180"/>
+                                <DataGridTextColumn Binding="{Binding v_CorreoOpc}" FontFamily="Global Sans Serif" Header="Correo Opcional" Width="180"/>
+                                <DataGridTextColumn Binding="{Binding v_Teleoficina}" FontFamily="Global Sans Serif" Header="Tel. Oficina" Width="90"/>
+                                <DataGridTextColumn Binding="{Binding v_Telemovil}" FontFamily="Global Sans Serif" Header="Tel. Móvil" Width="90"/>
+                                <DataGridTextColumn Binding="{Binding v_Inactividad}" FontFamily="Global Sans Serif" Header="Estado" Width="60"/>
+                                <DataGridTextColumn Binding="{Binding v_Observaciones}" FontFamily="Global Sans Serif" Header="Observaciones" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding v_Cedula}" FontFamily="Global Sans Serif" Header="Cédula" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding v_Representante}" FontFamily="Global Sans Serif" Header="Representante" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding v_Direccion}" FontFamily="Global Sans Serif" Header="Dirección" Width="*"/>
+                            </DataGrid.Columns>
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridRow">
                                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
@@ -194,7 +218,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Visible" x:Name="grd_formularioCliente" Margin="47,24,-24,0" Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="4">
+                    <Grid Visibility="Hidden" x:Name="grd_formularioCliente" Margin="47,24,-24,0" Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="67*"/>
                             <ColumnDefinition Width="602*"/>
@@ -208,23 +232,23 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
 
 
                         <Label Margin="4.4,0,-41.8,2.2" VerticalAlignment="Bottom" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.ColumnSpan="7" Height="29" Grid.Column="1" Grid.Row="1"/>
-                        <TextBox x:Name="txb_nombre" Margin="38,-70,0,0" TextWrapping="Wrap"   HorizontalAlignment="Left" Width="316" Height="30" VerticalAlignment="Top"   MaxLength="45" Grid.Column="1" RenderTransformOrigin="0.5,0.5" >
+                        <TextBox x:Name="txb_nombre" Margin="38,-70,0,0" TextWrapping="Wrap"   HorizontalAlignment="Left" Width="316" Height="30" VerticalAlignment="Top"   MaxLength="40" Grid.Column="1" RenderTransformOrigin="0.5,0.5" >
 
                         </TextBox>
 
-                        <Button x:Name= "btn_guardar_cliente_actualizado" Foreground="White" IsEnabled="True" Margin="36,0,687,6" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_guardar_cliente_actualizado_Click" Visibility="Hidden" Grid.ColumnSpan="2">
+                        <Button x:Name= "btn_guardar_cliente_actualizado" Foreground="White" IsEnabled="True" Margin="149,0,0,17" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_guardar_cliente_actualizado_Click" Visibility="Hidden" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="82">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,5,0,5"/>
                                 <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btn_limpiar_actualizar_cliente" Width="70" Foreground="White" Margin="0,396,414,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Click="btn_limpiar_actualizar_cliente_Click" Height="70" VerticalAlignment="Top">
+                        <Button x:Name="btn_limpiar_actualizar_cliente" Width="70" Foreground="White" Margin="0,0,413.6,13.8" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Click="btn_limpiar_actualizar_cliente_Click" Height="71" VerticalAlignment="Bottom">
                             <StackPanel x:Name="btn_limpiar_actualizar" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Limpiar" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0"/>
                             </StackPanel>
                         </Button>
-                        <Separator Margin="17,7,77,2" Background="#FF3472DE" Grid.ColumnSpan="2"/>
+                        <Separator Margin="17,7,23.6,2" Background="#FF3472DE" Grid.ColumnSpan="2"/>
                         <Label x:Name="lb_nombre" Content="Nombre Completo:" HorizontalAlignment="Left" Margin="17,-70,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="34" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                         <Label x:Name="txt_correo" Content="Correo:" HorizontalAlignment="Left" Margin="11,0,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="24" VerticalAlignment="Top"/>
                         <TextBox x:Name="txb_correo" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="285" Height="28" VerticalAlignment="Top"  LostKeyboardFocus="validar_Actualizar_Correo" MaxLength="50" Margin="38,0,0,0"/>
@@ -237,13 +261,13 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         <TextBox x:Name="txb_TelOf" Margin="568,-64,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="141" Height="28" VerticalAlignment="Top" KeyDown="telefono_Oficina_KeyDown" MaxLength="8" LostKeyboardFocus="validar_actualizar_oficina" TextChanged="txb_TelOf_TextChanged"/>
                         <Label x:Name="txt_observaciones" Content="Observaciones:" HorizontalAlignment="Left" Margin="17,245,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                         <TextBox x:Name="txb_TelMov" Margin="884,-62,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="141" Height="28" VerticalAlignment="Top"  KeyDown="telefono_Movil_KeyDown" MaxLength="8" LostKeyboardFocus="validar_actualizar_movil" TextChanged="txb_TelMov_TextChanged"/>
-                        <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Right" Margin="0,356,271,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="69" Grid.Column="1" />
-                        <RadioButton x:Name="rb_inactivo" Content="Inactivo" Grid.Column="1" HorizontalAlignment="Right" Margin="0,356,156,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="81"/>
+                        <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Right" Margin="0,0,270.6,106.8" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Width="69" Grid.Column="1" Height="18" VerticalAlignment="Bottom" />
+                        <RadioButton x:Name="rb_inactivo" Content="Inactivo" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,155.6,105.8" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Width="81" Height="19" VerticalAlignment="Bottom"/>
 
-                        <Button x:Name="btn_agregar_Cliente" Width="70" Foreground="White" Margin="0,396,1415,13" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Cliente_Click" Grid.ColumnSpan="2">
+                        <Button x:Name="btn_agregar_Cliente" Width="70" Foreground="White" Margin="149,0,0,13" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Cliente_Click" Grid.ColumnSpan="2" Height="71" VerticalAlignment="Bottom">
                             <StackPanel x:Name="btn_agregar" Width="85" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                 <Image Source="Imagenes/agregar.png" Width="40" Height="40" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="15,3"/>
-                                <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,6,0" Width="56" HorizontalAlignment="Right"/>
+                                <TextBlock Text="  Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" HorizontalAlignment="Left" Width="69"/>
                             </StackPanel>
                         </Button>
 

@@ -282,12 +282,37 @@ namespace Proyecto
             float descuento = subtotal * porcentaje_descuento;
             txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
         }
+        private void cmb_estado_Factura_Initialized(object sender, EventArgs e)
+        {
+            cmb_estado_Factura.Items.Add("Cancelado");
+            cmb_estado_Factura.Items.Add("Vencida");
+            cmb_estado_Factura.Items.Add("Pendiente");
+        }
 
+        private void cmb_estado_Factura_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (txb_buscar_cliente_factura.Text == "")
+                {
+                    dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstado(cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
+                }
+                else
+                {
+                    dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoyCliente(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
+                }
+            }
+            catch(Exception m)
+            {
+                Console.WriteLine(m);
+            }
+        }
         //funcion para listar las facturas
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
             if (date_historial_datte3.SelectedDate != null && date_historial_datte4.SelectedDate != null)
             {
+                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
                 DateTime v_Date1 = DateTime.Parse(date_historial_datte3.SelectedDate.Value.Date.ToShortDateString());
                 DateTime v_Date2 = DateTime.Parse(date_historial_datte4.SelectedDate.Value.Date.ToShortDateString());
                 String v_Fecha1;
@@ -307,6 +332,8 @@ namespace Proyecto
                     else
                     {
                         dtg_listar_facturas.ItemsSource = datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).DefaultView;
+                        cmb_estado_Factura.SelectedItem = null;
+                        txb_buscar_cliente_factura.Text = "";
                     }
                 }
 
@@ -362,9 +389,8 @@ namespace Proyecto
                     ventana.dias.Content = detalle[9];
                     ventana.fechaVence.Content = detalle[11];
                 }
-
             }
-            else if (detalle[10] == "Pendiente")
+            else if (detalle[10] == "Pendiente" || detalle[10] == "Vencida")
             {
                 ventana.dias.Content = detalle[9];
                 ventana.fechaVence.Content = detalle[11];
@@ -385,6 +411,9 @@ namespace Proyecto
             int codigo = Convert.ToInt32(ventana.txt_codigo.Content);
             ventana.dtg_listar_detalle_facturas.ItemsSource = datos.MostrarDetalleFactura(codigo).DefaultView;
             ventana.Show();
+            dtg_listar_facturas.ItemsSource = null;
+            cmb_estado_Factura.SelectedItem = null;
+            txb_buscar_cliente_factura.Text = "";
         }
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
@@ -433,7 +462,14 @@ namespace Proyecto
         //-------------------------Metodo que busca las facturas por nombre del cliente--------------
         private void txb_buscar_cliente_factura_TextChanged(object sender, TextChangedEventArgs e)
         {
-            dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text).DefaultView;
+            if(cmb_estado_Factura.SelectedItem == null)
+            {
+                dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text).DefaultView;
+            }else
+            {
+                dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoyCliente(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
+            }
+            
         }
 
 

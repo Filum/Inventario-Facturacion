@@ -85,6 +85,9 @@ namespace Proyecto
             txb_cedula.Text = "";
             txb_representante.Text = "";
             txb_direccion.Text = "";
+            txb_cedula.Text = "";
+            txb_representante.Text = "";
+            txb_direccion.Text = "";
             rb_activo.IsChecked = false;
             rb_inactivo.IsChecked = false;
             txt_error_telM.Visibility = Visibility.Hidden;
@@ -93,8 +96,8 @@ namespace Proyecto
             txt_error_correo_o.Visibility = Visibility.Hidden;
             btn_agregar_Cliente.Visibility = Visibility.Visible;
             btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
-            dtg_clientes.ItemsSource = null;
             txt_actividad.Visibility = Visibility.Hidden;
+            dtg_clientes.ItemsSource = null;
             txb_buscar_cliente.IsEnabled = true;
         }
 
@@ -133,17 +136,20 @@ namespace Proyecto
         {
             try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
             {
-                string v_Inactivo;
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txb_cedula.Text == "" || txb_representante.Text == "" || txb_direccion.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txb_cedula.Text == "" || txb_representante.Text == "" || txb_direccion.Text == "" || txb_TelOf.Text.Length < 8 || txb_TelMov.Text.Length < 8 )
                 {
                     MessageBox.Show("No se puede modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
                     if (rb_activo.IsChecked == true)
-                        v_Inactivo = "Activo";
-                    else
-                        v_Inactivo = "Inactivo";
+                    {
+                        clt.v_Inactividad = "Activo";
+                    }
+                    else if (rb_inactivo.IsChecked == true)
+                    {
+                        clt.v_Inactividad = "Inactivo";
+                    }
 
                     //Extraemos los datos de la pantlla de actualizar clientes y los ingresamos al objeto de clientes.
                     clt.v_NombreCompleto = txb_nombre.Text;
@@ -159,7 +165,6 @@ namespace Proyecto
                     else
                         clt.v_CorreoOpc = txb_correo_o.Text;
 
-                    clt.v_Inactividad = v_Inactivo;
 
                     if (txb_correo_o.Text == "")
                         clt.v_Observaciones = "N/A";
@@ -172,7 +177,8 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
-                        Inabilitar_Campos();
+                        grd_formularioCliente.Visibility = Visibility.Hidden;
+                        grd_ClientesExistentes.Visibility = Visibility.Visible;
                         txb_buscar_cliente.IsEnabled = true;
                     }
                 }
@@ -261,30 +267,6 @@ namespace Proyecto
                     else
                     {
                         dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(v_Fecha1, v_Fecha2).DefaultView;
-                        dtg_listar_clientes.Columns[0].Header = "Código";
-                        dtg_listar_clientes.Columns[0].Width = 60;
-                        dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
-                        dtg_listar_clientes.Columns[1].Width = 133;
-                        dtg_listar_clientes.Columns[2].Header = "Nombre Completo";
-                        dtg_listar_clientes.Columns[2].Width = 260;
-                        dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
-                        dtg_listar_clientes.Columns[3].Width = 90;
-                        dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
-                        dtg_listar_clientes.Columns[4].Width = 90;
-                        dtg_listar_clientes.Columns[5].Header = "Correo electrónico";
-                        dtg_listar_clientes.Columns[5].Width = 180;
-                        dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
-                        dtg_listar_clientes.Columns[6].Width = 180;
-                        dtg_listar_clientes.Columns[7].Header = "Estado";
-                        dtg_listar_clientes.Columns[7].Width = 60;
-                        dtg_listar_clientes.Columns[8].Header = "Observaciones";
-                        dtg_listar_clientes.Columns[8].Width = 183;
-                        dtg_listar_clientes.Columns[9].Header = "Cédula";
-                        dtg_listar_clientes.Columns[9].Width = 180;
-                        dtg_listar_clientes.Columns[10].Header = "Representante";
-                        dtg_listar_clientes.Columns[10].Width = 180;
-                        dtg_listar_clientes.Columns[11].Header = "Dirección";
-                        dtg_listar_clientes.Columns[11].Width = 183;
                     }
                 }
 
@@ -378,28 +360,6 @@ namespace Proyecto
         {
             string v_Texto;
             dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
-            dtg_clientes.Columns[0].Header = "Código";
-            dtg_clientes.Columns[0].Width = 60;
-            dtg_clientes.Columns[1].Header = "Nombre Completo";
-            dtg_clientes.Columns[1].Width = 260;
-            dtg_clientes.Columns[2].Header = "Correo electrónico";
-            dtg_clientes.Columns[2].Width = 180;
-            dtg_clientes.Columns[3].Header = "Correo Opcional";
-            dtg_clientes.Columns[3].Width = 180;
-            dtg_clientes.Columns[4].Header = "Tel. Oficina";
-            dtg_clientes.Columns[4].Width = 90;
-            dtg_clientes.Columns[5].Header = "Tel. Móvil";
-            dtg_clientes.Columns[5].Width = 90;
-            dtg_clientes.Columns[6].Header = "Estado";
-            dtg_clientes.Columns[6].Width = 60;
-            dtg_clientes.Columns[7].Header = "Observaciones";
-            dtg_clientes.Columns[7].Width = 285;
-            dtg_clientes.Columns[8].Header = "Cédula";
-            dtg_clientes.Columns[8].Width = 180;
-            dtg_clientes.Columns[9].Header = "Representante";
-            dtg_clientes.Columns[9].Width = 180;
-            dtg_clientes.Columns[10].Header = "Dirección";
-            dtg_clientes.Columns[10].Width = 285;
             if (txb_buscar_cliente.Text == "")
             {
                 txb_nombre.Text = "";
@@ -700,6 +660,7 @@ namespace Proyecto
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
             OcultarFormulario();
+            txt_actividad.Content = "Buscar Clientes";
         }
 
         private void OcultarFormulario()

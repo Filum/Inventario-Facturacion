@@ -217,7 +217,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select * from tbl_Clientes where trunc(fecha) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  from tbl_Clientes where trunc(fecha) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
@@ -576,7 +576,13 @@ namespace Datos
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
             DataTable tabla = new DataTable();
-            adaptador.Fill(tabla);
+            try
+            {
+                adaptador.Fill(tabla);
+            }catch(Exception m)
+            {
+                Console.WriteLine(m);
+            }
             conn.Close();
             return tabla;
         }
@@ -689,6 +695,38 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        public DataTable BuscarFacturaEstadoyCliente(string v_Nombre,string estado)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE NOMBRE LIKE '%" + v_Nombre + "%' AND TBL_FACTURAS.ESTADOFACTURA = '"+estado+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BuscarFacturaEstado(String v_Nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE ESTADOFACTURA LIKE '%" + v_Nombre + "%'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
         public Int64 MaximaFactura()
         {
             OracleConnection conn = DataBase.Conexion();
@@ -791,6 +829,39 @@ namespace Datos
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
             comando.CommandText = "update TBL_FACTURAS SET ESTADOFACTURA = '" + estado + "', FECHACANCELACION = SYSDATE WHERE PK_CODIGOFACTURA = '" + codigo + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+            conn.Close();
+        }
+        public void Verificarestadofactura()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_CODIGOFACTURA,FECHAPAGO from TBL_FACTURAS WHERE ESTADOFACTURA = 'Pendiente'";
+            OracleDataReader dr = comando.ExecuteReader();
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            DateTime fechaPago = new DateTime();
+            DateTime diaActual = DateTime.Parse(DateTime.Now.ToShortDateString());
+            string codigo = "";
+            while (dr.Read())
+            {
+                codigo=dr.GetInt64(0).ToString();
+                fechaPago = DateTime.Parse(dr.GetDateTime(1).ToShortDateString());
+                if(fechaPago < diaActual)
+                {
+                    EstadoVencidaFactura(codigo);
+                }
+            }
+            conn.Close();
+        }
+        public void EstadoVencidaFactura(string codigo)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "update TBL_FACTURAS SET ESTADOFACTURA = 'Vencida' WHERE PK_CODIGOFACTURA = '" + codigo + "'";
             OracleDataReader dr = comando.ExecuteReader();
             conn.Close();
         }

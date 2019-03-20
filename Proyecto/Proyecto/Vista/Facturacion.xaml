@@ -101,7 +101,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_facturas" Margin="55,77,23.8,23.8"  FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="2" >
+                    <DataGrid x:Name="dtg_listar_facturas" Margin="55,101,23.8,23.8"  FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="2" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding TIPOFACTURA}" FontFamily="Global Sans Serif"  Header="Tipo Factura" Width="*"/>
                             <DataGridTextColumn Binding="{Binding PK_CODIGOFACTURA}" FontFamily="Global Sans Serif"  Header="Código Factura" Width="*"/>
@@ -155,7 +155,9 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         </StackPanel>
                     </Button>
                     <TextBox x:Name="txb_buscar_cliente_factura" Margin="274,25,882.8,0" Height="24"  TextWrapping="Wrap"   MaxLength="45" VerticalAlignment="Top" TextChanged="txb_buscar_cliente_factura_TextChanged" Grid.ColumnSpan="2"/>
-                    <Label Content="Ingrese el nombre del cliente:" HorizontalAlignment="Left" Margin="49,23,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="225" Height="30" VerticalAlignment="Top"/>
+                    <Label Content="Ingrese el nombre del cliente:" HorizontalAlignment="Left" Margin="44,23,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="225" Height="30" VerticalAlignment="Top"/>
+                    <Label Content="Seleccione el estado a buscar:" HorizontalAlignment="Left" Margin="40,58,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="229" Height="30" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="cmb_estado_Factura" Margin="274,61,882.8,0" VerticalAlignment="Top"  Grid.ColumnSpan="2" Initialized="cmb_estado_Factura_Initialized" SelectionChanged="cmb_estado_Factura_SelectionChanged" />
                 </Grid>
 
             </TabItem>
@@ -278,7 +280,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             <RadioButton x:Name="RadioButton_No1" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="RadioButton_No1_Checked" />
                         </StackPanel>
                     </GroupBox>
-                    <Button x:Name="btn_agregar_producto_prueba" Foreground="White" Margin="55,175,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="87" Click="btn_agregar_producto_prueba_Click" Height="104" VerticalAlignment="Top" >
+                    <Button x:Name="btn_agregar_producto_prueba" Foreground="White" Margin="213,635,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="87" Click="btn_agregar_producto_prueba_Click" Height="104" VerticalAlignment="Top" >
                         <StackPanel Width="71" Height="93" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,5,15.2,5"/>
                             <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="  Agregar "/><LineBreak/><Run Text="Productos"/></TextBlock>

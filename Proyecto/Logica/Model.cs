@@ -193,6 +193,18 @@ namespace Logica
         {
             v_Data.CambiarestadoFactura(estado, codigo);
         }
+        public void Verificarestadofactura()
+        {
+            v_Data.Verificarestadofactura();
+        }
+        public DataTable BuscarFacturaEstado(String estado)
+        {
+            return v_Data.BuscarFacturaEstado(estado);
+        }
+        public DataTable BuscarFacturaEstadoyCliente(string v_Nombre, string estado)
+        {
+            return v_Data.BuscarFacturaEstadoyCliente(v_Nombre,estado);
+        }
 
         }
 }
