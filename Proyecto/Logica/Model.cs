@@ -24,6 +24,13 @@ namespace Logica
         {
             return v_Data.AgregarProveedores(clt);
         }
+
+        //Recibe como referencia una entidad usuarios la cual va a ser enviada a la clase Data para proceder con la agregación del usuario
+        public int AgregarUsuarios(EntidadUsuarios clt)
+        {
+            return v_Data.AgregarUsuarios(clt);
+        }
+
         //Recibe como referencia una entidad roles la cual va a ser enviada a la clase Data para proceder con la agregación del rol
         public int AgregarRoles(EntidadRoles clt)
         {
@@ -85,6 +92,11 @@ namespace Logica
             return v_Data.MostarListaRoles();
         }
 
+        public List<EntidadRoles> RolesExistentes()
+        {
+            return v_Data.RolesExistentes();
+        }
+
         //Recibe como referencia un string necesario para proceder con la existencia de proveedores
         public List<EntidadProveedores> ValidarBusquedaProveedores(String v_Busqueda)
         {
@@ -113,6 +125,12 @@ namespace Logica
         public bool ValidarCedJurProveedores(String v_CedJur)
         {
             return v_Data.ValidarCedJurProveedores(v_CedJur);
+        }
+
+        //Recibe como referencia un string necesario para proceder con la existencia de cédulas de identificacion de usuarios
+        public bool ValidarNumCedUsuarios(String v_NumCed)
+        {
+            return v_Data.ValidarNumCedUsuarios(v_NumCed);
         }
 
         /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la

@@ -95,7 +95,7 @@ namespace Proyecto
             txb_numCed.Text = "";
             txb_nombre.Text = "";
             txb_apellidos.Text = "";
-            txb_email.Text = "";
+            txb_correo.Text = "";
             txb_telefono.Text = "";
             txb_telefonoOpcional.Text = "";
             txb_contrasenna.Text = "";
@@ -104,6 +104,22 @@ namespace Proyecto
             txb_usuario.Text = "";
             rb_activo.IsChecked = false;
             rb_inactivo.IsChecked = false;
+            lbl_errorNumCed.Visibility = Visibility.Hidden;
+            lbl_errorBusqueda.Visibility = Visibility.Hidden;
+            lbl_errorNombre.Visibility = Visibility.Hidden;
+            lbl_errorApellidos.Visibility = Visibility.Hidden;
+            lbl_errorTelefono.Visibility = Visibility.Hidden;
+            lbl_errorTelefonoOpcional.Visibility = Visibility.Hidden;
+            lbl_errorCorreo.Visibility = Visibility.Hidden;
+            lbl_errorPuesto.Visibility = Visibility.Hidden;
+            lbl_errorRol.Visibility = Visibility.Hidden;
+            lbl_errorContrasenna.Visibility = Visibility.Hidden;
+            lbl_errorUsuario.Visibility = Visibility.Hidden;
+            lbl_errorRb.Visibility = Visibility.Hidden;
+            btn_agregar.Visibility = Visibility.Collapsed;
+            btn_modificar.Visibility = Visibility.Collapsed;
+            v_Actividad_btnModificar = false;
+            v_Actividad_btnAgregar = true;
         }
 
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
@@ -131,11 +147,89 @@ namespace Proyecto
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
             MostrarUsuariosExistentes();
+            btn_limpiar_Click(sender, e);
         }
 
+        //Metodo el cual sirve para abrir el formulario de usuarios inicializando la agregacion
         private void btn_agregarUsuario_Click(object sender, RoutedEventArgs e)
         {
             MostrarFormulario();
+            v_Actividad_btnAgregar = true;
+        }
+
+        private void Button_modificar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_agregar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (lbl_errorNumCed.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorApellidos.Visibility == Visibility.Visible || lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible || lbl_errorCorreo.Visibility == Visibility.Visible || lbl_errorPuesto.Visibility == Visibility.Visible || lbl_errorRol.Visibility == Visibility.Visible || lbl_errorUsuario.Visibility == Visibility.Visible || lbl_errorContrasenna.Visibility == Visibility.Visible || lbl_errorRb.Visibility == Visibility.Visible)
+                {
+                    MessageBox.Show("No se puede agregar\nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    v_Clt.v_CedIdentificacion = Convert.ToInt64(txb_numCed.Text);
+                    v_Clt.v_NombreUsuario = txb_nombre.Text;
+                    v_Clt.v_Apellidos = txb_apellidos.Text;
+                    v_Clt.v_Telefono = Convert.ToInt64(txb_telefono.Text);
+
+                    if (txb_telefonoOpcional.Text == "")
+                    {
+                        v_Clt.v_TelefonoOpcional = 0;
+                    }
+                    else
+                    {
+                        v_Clt.v_TelefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
+                    }
+
+                    v_Clt.v_Correo = txb_correo.Text;
+
+                    v_Clt.v_Puesto = txb_puesto.Text;
+
+                    EntidadRoles ComboItem = (EntidadRoles)cmb_rol.SelectedItem;
+                    Int64 idRol = ComboItem.v_IdRol;
+                    v_Clt.v_IdRol = idRol;
+
+                    v_Clt.v_UsuarioSistema = txb_usuario.Text;
+
+                    v_Clt.v_Contrasena = txb_contrasenna.Text;
+
+                    if (rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }
+
+                    int v_Resultado = v_Model.AgregarUsuarios(v_Clt);
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btn_limpiar_Click(sender, e);
+                    }
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m.ToString());
+                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void LlenarComboboxRol()
+        {
+            //Llenar combobox de rol
+            var v_RolesExistentes = new List<EntidadRoles>();
+            v_RolesExistentes = v_Model.RolesExistentes();
+            cmb_rol.ItemsSource = v_RolesExistentes;
+            cmb_rol.DisplayMemberPath = "v_Nombre";
+            cmb_rol.SelectedValuePath = "v_IdRol";
         }
 
         //Muestra el panel de búsqueda en el tab de configuración de usuarios
@@ -163,18 +257,280 @@ namespace Proyecto
         {
             OcultarUsuariosExistentes();
             grd_formularioUsuario.Visibility = Visibility.Visible;
+            LlenarComboboxRol();
         }
 
-        private void rb_activo_Checked(object sender, RoutedEventArgs e)
+        //Deshabilita los componentes en el tap de "Gestión de Usuarios"
+        private void DeshabilitarComponentes()
         {
-
+            txb_numCed.IsEnabled = false;
+            txb_nombre.IsEnabled = false;
+            txb_apellidos.IsEnabled = false;
+            txb_telefono.IsEnabled = false;
+            txb_telefonoOpcional.IsEnabled = false;
+            txb_correo.IsEnabled = false;
+            txb_puesto.IsEnabled = false;
+            cmb_rol.IsEnabled = false;
+            txb_usuario.IsEnabled = false;
+            txb_contrasenna.IsEnabled = false;
+            rb_activo.IsEnabled = false;
+            rb_inactivo.IsEnabled = false;
         }
 
-        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        //Habilita los componentes en el tap de "Gestión de Usuarios"
+        private void HabilitarComponentes()
         {
-
+            txb_numCed.IsEnabled = true;
+            txb_nombre.IsEnabled = true;
+            txb_apellidos.IsEnabled = true;
+            txb_telefono.IsEnabled = true;
+            txb_telefonoOpcional.IsEnabled = true;
+            txb_correo.IsEnabled = true;
+            txb_puesto.IsEnabled = true;
+            cmb_rol.IsEnabled = true;
+            txb_usuario.IsEnabled = true;
+            txb_contrasenna.IsEnabled = true;
+            rb_activo.IsEnabled = true;
+            rb_inactivo.IsEnabled = true;
         }
 
+        //Método el cual habilita el botón modificar
+        private void HabilitarBtnModificar()
+        {
+            if (v_Actividad_btnModificar == true)
+            {
+                btn_modificar.Visibility = Visibility.Visible;
+            }
+        }
+
+        //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de gestión de proveedores
+        private void HabilitarBtnAgregar()
+        {
+            if (v_Actividad_btnAgregar == true)
+            {
+                if (txb_numCed.Text == "" || txb_nombre.Text == "" || txb_apellidos.Text == "" || txb_telefono.Text == "" || txb_correo.Text == "" || txb_puesto.Text == "" || cmb_rol.Text == "" || txb_usuario.Text == "" || txb_contrasenna.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
+                {
+                    ValidarComponentes();
+                    btn_agregar.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    btn_agregar.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        private void ValidarErroresTxb(TextBox txb_usuario, Label lbl_error, string tipo)
+        {
+            string v_TamanoTxb = txb_usuario.Text;
+            if (txb_usuario.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_usuario == txb_telefonoOpcional && txb_usuario.Text == "")
+            {
+                lbl_error.Visibility = Visibility.Hidden;
+            }
+            else if (txb_usuario.Text == " ")
+            {
+                txb_usuario.Text = "";
+            }
+            else if (txb_usuario.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_usuario.Text, tipo) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_usuario == txb_telefono || txb_usuario == txb_telefonoOpcional)
+            {
+                if (v_TamanoTxb.Length < 8)
+                {
+                    lbl_error.Content = "Deben tener al menos 8 dígitos";
+                    lbl_error.Visibility = Visibility.Visible;
+                }
+                else if (v_TamanoTxb.Length <= 12)
+                {
+                    if (ValidarCaracteresEspeciales(txb_usuario.Text, tipo) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
+            else if (txb_usuario == txb_numCed)
+            {
+                if (v_TamanoTxb.Length < 9)
+                {
+                    lbl_error.Content = "Deben tener al menos 9 dígitos";
+                    lbl_error.Visibility = Visibility.Visible;
+                }
+                else if (v_TamanoTxb.Length <= 12)
+                {
+                    if (ValidarCaracteresEspeciales(txb_usuario.Text, tipo) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Hidden;
+            }
+        }
+
+        //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
+        private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
+        {
+            if (v_Identificador == "numeros")
+            {
+                //caracteres que permite si la cadena es de int
+                String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            else if (v_Identificador == "palabras")
+            {
+                //caracteres que permite si la cadena es de string
+                String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //Validaciones en caja de texto de teléfono
+        private void Telefono_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                lbl_errorTelefono.Visibility = Visibility.Hidden;
+                if (ValidarCaracteresEspeciales(txb_telefono.Text, "numeros") == true)
+                {
+                    lbl_errorTelefono.Content = "No se permiten caracteres especiales";
+                    lbl_errorTelefono.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl_errorTelefono.Content = "No se permite ingresar letras";
+                lbl_errorTelefono.Visibility = Visibility.Visible;
+            }
+        }
+
+        //Validaciones en caja de texto de teléfono opcional
+        private void TelefonoOpcional_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                lbl_errorTelefonoOpcional.Visibility = Visibility.Hidden;
+                if (ValidarCaracteresEspeciales(txb_telefonoOpcional.Text, "numeros") == true)
+                {
+                    lbl_errorTelefonoOpcional.Content = "No se permiten caracteres especiales";
+                    lbl_errorTelefonoOpcional.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl_errorTelefonoOpcional.Content = "No se permite ingresar letras";
+                lbl_errorTelefonoOpcional.Visibility = Visibility.Visible;
+            }
+        }
+
+        //Validaciones en caja de texto de cédula jurídica
+        private void NumCed_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                lbl_errorNumCed.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                e.Handled = true;
+                lbl_errorNumCed.Content = "No se permite ingresar letras";
+                lbl_errorNumCed.Visibility = Visibility.Visible;
+            }
+        }
+
+        //Método el cual valida si en la caja de texto recibida posee los parametros correctos de un correo electronico
+        private Boolean correoCorrecto(String v_correo)
+        {
+            String v_Expresion;
+            v_Expresion = @"^([a-zA-Z0-9_\-\.ñÑ]+)@((\[[0-9]{1,3}" + @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" + @".)+))([a-zA-Z]{2,3}|[0-9]{1,3})(\]?)$";
+            if (Regex.IsMatch(v_correo, v_Expresion))
+            {
+                if (Regex.Replace(v_correo, v_Expresion, String.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //Método el cual valida si los parametros del correo electrónico son correctos, en caso de que no los sean muestra un error al usuario
+        private void Validarcorreo(object sender, EventArgs e)
+        {
+            Console.WriteLine("Correo: " + txb_correo.Text);
+            Console.WriteLine(correoCorrecto(txb_correo.Text));
+            if (correoCorrecto(txb_correo.Text) == false)
+            {
+                if (txb_correo.Text == "")
+                {
+                    lbl_errorCorreo.Content = "Espacio vacío";
+                    lbl_errorCorreo.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lbl_errorCorreo.Content = "Formato: usuario@dominio.extension(Máx 3 caracteres)";
+                    lbl_errorCorreo.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        //Valida si se selecciona el estado del usuario (Activo - Inactivo) en el sistema
+        private void ValidarComponentes()
+        {
+            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
+            {
+                lbl_errorRb.Visibility = Visibility.Visible;
+                lbl_errorRb.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorRb.Visibility = Visibility.Hidden;
+            }
+
+            if (cmb_rol.SelectedItem == null)
+            {
+                lbl_errorRol.Visibility = Visibility.Visible;
+                lbl_errorRol.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorRol.Visibility = Visibility.Hidden;
+            }
+        }
+    
         private void Button_guardarUsuario_Click(object sender, RoutedEventArgs e)
         {
 
@@ -182,6 +538,7 @@ namespace Proyecto
 
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
+            ValidarErroresTxb(txb_busqueda, lbl_errorBusqueda, "");
             if (txb_busqueda.Text.Contains("'"))
             {
                 lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
@@ -189,6 +546,7 @@ namespace Proyecto
             }
             else
             {
+                //usuarios existentes
                 dtg_usuarios.ItemsSource = v_Model.ValidarBusquedaUsuarios(txb_busqueda.Text);
                 dtg_usuarios.Columns[0].Header = "Código";
                 dtg_usuarios.Columns[1].Header = "Número de Cédula";
@@ -204,14 +562,160 @@ namespace Proyecto
                 dtg_usuarios.Columns[11].Header = "Fecha";
                 dtg_usuarios.Columns[12].Header = "Estado en el Sistema";
 
-                //Usuarios existentes
                 v_Actividad_btnAgregar = false;
-                //btn_agregar.Visibility = Visibility.Collapsed;
-                //btn_modificar.Visibility = Visibility.Collapsed;
-                //lbl_actividad.Content = "Usuarios existentes";
-                lbl_actividad.Visibility = Visibility.Visible;
             }
         }
+
+        /*Método el cual cumple con la funcionalidad de desplegar los datos en los campos correspondientes de un usuario seleccionado 
+        en el DataGrid con la finalidad de ser modificado, esto en el panel del formulario en el tab de configuración de usuarios*/
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+
+            v_Clt.v_IdUsuario = Convert.ToInt64((dtg_usuarios.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+
+            txb_numCed.Text = (dtg_usuarios.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+            txb_nombre.Text = (dtg_usuarios.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
+            txb_apellidos.Text = (dtg_usuarios.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefono.Text = (dtg_usuarios.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
+            txb_telefonoOpcional.Text = (dtg_usuarios.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
+            txb_correo.Text = (dtg_usuarios.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
+            txb_puesto.Text = (dtg_usuarios.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
+            txb_usuario.Text = (dtg_usuarios.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
+            txb_contrasenna.Text = (dtg_usuarios.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
+
+            cmb_rol.Text = (dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
+            
+            if ((dtg_usuarios.SelectedCells[12].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
+            {
+                rb_activo.IsChecked = true;
+            }
+            else if ((dtg_usuarios.SelectedCells[12].Column.GetCellContent(row) as TextBlock).Text == "INACTIVO")
+            {
+                rb_inactivo.IsChecked = true;
+            }
+            HabilitarComponentes();
+            lbl_actividad.Content = "Modificar usuario";
+            btn_limpiar.Visibility = Visibility.Collapsed;
+            v_Actividad_btnModificar = true;
+            MostrarFormulario();
+        }
+
+        //Método el cual valida si la cédula jurídica es existente o no, en caso de ser existente, mostrar un error
+        private void ValidarTxbNumCed(object sender, EventArgs e)
+        {
+            string v_NumCed = txb_numCed.Text;
+            HabilitarBtnAgregar();
+            HabilitarBtnModificar();
+            ValidarErroresTxb(txb_numCed, lbl_errorNumCed, "numeros");
+            if (lbl_errorNumCed.Visibility == Visibility.Hidden)
+            {
+                bool v_Resultado = v_Model.ValidarCedJurProveedores(v_NumCed);
+                if (v_Resultado == true)
+                {
+                    lbl_errorNumCed.Content = "La cédula jurídica ya existe";
+                    lbl_errorNumCed.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lbl_errorNumCed.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
+        private void txb_nombre_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_nombre, lbl_errorNombre, "palabras");
+        }
+
+        private void txb_apellidos_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_apellidos, lbl_errorApellidos, "palabras");
+        }
+
+        private void txb_Correo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_correo, lbl_errorCorreo, "");
+        }
+
+        private void txb_telefono_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_telefono, lbl_errorTelefono, "numeros");
+        }
+
+        private void txb_telefonoOpcional_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_telefonoOpcional, lbl_errorTelefonoOpcional, "numeros");
+            if (txb_telefonoOpcional.Text == "")
+            {
+                lbl_errorTelefonoOpcional.Visibility = Visibility.Hidden;
+            }
+            else if (txb_telefonoOpcional.Text == "0")
+            {
+                lbl_errorTelefonoOpcional.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void txb_puesto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_puesto, lbl_errorPuesto, "palabras");
+        }
+
+        private void cmb_rol_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
+        private void txb_usuario_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_usuario, lbl_errorUsuario, "palabras");
+        }
+
+        private void txb_contrasenna_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_contrasenna, lbl_errorContrasenna, "");
+        }
+
+        private void rb_activo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
+        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
     }
 }
 

@@ -21,7 +21,7 @@ namespace Entidades
         public string v_UsuarioSistema { set; get; }
         public string v_Contrasena { set; get; }
         public DateTime v_Fecha { set; get; }
-        public string v_estadoSistema { set; get; }
+        public string v_EstadoSistema { set; get; }
         public Int64 v_IdRol { set; get; }
 
 
@@ -40,7 +40,7 @@ namespace Entidades
             this.v_NombreRol = v_NombreRol;
             this.v_UsuarioSistema = v_UsuarioSistema;
             this.v_Contrasena = v_Contrasena;
-            this.v_estadoSistema = v_estadoSistema;
+            this.v_EstadoSistema = v_estadoSistema;
         }
     }
 }

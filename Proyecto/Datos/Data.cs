@@ -51,6 +51,32 @@ namespace Datos
             conn.Close();
             return v_Resultado;
         }
+
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo usuario.
+        Si se modifica correctamente retorna un "-1" */
+        public int AgregarUsuarios(EntidadUsuarios clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("ADD_USUARIOS", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("NUMCED", clt.v_CedIdentificacion));
+            comando.Parameters.Add(new OracleParameter("NOM", clt.v_NombreUsuario));
+            comando.Parameters.Add(new OracleParameter("APE", clt.v_Apellidos));
+            comando.Parameters.Add(new OracleParameter("TEL", clt.v_Telefono));
+            comando.Parameters.Add(new OracleParameter("TELOPC", clt.v_TelefonoOpcional));
+            comando.Parameters.Add(new OracleParameter("CORR", clt.v_Correo));
+            comando.Parameters.Add(new OracleParameter("PUES", clt.v_Puesto));
+            comando.Parameters.Add(new OracleParameter("ID_ROL", clt.v_IdRol));
+            comando.Parameters.Add(new OracleParameter("USUA", clt.v_UsuarioSistema));
+            comando.Parameters.Add(new OracleParameter("CONTRA", clt.v_Contrasena));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
+
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
         /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo rol.
         Si se modifica correctamente retorna un "-1" */
         public int AgregarRoles(EntidadRoles clt)
@@ -298,12 +324,34 @@ namespace Datos
                     usuario.v_UsuarioSistema = dr.GetString(9);
                     usuario.v_Contrasena = dr.GetString(10);
                     usuario.v_Fecha = Convert.ToDateTime(dr.GetValue(11));
-                    usuario.v_estadoSistema = dr.GetString(12);
+                    usuario.v_EstadoSistema = dr.GetString(12);
                     Lista.Add(usuario);
                 }
             }
             conn.Close();
             return Lista;
+        }
+
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia de la cédula de identificación.
+         Además, en caso de encontrar dicho número de cédula retornara un true, en caso contrario retornara un false*/
+        public bool ValidarNumCedUsuarios(String v_NumCed)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT CEDULAIDENTIFICACION FROM TBL_USUARIOS WHERE CEDULAIDENTIFICACION = " + v_NumCed;
+            OracleDataReader dr = comando.ExecuteReader();
+
+            if (v_NumCed != "")
+            {
+                while (dr.Read())
+                {
+                    return true;
+                }
+            }
+            conn.Close();
+            return false;
         }
 
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del rol mediante el nombre 
@@ -336,6 +384,28 @@ namespace Datos
                     rol.v_Estado = dr.GetString(10);
                     Lista.Add(rol);
                 }
+            }
+            conn.Close();
+            return Lista;
+        }
+
+        public List<EntidadRoles> RolesExistentes()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT PK_IDROL, NOMBRE FROM TBL_ROLES";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadRoles> Lista = new List<EntidadRoles>();
+
+
+            while (dr.Read())
+            {
+                EntidadRoles rol = new EntidadRoles();
+                rol.v_IdRol = dr.GetInt64(0);
+                rol.v_Nombre = dr.GetString(1);
+                Lista.Add(rol);
             }
             conn.Close();
             return Lista;
