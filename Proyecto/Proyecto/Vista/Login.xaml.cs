@@ -143,6 +143,13 @@ namespace Proyecto
             }
         }
 
-      
+        private void txb_contrasena_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Enter) return;
+
+            // your event handler here
+            e.Handled = true;
+            verificar();
+        }
     }
 }

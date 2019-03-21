@@ -24,6 +24,7 @@ namespace Entidades
         public string v_estadoFactura { get; set; }
         public string v_fechaPago { get; set; }
         public string v_fechaCancelacion { get; set; }
+        public string v_tipoCambio { get; set; }
 
 
         //public List<EntidadDetalles> v_ListaDetalles { get; set; }

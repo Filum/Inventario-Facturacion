@@ -76,7 +76,7 @@ namespace Proyecto
         //funcion para imprimir las facturas de servicios
         private void Button_imprimir_factura_servicio_Click(object sender, RoutedEventArgs e)
         {
-            if (txb_codigo_factura_servicio.Text == "" || txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
+            if (txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
             {
                 MessageBox.Show("No se puede imprimir\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -121,15 +121,22 @@ namespace Proyecto
         }
 
         //funcion para limpiar los datos de la facturas de servicios
-        private void btn_limpiar_factura_Serv_Click(object sender, RoutedEventArgs e)
+        public void LimpiarServicio()
         {
-            txb_codigo_factura_servicio.Text = "";
-            txb_descripcion.Text = "";
-            txb_descuento_servicios.Text = "";
-            txb_subtotal_factura_servicios.Text = "";
-            txb_total_factura_servicios.Text = "";
-            txb_Cantidad.Text = "";
-            txb_Precio.Text = "";
+            txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
+            txb_impuesto_Servicios.Text = "0";
+            txb_subneto_servicios.Text = "0";
+            txb_descripcion.Text = "0";
+            txb_descuento_servicios.Text = "0";
+            txb_subtotal_factura_servicios.Text = "0";
+            txb_total_factura_servicios.Text = "0";
+            txb_Cantidad.Text = "0";
+            txb_Precio.Text = "0";
+            montos = 0;
+            tipoPago = "";
+            diasCredito = "";
+            estadoFactura = "";
+            fechaPago = "";
         }
 
         private void txb_Cantidad_KeyDown(object sender, KeyEventArgs e)
@@ -170,11 +177,25 @@ namespace Proyecto
         //Iniciar la facturacion de servicios con valores en 0
         private void Grid_Initialized(object sender, EventArgs e)
         {
+            txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
             txb_Cantidad.Text = "0";
             txb_Precio.Text = "0";
             txb_subtotal_factura_servicios.Text = "0";
             txb_descuento_servicios.Text = "0";
             txb_total_factura_servicios.Text = "0";
+            txb_impuesto_Servicios.Text = "0";
+            txb_subneto_servicios.Text = "0";
+        }
+
+        private void txb_descripcion_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Enter) return;
+
+            // your event handler here
+            e.Handled = true;
+            var caretIndex = txb_descripcion.CaretIndex;
+            txb_descripcion.Text = txb_descripcion.Text.Insert(caretIndex, "\r");
+            txb_descripcion.CaretIndex = caretIndex + 1;
         }
         //calcula calculos en la facturacion de servicios
         private void txb_Cantidad_TextChanged(object sender, TextChangedEventArgs e)
@@ -192,7 +213,7 @@ namespace Proyecto
             }
             else
             {
-                if (RadioButton_Colon_Servicio.IsChecked == true)
+                if (Rb_Colon_Servicio.IsChecked == true)
                 {
                     cantidad = float.Parse(txb_Cantidad.Text);
                     precio = float.Parse(txb_Precio.Text);
@@ -223,7 +244,7 @@ namespace Proyecto
             }
             else
             {
-                if (RadioButton_Colon_Servicio.IsChecked == true)
+                if (Rb_Colon_Servicio.IsChecked == true)
                 {
                     cantidad = float.Parse(txb_Cantidad.Text);
                     precio = float.Parse(txb_Precio.Text);
@@ -405,7 +426,7 @@ namespace Proyecto
             ventana.telefono2.Content = detalle[18];
             ventana.correCliente.Content = detalle[19];
             ventana.Garbado.Content = detalle[5];
-            ventana.tipoCambio.Content = datos.ObtenerValorDolar().ToString("F");
+            ventana.tipoCambio.Content = detalle[21];
             ventana.txt_fecha.Content = detalle[2];
             ventana.txt_fecha_emision.Content = detalle[2];
             int codigo = Convert.ToInt32(ventana.txt_codigo.Content);
@@ -1026,20 +1047,6 @@ namespace Proyecto
             foreach (var item in dtg_facturar_productos_prueba.Items)
             {
                 DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
-
-                if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBox)
-                {
-                    codigo = ((TextBox)dtg_facturar_productos_prueba.Columns[1].GetCellContent(row)).Text;
-                    producto = ((TextBox)dtg_facturar_productos_prueba.Columns[2].GetCellContent(row)).Text;
-                    cantidad = ((TextBox)dtg_facturar_productos_prueba.Columns[3].GetCellContent(row)).Text;
-                    precio = ((TextBox)dtg_facturar_productos_prueba.Columns[4].GetCellContent(row)).Text;
-                    descuento = ((TextBox)dtg_facturar_productos_prueba.Columns[5].GetCellContent(row)).Text;
-                    impuesto = ((TextBox)dtg_facturar_productos_prueba.Columns[6].GetCellContent(row)).Text;
-                    subtotal = ((TextBox)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text;
-
-                }
-                else if (dtg_facturar_productos_prueba.Columns[0].GetCellContent(row) is TextBlock)
-                {
                     codigo = ((TextBlock)dtg_facturar_productos_prueba.Columns[1].GetCellContent(row)).Text;
                     producto = ((TextBlock)dtg_facturar_productos_prueba.Columns[2].GetCellContent(row)).Text;
                     cantidad = ((TextBlock)dtg_facturar_productos_prueba.Columns[3].GetCellContent(row)).Text;
@@ -1047,7 +1054,6 @@ namespace Proyecto
                     descuento = ((TextBlock)dtg_facturar_productos_prueba.Columns[5].GetCellContent(row)).Text;
                     impuesto = ((TextBlock)dtg_facturar_productos_prueba.Columns[6].GetCellContent(row)).Text;
                     subtotal = ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text;
-                }
                 try
                 {
 
@@ -1086,7 +1092,7 @@ namespace Proyecto
                 //verificamos que todos los campos tengan sus valores solicitados
                 if (cmb_Cliente_Productos_Prueba.SelectedItem == null || dtg_facturar_productos_prueba.Items.Count == 0 || txb_descuento_Producto_prueba.Text == "")
                 {
-                    MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No se puede imprimir\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -1120,6 +1126,7 @@ namespace Proyecto
                     miFactura.v_estadoFactura = estadoFactura;
                     miFactura.v_fechaPago = fechaPago;
                     miFactura.v_fechaCancelacion = fechaPago;
+                    miFactura.v_tipoCambio = datos.ObtenerValorDolar().ToString("F");
                     //verificamos si se puede agregar la factura o hay errores 
                         int v_Resultado = datos.AgregarFacturas(miFactura);
                         if (v_Resultado == -1)
@@ -1192,6 +1199,62 @@ namespace Proyecto
                 txt_Credito.Visibility = Visibility.Hidden;
             }
 
+        }
+
+
+        /// <summary>
+        /// ///////////////////////////////////////////////////////////////////////
+        /// </summary>
+/////////////////////////////////////////////////FACTURACION DE SERVICIOS //////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private void Rb_Credito_Servicio_Checked(object sender, RoutedEventArgs e)
+        {
+            txb_diasCredito_Servicio.Visibility = Visibility.Visible;
+            btn_agregarCredito_Servicio.Visibility = Visibility.Visible;
+            txt_Credito_Servicio.Visibility = Visibility.Visible;
+        }
+
+        private void Rb_Contado_Servicio_Checked(object sender, RoutedEventArgs e)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            DateTime dia = DateTime.Now;
+            tipoPago = "Contado";
+            diasCredito = "0";
+            estadoFactura = "Cancelado";
+            fechaPago = dia.ToShortDateString();
+            if (txb_diasCredito != null)
+            {
+                txb_diasCredito_Servicio.Visibility = Visibility.Hidden;
+                btn_agregarCredito_Servicio.Visibility = Visibility.Hidden;
+                txt_Credito_Servicio.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void txb_diasCredito_Servicio_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+            }
+        }
+
+        private void btn_agregarCredito_Servicio_Click(object sender, RoutedEventArgs e)
+        {
+            if (txb_diasCredito_Servicio.Text != "")
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+                int diasContado = int.Parse(txb_diasCredito_Servicio.Text);
+                DateTime dia = DateTime.Now.AddDays(diasContado);
+                tipoPago = "Credito";
+                diasCredito = txb_diasCredito.Text;
+                estadoFactura = "Pendiente";
+                fechaPago = dia.ToShortDateString();
+
+                MessageBox.Show("Tiene credito hasta el " + fechaPago, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                txb_diasCredito_Servicio.Visibility = Visibility.Hidden;
+                btn_agregarCredito_Servicio.Visibility = Visibility.Hidden;
+                txt_Credito_Servicio.Visibility = Visibility.Hidden;
+            }
         }
     }
 }
