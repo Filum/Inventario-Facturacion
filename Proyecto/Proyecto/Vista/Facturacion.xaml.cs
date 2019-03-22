@@ -73,18 +73,7 @@ namespace Proyecto
                            , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        //funcion para imprimir las facturas de servicios
-        private void Button_imprimir_factura_servicio_Click(object sender, RoutedEventArgs e)
-        {
-            if (txb_descuento_servicios.Text == "" || txb_subtotal_factura_servicios.Text == "" || txb_total_factura_servicios.Text == "")
-            {
-                MessageBox.Show("No se puede imprimir\n Hacen falta campos por llenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                MessageBox.Show("Imprimiendo...", "Imprimiendo", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
+       
 
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
         {
@@ -123,10 +112,11 @@ namespace Proyecto
         //funcion para limpiar los datos de la facturas de servicios
         public void LimpiarServicio()
         {
+            cmb_Cliente_servicios.SelectedItem = null;
             txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
             txb_impuesto_Servicios.Text = "0";
             txb_subneto_servicios.Text = "0";
-            txb_descripcion.Text = "0";
+            txb_descripcion.Text = "";
             txb_descuento_servicios.Text = "0";
             txb_subtotal_factura_servicios.Text = "0";
             txb_total_factura_servicios.Text = "0";
@@ -174,19 +164,6 @@ namespace Proyecto
             }
         }
 
-        //Iniciar la facturacion de servicios con valores en 0
-        private void Grid_Initialized(object sender, EventArgs e)
-        {
-            txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
-            txb_Cantidad.Text = "0";
-            txb_Precio.Text = "0";
-            txb_subtotal_factura_servicios.Text = "0";
-            txb_descuento_servicios.Text = "0";
-            txb_total_factura_servicios.Text = "0";
-            txb_impuesto_Servicios.Text = "0";
-            txb_subneto_servicios.Text = "0";
-        }
-
         private void txb_descripcion_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key != System.Windows.Input.Key.Enter) return;
@@ -200,72 +177,19 @@ namespace Proyecto
         //calcula calculos en la facturacion de servicios
         private void txb_Cantidad_TextChanged(object sender, TextChangedEventArgs e)
         {
-            float cantidad;
-            float precio;
-            if (txb_Precio.Text == "")
-                txb_Precio.Text = "0";
-            else
-            if (txb_Cantidad.Text == "")
-            {
-                cantidad = float.Parse("0");
-                precio = float.Parse(txb_Precio.Text);
-                txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
-            }
-            else
-            {
-                if (Rb_Colon_Servicio.IsChecked == true)
-                {
-                    cantidad = float.Parse(txb_Cantidad.Text);
-                    precio = float.Parse(txb_Precio.Text);
-                    txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
-                }
-                else
-                {
-                    cantidad = float.Parse(txb_Cantidad.Text);
-                    precio = float.Parse(txb_Precio.Text);
-                    txb_subtotal_factura_servicios.Text = (cantidad * (precio * datos.ObtenerValorDolar())).ToString();
-                }
-
-            }
+                CalculaMontosServicios();
         }
         //calcula calculos en la facturacion de servicios
         private void txb_Precio_TextChanged(object sender, TextChangedEventArgs e)
         {
-            float cantidad;
-            float precio;
-            if (txb_Cantidad.Text == "")
-                txb_Cantidad.Text = "0";
-            else
-            if (txb_Precio.Text == "")
-            {
-                precio = float.Parse("0");
-                cantidad = float.Parse(txb_Cantidad.Text);
-                txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
-            }
-            else
-            {
-                if (Rb_Colon_Servicio.IsChecked == true)
-                {
-                    cantidad = float.Parse(txb_Cantidad.Text);
-                    precio = float.Parse(txb_Precio.Text);
-                    txb_subtotal_factura_servicios.Text = (cantidad * precio).ToString();
-                }
-                else
-                {
-                    cantidad = float.Parse(txb_Cantidad.Text);
-                    precio = float.Parse(txb_Precio.Text);
-                    txb_subtotal_factura_servicios.Text = (cantidad * (precio * datos.ObtenerValorDolar())).ToString();
-                }
-
-            }
-
+                CalculaMontosServicios();
         }
         private void descuento_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
                 e.Handled = false;
-            }
+            else
+                e.Handled = true;
         }
         //calcula calculos en la facturacion de servicios
         private void txb_Cantidad_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -282,26 +206,12 @@ namespace Proyecto
         //calcula calculos en la facturacion de servicios
         private void txb_subtotal_factura_servicios_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txb_descuento_servicios.Text == "")
-            {
-                txb_descuento_servicios.Text = "0";
-            }
-            float subtotal = float.Parse(txb_subtotal_factura_servicios.Text);
-            float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text) / 100;
-            float descuento = subtotal * porcentaje_descuento;
-            txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
+            
         }
         //calcula calculos en la facturacion de servicios
         private void txb_descuento_servicios_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txb_descuento_servicios.Text == "")
-            {
-                txb_descuento_servicios.Text = "0";
-            }
-            float subtotal = float.Parse(txb_subtotal_factura_servicios.Text);
-            float porcentaje_descuento = float.Parse(txb_descuento_servicios.Text) / 100;
-            float descuento = subtotal * porcentaje_descuento;
-            txb_total_factura_servicios.Text = (subtotal - descuento).ToString();
+                CalculaMontosServicios();
         }
         private void cmb_estado_Factura_Initialized(object sender, EventArgs e)
         {
@@ -522,7 +432,17 @@ namespace Proyecto
         private string diasCredito = "";
         private string estadoFactura = "";
         private string fechaPago = "";
-
+        //Iniciamos la facturacion de productos 
+        private void Productostab_Initialized(object sender, EventArgs e)
+        {
+            txb_subtotal_factura_prueba.Text = "0";
+            txb_descuento_Producto_prueba.Text = "0";
+            txb_subtotalneto.Text = "0";
+            txb_impuestofactura.Text = "0";
+            txb_total_factura_prueba.Text = "0";
+            txb_descuento_linea_producto.Text = "0";
+            txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
+        }
         //Clase necesaria para gregar una nueva factura al datagrid
         public class FacturasProducto
         {
@@ -559,17 +479,6 @@ namespace Proyecto
             diasCredito = "";
             estadoFactura = "";
             fechaPago = "";
-        }
-        //Iniciamos los valores en el grid de facturacion de productos
-        private void Grid_Initialized_1(object sender, EventArgs e)
-        {
-            txb_subtotal_factura_prueba.Text = "0";
-            txb_descuento_Producto_prueba.Text = "0";
-            txb_subtotalneto.Text = "0";
-            txb_impuestofactura.Text = "0";
-            txb_total_factura_prueba.Text = "0";
-            txb_descuento_linea_producto.Text = "0";
-            txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
         }
 
         //Funcion para gregar un nuevo producto con sus respectivas caracteristicas al datgrid
@@ -824,7 +733,7 @@ namespace Proyecto
             btn_modificar_producto_prueba.Visibility = Visibility.Visible;
 
             //establecemos los diferentes valores a los campos correspondientes de la factura de productos
-            montos -= int.Parse((dtg_facturar_productos_prueba.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text);
+            montos -= float.Parse((dtg_facturar_productos_prueba.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text);
             cmb_Productos.SelectedItem = (dtg_facturar_productos_prueba.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
             txb_catidad_producto.Text = (dtg_facturar_productos_prueba.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
             txb_descuento_linea_producto.Text = (dtg_facturar_productos_prueba.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
@@ -989,7 +898,7 @@ namespace Proyecto
         {
             if (dtg_facturar_productos_prueba != null )
             {
-                if (dtg_facturar_productos_prueba.Items.Count != 0)
+                if (dtg_facturar_productos_prueba.Items.Count == 0)
                 {
                     limpiar_Facturaprodutcos();
                 }
@@ -1205,8 +1114,24 @@ namespace Proyecto
         /// <summary>
         /// ///////////////////////////////////////////////////////////////////////
         /// </summary>
-/////////////////////////////////////////////////FACTURACION DE SERVICIOS //////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////FACTURACION DE SERVICIOS //////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private void CalculaMontosServicios()
+        {
+            if (txb_Cantidad.Text!="" && txb_Precio.Text!="" && txb_subtotal_factura_servicios.Text!="" && txb_descuento_servicios.Text!="" && txb_total_factura_servicios.Text!="" && txb_impuesto_Servicios.Text!="" && txb_subneto_servicios.Text!="")
+            {
+                txb_subtotal_factura_servicios.Text = (float.Parse(txb_Cantidad.Text) * float.Parse(txb_Precio.Text)).ToString("F");
+                txb_subneto_servicios.Text = (float.Parse(txb_subtotal_factura_servicios.Text) - (float.Parse(txb_subtotal_factura_servicios.Text) * (float.Parse(txb_descuento_servicios.Text) / 100))).ToString("F");
+                if(Rb_Si_Servicio.IsChecked == true)
+                    txb_impuesto_Servicios.Text = (float.Parse(txb_subneto_servicios.Text) * 0.13).ToString("F");
+                if (Rb_No_Servicio.IsChecked == true)
+                    txb_impuesto_Servicios.Text = "0";
+
+                txb_total_factura_servicios.Text = (float.Parse(txb_subneto_servicios.Text) + (float.Parse(txb_impuesto_Servicios.Text))).ToString("F");
+            }
+        }
+
+
         private void Rb_Credito_Servicio_Checked(object sender, RoutedEventArgs e)
         {
             txb_diasCredito_Servicio.Visibility = Visibility.Visible;
@@ -1254,6 +1179,127 @@ namespace Proyecto
                 txb_diasCredito_Servicio.Visibility = Visibility.Hidden;
                 btn_agregarCredito_Servicio.Visibility = Visibility.Hidden;
                 txt_Credito_Servicio.Visibility = Visibility.Hidden;
+            }
+        }
+        //Iniciar facturacion de servicios
+        private void TabItem_Initialized(object sender, EventArgs e)
+        {
+            txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
+            txb_Cantidad.Text = "0";
+            txb_Precio.Text = "0";
+            txb_subtotal_factura_servicios.Text = "0";
+            txb_descuento_servicios.Text = "0";
+            txb_total_factura_servicios.Text = "0";
+            txb_impuesto_Servicios.Text = "0";
+            txb_subneto_servicios.Text = "0";
+        }
+
+        private void Rb_Dolar_Servicio_Checked(object sender, RoutedEventArgs e)
+        {
+            if (txb_Precio.Text != "")
+            {
+                txb_Precio.Text = (float.Parse(txb_Precio.Text) / datos.ObtenerValorDolar()).ToString();
+                CalculaMontosServicios();
+            }
+        }
+
+        private void Rb_Colon_Servicio_Checked(object sender, RoutedEventArgs e)
+        {
+            if(txb_Precio.Text!="")
+            {
+                txb_Precio.Text = (float.Parse(txb_Precio.Text) * datos.ObtenerValorDolar()).ToString();
+                CalculaMontosServicios();
+            }
+        }
+
+        private void Rb_Si_Servicio_Checked(object sender, RoutedEventArgs e)
+        {
+            if (txb_impuesto_Servicios != null)
+            {
+                CalculaMontosServicios();
+            }
+        }
+
+        private void Rb_No_Servicio_Checked(object sender, RoutedEventArgs e)
+        {
+            if (txb_impuesto_Servicios != null && txb_impuesto_Servicios.Text != "0")
+            {
+                CalculaMontosServicios();
+            }
+        }
+        //funcion para imprimir las facturas de servicios
+        private void Button_imprimir_factura_servicio_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //verificamos que todos los campos tengan sus valores solicitados
+                if (txb_descuento_servicios.Text == "" || txb_descripcion.Text == "" || txb_Cantidad.Text == "" || txb_Precio.Text == "" || cmb_Cliente_servicios.SelectedItem == null)
+                {
+                    MessageBox.Show("No se puede imprimir\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    //agregamos los diferentes valores a la entidad de la factura
+                    miFactura.v_Codigo = int.Parse(txt_codigo_factura_servicios.Content.ToString());
+                    miFactura.v_Usuario = datos.id_Usuario(t_Usuario.Text).ToString();
+                    miFactura.v_Cliente = datos.id_Cliente(cmb_Cliente_servicios.SelectedItem.ToString()).ToString();
+                    miFactura.v_Total = txb_total_factura_servicios.Text;
+                    miFactura.v_Descuento = txb_descuento_servicios.Text;
+                    if (Rb_Colon_Servicio.IsChecked == true)
+                    {
+                        miFactura.v_Moneda = "Colones";
+                    }
+                    else if (Rb_Dolar_Servicio.IsChecked == true)
+                    {
+                        miFactura.v_Moneda = "Dolares";
+                    }
+                    if (Rb_Si_Servicio.IsChecked == true)
+                    {
+                        miFactura.v_Impuesto = txb_impuestofactura.Text;
+                    }
+                    else if (Rb_No_Servicio.IsChecked == true)
+                    {
+                        miFactura.v_Impuesto = "0";
+                    }
+                    miFactura.v_tipoFactura = "Servicios";
+                    miFactura.v_Subtotal = txb_subtotal_factura_servicios.Text;
+                    miFactura.v_SubtotalNeto = txb_subneto_servicios.Text;
+                    miFactura.v_tipoPago = tipoPago;
+                    miFactura.v_diasCredito = diasCredito;
+                    miFactura.v_estadoFactura = estadoFactura;
+                    miFactura.v_fechaPago = fechaPago;
+                    miFactura.v_fechaCancelacion = fechaPago;
+                    miFactura.v_tipoCambio = datos.ObtenerValorDolar().ToString("F");
+                    //verificamos si se puede agregar la factura o hay errores 
+                    int v_Resultado = datos.AgregarFacturas(miFactura);
+                    if (v_Resultado == -1)
+                    {
+                        try
+                        {
+                            miDetalle.cantidad = txb_Cantidad.Text;
+                            miDetalle.precioProducto = txb_Precio.Text;
+                            miDetalle.descripcion_servicio = txb_descripcion.Text;
+                            int v_ResultadoD = datos.AgregarDetalle(miDetalle);
+                            if (v_Resultado == -1)
+                            {
+                                MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                                LimpiarServicio();
+                            }else
+                            {
+                                MessageBox.Show("Error al ingresar la factura", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        catch(Exception m)
+                        {
+                            Console.WriteLine(m);
+                        }
+                    }
+                }
+            }
+            catch (Exception m)
+            {
+                MessageBox.Show(m.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine(m.ToString());
             }
         }
     }

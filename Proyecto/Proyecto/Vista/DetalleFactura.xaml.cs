@@ -35,6 +35,7 @@ namespace Proyecto.Vista
         {
             datos.CambiarestadoFactura("Cancelado", txt_codigo.Content.ToString());
             Pago.Content = "Pagó";
+            EstadoFactura.Content = "Cancelado";
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
             DateTime dia = DateTime.Now;
             pagoFactura.Content = dia.ToShortDateString();

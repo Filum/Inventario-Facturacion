@@ -164,7 +164,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
 
 
 
-            <TabItem>
+            <TabItem Initialized="TabItem_Initialized">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -177,7 +177,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         <TextBlock Foreground="Black" VerticalAlignment="Center" Width="170" ><Run Text="  Factura de Servicios"/></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid Margin="0,1,0,-1" Initialized="Grid_Initialized">
+                <Grid Margin="0,1,0,-1">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
@@ -194,7 +194,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                     <Label Content="Número de factura:" HorizontalAlignment="Left" Margin="30,33,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="155" Height="30" VerticalAlignment="Top"/>
                     <Label Content="Cliente:" HorizontalAlignment="Left" Margin="31,86,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="85" Height="30" VerticalAlignment="Top"/>
                     <Label Content="Descripción del servicio realizado:" HorizontalAlignment="Left" Margin="31,236,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="266" Height="40" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txb_descripcion" Margin="31,272,14.8,253.8" TextWrapping="Wrap" KeyUp="txb_descripcion_KeyUp" />
+                    <TextBox x:Name="txb_descripcion" MaxLength="500" Margin="31,272,35.8,253.8" TextWrapping="Wrap" KeyUp="txb_descripcion_KeyUp" />
                     <Button x:Name="btn_imprimir_factura_servicios" Height="70" Width="70" Foreground="White" Margin="71,0,0,141.8" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_imprimir_factura_servicio_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
@@ -215,14 +215,14 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                     <ComboBox x:Name="cmb_Cliente_servicios" Margin="238,89,799.8,0" VerticalAlignment="Top" Initialized="cmb_Cliente_servicios_Initialized"/>
                     <GroupBox x:Name="gb_Moneda_Servicio" Header="Moneda:" HorizontalAlignment="Left" Height="73" Margin="243,153,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White">
                         <StackPanel>
-                            <RadioButton x:Name="Rb_Colon_Servicio" Content="Colón (₡)"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True"/>
-                            <RadioButton x:Name="Rb_Dolar_Servicio" Content="Dólar ($)" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" />
+                            <RadioButton x:Name="Rb_Colon_Servicio" Content="Colón (₡)"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True" Checked="Rb_Colon_Servicio_Checked"/>
+                            <RadioButton x:Name="Rb_Dolar_Servicio" Content="Dólar ($)" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="Rb_Dolar_Servicio_Checked" />
                         </StackPanel>
                     </GroupBox>
                     <GroupBox x:Name="gb_Impuesto_Servicio" Header="Impuesto:" HorizontalAlignment="Left" Height="73" Margin="449,153,0,0" VerticalAlignment="Top" Width="147" FontFamily="Global Sans Serif" Foreground="White">
                         <StackPanel>
-                            <RadioButton x:Name="Rb_Si_Servicio" Content="Si"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True"/>
-                            <RadioButton x:Name="Rb_No_Servicio" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" />
+                            <RadioButton x:Name="Rb_Si_Servicio" Content="Si"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True" Checked="Rb_Si_Servicio_Checked"/>
+                            <RadioButton x:Name="Rb_No_Servicio" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="Rb_No_Servicio_Checked" />
                         </StackPanel>
                     </GroupBox>
                     <Label x:Name="txt_codigo_factura_servicios" Content="# de factura:" HorizontalAlignment="Left" Margin="238,33,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
@@ -248,7 +248,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                 </Grid>
 
             </TabItem>
-            <TabItem Margin="-2.2,0,-1.6,-0.4">
+            <TabItem x:Name="Productostab" Margin="-2.2,0,-1.6,-0.4" Initialized="Productostab_Initialized">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -261,7 +261,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                         <TextBlock Text="  Factura de Productos" Foreground="Black" VerticalAlignment="Center" Width="170" />
                     </StackPanel>
                 </TabItem.Header>
-                <Grid Initialized="Grid_Initialized_1">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
 
