@@ -912,5 +912,25 @@ namespace Datos
             OracleDataReader dr = comando.ExecuteReader();
             conn.Close();
         }
+        public List<string> DetalleFacturaServicios(int codigoFactura)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT DESCRIPCION_SERVICIO,CANTIDAD_PRODUCTO,PRECIOPRODUCTO FROM TBL_DETALLES WHERE FK_IDFACTURA = '"+codigoFactura+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+            var Lista = new List<string>();
+
+
+            while (dr.Read())
+            {
+                Lista.Add(dr.GetString(0));
+                Lista.Add(dr.GetInt64(1).ToString());
+                Lista.Add(dr.GetString(2));
+            }
+            conn.Close();
+            return Lista;
+        }
     }
 }
