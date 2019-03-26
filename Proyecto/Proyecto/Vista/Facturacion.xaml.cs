@@ -340,7 +340,27 @@ namespace Proyecto
             ventana.txt_fecha.Content = detalle[2];
             ventana.txt_fecha_emision.Content = detalle[2];
             int codigo = Convert.ToInt32(ventana.txt_codigo.Content);
-            ventana.dtg_listar_detalle_facturas.ItemsSource = datos.MostrarDetalleFactura(codigo).DefaultView;
+            if(detalle[0] == "Productos")
+                ventana.dtg_listar_detalle_facturas.ItemsSource = datos.MostrarDetalleFactura(codigo).DefaultView;
+            if (detalle[0] == "Servicios")
+            {
+                var detalleServicio = new List<string>();
+                detalleServicio = datos.DetalleFacturaServicios(n_Factura);
+                ventana.dtg_listar_detalle_facturas.Visibility = Visibility.Hidden;
+                ventana.txb_Descripcion.Visibility = Visibility.Visible;
+                ventana.txt_Cantidad.Visibility = Visibility.Visible;
+                ventana.txt_Precio.Visibility = Visibility.Visible;
+                ventana.Cantidad.Visibility = Visibility.Visible;
+                ventana.Precio.Visibility = Visibility.Visible;
+                ventana.br_1.Visibility = Visibility.Visible;
+                ventana.br_2.Visibility = Visibility.Visible;
+                ventana.br_3.Visibility = Visibility.Visible;
+                ventana.br_4.Visibility = Visibility.Visible;
+                ventana.txb_Descripcion.Text = detalleServicio[0];
+                ventana.Cantidad.Content = detalleServicio[1];
+                ventana.Precio.Content = detalleServicio[2];
+            }
+
             ventana.Show();
             dtg_listar_facturas.ItemsSource = null;
             cmb_estado_Factura.SelectedItem = null;
@@ -441,7 +461,13 @@ namespace Proyecto
             txb_impuestofactura.Text = "0";
             txb_total_factura_prueba.Text = "0";
             txb_descuento_linea_producto.Text = "0";
-            txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
+            try
+            {
+                txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
+            }catch (Exception m)
+            {
+                txt_codigo_factura.Content = "1";
+            }
         }
         //Clase necesaria para gregar una nueva factura al datagrid
         public class FacturasProducto
@@ -459,6 +485,8 @@ namespace Proyecto
         //funcion para limpiar la factura de productos
         private void limpiar_Facturaprodutcos()
         {
+            dtg_facturar_productos_prueba.Items.Clear();
+            RadioButton_Si1.IsChecked = true;
             txb_subtotal_factura_prueba.Text = "0";
             txb_descuento_Producto_prueba.Text = "0";
             txb_subtotalneto.Text = "0";
@@ -466,14 +494,14 @@ namespace Proyecto
             txb_total_factura_prueba.Text = "0";
             txb_descuento_linea_producto.Text = "0";
             txb_diasCredito.Text = "";
+            txb_catidad_producto.Text = "";
+            txb_descuento_linea_producto.Text = "";
             txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
             cmb_Cliente_Productos_Prueba.SelectedItem = null;
             Rb_siProducto.IsChecked = true;
-            RadioButton_Si1.IsChecked = true;
             RadioButton_Colon1.IsChecked = true;
             cmb_Productos.SelectedItem = null;
             Rb_Contado.IsChecked = true;
-            dtg_facturar_productos_prueba.Items.Clear();
             montos = 0;
             tipoPago = "";
             diasCredito = "";
@@ -804,7 +832,7 @@ namespace Proyecto
         public int verificarProductoFactura(string n_producto)
         {
             string producto = "";
-
+            int valor = 1;
             foreach (var item in dtg_facturar_productos_prueba.Items)
             {
                 DataGridRow row = (DataGridRow)dtg_facturar_productos_prueba.ItemContainerGenerator.ContainerFromItem(item);
@@ -817,14 +845,18 @@ namespace Proyecto
                 {
                     producto = ((TextBlock)dtg_facturar_productos_prueba.Columns[2].GetCellContent(row)).Text;
                 }
+                if (n_producto == producto)//si ya existe retorna 0 en caso contrario 1
+                {
+                    valor = 0;
+                }
             }
             if (n_producto == producto)//si ya existe retorna 0 en caso contrario 1
             {
-                return 0;
+                return valor;
             }
             else
             {
-                return 1;
+                return valor;
             }
         }
         //funcion que hace el cambio a dolar en los productos del datagrid
@@ -1180,7 +1212,7 @@ namespace Proyecto
                 int diasContado = int.Parse(txb_diasCredito_Servicio.Text);
                 DateTime dia = DateTime.Now.AddDays(diasContado);
                 tipoPago = "Credito";
-                diasCredito = txb_diasCredito.Text;
+                diasCredito = txb_diasCredito_Servicio.Text;
                 estadoFactura = "Pendiente";
                 fechaPago = dia.ToShortDateString();
 
@@ -1193,7 +1225,14 @@ namespace Proyecto
         //Iniciar facturacion de servicios
         private void TabItem_Initialized(object sender, EventArgs e)
         {
-            txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
+            try
+            {
+                txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
+            }
+            catch (Exception m)
+            {
+                txt_codigo_factura_servicios.Content = "1";
+            }
             txb_Cantidad.Text = "0";
             txb_Precio.Text = "0";
             txb_subtotal_factura_servicios.Text = "0";
@@ -1270,7 +1309,7 @@ namespace Proyecto
                     }
                     if (Rb_Si_Servicio.IsChecked == true)
                     {
-                        miFactura.v_Impuesto = txb_impuestofactura.Text;
+                        miFactura.v_Impuesto = txb_impuesto_Servicios.Text;
                     }
                     else if (Rb_No_Servicio.IsChecked == true)
                     {
@@ -1294,6 +1333,7 @@ namespace Proyecto
                             miDetalle.cantidad = txb_Cantidad.Text;
                             miDetalle.precioProducto = txb_Precio.Text;
                             miDetalle.descripcion_servicio = txb_descripcion.Text;
+                            miDetalle.id_factura = txt_codigo_factura_servicios.Content.ToString();
                             int v_ResultadoD = datos.AgregarDetalle(miDetalle);
                             if (v_Resultado == -1)
                             {

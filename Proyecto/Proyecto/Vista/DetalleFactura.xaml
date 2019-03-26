@@ -33,7 +33,7 @@
             <Image x:Name="img_cancelar_png" Height="16" Source="Imagenes/img_cancelar.png" Stretch="Fill" Width="16"/>
         </Button>
         <Label Content="DelRam S.A." HorizontalAlignment="Left" Margin="40,11,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dtg_listar_detalle_facturas" Margin="40,331,38.8,281.8" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
+        <DataGrid x:Name="dtg_listar_detalle_facturas" Visibility="Visible" Margin="40,331,38.8,281.8" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding SERVICIO}" FontFamily="Global Sans Serif"  Header="Tipo" Width="*"/>
                 <DataGridTextColumn Binding="{Binding CODIGOPRODUCTO}" FontFamily="Global Sans Serif" Header="CódigoProducto" Width="*"/>
@@ -75,29 +75,29 @@
         <Border BorderBrush="#FFF7F4F4" BorderThickness="1" HorizontalAlignment="Left" Height="195" Margin="40,131,0,0" VerticalAlignment="Top" Width="1038"/>
         <Label Content="Codigo Factura:" Margin="0,19,221.8,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="104"/>
         <Label x:Name="subtoalFactura" Content="#" Margin="0,0,51.8,246.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="183" Height="30" VerticalAlignment="Bottom"/>
-        <Label Content="Subtotal:" Margin="0,0,239.8,246.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="104" Height="30" VerticalAlignment="Bottom"/>
+        <Label Content="Subtotal:" Margin="0,0,243.8,243.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
         <Label x:Name="descuentoFactura" Content="#" Margin="0,0,51.8,216.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="183" Height="30" VerticalAlignment="Bottom"/>
-        <Label Content="Descuento:" Margin="0,0,239.8,216.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="104" Height="30" VerticalAlignment="Bottom"/>
+        <Label Content="Descuento:" Margin="0,0,243.8,212.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
         <Label x:Name="subtotalNetoFactura" Content="#" Margin="0,0,51.8,181.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="183" Height="30" VerticalAlignment="Bottom"/>
-        <Label Content="Subtotal Neto:" Margin="0,0,239.8,181.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="104" Height="30" VerticalAlignment="Bottom"/>
+        <Label Content="Subtotal Neto:" Margin="0,0,243.8,182.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
         <Label x:Name="impuestoFactura" Content="#" Margin="0,0,51.8,152.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="183"/>
-        <Label Content="Impuesto:" Margin="0,0,239.8,152.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="104" Height="30" VerticalAlignment="Bottom"/>
+        <Label Content="Impuesto:" Margin="0,0,243.8,152.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
         <Label x:Name="totalGeneralFactura" Content="#" Margin="0,0,51.8,122.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="183"/>
-        <Label Content="Total General:" Margin="0,0,239.8,121.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="104"/>
+        <Label Content="Total General:" Margin="0,0,243.8,123.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="126"/>
         <Label x:Name="Garbado" Content="#" Margin="0,0,441.8,216.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="154"/>
         <Label Content="Grabado:" Margin="0,0,491.8,246.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="104" Height="30" VerticalAlignment="Bottom"/>
         <Label x:Name="tipoCambio" Content="#" Margin="0,0,441.8,156.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="154"/>
         <Label Content="Tipo Cambio:" Margin="0,0,491.8,186.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="104"/>
-        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,243.8,246.8" VerticalAlignment="Bottom" Width="100"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,51.8,246.8" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,243.8,216.8" HorizontalAlignment="Right" Width="100" Height="30" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,243.8,186.8" HorizontalAlignment="Right" Width="100" Height="30" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,243.8,156.8" HorizontalAlignment="Right" Width="100" Height="30" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,243.8,126.8" HorizontalAlignment="Right" Width="100" Height="30" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,51.8,216.8" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,51.8,186.8" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,51.8,156.8" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,51.8,126.8" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,247.8,183.2" VerticalAlignment="Bottom" Width="126"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,55.8,183.2" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
+        <Border x:Name="br_1" Visibility="Hidden" BorderBrush="White" BorderThickness="1" Margin="0,0,247.8,303.2" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
+        <Border x:Name="br_3" Visibility="Hidden" BorderBrush="White" BorderThickness="1" Margin="0,0,247.8,273.2" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,247.8,243.2" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,247.8,213.2" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
+        <Border x:Name="br_2" Visibility="Hidden" BorderBrush="White" BorderThickness="1" Margin="0,0,55.8,303.2" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
+        <Border x:Name="br_4" Visibility="Hidden" BorderBrush="White" BorderThickness="1" Margin="0,0,55.8,273.2" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,55.8,243.2" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,55.8,213.2" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,441.8,246.8" VerticalAlignment="Bottom" Width="154"/>
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,441.8,216.8" VerticalAlignment="Bottom" Width="154"/>
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,441.8,186.8" VerticalAlignment="Bottom" Width="154"/>
@@ -120,5 +120,15 @@
                 <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="    Pagar "/><LineBreak/><Run Text="  Factura"/></TextBlock>
             </StackPanel>
         </Button>
+        <TextBox x:Name="txb_Descripcion" Visibility="Collapsed" Margin="45,345,51.8,354.2" TextWrapping="Wrap" RenderTransformOrigin="0.5,0.5" IsReadOnly="True"/>
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,247.8,123.2" VerticalAlignment="Bottom" Width="126"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,55.8,123.2" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,247.8,153.2" VerticalAlignment="Bottom" Width="126"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,55.8,153.2" HorizontalAlignment="Right" Width="192" Height="30" VerticalAlignment="Bottom"/>
+        <Label x:Name="Precio" Visibility="Hidden" Content="#" Margin="0,0,55.8,273.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="179" Height="30" VerticalAlignment="Bottom"/>
+        <Label x:Name="txt_Precio" Visibility="Hidden" Content="Precio por hora:" Margin="0,0,247.8,273.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
+        <Label x:Name="Cantidad" Content="#" Visibility="Hidden" Margin="0,0,55.8,303.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="179" Height="30" VerticalAlignment="Bottom"/>
+        <Label x:Name="txt_Cantidad" Visibility="Hidden" Content="Cantidad de horas:" Margin="0,0,247.8,303.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
+
     </Grid>
 </Window>

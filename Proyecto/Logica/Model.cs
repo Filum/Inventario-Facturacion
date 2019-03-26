@@ -217,6 +217,11 @@ namespace Logica
         {
             return v_Data.BuscarClienteEstadoyNombre(nombre, estado);
         }
+        public List<string> DetalleFacturaServicios(int codigoFactura)
+        {
+            return v_Data.DetalleFacturaServicios(codigoFactura);
+        }
+
 
         }
 }
