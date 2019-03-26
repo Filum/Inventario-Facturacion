@@ -350,7 +350,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select USU.PK_IDUSUARIO,USU.CEDULAIDENTIFICACION,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA " +
+            comando.CommandText = "select USU.PK_IDUSUARIO,USU.CEDULAIDENTIFICACION,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,USU.FK_IDROL,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA " +
                 "from TBL_USUARIOS USU INNER JOIN TBL_ROLES ROL ON(ROL.PK_IDROL = USU.FK_IDROL)" +
                 "WHERE translate(UPPER(NOMBREUSUARIO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')" +
                 "OR translate(UPPER(APELLIDOS),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')" +
@@ -371,11 +371,12 @@ namespace Datos
                     usuario.v_TelefonoOpcional = Convert.ToInt64(dr.GetValue(5));
                     usuario.v_Correo = dr.GetString(6);
                     usuario.v_Puesto = dr.GetString(7);
-                    usuario.v_NombreRol = dr.GetString(8);
-                    usuario.v_UsuarioSistema = dr.GetString(9);
-                    usuario.v_Contrasena = dr.GetString(10);
-                    usuario.v_Fecha = Convert.ToDateTime(dr.GetValue(11));
-                    usuario.v_EstadoSistema = dr.GetString(12);
+                    usuario.v_IdRol = Convert.ToInt64(dr.GetValue(8));
+                    usuario.v_NombreRol = dr.GetString(9);
+                    usuario.v_UsuarioSistema = dr.GetString(10);
+                    usuario.v_Contrasena = dr.GetString(11);
+                    usuario.v_Fecha = Convert.ToDateTime(dr.GetValue(12));
+                    usuario.v_EstadoSistema = dr.GetString(13);
                     Lista.Add(usuario);
                 }
             }

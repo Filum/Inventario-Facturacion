@@ -651,11 +651,12 @@ namespace Proyecto
                 dtg_usuarios.Columns[5].Header = "Tel. Opcional";
                 dtg_usuarios.Columns[6].Header = "Correo";
                 dtg_usuarios.Columns[7].Header = "Puesto";
-                dtg_usuarios.Columns[8].Header = "Rol";
-                dtg_usuarios.Columns[9].Header = "Usuario";
-                dtg_usuarios.Columns[10].Header = "Contraseña";
-                dtg_usuarios.Columns[11].Header = "Fecha";
-                dtg_usuarios.Columns[12].Header = "Estado en el Sistema";
+                dtg_usuarios.Columns[8].Header = "Id Rol";
+                dtg_usuarios.Columns[9].Header = "Nombre Rol";
+                dtg_usuarios.Columns[10].Header = "Usuario";
+                dtg_usuarios.Columns[11].Header = "Contraseña";
+                dtg_usuarios.Columns[12].Header = "Fecha";
+                dtg_usuarios.Columns[13].Header = "Estado en el Sistema";
 
                 v_Actividad_btnAgregar = false;
             }
@@ -676,16 +677,22 @@ namespace Proyecto
             txb_telefonoOpcional.Text = (dtg_usuarios.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
             txb_correo.Text = (dtg_usuarios.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
             txb_puesto.Text = (dtg_usuarios.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
-            txb_usuario.Text = (dtg_usuarios.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
-            txb_contrasenna.Text = (dtg_usuarios.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
+            txb_usuario.Text = (dtg_usuarios.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
+            txb_contrasenna.Text = (dtg_usuarios.SelectedCells[11].Column.GetCellContent(row) as TextBlock).Text;
 
-            cmb_rol.Text = (dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
-            
-            if ((dtg_usuarios.SelectedCells[12].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
+
+            //v_Clt.v_IdRol = Convert.ToInt64((dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text);
+            //v_Clt.v_NombreRol = (dtg_usuarios.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
+            //MessageBox.Show("id "+ v_Clt.v_IdRol+"nombre "+ v_Clt.v_NombreRol);
+            //cmb_rol.Items.Add(v_Clt.v_NombreRol);
+
+
+
+            if ((dtg_usuarios.SelectedCells[13].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
             {
                 rb_activo.IsChecked = true;
             }
-            else if ((dtg_usuarios.SelectedCells[12].Column.GetCellContent(row) as TextBlock).Text == "INACTIVO")
+            else if ((dtg_usuarios.SelectedCells[13].Column.GetCellContent(row) as TextBlock).Text == "INACTIVO")
             {
                 rb_inactivo.IsChecked = true;
             }
