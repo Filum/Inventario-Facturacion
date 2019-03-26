@@ -177,7 +177,7 @@ namespace Logica
         {
             return v_Data.id_Usuario(nombre);
         }
-        public Int64 id_Cliente(string nombre)
+        public EntidadClientes id_Cliente(string nombre)
         {
             return v_Data.IdCliente(nombre);
         }

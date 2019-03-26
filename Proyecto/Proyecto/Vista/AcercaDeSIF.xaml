@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto.Vista"
         mc:Ignorable="d"
-        Title="AcercaDeSIF" Height="450" Width="800" AllowsTransparency="True" WindowStyle="None" Foreground="{x:Null}" Background="{x:Null}">
+        Title="AcercaDeSIF" WindowStartupLocation="CenterScreen"  Height="450" Width="800" AllowsTransparency="True" WindowStyle="None" Foreground="{x:Null}" Background="{x:Null}">
 
     <Grid>
         <Grid.RowDefinitions>

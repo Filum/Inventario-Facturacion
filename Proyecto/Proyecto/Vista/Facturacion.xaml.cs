@@ -1008,7 +1008,11 @@ namespace Proyecto
                     //agregamos los diferentes valores a la entidad de la factura
                     miFactura.v_Codigo = int.Parse(txt_codigo_factura.Content.ToString());
                     miFactura.v_Usuario = datos.id_Usuario(t_Usuario.Text).ToString();
-                    miFactura.v_Cliente = datos.id_Cliente(cmb_Cliente_Productos_Prueba.SelectedItem.ToString()).ToString();
+
+                    EntidadClientes micliente = new EntidadClientes();
+                    micliente = datos.id_Cliente(cmb_Cliente_Productos_Prueba.SelectedItem.ToString());
+                    miFactura.v_Cliente = micliente.v_Codigo.ToString();
+
                     miFactura.v_Total = txb_total_factura_prueba.Text;
                     miFactura.v_Descuento = txb_descuento_Producto_prueba.Text;
                     if (RadioButton_Colon1.IsChecked == true)
@@ -1037,13 +1041,17 @@ namespace Proyecto
                     miFactura.v_fechaCancelacion = fechaPago;
                     miFactura.v_tipoCambio = datos.ObtenerValorDolar().ToString("F");
                     //verificamos si se puede agregar la factura o hay errores 
-                        int v_Resultado = datos.AgregarFacturas(miFactura);
-                        if (v_Resultado == -1)
-                        {
-                        GuardarDetalleFactura();
-                        MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        limpiar_Facturaprodutcos();
-                    }
+                        //int v_Resultado = datos.AgregarFacturas(miFactura);
+                        //if (v_Resultado == -1)
+                        //{
+                            //GuardarDetalleFactura();
+                            MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                           
+                            Imprimir imprimir = new Imprimir();
+                            imprimir.imprimirFactura(dtg_facturar_productos_prueba, miFactura, DateTime.Now, micliente);
+
+                            limpiar_Facturaprodutcos();
+                        //}
                 }
             }
             catch (Exception m)
@@ -1051,6 +1059,7 @@ namespace Proyecto
                 MessageBox.Show(m.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.WriteLine(m.ToString());
             }
+
         }
 
         private void RadioButton_Colon1_Checked(object sender, RoutedEventArgs e)
@@ -1242,7 +1251,13 @@ namespace Proyecto
                     //agregamos los diferentes valores a la entidad de la factura
                     miFactura.v_Codigo = int.Parse(txt_codigo_factura_servicios.Content.ToString());
                     miFactura.v_Usuario = datos.id_Usuario(t_Usuario.Text).ToString();
-                    miFactura.v_Cliente = datos.id_Cliente(cmb_Cliente_servicios.SelectedItem.ToString()).ToString();
+
+
+                    EntidadClientes micliente = new EntidadClientes();
+                    micliente = datos.id_Cliente(cmb_Cliente_Productos_Prueba.SelectedItem.ToString());
+                    miFactura.v_Cliente = micliente.v_Codigo.ToString();
+
+
                     miFactura.v_Total = txb_total_factura_servicios.Text;
                     miFactura.v_Descuento = txb_descuento_servicios.Text;
                     if (Rb_Colon_Servicio.IsChecked == true)

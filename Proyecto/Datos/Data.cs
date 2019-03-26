@@ -825,22 +825,30 @@ namespace Datos
             conn.Close();
             return valor;
         }
-        public Int64 IdCliente(string nombre)
+        public EntidadClientes IdCliente(string nombre)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT PK_IDCLIENTE,NOMBRE from TBL_CLIENTES where NOMBRE = '"+nombre+"'";
+            comando.CommandText = "SELECT PK_IDCLIENTE, NOMBRE, TELEFONOOFICINA, TELEFONOMOVIL, CORREO, CEDULA, REPRESENTANTE, DIRECCION FROM TBL_CLIENTES WHERE NOMBRE = '"+nombre+"'";
             OracleDataReader dr = comando.ExecuteReader();
 
-            Int64 valor = 0;
+            EntidadClientes cliente = new EntidadClientes();
+            
             while (dr.Read())
             {
-                valor = Convert.ToInt64(dr.GetValue(0));
+                cliente.v_Codigo = Convert.ToInt32(dr.GetValue(0));
+                cliente.v_NombreCompleto = Convert.ToString(dr.GetValue(1));
+                cliente.v_Teleoficina = Convert.ToInt32(dr.GetValue(2));
+                cliente.v_Telemovil = Convert.ToInt32(dr.GetValue(3));
+                cliente.v_Correo = Convert.ToString(dr.GetValue(4));
+                cliente.v_Cedula = Convert.ToString(dr.GetValue(5));
+                cliente.v_Representante = Convert.ToString(dr.GetValue(6));
+                cliente.v_Direccion = Convert.ToString(dr.GetValue(7));
             }
             conn.Close();
-            return valor;
+            return cliente;
         }
         public Int64 IdProducto(string nombre)
         {

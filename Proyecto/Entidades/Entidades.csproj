@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="EntidadClientes.cs" />
     <Compile Include="EntidadDetalleFactura.cs" />
-    <Compile Include="EntidadDetalles.cs" />
     <Compile Include="EntidadFacturas.cs" />
     <Compile Include="EntidadProductos.cs" />
     <Compile Include="EntidadProveedores.cs" />
