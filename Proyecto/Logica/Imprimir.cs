@@ -123,7 +123,7 @@ namespace Logica
             }
         }
 
-        public void imprimirFactura(DataGrid dataGrid, Entidades.EntidadFacturas factura, DateTime fechaAct, Entidades.EntidadClientes cliente)
+        public void imprimirFacturaProducto(DataGrid dataGrid, Entidades.EntidadFacturas factura, DateTime fechaAct, Entidades.EntidadClientes cliente)
         {
             PrintDialog printDialog = new PrintDialog();
             if(printDialog.ShowDialog() == true)

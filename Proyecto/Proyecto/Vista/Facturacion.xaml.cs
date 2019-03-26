@@ -1073,17 +1073,17 @@ namespace Proyecto
                     miFactura.v_fechaCancelacion = fechaPago;
                     miFactura.v_tipoCambio = datos.ObtenerValorDolar().ToString("F");
                     //verificamos si se puede agregar la factura o hay errores 
-                        //int v_Resultado = datos.AgregarFacturas(miFactura);
-                        //if (v_Resultado == -1)
-                        //{
-                            //GuardarDetalleFactura();
+                        int v_Resultado = datos.AgregarFacturas(miFactura);
+                        if (v_Resultado == -1)
+                        {
+                            GuardarDetalleFactura();
                             MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                            
                             Imprimir imprimir = new Imprimir();
-                            imprimir.imprimirFactura(dtg_facturar_productos_prueba, miFactura, DateTime.Now, micliente);
+                            imprimir.imprimirFacturaProducto(dtg_facturar_productos_prueba, miFactura, DateTime.Now, micliente);
 
                             limpiar_Facturaprodutcos();
-                        //}
+                        }
                 }
             }
             catch (Exception m)
@@ -1338,6 +1338,10 @@ namespace Proyecto
                             if (v_Resultado == -1)
                             {
                                 MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                                Imprimir imprimir = new Imprimir();
+                                //imprimir.imprimirFactura()
+
                                 LimpiarServicio();
                             }else
                             {
