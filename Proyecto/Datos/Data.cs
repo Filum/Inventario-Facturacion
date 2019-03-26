@@ -209,9 +209,9 @@ namespace Datos
             return tabla;
         }
 
-        /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
-         Además, recibe un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta. En caso de encontrar proveedores estos serán retornados mediante una tabla*/
-        public DataTable MostarListaProveedores(String v_Fecha1, String v_Fecha2, String v_EstadoSistema)
+        /*Este método recibe un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta. 
+         * En caso de encontrar proveedores estos serán retornados mediante una tabla*/
+        public DataTable MostarListaProveedores(String v_EstadoSistema)
         {  
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
@@ -219,11 +219,36 @@ namespace Datos
             comando.Connection = conn;
             if (v_EstadoSistema == "LISTAPROVEEDORES")
             {
-                comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1+ "' AND '" + v_Fecha2 + "'";
+                comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores";
             }
             else
             {
-                comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha,estadoSistema from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "' AND estadoSistema = '" + v_EstadoSistema + "'";
+                comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha,estadoSistema from tbl_Proveedores where estadoSistema = '" + v_EstadoSistema + "'";
+            }
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
+        /*Este métodorecibe un estado en el sistema(ACTIVO, INACTIVO, LISTAUSUARIOS) para realizar la consulta. 
+         * En caso de encontrar usuarios estos serán retornados mediante una tabla*/
+        public DataTable MostarListaUsuarios(String v_EstadoSistema)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            if (v_EstadoSistema == "LISTAUSUARIOS")
+            {
+                comando.CommandText = "select USU.PK_IDUSUARIO,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA from tbl_Usuarios USU INNER JOIN tbl_Roles ROL ON(ROL.PK_IDROL = USU.FK_IDROL)";
+            }
+            else
+            {
+                comando.CommandText = "select USU.PK_IDUSUARIO,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA from tbl_Usuarios USU INNER JOIN tbl_Roles ROL ON(ROL.PK_IDROL = USU.FK_IDROL) WHERE USU.ESTADOSISTEMA = '" + v_EstadoSistema + "'";
             }
 
             OracleDataAdapter adaptador = new OracleDataAdapter();

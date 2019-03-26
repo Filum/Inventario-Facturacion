@@ -144,6 +144,36 @@ namespace Proyecto
                 MessageBoxButton.OK);
         }
 
+        /*Botón el cual permite listar los usuarios existentes en el sistema según su estado, envía el estado en el 
+        * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
+        private void btn_listar_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmb_tipoBusqueda.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios(v_EstadoSistema).DefaultView;
+                dtg_lista.Columns[0].Header = "Número de Cédula";
+                dtg_lista.Columns[1].Header = "Nombre del Usuario";
+                dtg_lista.Columns[2].Header = "Apellidos";
+                dtg_lista.Columns[3].Header = "Teléfono";
+                dtg_lista.Columns[4].Header = "Tel. Opcional";
+                dtg_lista.Columns[5].Header = "Correo";
+                dtg_lista.Columns[6].Header = "Puesto";
+                dtg_lista.Columns[7].Header = "Rol";
+                dtg_lista.Columns[8].Header = "Usuario";
+                dtg_lista.Columns[9].Header = "Contraseña";
+                dtg_lista.Columns[10].Header = "Fecha de Ingreso";
+                dtg_lista.Columns[11].Header = "Estado en el Sistema";
+            }
+        }
+
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
             MostrarUsuariosExistentes();
@@ -675,7 +705,7 @@ namespace Proyecto
             ValidarErroresTxb(txb_numCed, lbl_errorNumCed, "numeros");
             if (lbl_errorNumCed.Visibility == Visibility.Hidden)
             {
-                bool v_Resultado = v_Model.ValidarCedJurProveedores(v_NumCed);
+                bool v_Resultado = v_Model.ValidarNumCedUsuarios(v_NumCed);
                 if (v_Resultado == true)
                 {
                     lbl_errorNumCed.Content = "La cédula jurídica ya existe";
@@ -781,6 +811,24 @@ namespace Proyecto
             HabilitarBtnAgregar();
         }
 
+        //Recibe el filtro por el cual se desea realizar el listado de usuario y se lo asigna a la variable "v_EstadoSistema" 
+        //para que se envie a data y realice la consulta respectiva.
+        private void cmb_tipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmb_tipoBusqueda.SelectedValue == usuariosActivos)
+            {
+                v_EstadoSistema = "ACTIVO";
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == usuariosInactivos)
+            {
+                v_EstadoSistema = "INACTIVO";
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == listaUsuarios)
+            {
+                v_EstadoSistema = "LISTAUSUARIOS";
+            }
+        }
+                
     }
 }
 

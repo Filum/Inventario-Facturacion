@@ -40,10 +40,7 @@ namespace Proyecto
             v_DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             v_DispatcherTimer.Start();
             MostrarProveedoresExistentes();
-            CargarProveedores();
-
-            date_inicio.SelectedDate = DateTime.Now.Date;
-            date_final.SelectedDate = DateTime.Now.Date;
+            //CargarProveedores();
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -280,50 +277,31 @@ namespace Proyecto
             v_Actividad_btnAgregar = true;
         }
 
-        /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
-         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar.
-         Además, envía el estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
+        /*Botón el cual permite listar los proveedores existentes en el sistema según su estado, envía el estado en el 
+         * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
         private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
-            if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
+            if (cmb_tipoBusqueda.SelectedItem == null)
             {
-                DateTime v_FechaInicio = DateTime.Parse(date_inicio.SelectedDate.Value.Date.ToShortDateString());
-                DateTime v_FechaFinal = DateTime.Parse(date_final.SelectedDate.Value.Date.ToShortDateString());
-                String v_Fecha1;
-                v_Fecha1 = date_inicio.SelectedDate.Value.Date.ToShortDateString();
-                String v_Fecha2;
-                v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
-                dtg_lista.ItemsSource = null;
-
-                if (v_FechaInicio > v_FechaFinal)
+                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
                 {
-                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else if (cmb_tipoBusqueda.SelectedValue == null)
-                {
-                    MessageBox.Show("Debe seleccionar el tipo de búsqueda", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
-                    if(v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema).Rows.Count == 0)
-                    {
-                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    else
-                    {
-                        dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema).DefaultView; 
-                        dtg_lista.Columns[0].Header = "Cédula Jurídica";
-                        dtg_lista.Columns[1].Header = "Nombre del Proveedor";
-                        dtg_lista.Columns[2].Header = "Correo";
-                        dtg_lista.Columns[3].Header = "Correo Opcional";
-                        dtg_lista.Columns[4].Header = "Teléfono";
-                        dtg_lista.Columns[5].Header = "Tel. Opcional";
-                        dtg_lista.Columns[6].Header = "Descripción";
-                        dtg_lista.Columns[7].Header = "Fecha de Ingreso";
-                        dtg_lista.Columns[8].Header = "Estado en el Sistema";
-                    }
+                    dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
+                    dtg_lista.Columns[0].Header = "Cédula Jurídica";
+                    dtg_lista.Columns[1].Header = "Nombre del Proveedor";
+                    dtg_lista.Columns[2].Header = "Correo";
+                    dtg_lista.Columns[3].Header = "Correo Opcional";
+                    dtg_lista.Columns[4].Header = "Teléfono";
+                    dtg_lista.Columns[5].Header = "Tel. Opcional";
+                    dtg_lista.Columns[6].Header = "Descripción";
+                    dtg_lista.Columns[7].Header = "Fecha de Ingreso";
+                    dtg_lista.Columns[8].Header = "Estado en el Sistema";
                 }
-            }
         }
 
         //Botón el cual brinda con información necesaria para la utilización de la ventana en la que se encuentra el usuario

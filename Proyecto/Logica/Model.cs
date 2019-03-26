@@ -65,11 +65,16 @@ namespace Logica
 
 
         //--------------- M O S T R A R -------------------
-        //Recibe como referencia dos fechas las cuales van a ser enviadas a la clase Data para proceder con la actividad de listar proveedores
-        //Además, recibe un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta.
-        public DataTable MostrarListaProveedores(String v_Fecha1, String v_Fecha2, String v_EstadoSistema)
+        //Recibe como referencia un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta.
+        public DataTable MostrarListaProveedores(String v_EstadoSistema)
         {
-            return v_Data.MostarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema);
+            return v_Data.MostarListaProveedores(v_EstadoSistema);
+        }
+
+        //Recibe como referencia un estado en el sistema(ACTIVO, INACTIVO, LISTAUSUARIOS) para realizar la consulta.
+        public DataTable MostrarListaUsuarios(String v_EstadoSistema)
+        {
+            return v_Data.MostarListaUsuarios(v_EstadoSistema);
         }
 
         public List<EntidadProveedores> ProveedoresExistentes()
