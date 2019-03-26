@@ -26,7 +26,7 @@
             <Button x:Name="btn_ayuda" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_ayuda_Click"  >
                 <StackPanel x:Name="btn_usuarios_ayuda" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="imagenes/ayuda.png" Width="50" Height="50"
-HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <TextBlock Text="Ayuda" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="18,0,18,0"/>
                 </StackPanel>
             </Button>
@@ -158,7 +158,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="10,41,24,0" Height="34" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="304,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278"/>
 
-                    <Grid Visibility="Collapsed"  x:Name="grd_formularioUsuario" >
+                    <Grid Visibility="Visible"  x:Name="grd_formularioUsuario" >
                         <Grid Margin="15,82,26,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="58*"/>
@@ -243,15 +243,15 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                                 <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btn_modificar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,387,0,10" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_modificar_Click" HorizontalAlignment="Left" Width="70">
+                        <Button x:Name="btn_modificar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,387,0,10" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_modificar_Click" HorizontalAlignment="Left" Width="70">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                                <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0"/>
                             </StackPanel>
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Visible"  x:Name="grd_usuariosExistentes">
+                    <Grid Visibility="Collapsed"  x:Name="grd_usuariosExistentes">
                         <DataGrid x:Name="dtg_usuarios" Margin="10,140,10,24"  AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridRow">

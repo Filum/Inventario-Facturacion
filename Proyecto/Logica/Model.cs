@@ -51,6 +51,12 @@ namespace Logica
             return v_Data.ModificarProveedores(clt);
         }
 
+        //Recibe como referencia una entidad proveedores la cual va a ser enviada a la clase Data para proceder con la modificación del proveedor
+        public int ModificarUsuarios(EntidadUsuarios clt)
+        {
+            return v_Data.ModificarUsuarios(clt);
+        }
+
         //Recibe como referencia una entidad ROLES la cual va a ser enviada a la clase Data para proceder con la modificación del ROL
         public int ModificarRoles(EntidadRoles clt)
         {
@@ -138,6 +144,13 @@ namespace Logica
         public bool ValidarModificacionProveedores(EntidadProveedores clt)
         {
             return v_Data.ValidarModificacionProveedores(clt);
+        }
+
+        /*Recibe como referencia una entidad usuario que contiene el id y la cédula del usuario con el fin de validar si la
+        cédula está asociada a dicho id*/
+        public bool ValidarModificacionUsuario(EntidadUsuarios clt)
+        {
+            return v_Data.ValidarModificacionUsuario(clt);
         }
 
         public List<EntidadClientes> BuscarClientes(String nombre)

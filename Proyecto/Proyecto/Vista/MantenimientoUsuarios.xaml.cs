@@ -157,9 +157,73 @@ namespace Proyecto
             v_Actividad_btnAgregar = true;
         }
 
-        private void Button_modificar_Click(object sender, RoutedEventArgs e)
+        private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
+            if ((lbl_errorNombre.Visibility == Visibility.Visible) ||
+                (lbl_errorApellidos.Visibility == Visibility.Visible || lbl_errorCorreo.Visibility == Visibility.Visible) ||
+                (lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible) ||
+                (lbl_errorPuesto.Visibility == Visibility.Visible || lbl_errorRol.Visibility == Visibility.Visible) ||
+                (lbl_errorUsuario.Visibility == Visibility.Visible || lbl_errorUsuario.Visibility == Visibility.Visible) ||
+                (lbl_errorRb.Visibility == Visibility.Visible))
+            {
+                MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                try
+                {
+                    v_Clt.v_CedIdentificacion = Convert.ToInt64(txb_numCed.Text);
+                    v_Clt.v_NombreUsuario = txb_nombre.Text;
+                    v_Clt.v_Correo = txb_correo.Text;
+                    v_Clt.v_Apellidos = txb_apellidos.Text;
+                    v_Clt.v_Correo = txb_correo.Text;
+                    v_Clt.v_Telefono = Convert.ToInt64(txb_telefono.Text);
 
+                    if (txb_telefonoOpcional.Text == "")
+                    {
+                        v_Clt.v_TelefonoOpcional = 0;
+                    }
+                    else
+                    {
+                        v_Clt.v_TelefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
+                    }
+                    v_Clt.v_Puesto = txb_puesto.Text;
+                    EntidadRoles ComboItem = (EntidadRoles)cmb_rol.SelectedItem;
+                    Int64 idRol = ComboItem.v_IdRol;
+                    v_Clt.v_IdRol = idRol;
+                    v_Clt.v_UsuarioSistema = txb_usuario.Text;
+                    v_Clt.v_Contrasena = txb_contrasenna.Text;
+                    if (rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }
+                    if (v_Model.ValidarModificacionUsuario(v_Clt) == true)
+                    {
+                        lbl_errorNumCed.Visibility = Visibility.Hidden;
+                    }
+                    if (lbl_errorNumCed.Visibility == Visibility.Visible)
+                    {
+                        MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    else if (v_Model.ModificarUsuarios(v_Clt) == -1)
+                    {
+                        MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btn_limpiar_Click(sender, e);
+                        v_Actividad_btnAgregar = true;
+                        DeshabilitarComponentes();
+                    }
+                }
+                catch (Exception m)
+                {
+                    Console.WriteLine(m.ToString());
+                    MessageBox.Show("Error al modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void Button_agregar_Click(object sender, RoutedEventArgs e)
@@ -175,6 +239,7 @@ namespace Proyecto
                     v_Clt.v_CedIdentificacion = Convert.ToInt64(txb_numCed.Text);
                     v_Clt.v_NombreUsuario = txb_nombre.Text;
                     v_Clt.v_Apellidos = txb_apellidos.Text;
+                    v_Clt.v_Correo = txb_correo.Text;
                     v_Clt.v_Telefono = Convert.ToInt64(txb_telefono.Text);
 
                     if (txb_telefonoOpcional.Text == "")

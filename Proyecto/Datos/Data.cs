@@ -143,6 +143,32 @@ namespace Datos
             return v_Resultado;
         }
 
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un nuevo proveedor.
+        Si se modifica correctamente retorna un "-1" */
+        public int ModificarUsuarios(EntidadUsuarios clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("act_Usuarios", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("IDUSUARIO", clt.v_IdUsuario));
+            comando.Parameters.Add(new OracleParameter("NUMCED", clt.v_CedIdentificacion));
+            comando.Parameters.Add(new OracleParameter("NOM", clt.v_NombreUsuario));
+            comando.Parameters.Add(new OracleParameter("APE", clt.v_Apellidos));
+            comando.Parameters.Add(new OracleParameter("TEL", clt.v_Telefono));
+            comando.Parameters.Add(new OracleParameter("TELOPC", clt.v_TelefonoOpcional));
+            comando.Parameters.Add(new OracleParameter("CORR", clt.v_Correo));
+            comando.Parameters.Add(new OracleParameter("PUES", clt.v_Puesto));
+            comando.Parameters.Add(new OracleParameter("ID_ROL", clt.v_IdRol));
+            comando.Parameters.Add(new OracleParameter("USUA", clt.v_UsuarioSistema));
+            comando.Parameters.Add(new OracleParameter("CONTRA", clt.v_Contrasena));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
+
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
         /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un rol.
        Si se modifica correctamente retorna un "-1" */
         public int ModificarRoles(EntidadRoles clt)
@@ -487,6 +513,31 @@ namespace Datos
             OracleDataReader dr = comando.ExecuteReader();
 
             if (clt.v_IdProveedor != 0 && clt.v_CedulaJuridica != 0)
+            {
+                while (dr.Read())
+                {
+                    return true;
+                }
+            }
+            conn.Close();
+            return false;
+        }
+
+        /*Recibe como referencia una entidad usuario que contiene el id y la cédula del usuario con el fin de validar si la
+        cédula está asociada a dicho id.
+        Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
+        usuario ingresa o deja la misma cédula que tenia,no le de error*/
+        public Boolean ValidarModificacionUsuario(EntidadUsuarios clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT PK_IDUSUARIO,CEDULAIDENTIFICACION from TBL_USUARIOS where PK_IDUSUARIO = " + clt.v_IdUsuario + " AND CEDULAIDENTIFICACION = " + clt.v_CedIdentificacion;
+
+            OracleDataReader dr = comando.ExecuteReader();
+
+            if (clt.v_IdUsuario != 0 && clt.v_CedIdentificacion != 0)
             {
                 while (dr.Read())
                 {
