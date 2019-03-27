@@ -192,7 +192,7 @@ namespace Proyecto
                 (lbl_errorApellidos.Visibility == Visibility.Visible || lbl_errorCorreo.Visibility == Visibility.Visible) ||
                 (lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible) ||
                 (lbl_errorPuesto.Visibility == Visibility.Visible || lbl_errorRol.Visibility == Visibility.Visible) ||
-                (lbl_errorUsuario.Visibility == Visibility.Visible || lbl_errorUsuario.Visibility == Visibility.Visible) ||
+                (lbl_errorUsuario.Visibility == Visibility.Visible || lbl_errorContrasenna.Visibility == Visibility.Visible) ||
                 (lbl_errorRb.Visibility == Visibility.Visible))
             {
                 MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
