@@ -39,11 +39,14 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+            
+            //Cargar usuarios existentes
+            cmb_tipoBusqueda.SelectedIndex = 2;
+            dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios("LISTAUSUARIOS").DefaultView;
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             txt_fecha.Content = DateTime.Now.ToString();
-
         }
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
         {
@@ -148,11 +151,7 @@ namespace Proyecto
         * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
         private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
-            if (cmb_tipoBusqueda.SelectedItem == null)
-            {
-                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
+            if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
             {
                 MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -218,11 +217,14 @@ namespace Proyecto
                         v_Clt.v_TelefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
                     }
                     v_Clt.v_Puesto = txb_puesto.Text;
+
                     EntidadRoles ComboItem = (EntidadRoles)cmb_rol.SelectedItem;
-                    Int64 idRol = ComboItem.v_IdRol;
-                    v_Clt.v_IdRol = idRol;
+                    Int64 v_IdRol = ComboItem.v_IdRol;
+                    v_Clt.v_IdRol = v_IdRol;
+
                     v_Clt.v_UsuarioSistema = txb_usuario.Text;
                     v_Clt.v_Contrasena = txb_contrasenna.Text;
+
                     if (rb_inactivo.IsChecked == true)
                     {
                         v_Clt.v_EstadoSistema = "INACTIVO";
@@ -251,7 +253,7 @@ namespace Proyecto
                 catch (Exception m)
                 {
                     Console.WriteLine(m.ToString());
-                    MessageBox.Show("Error al modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -350,6 +352,8 @@ namespace Proyecto
         //Muestra el panel del formulario en el tab de configuración de usuarios
         private void MostrarFormulario()
         {
+            HabilitarComponentes();
+            ValidarComponentes();
             OcultarUsuariosExistentes();
             grd_formularioUsuario.Visibility = Visibility.Visible;
             LlenarComboboxRol();
@@ -666,6 +670,7 @@ namespace Proyecto
         en el DataGrid con la finalidad de ser modificado, esto en el panel del formulario en el tab de configuración de usuarios*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+            MostrarFormulario();
             DataGridRow row = sender as DataGridRow;
 
             v_Clt.v_IdUsuario = Convert.ToInt64((dtg_usuarios.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
@@ -680,13 +685,13 @@ namespace Proyecto
             txb_usuario.Text = (dtg_usuarios.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
             txb_contrasenna.Text = (dtg_usuarios.SelectedCells[11].Column.GetCellContent(row) as TextBlock).Text;
 
-
-            //v_Clt.v_IdRol = Convert.ToInt64((dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text);
-            //v_Clt.v_NombreRol = (dtg_usuarios.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
-            //MessageBox.Show("id "+ v_Clt.v_IdRol+"nombre "+ v_Clt.v_NombreRol);
-            //cmb_rol.Items.Add(v_Clt.v_NombreRol);
-
-
+            //se guarda el id del rol que se obtiene del datagrid en la variable: v_Clt.v_IdRol
+            v_Clt.v_IdRol = Convert.ToInt64((dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text);
+            //convertir de tipo long(v_Clt.v_IdRol) a tipo int(v_Indice) 
+            int v_Indice = unchecked((int)v_Clt.v_IdRol);
+            //indica al combobox cual opción debe estar seleccionada (asigna el id del rol por defecto según el índice que se obtiene del usuario seleccionado en el datagrid)
+            //se hace la resta v_Indice-1 porque los elementos del combobox inician en 0
+            cmb_rol.SelectedIndex = v_Indice-1;
 
             if ((dtg_usuarios.SelectedCells[13].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
             {
@@ -696,11 +701,11 @@ namespace Proyecto
             {
                 rb_inactivo.IsChecked = true;
             }
+
             HabilitarComponentes();
             lbl_actividad.Content = "Modificar usuario";
             btn_limpiar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = true;
-            MostrarFormulario();
         }
 
         //Método el cual valida si la cédula jurídica es existente o no, en caso de ser existente, mostrar un error
