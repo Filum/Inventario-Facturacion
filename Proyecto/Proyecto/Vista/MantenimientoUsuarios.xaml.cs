@@ -476,6 +476,21 @@ namespace Proyecto
                     }
                 }
             }
+            else if (txb_usuario == txb_contrasenna)
+            {
+                if (v_TamanoTxb.Length < 8 || v_TamanoTxb.Length > 16)
+                {
+                    lbl_error.Content = "Debe tener entre 8 y 16 caracteres alfanuméricos";
+                    lbl_error.Visibility = Visibility.Visible;
+                }
+                else if (v_TamanoTxb.Length <= 16)
+                {
+                    if (ValidarCaracteresEspeciales(txb_usuario.Text, tipo) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
             else
             {
                 lbl_error.Visibility = Visibility.Hidden;
@@ -487,7 +502,7 @@ namespace Proyecto
         {
             if (v_Identificador == "numeros")
             {
-                //caracteres que permite si la cadena es de int
+                //caracteres que no permite si la cadena es de int
                 String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -496,7 +511,16 @@ namespace Proyecto
             }
             else if (v_Identificador == "palabras")
             {
-                //caracteres que permite si la cadena es de string
+                //caracteres que no permite si la cadena es de string
+                String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            else if (v_Identificador == "contrasenna")
+            {
+                //caracteres que no permite si la cadena es de string e int
                 String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -504,6 +528,32 @@ namespace Proyecto
                 }
             }
             return false;
+        }
+
+        private void ValidarContrasenna(object sender, EventArgs e)
+        {
+            if (txb_contrasenna.Text == "")
+            {
+                lbl_errorContrasenna.Visibility = Visibility.Visible;
+                lbl_errorContrasenna.Content = "Espacio Vacío";
+            }
+            else if (!Regex.IsMatch((string)txb_contrasenna.Text, "[a-zA-Z]"))
+            {
+                //Si no escriben letras
+                lbl_errorContrasenna.Visibility = Visibility.Visible;
+                lbl_errorContrasenna.Content = "Debe mezclar números y letras";
+            }
+            else if (!Regex.IsMatch((string)txb_contrasenna.Text, "[0-9]"))
+            {
+                //Si no escriben números
+                lbl_errorContrasenna.Visibility = Visibility.Visible;
+                lbl_errorContrasenna.Content = "Debe mezclar números y letras";
+            }
+            else if (!Regex.IsMatch((string)txb_contrasenna.Text, "[0-9a-zA-Z]"))
+            {
+                //Si escriben letras y números
+                lbl_errorContrasenna.Visibility = Visibility.Hidden;
+            }
         }
 
         //Validaciones en caja de texto de teléfono
@@ -806,7 +856,8 @@ namespace Proyecto
             ValidarComponentes();
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
-            ValidarErroresTxb(txb_contrasenna, lbl_errorContrasenna, "");
+            ValidarErroresTxb(txb_contrasenna, lbl_errorContrasenna, "contrasenna");
+            ValidarContrasenna(sender, e);
         }
 
         private void rb_activo_Checked(object sender, RoutedEventArgs e)

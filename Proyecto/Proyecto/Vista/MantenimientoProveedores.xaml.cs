@@ -595,7 +595,7 @@ namespace Proyecto
         {
             if (v_Identificador == "numeros")
             {
-                //caracteres que permite si la cadena es de int
+                //caracteres que no permite si la cadena es de int
                 String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -604,7 +604,7 @@ namespace Proyecto
             }
             else if (v_Identificador == "nombre")
             {
-                //caracteres que permite si la cadena es de string
+                //caracteres que no permite si la cadena es de string
                 String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
