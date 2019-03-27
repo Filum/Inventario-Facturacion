@@ -36,10 +36,6 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
-
-            date_inicio.SelectedDate = DateTime.Now.Date;
-            date_final.SelectedDate = DateTime.Now.Date;
-
             LlenarComboboxProveedores();
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -200,15 +196,10 @@ namespace Proyecto
                 v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
                 dtg_lista.ItemsSource = null;
 
-                if (v_FechaInicio > v_FechaFinal)
-                {
-                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    if (v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2,"activo").Rows.Count == 0)
+
+                    if (v_Model.MostrarListaProductos().Rows.Count == 0)
                     {
-                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
