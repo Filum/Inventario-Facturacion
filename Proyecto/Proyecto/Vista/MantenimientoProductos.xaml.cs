@@ -26,7 +26,7 @@ namespace Proyecto
         EntidadProductos v_Clt = new EntidadProductos();
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
-        public string nombreUsuario;
+        public string nombreUsuario = "";
 
         public MantenimientoProductos()
         {
@@ -55,7 +55,9 @@ namespace Proyecto
 
         private void btn_salir_Click(object sender, RoutedEventArgs e)
         {
+            nombreUsuario = t_Usuario.Text;
             Menu ventana = new Menu();
+            ventana.cargarMenu(nombreUsuario);
             ventana.Show();
             this.Close();
         }
@@ -105,8 +107,6 @@ namespace Proyecto
         private void btn_salir_roles__Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
-            ventana.cargarMenu(nombreUsuario);
-            ventana.nombreUser = nombreUsuario;
             ventana.Show();
             this.Close();
         }
@@ -165,7 +165,7 @@ namespace Proyecto
 
         private void btn_agregar_Click(object sender, RoutedEventArgs e)
         {
-         
+
         }
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
@@ -186,48 +186,35 @@ namespace Proyecto
 
         private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
-            if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
+
+            dtg_lista.ItemsSource = null;
+
+
+            if (v_Model.MostrarListaProductos().Rows.Count == 0)
             {
-                DateTime v_FechaInicio = DateTime.Parse(date_inicio.SelectedDate.Value.Date.ToShortDateString());
-                DateTime v_FechaFinal = DateTime.Parse(date_final.SelectedDate.Value.Date.ToShortDateString());
-                String v_Fecha1;
-                v_Fecha1 = date_inicio.SelectedDate.Value.Date.ToShortDateString();
-                String v_Fecha2;
-                v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
-                dtg_lista.ItemsSource = null;
-
-
-                    if (v_Model.MostrarListaProductos().Rows.Count == 0)
-                    {
-                        MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    else
-                    {
-                        dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_Fecha1, v_Fecha2).DefaultView;
-                        dtg_lista.Columns[0].Header = "Código Producto";
-                        dtg_lista.Columns[1].Header = "Nombre del Producto";
-                        dtg_lista.Columns[2].Header = "Marca";
-                        dtg_lista.Columns[3].Header = "Cant en existencia";
-                        dtg_lista.Columns[4].Header = "Cant mínima";
-                        dtg_lista.Columns[5].Header = "Proveedor";
-                        dtg_lista.Columns[6].Header = "Precio";
-                        dtg_lista.Columns[7].Header = "Descripción";
-                        dtg_lista.Columns[8].Header = "Fabricante";
-                        dtg_lista.Columns[9].Header = "Estado";
-                        dtg_lista.Columns[10].Header = "Fecha";
-                    }
-                }
+                MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-        }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaProductos().DefaultView;
+                dtg_lista.Columns[0].Header = "Código Producto";
+                dtg_lista.Columns[1].Header = "Nombre del Producto";
+                dtg_lista.Columns[2].Header = "Marca";
+                dtg_lista.Columns[3].Header = "Cantidad en existencia";
+                dtg_lista.Columns[4].Header = "Proveedor";
+                dtg_lista.Columns[5].Header = "Precio";
+                dtg_lista.Columns[6].Header = "Descripción";
+                dtg_lista.Columns[7].Header = "Fabricante";
+                dtg_lista.Columns[8].Header = "Estado del Producto";
+                dtg_lista.Columns[9].Header = "Fecha";
 
-        private void cmb_proveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
+            }
+
         }
 
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
         {
-           // LimpiarTextboxAgregar();
+            // LimpiarTextboxAgregar();
 
             if (txb_busqueda.Text == "")
             {
@@ -254,8 +241,9 @@ namespace Proyecto
                 dtg_productos.Columns[7].Header = "Precio Unitario";
                 dtg_productos.Columns[8].Header = "Descripción";
                 dtg_productos.Columns[9].Header = "Fabricante";
-                dtg_productos.Columns[10].Header = "Estado";
+                dtg_productos.Columns[10].Header = "Estado del Producto";
                 dtg_productos.Columns[11].Header = "Fecha de Ingreso";
+                dtg_productos.Columns[12].Header = "Estado en el Sistema";
 
                 if (dtg_productos.Items.Count == 0)//El producto no existe
                 {
@@ -382,7 +370,12 @@ namespace Proyecto
         private void btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
             Imprimir print = new Imprimir();
-            print.imprimir(dtg_lista, "Imprimir");
+            print.imprimir(dtg_lista, "Productos en Inventario");
+
         }
+
+
+
+
     }//Fin de la clase
 }
