@@ -578,7 +578,11 @@ namespace Proyecto
 
                 }
                 else if (verificarProductoFactura(cmb_Productos.SelectedItem.ToString()) == 0)
+                {
+                    montos -= ((valorUnitario * cantidad) * (impuestoLinea / 100) + (valorUnitario * cantidad) - descuentoLinea);
+                    txb_subtotal_factura_prueba.Text = montos.ToString("F");
                     MessageBox.Show("El producto fue previamente ingresado, por favor verificar.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
             }
             else
@@ -641,7 +645,7 @@ namespace Proyecto
         {
             //le descontamos el precio que habia en la lista
             montos -= float.Parse((dtg_facturar_productos_prueba.SelectedCells[7].Column.GetCellContent(dtg_facturar_productos_prueba.SelectedItem) as TextBlock).Text);
-            txb_subtotal_factura_prueba.Text = montos.ToString();
+            txb_subtotal_factura_prueba.Text = montos.ToString("F");
             CalculaMontos();//volvemos a recalcular los montos 
             //vemos cual es la fila que se desea eliminar
             ObservableCollection<FacturasProducto> row = (ObservableCollection<FacturasProducto>)dtg_facturar_productos_prueba.SelectedItem;
@@ -886,6 +890,8 @@ namespace Proyecto
                         descuento = (((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_colones) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
                         ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_colones) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_colones) * float.Parse(cantidad)) - descuento)).ToString("F");
                         CalculaMontos();
+                        montos = float.Parse(txb_subtotal_factura_prueba.Text);
+
                     }
                     catch (Exception m)
                     {
@@ -922,6 +928,7 @@ namespace Proyecto
                         }
                     }
                 txb_subtotal_factura_prueba.Text = subtotal_monto.ToString("F");
+                montos = float.Parse(subtotal_monto.ToString("F"));
                 CalculaMontos();
             }
         }
@@ -959,6 +966,7 @@ namespace Proyecto
                             descuento = (((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + (float.Parse(valor_Producto) * float.Parse(cantidad))) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
                             ((TextBlock)dtg_facturar_productos_prueba.Columns[7].GetCellContent(row)).Text = ((float.Parse(valor_Producto) * float.Parse(cantidad)) * (float.Parse(impuesto) / 100) + ((float.Parse(valor_Producto) * float.Parse(cantidad)) - descuento)).ToString("F");
                             CalculaMontos();
+                            montos = float.Parse(txb_subtotal_factura_prueba.Text);
                         }
                         catch (Exception m)
                         {
