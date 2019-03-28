@@ -1340,7 +1340,7 @@ namespace Proyecto
                                 MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
 
                                 Imprimir imprimir = new Imprimir();
-                                //imprimir.imprimirFactura()
+                                //imprimir.imprimirFacturaServicio()
 
                                 LimpiarServicio();
                             }else

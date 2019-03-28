@@ -146,11 +146,16 @@ namespace Logica
                 //CLIENTE
                 Paragraph paragraph2 = new Paragraph();
                 paragraph2.Inlines.Add(new Run(factura.v_Cliente + "      " + cliente.v_Cedula)); paragraph2.Inlines.Add(new LineBreak());
-                paragraph2.Inlines.Add(new Run(cliente.v_NombreCompleto)); paragraph2.Inlines.Add(new LineBreak());
+                paragraph2.Inlines.Add(new Bold(new Run(cliente.v_NombreCompleto))); paragraph2.Inlines.Add(new LineBreak());
                 paragraph2.Inlines.Add(new Run(cliente.v_Representante)); paragraph2.Inlines.Add(new LineBreak());
                 paragraph2.Inlines.Add(new Run(cliente.v_Direccion)); paragraph2.Inlines.Add(new LineBreak());
                 paragraph2.Inlines.Add(new Run(cliente.v_Teleoficina.ToString() + "     " + cliente.v_Telemovil.ToString())); paragraph2.Inlines.Add(new LineBreak());
-                paragraph2.Inlines.Add(new Run(cliente.v_Correo)); paragraph2.Inlines.Add(new LineBreak());
+                paragraph2.Inlines.Add(new Run(cliente.v_Correo)); 
+
+                //MONEDA
+                Paragraph paragraph3 = new Paragraph();
+                paragraph3.Inlines.Add(new Run(factura.v_Moneda));
+                paragraph3.TextAlignment = TextAlignment.Right;
 
                 //TABLA DETALLES
                 Table table = new Table();
@@ -210,27 +215,27 @@ namespace Logica
                 table.BorderThickness = new Thickness(1);
 
                 //SUBTOTALES , DESCUENTO Y TOTAL
-                Paragraph paragraph3 = new Paragraph();
-                paragraph3.Inlines.Add(new Run(factura.v_Subtotal)); paragraph3.Inlines.Add(new LineBreak());
-                paragraph3.Inlines.Add(new Run(factura.v_Descuento)); paragraph3.Inlines.Add(new LineBreak());
-                paragraph3.Inlines.Add(new Run(factura.v_SubtotalNeto)); paragraph3.Inlines.Add(new LineBreak());
-                paragraph3.Inlines.Add(new Run(factura.v_Impuesto)); paragraph3.Inlines.Add(new LineBreak());
-                paragraph3.Inlines.Add(new Run(factura.v_Total)); paragraph3.Inlines.Add(new LineBreak());
-                paragraph3.TextAlignment = TextAlignment.Right;
+                Paragraph paragraph4 = new Paragraph();
+                paragraph4.Inlines.Add(new Run(factura.v_Subtotal)); paragraph4.Inlines.Add(new LineBreak());
+                paragraph4.Inlines.Add(new Run(factura.v_Descuento)); paragraph4.Inlines.Add(new LineBreak());
+                paragraph4.Inlines.Add(new Run(factura.v_SubtotalNeto)); paragraph4.Inlines.Add(new LineBreak());
+                paragraph4.Inlines.Add(new Run(factura.v_Impuesto)); paragraph4.Inlines.Add(new LineBreak());
+                paragraph4.Inlines.Add(new Run(factura.v_Total));
+                paragraph4.TextAlignment = TextAlignment.Right;
 
                 //CREDITO
-                Paragraph paragraph4 = new Paragraph();
-                paragraph4.Inlines.Add(new Run(factura.v_Codigo.ToString() + "      " + fechaAct.ToString("dd/MM/yyyy"))); paragraph4.Inlines.Add(new LineBreak());
+                Paragraph paragraph5 = new Paragraph();
+                paragraph5.Inlines.Add(new Run(factura.v_Codigo.ToString() + "      " + fechaAct.ToString("dd/MM/yyyy"))); paragraph4.Inlines.Add(new LineBreak());
                 if(Convert.ToInt32(factura.v_diasCredito) > 0)
                 {
-                    paragraph4.Inlines.Add(new Run("Credito a " + factura.v_diasCredito + " dias" + "           " + "Vence " + factura.v_fechaPago));
+                    paragraph5.Inlines.Add(new Run("Credito a " + factura.v_diasCredito + " dias" + "           " + "Vence " + factura.v_fechaPago));
                 }
-                paragraph4.TextAlignment = TextAlignment.Center;
+                paragraph5.TextAlignment = TextAlignment.Center;
 
                 //HORA DE EMISION
-                Paragraph paragraph5 = new Paragraph();
-                paragraph5.Inlines.Add("Fecha Emision: " + fechaAct.ToString("dddd, dd MMMM yyyy, HH:mm:ss"));
-                paragraph5.TextAlignment = TextAlignment.Right;
+                Paragraph paragraph6 = new Paragraph();
+                paragraph6.Inlines.Add("Fecha Emision: " + fechaAct.ToString("dddd, dd MMMM yyyy, HH:mm:ss"));
+                paragraph6.TextAlignment = TextAlignment.Right;
 
 
                 //AGREGAMOS CADA PARTE AL DOCUMENTO
@@ -238,11 +243,11 @@ namespace Logica
                 document.Blocks.Add(paragraph);
                 document.Blocks.Add(paragraph1);
                 document.Blocks.Add(paragraph2);
-                document.Blocks.Add(table);
                 document.Blocks.Add(paragraph3);
+                document.Blocks.Add(table);
                 document.Blocks.Add(paragraph4);
                 document.Blocks.Add(paragraph5);
-
+                document.Blocks.Add(paragraph6);
                 document.ColumnWidth = 700;
                 
 
