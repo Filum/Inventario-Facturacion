@@ -151,5 +151,9 @@ namespace Proyecto
             e.Handled = true;
             verificar();
         }
+        private void Validar_Usuario ()
+        {
+
+        }
     }
 }
