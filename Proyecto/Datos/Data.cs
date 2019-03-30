@@ -414,7 +414,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT * FROM TBL_ROLES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
+            comando.CommandText = "SELECT pk_idrol,nombre,estadosistema,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadRoles> Lista = new List<EntidadRoles>();
 
@@ -424,8 +424,8 @@ namespace Datos
                 {
                     EntidadRoles rol = new EntidadRoles();
                     rol.v_IdRol = dr.GetInt64(0);
-                    rol.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
-                    rol.v_Nombre = dr.GetString(2);
+                    rol.v_Nombre = dr.GetString(1);
+                    rol.v_Estado = dr.GetString(2);
                     rol.v_Mantenimiento_Clientes = dr.GetString(3);
                     rol.v_Mantenimiento_Proveedores = dr.GetString(4);
                     rol.v_Mantenimiento_Productos = dr.GetString(5);
@@ -433,7 +433,6 @@ namespace Datos
                     rol.v_Mantenimiento_Roles = dr.GetString(7);
                     rol.v_facturacion = dr.GetString(8);
                     rol.v_bitacora= dr.GetString(9);
-                    rol.v_Estado = dr.GetString(10);
                     Lista.Add(rol);
                 }
             }
