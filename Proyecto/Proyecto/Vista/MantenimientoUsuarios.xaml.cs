@@ -40,11 +40,14 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+            
+            //Cargar usuarios existentes
+            cmb_tipoBusqueda.SelectedIndex = 2;
+            dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios("LISTAUSUARIOS").DefaultView;
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             txt_fecha.Content = DateTime.Now.ToString();
-
         }
         private void btn_minimizar_Click(object sender, RoutedEventArgs e)
         {
@@ -151,11 +154,7 @@ namespace Proyecto
         * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
         private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
-            if (cmb_tipoBusqueda.SelectedItem == null)
-            {
-                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
+            if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
             {
                 MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -196,7 +195,7 @@ namespace Proyecto
                 (lbl_errorApellidos.Visibility == Visibility.Visible || lbl_errorCorreo.Visibility == Visibility.Visible) ||
                 (lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible) ||
                 (lbl_errorPuesto.Visibility == Visibility.Visible || lbl_errorRol.Visibility == Visibility.Visible) ||
-                (lbl_errorUsuario.Visibility == Visibility.Visible || lbl_errorUsuario.Visibility == Visibility.Visible) ||
+                (lbl_errorUsuario.Visibility == Visibility.Visible || lbl_errorContrasenna.Visibility == Visibility.Visible) ||
                 (lbl_errorRb.Visibility == Visibility.Visible))
             {
                 MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -221,11 +220,14 @@ namespace Proyecto
                         v_Clt.v_TelefonoOpcional = Convert.ToInt64(txb_telefonoOpcional.Text);
                     }
                     v_Clt.v_Puesto = txb_puesto.Text;
+
                     EntidadRoles ComboItem = (EntidadRoles)cmb_rol.SelectedItem;
-                    Int64 idRol = ComboItem.v_IdRol;
-                    v_Clt.v_IdRol = idRol;
+                    Int64 v_IdRol = ComboItem.v_IdRol;
+                    v_Clt.v_IdRol = v_IdRol;
+
                     v_Clt.v_UsuarioSistema = txb_usuario.Text;
                     v_Clt.v_Contrasena = txb_contrasenna.Text;
+
                     if (rb_inactivo.IsChecked == true)
                     {
                         v_Clt.v_EstadoSistema = "INACTIVO";
@@ -254,7 +256,7 @@ namespace Proyecto
                 catch (Exception m)
                 {
                     Console.WriteLine(m.ToString());
-                    MessageBox.Show("Error al modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -353,6 +355,8 @@ namespace Proyecto
         //Muestra el panel del formulario en el tab de configuración de usuarios
         private void MostrarFormulario()
         {
+            HabilitarComponentes();
+            ValidarComponentes();
             OcultarUsuariosExistentes();
             grd_formularioUsuario.Visibility = Visibility.Visible;
             LlenarComboboxRol();
@@ -475,6 +479,21 @@ namespace Proyecto
                     }
                 }
             }
+            else if (txb_usuario == txb_contrasenna)
+            {
+                if (v_TamanoTxb.Length < 8 || v_TamanoTxb.Length > 16)
+                {
+                    lbl_error.Content = "Debe tener entre 8 y 16 caracteres alfanuméricos";
+                    lbl_error.Visibility = Visibility.Visible;
+                }
+                else if (v_TamanoTxb.Length <= 16)
+                {
+                    if (ValidarCaracteresEspeciales(txb_usuario.Text, tipo) == false)
+                    {
+                        lbl_error.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
             else
             {
                 lbl_error.Visibility = Visibility.Hidden;
@@ -486,7 +505,7 @@ namespace Proyecto
         {
             if (v_Identificador == "numeros")
             {
-                //caracteres que permite si la cadena es de int
+                //caracteres que no permite si la cadena es de int
                 String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -495,7 +514,16 @@ namespace Proyecto
             }
             else if (v_Identificador == "palabras")
             {
-                //caracteres que permite si la cadena es de string
+                //caracteres que no permite si la cadena es de string
+                String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
+                if (Regex.IsMatch(v_Txb, v_Caracteres))
+                {
+                    return true;
+                }
+            }
+            else if (v_Identificador == "contrasenna")
+            {
+                //caracteres que no permite si la cadena es de string e int
                 String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -503,6 +531,32 @@ namespace Proyecto
                 }
             }
             return false;
+        }
+
+        private void ValidarContrasenna(object sender, EventArgs e)
+        {
+            if (txb_contrasenna.Text == "")
+            {
+                lbl_errorContrasenna.Visibility = Visibility.Visible;
+                lbl_errorContrasenna.Content = "Espacio Vacío";
+            }
+            else if (!Regex.IsMatch((string)txb_contrasenna.Text, "[a-zA-Z]"))
+            {
+                //Si no escriben letras
+                lbl_errorContrasenna.Visibility = Visibility.Visible;
+                lbl_errorContrasenna.Content = "Debe mezclar números y letras";
+            }
+            else if (!Regex.IsMatch((string)txb_contrasenna.Text, "[0-9]"))
+            {
+                //Si no escriben números
+                lbl_errorContrasenna.Visibility = Visibility.Visible;
+                lbl_errorContrasenna.Content = "Debe mezclar números y letras";
+            }
+            else if (!Regex.IsMatch((string)txb_contrasenna.Text, "[0-9a-zA-Z]"))
+            {
+                //Si escriben letras y números
+                lbl_errorContrasenna.Visibility = Visibility.Hidden;
+            }
         }
 
         //Validaciones en caja de texto de teléfono
@@ -669,6 +723,7 @@ namespace Proyecto
         en el DataGrid con la finalidad de ser modificado, esto en el panel del formulario en el tab de configuración de usuarios*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+            MostrarFormulario();
             DataGridRow row = sender as DataGridRow;
 
             v_Clt.v_IdUsuario = Convert.ToInt64((dtg_usuarios.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
@@ -683,13 +738,13 @@ namespace Proyecto
             txb_usuario.Text = (dtg_usuarios.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
             txb_contrasenna.Text = (dtg_usuarios.SelectedCells[11].Column.GetCellContent(row) as TextBlock).Text;
 
-
-            //v_Clt.v_IdRol = Convert.ToInt64((dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text);
-            //v_Clt.v_NombreRol = (dtg_usuarios.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
-            //MessageBox.Show("id "+ v_Clt.v_IdRol+"nombre "+ v_Clt.v_NombreRol);
-            //cmb_rol.Items.Add(v_Clt.v_NombreRol);
-
-
+            //se guarda el id del rol que se obtiene del datagrid en la variable: v_Clt.v_IdRol
+            v_Clt.v_IdRol = Convert.ToInt64((dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text);
+            //convertir de tipo long(v_Clt.v_IdRol) a tipo int(v_Indice) 
+            int v_Indice = unchecked((int)v_Clt.v_IdRol);
+            //indica al combobox cual opción debe estar seleccionada (asigna el id del rol por defecto según el índice que se obtiene del usuario seleccionado en el datagrid)
+            //se hace la resta v_Indice-1 porque los elementos del combobox inician en 0
+            cmb_rol.SelectedIndex = v_Indice-1;
 
             if ((dtg_usuarios.SelectedCells[13].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
             {
@@ -699,11 +754,11 @@ namespace Proyecto
             {
                 rb_inactivo.IsChecked = true;
             }
+
             HabilitarComponentes();
             lbl_actividad.Content = "Modificar usuario";
             btn_limpiar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = true;
-            MostrarFormulario();
         }
 
         //Método el cual valida si la cédula jurídica es existente o no, en caso de ser existente, mostrar un error
@@ -804,7 +859,8 @@ namespace Proyecto
             ValidarComponentes();
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
-            ValidarErroresTxb(txb_contrasenna, lbl_errorContrasenna, "");
+            ValidarErroresTxb(txb_contrasenna, lbl_errorContrasenna, "contrasenna");
+            ValidarContrasenna(sender, e);
         }
 
         private void rb_activo_Checked(object sender, RoutedEventArgs e)

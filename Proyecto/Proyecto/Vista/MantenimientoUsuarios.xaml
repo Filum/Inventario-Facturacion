@@ -95,7 +95,15 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_lista" Margin="20,117,24,21" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray"/>
+                    <DataGrid x:Name="dtg_lista" Margin="20,117,24,21" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="FontSize"  Value="14" />
+                                <Setter Property="Padding" Value="5"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                    </DataGrid>
                     <Button x:Name="btn_listar_listar" Height="70" Width="70" Foreground="White" Margin="0,27,27,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_listar_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
@@ -172,19 +180,19 @@
                             </StackPanel>
 
                             <StackPanel Margin="6,33,45,10" Grid.Column="2" Grid.ColumnSpan="2">
-                                <TextBox x:Name="txb_numCed" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="16"  MaxLength="25" Grid.Row="2" LostKeyboardFocus="ValidarTxbNumCed" KeyDown="NumCed_KeyDown"/>
+                                <TextBox x:Name="txb_numCed" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="16"  MaxLength="12" Grid.Row="2" LostKeyboardFocus="ValidarTxbNumCed" KeyDown="NumCed_KeyDown"/>
                                 <Label x:Name="lbl_errorNumCed" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                                <TextBox x:Name="txb_nombre" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="25" TextChanged="txb_nombre_TextChanged"/>
+                                <TextBox x:Name="txb_nombre" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="20" TextChanged="txb_nombre_TextChanged"/>
                                 <Label x:Name="lbl_errorNombre" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                                <TextBox x:Name="txb_apellidos" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"  MaxLength="25" TextChanged="txb_apellidos_TextChanged"/>
+                                <TextBox x:Name="txb_apellidos" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"  MaxLength="20" TextChanged="txb_apellidos_TextChanged"/>
                                 <Label x:Name="lbl_errorApellidos" Visibility="Hidden" Margin="0,0,10,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                                <TextBox x:Name="txb_correo" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="25" TextChanged="txb_Correo_TextChanged" LostKeyboardFocus="Validarcorreo"/>
+                                <TextBox x:Name="txb_correo" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="50" TextChanged="txb_Correo_TextChanged" LostKeyboardFocus="Validarcorreo"/>
                                 <Label x:Name="lbl_errorCorreo" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                                <TextBox x:Name="txb_telefono" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="8" TextChanged="txb_telefono_TextChanged" KeyDown="Telefono_KeyDown"/>
+                                <TextBox x:Name="txb_telefono" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="12" TextChanged="txb_telefono_TextChanged" KeyDown="Telefono_KeyDown"/>
                                 <Label x:Name="lbl_errorTelefono" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
                             </StackPanel>
 
@@ -198,16 +206,16 @@
                             </StackPanel>
 
                             <StackPanel Margin="91,33,15,0" Grid.Column="4">
-                                <TextBox x:Name="txb_telefonoOpcional" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="8" TextChanged="txb_telefonoOpcional_TextChanged" KeyDown="TelefonoOpcional_KeyDown"/>
+                                <TextBox x:Name="txb_telefonoOpcional" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="12" TextChanged="txb_telefonoOpcional_TextChanged" KeyDown="TelefonoOpcional_KeyDown"/>
                                 <Label x:Name="lbl_errorTelefonoOpcional" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                                <TextBox x:Name="txb_puesto" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="20" TextChanged="txb_puesto_TextChanged"/>
+                                <TextBox x:Name="txb_puesto" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="35" TextChanged="txb_puesto_TextChanged"/>
                                 <Label x:Name="lbl_errorPuesto" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
                                 <ComboBox x:Name="cmb_rol" HorizontalAlignment="Left" Height="30" Margin="0,0" Width="200" SelectionChanged="cmb_rol_SelectionChanged"></ComboBox>
                                 <Label x:Name="lbl_errorRol" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Grid.Column="1" Height="30" FontSize="12"/>
 
-                                <TextBox x:Name="txb_usuario" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="20" TextChanged="txb_usuario_TextChanged"/>
+                                <TextBox x:Name="txb_usuario" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="35" TextChanged="txb_usuario_TextChanged"/>
                                 <Label x:Name="lbl_errorUsuario" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
                                 <TextBox x:Name="txb_contrasenna" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLines="1" MaxLength="16" TextChanged="txb_contrasenna_TextChanged"/>

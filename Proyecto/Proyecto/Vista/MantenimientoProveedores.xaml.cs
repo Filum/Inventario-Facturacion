@@ -41,7 +41,10 @@ namespace Proyecto
             v_DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             v_DispatcherTimer.Start();
             MostrarProveedoresExistentes();
-            //CargarProveedores();
+
+            //Cargar proveedores existentes
+            cmb_tipoBusqueda.SelectedIndex = 2;
+            dtg_lista.ItemsSource = v_Model.MostrarListaProveedores("LISTAPROVEEDORES").DefaultView;
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -342,28 +345,6 @@ namespace Proyecto
             }
         }
 
-        private void CargarProveedores()
-        {
-            dtg_lista.ItemsSource = null;
-            if (v_Model.CargarProveedores().Rows.Count == 0)
-            {
-                MessageBox.Show("No existen proveedores registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else
-            {
-                dtg_lista.ItemsSource = v_Model.CargarProveedores().DefaultView;
-                //dtg_lista.Columns[0].Header = "Cédula Jurídica";
-                //dtg_lista.Columns[1].Header = "Nombre del Proveedor";
-                //dtg_lista.Columns[2].Header = "Correo";
-                //dtg_lista.Columns[3].Header = "Correo Opcional";
-                //dtg_lista.Columns[4].Header = "Teléfono";
-                //dtg_lista.Columns[5].Header = "Tel. Opcional";
-                //dtg_lista.Columns[6].Header = "Descripción";
-                //dtg_lista.Columns[7].Header = "Fecha de Ingreso";
-                //dtg_lista.Columns[8].Header = "Estado en el Sistema";
-            }
-        }
-
         //Muestra el panel de búsqueda en el tab de configuración de proveedores
         private void MostrarProveedoresExistentes()
         {
@@ -389,6 +370,7 @@ namespace Proyecto
         {
             grd_formularioProveedor.Visibility = Visibility.Visible;
             OcultarProveedoresExistentes();
+            ValidarRadioButton();
         }
 
         //Deshabilita los componentes en el tap de "Gestión de Proveedores"
@@ -616,7 +598,7 @@ namespace Proyecto
         {
             if (v_Identificador == "numeros")
             {
-                //caracteres que permite si la cadena es de int
+                //caracteres que no permite si la cadena es de int
                 String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -625,7 +607,7 @@ namespace Proyecto
             }
             else if (v_Identificador == "nombre")
             {
-                //caracteres que permite si la cadena es de string
+                //caracteres que no permite si la cadena es de string
                 String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -863,5 +845,6 @@ namespace Proyecto
             }
         }
 
+       
     }//fin de la clase
 }//fin proyecto
