@@ -179,7 +179,7 @@ namespace Proyecto
         {
                 CalculaMontosServicios();
         }
-        //calcula calculos en la facturacion de servicios
+        //hace calculos en la facturacion de servicios
         private void txb_Precio_TextChanged(object sender, TextChangedEventArgs e)
         {
                 CalculaMontosServicios();
@@ -191,7 +191,14 @@ namespace Proyecto
             else
                 e.Handled = true;
         }
-        //calcula calculos en la facturacion de servicios
+        private void txb_porcentaje_impuesto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+        //hace calculos en la facturacion de servicios
         private void txb_Cantidad_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (txb_Cantidad.Text == "")
@@ -1172,7 +1179,12 @@ namespace Proyecto
                 txb_subtotal_factura_servicios.Text = (float.Parse(txb_Cantidad.Text) * float.Parse(txb_Precio.Text)).ToString("F");
                 txb_subneto_servicios.Text = (float.Parse(txb_subtotal_factura_servicios.Text) - (float.Parse(txb_subtotal_factura_servicios.Text) * (float.Parse(txb_descuento_servicios.Text) / 100))).ToString("F");
                 if(Rb_Si_Servicio.IsChecked == true)
-                    txb_impuesto_Servicios.Text = (float.Parse(txb_subneto_servicios.Text) * 0.13).ToString("F");
+                {
+                    if (txb_porcentaje_impuesto.Text != "")
+                        txb_impuesto_Servicios.Text = (float.Parse(txb_subneto_servicios.Text) * (float.Parse(txb_porcentaje_impuesto.Text) / 100)).ToString("F");
+                    else
+                        txb_impuesto_Servicios.Text = "0";
+                }
                 if (Rb_No_Servicio.IsChecked == true)
                     txb_impuesto_Servicios.Text = "0";
 
@@ -1272,6 +1284,9 @@ namespace Proyecto
         {
             if (txb_impuesto_Servicios != null)
             {
+                txb_porcentaje_impuesto.Visibility = Visibility.Visible;
+                txt_porcentaje_impuesto.Visibility = Visibility.Visible;
+                txt_impuesto.Visibility = Visibility.Visible;
                 CalculaMontosServicios();
             }
         }
@@ -1280,6 +1295,9 @@ namespace Proyecto
         {
             if (txb_impuesto_Servicios != null && txb_impuesto_Servicios.Text != "0")
             {
+                txb_porcentaje_impuesto.Visibility = Visibility.Hidden;
+                txt_porcentaje_impuesto.Visibility = Visibility.Hidden;
+                txt_impuesto.Visibility = Visibility.Hidden;
                 CalculaMontosServicios();
             }
         }
@@ -1368,6 +1386,13 @@ namespace Proyecto
                 MessageBox.Show(m.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.WriteLine(m.ToString());
             }
+        }
+
+
+
+        private void txb_porcentaje_impuesto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CalculaMontosServicios();
         }
     }
 }
