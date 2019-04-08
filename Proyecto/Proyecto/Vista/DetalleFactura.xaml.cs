@@ -34,7 +34,7 @@ namespace Proyecto.Vista
         private void btn_pagar_Factura_Click(object sender, RoutedEventArgs e)
         {
             datos.CambiarestadoFactura("Cancelado", txt_codigo.Content.ToString());
-            Pago.Content = "Pagó";
+            Pago.Content = "FECHA DE CANCELACIÓN: ";
             EstadoFactura.Content = "Cancelado";
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
             DateTime dia = DateTime.Now;

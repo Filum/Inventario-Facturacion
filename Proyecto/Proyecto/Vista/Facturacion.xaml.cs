@@ -26,8 +26,8 @@ namespace Proyecto
 
     public partial class Facturacion : Window
     {
-        public string nombreUsuario;
-        Model datos = new Model();
+        public string nombreUsuario; //variable para cargar el nombre del usuario en esta pantalla
+        Model datos = new Model();//variable para llamar los metodos de acceso a la base de datos
         public Facturacion()
         {
             InitializeComponent();
@@ -39,10 +39,10 @@ namespace Proyecto
             date_historial_datte3.SelectedDate = DateTime.Now.Date;
             date_historial_datte4.SelectedDate = DateTime.Now.Date;
         }
+        //Funciones basicas de la pantalla de facturacion
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             txt_fecha.Content = DateTime.Now.ToString();
-
         }
         //funcion para volver al menu , le devolvemos el usuario con el que estamos en sesion
         private void btn_Salir_Click(object sender, RoutedEventArgs e)
@@ -109,124 +109,71 @@ namespace Proyecto
             this.Close();
         }
 
-        //funcion para limpiar los datos de la facturas de servicios
-        public void LimpiarServicio()
+        /// <summary>
+        /// /////////////////////////////////////////////////////////////////////////////////////
+        /// Funciones para validacion de campos 
+
+        //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
+        private Boolean ValidarCaracteresEspeciales(String v_Txb)
         {
-            cmb_Cliente_servicios.SelectedItem = null;
-            txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
-            txb_impuesto_Servicios.Text = "0";
-            txb_subneto_servicios.Text = "0";
-            txb_descripcion.Text = "";
-            txb_descuento_servicios.Text = "0";
-            txb_subtotal_factura_servicios.Text = "0";
-            txb_total_factura_servicios.Text = "0";
-            txb_Cantidad.Text = "0";
-            txb_Precio.Text = "0";
-            montos = 0;
-            tipoPago = "";
-            diasCredito = "";
-            estadoFactura = "";
-            fechaPago = "";
+            //caracteres que permite si la cadena es de int
+            String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
+            if (Regex.IsMatch(v_Txb, v_Caracteres))
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        private void txb_Cantidad_KeyDown(object sender, KeyEventArgs e)
+        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        private void ValidarErroresTxb(TextBox txb_facturas, Label lbl_error)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-                e.Handled = false;
+            string v_TamanoTxb = txb_facturas.Text;
+            if (txb_facturas.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (txb_facturas.Text == " ")
+            {
+                txb_facturas.Text = "";
+            }
+            else if (txb_facturas.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_facturas.Text) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
             else
-                e.Handled = true;
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void txb_Precio_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-                e.Handled = false;
-            else
-                e.Handled = true;
-        }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////FUNCIONES DE LISTAR FACTURAS/////////////////////////////////////////////////////
+       
+            //Imprimir reporte de facturas
         private void btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
             Imprimir print = new Imprimir();
             print.imprimir(dtg_listar_facturas, "Imprimir");
         }
-        private void cmb_Cliente_servicios_Initialized(object sender, EventArgs e)
-        {
-            Iniciar_Clientes(cmb_Cliente_servicios);
-        }
-        //Metodo para mostrar los clientes activos en el sistema, por medio de un combobox
-        private void Iniciar_Clientes(ComboBox combo)
-        {
-            DataTable dt = datos.Clientes();
 
-            foreach (DataRow fila in dt.Rows)
-            {
-                combo.Items.Add(Convert.ToString(fila["NOMBRE"]));
-            }
-        }
-
-        private void txb_descripcion_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key != System.Windows.Input.Key.Enter) return;
-
-            // your event handler here
-            e.Handled = true;
-            var caretIndex = txb_descripcion.CaretIndex;
-            txb_descripcion.Text = txb_descripcion.Text.Insert(caretIndex, "\r");
-            txb_descripcion.CaretIndex = caretIndex + 1;
-        }
-        //calcula calculos en la facturacion de servicios
-        private void txb_Cantidad_TextChanged(object sender, TextChangedEventArgs e)
-        {
-                CalculaMontosServicios();
-        }
-        //hace calculos en la facturacion de servicios
-        private void txb_Precio_TextChanged(object sender, TextChangedEventArgs e)
-        {
-                CalculaMontosServicios();
-        }
-        private void descuento_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-                e.Handled = false;
-            else
-                e.Handled = true;
-        }
-        private void txb_porcentaje_impuesto_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-                e.Handled = false;
-            else
-                e.Handled = true;
-        }
-        //hace calculos en la facturacion de servicios
-        private void txb_Cantidad_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (txb_Cantidad.Text == "")
-                txb_Cantidad.Text = "0";
-        }
-        //calcula calculos en la facturacion de servicios
-        private void txb_Precio_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (txb_Precio.Text == "")
-                txb_Precio.Text = "0";
-        }
-        //calcula calculos en la facturacion de servicios
-        private void txb_subtotal_factura_servicios_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
-        //calcula calculos en la facturacion de servicios
-        private void txb_descuento_servicios_TextChanged(object sender, TextChangedEventArgs e)
-        {
-                CalculaMontosServicios();
-        }
+        //Cargamos el combobox del estado de la factura
         private void cmb_estado_Factura_Initialized(object sender, EventArgs e)
         {
             cmb_estado_Factura.Items.Add("Cancelado");
             cmb_estado_Factura.Items.Add("Vencida");
             cmb_estado_Factura.Items.Add("Pendiente");
         }
-
+        //Metodo para mostrar las facturas una vez se eleccione el estado en el combobox
         private void cmb_estado_Factura_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -245,7 +192,7 @@ namespace Proyecto
                 Console.WriteLine(m);
             }
         }
-        //funcion para listar las facturas
+        //funcion para listar las facturas por rango de fechas
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
             if (date_historial_datte3.SelectedDate != null && date_historial_datte4.SelectedDate != null)
@@ -289,8 +236,8 @@ namespace Proyecto
             ventana.Show();
         }
 
-        //Abrimos el detalle de la factura 
-        private void Row_DoubleClick(object sender, MouseButtonEventArgs e) //Evento declarado en el datagrid
+        //Abrimos el detalle de la factura seleccionada en en el datagrid de listarfacutas
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e) //Evento declarado en el datagrid 
         {
             DataGridRow row = sender as DataGridRow;
 
@@ -307,6 +254,14 @@ namespace Proyecto
             ventana.impuestoFactura.Content = detalle[6];
             ventana.totalGeneralFactura.Content = detalle[7];
             ventana.tipoPago.Content = detalle[8];
+            if (detalle[8] == "Contado")
+            {
+                ventana.br_credito.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                ventana.br_contado.Visibility = Visibility.Hidden;
+            }
             if(detalle[10] == "Cancelado")
             {
                 ventana.dias.Visibility = Visibility.Hidden;
@@ -315,7 +270,7 @@ namespace Proyecto
                 ventana.Vence.Visibility = Visibility.Hidden;
                 ventana.fechaVence.Visibility = Visibility.Hidden;
                 ventana.btn_pagar_Factura.Visibility = Visibility.Hidden;
-                ventana.Pago.Content = "Pagó";
+                ventana.Pago.Content = "FECHA DE CANCELACIÓN:";
                 ventana.pagoFactura.Content = detalle[20];
                 if(detalle[8] == "Credito")
                 {
@@ -332,6 +287,8 @@ namespace Proyecto
             {
                 ventana.dias.Content = detalle[9];
                 ventana.fechaVence.Content = detalle[11];
+                ventana.br_pago1.Visibility = Visibility.Hidden;
+                ventana.br_pago2.Visibility = Visibility.Hidden;
             }
             ventana.EstadoFactura.Content = detalle[10];
             ventana.idCLiente.Content = detalle[12];
@@ -372,48 +329,6 @@ namespace Proyecto
             dtg_listar_facturas.ItemsSource = null;
             cmb_estado_Factura.SelectedItem = null;
             txb_buscar_cliente_factura.Text = "";
-        }
-
-        //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
-        private Boolean ValidarCaracteresEspeciales(String v_Txb)
-        {
-            //caracteres que permite si la cadena es de int
-            String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
-            if (Regex.IsMatch(v_Txb, v_Caracteres))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
-        private void ValidarErroresTxb(TextBox txb_facturas, Label lbl_error)
-        {
-            string v_TamanoTxb = txb_facturas.Text;
-            if (txb_facturas.Text == "")
-            {
-                lbl_error.Content = "Espacio vacío";
-                lbl_error.Visibility = Visibility.Visible;
-            }
-            else if (txb_facturas.Text == " ")
-            {
-                txb_facturas.Text = "";
-            }
-            else if (txb_facturas.Text.Contains("  "))
-            {
-                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
-                lbl_error.Visibility = Visibility.Visible;
-            }
-            else if (ValidarCaracteresEspeciales(txb_facturas.Text) == true)
-            {
-                lbl_error.Content = "No se permiten caracteres especiales";
-                lbl_error.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                lbl_error.Visibility = Visibility.Collapsed;
-            }
         }
 
 
@@ -459,23 +374,29 @@ namespace Proyecto
         private string diasCredito = "";
         private string estadoFactura = "";
         private string fechaPago = "";
-        //Iniciamos la facturacion de productos 
-        private void Productostab_Initialized(object sender, EventArgs e)
+
+        //INICIAMOS LA FACTURACION DE PRODUCTOS
+        private void Productostab_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            txb_subtotal_factura_prueba.Text = "0";
-            txb_descuento_Producto_prueba.Text = "0";
-            txb_subtotalneto.Text = "0";
-            txb_impuestofactura.Text = "0";
-            txb_total_factura_prueba.Text = "0";
-            txb_descuento_linea_producto.Text = "0";
+            if (dtg_facturar_productos_prueba.Items.Count == 0)
+            {
+                txb_subtotal_factura_prueba.Text = "0";
+                txb_descuento_Producto_prueba.Text = "0";
+                txb_subtotalneto.Text = "0";
+                txb_impuestofactura.Text = "0";
+                txb_total_factura_prueba.Text = "0";
+                txb_descuento_linea_producto.Text = "0";
+            }
             try
             {
                 txt_codigo_factura.Content = (datos.MaximaFactura() + 1).ToString();
-            }catch (Exception m)
+            }
+            catch (Exception m)
             {
                 txt_codigo_factura.Content = "1";
             }
         }
+
         //Clase necesaria para gregar una nueva factura al datagrid
         public class FacturasProducto
         {
@@ -551,9 +472,13 @@ namespace Proyecto
                     
                 }
                 //Calculamos el descuento que se le aplica al producto
-                descuentoLinea = (((valorUnitario * cantidad) * (impuestoLinea / 100) + (valorUnitario * cantidad)) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
+                if (txb_descuento_linea_producto.Text != "")
+                    descuentoLinea = (((valorUnitario * cantidad) * (impuestoLinea / 100) + (valorUnitario * cantidad)) * (float.Parse(txb_descuento_linea_producto.Text) / 100));
+                else
+                    descuentoLinea = 0;
                 //Establecemos los valores del nuevo producto para agregarlo al datagrid
                 //Lo logramos con un binding al datagrid, el mismo nombre de los atributos de la clase
+                txb_descuento_linea_producto.Text = "0";
                 Row2.Add(new FacturasProducto()
                 {
                     Servicio = "Mercadería",
@@ -676,51 +601,25 @@ namespace Proyecto
             }
         }
         //Validamos que solo se puedan digitar numeros
-        private void txb_descuento_linea_producto_KeyDown(object sender, KeyEventArgs e)
+        private void Txb_catidad_producto_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_descuento_prueba.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_descuento_linea_producto.Text) == true)
-                {
-                    txt_error_descuento_prueba.Content = "No se permiten caracteres especiales";
-                    txt_error_descuento_prueba.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_descuento_prueba.Content = "No se permite ingresar letras";
-                txt_error_descuento_prueba.Visibility = Visibility.Visible;
-            }
+            SoloNumeros(txb_catidad_producto, lbl_error_cantidadproducto, e);
         }
-        private void txb_descuento_Producto_prueba_KeyDown(object sender, KeyEventArgs e)
+
+        private void Txb_descuento_linea_producto_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_descuento_prueba.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_descuento_Producto_prueba.Text) == true)
-                {
-                    txt_error_descuento_prueba.Content = "No se permiten caracteres especiales";
-                    txt_error_descuento_prueba.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_descuento_prueba.Content = "No se permite ingresar letras";
-                txt_error_descuento_prueba.Visibility = Visibility.Visible;
-            }
+            SoloNumeros(txb_descuento_linea_producto, lbl_error_descuentoproducto, e);
         }
-        private void txb_diasCredito_KeyDown(object sender, KeyEventArgs e)
+
+        private void Txb_descuento_Producto_prueba_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-            }
-            }
+            SoloNumeros(txb_descuento_Producto_prueba, lbl_error_descuentofacturaproductos, e);
+        }
+
+        private void Txb_diasCredito_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            SoloNumeros(txb_diasCredito, lbl_error_creditoproductos, e);
+        }
         //funcion para verificar los valores que se van a cambiar en el textbox de cantidad de producto solicitada
         private void txb_cantidad_producto_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -1172,6 +1071,58 @@ namespace Proyecto
         /// </summary>
         /////////////////////////////////////////////////FACTURACION DE SERVICIOS //////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //iniciamos la facturacion de servicios
+        private void TabItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
+            }
+            catch (Exception m)
+            {
+                txt_codigo_factura_servicios.Content = "1";
+            }
+            if( txb_descripcion.Text == "")
+            {
+                txb_Cantidad.Text = "0";
+                txb_Precio.Text = "0";
+                txb_subtotal_factura_servicios.Text = "0";
+                txb_descuento_servicios.Text = "0";
+                txb_total_factura_servicios.Text = "0";
+                txb_impuesto_Servicios.Text = "0";
+                txb_subneto_servicios.Text = "0";
+                txb_porcentaje_impuesto.Text = "0";
+            }
+        }
+
+        //funcion para limpiar los datos de la facturas de servicios
+        public void LimpiarServicio()
+        {
+            cmb_Cliente_servicios.SelectedItem = null;
+            txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
+            txb_impuesto_Servicios.Text = "0";
+            txb_subneto_servicios.Text = "0";
+            txb_descripcion.Text = "";
+            txb_descuento_servicios.Text = "0";
+            txb_subtotal_factura_servicios.Text = "0";
+            txb_total_factura_servicios.Text = "0";
+            txb_Cantidad.Text = "0";
+            txb_Precio.Text = "0";
+            txb_porcentaje_impuesto.Text = "0";
+            txb_diasCredito_Servicio.Text = "0";
+            montos = 0;
+            tipoPago = "";
+            diasCredito = "";
+            estadoFactura = "";
+            fechaPago = "";
+            Rb_Contado_Servicio.IsChecked = true;
+            Rb_Si_Servicio.IsChecked = true;
+            Rb_Colon_Servicio.IsChecked = true;
+
+        }
+
+        //FUNCION PARA HACER LOS CALCULOS NECESARIOS DE LA FACTURACION DE SRVICIOS
         private void CalculaMontosServicios()
         {
             if (txb_Cantidad.Text!="" && txb_Precio.Text!="" && txb_subtotal_factura_servicios.Text!="" && txb_descuento_servicios.Text!="" && txb_total_factura_servicios.Text!="" && txb_impuesto_Servicios.Text!="" && txb_subneto_servicios.Text!="")
@@ -1192,7 +1143,7 @@ namespace Proyecto
             }
         }
 
-
+        //SI EL USUARIO DESEA HACER LA FACTURA A CREDITO
         private void Rb_Credito_Servicio_Checked(object sender, RoutedEventArgs e)
         {
             txb_diasCredito_Servicio.Visibility = Visibility.Visible;
@@ -1200,6 +1151,7 @@ namespace Proyecto
             txt_Credito_Servicio.Visibility = Visibility.Visible;
         }
 
+        //SI EL USUARIO DESEA HACER LA FACTURA A CONTADO
         private void Rb_Contado_Servicio_Checked(object sender, RoutedEventArgs e)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
@@ -1215,15 +1167,91 @@ namespace Proyecto
                 txt_Credito_Servicio.Visibility = Visibility.Hidden;
             }
         }
-
-        private void txb_diasCredito_Servicio_KeyDown(object sender, KeyEventArgs e)
+        //funcion para poder dar salto de linea en el textbox de la descripcion del servicio
+        private void txb_descripcion_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            if (e.Key != System.Windows.Input.Key.Enter) return;
+
+            // your event handler here
+            e.Handled = true;
+            var caretIndex = txb_descripcion.CaretIndex;
+            txb_descripcion.Text = txb_descripcion.Text.Insert(caretIndex, "\r");
+            txb_descripcion.CaretIndex = caretIndex + 1;
+        }
+        //iniciamos el combobox de clientes , con los clientes activos en el sistema
+        private void cmb_Cliente_servicios_Initialized(object sender, EventArgs e)
+        {
+            Iniciar_Clientes(cmb_Cliente_servicios);
+        }
+        //Metodo para mostrar los clientes activos en el sistema, por medio de un combobox
+        private void Iniciar_Clientes(ComboBox combo)
+        {
+            DataTable dt = datos.Clientes();
+
+            foreach (DataRow fila in dt.Rows)
             {
-                e.Handled = false;
+                combo.Items.Add(Convert.ToString(fila["NOMBRE"]));
             }
         }
+        //VALIDACIONES FACTURACION DE SERVICIOS
+        public void SoloNumeros(TextBox txb,Label lbl,TextCompositionEventArgs e)
+        {
+            //se convierte a Ascci del la tecla presionada 
+            int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
+            //verificamos que se encuentre en ese rango que son entre el 0 y el 9 
+            if (ascci >= 48 && ascci <= 57)
+            {
+                e.Handled = false;
+                lbl.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb.Text) == true)
+                {
+                    lbl.Content = "No se permiten caracteres especiales";
+                    lbl.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl.Content = "No se permite ingresar letras";
+                lbl.Visibility = Visibility.Visible;
+            }
+        }
+        private void Txb_diasCredito_Servicio_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            SoloNumeros(txb_diasCredito_Servicio,lbl_error_diasCredito,e);
+        }
+        private void Txb_porcentaje_impuesto_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            SoloNumeros(txb_porcentaje_impuesto,lbl_error_impuesto, e);
+        }
 
+        private void Txb_Cantidad_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            SoloNumeros(txb_Cantidad, lbl_error_horas, e);
+        }
+
+        private void Txb_Precio_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            SoloNumeros(txb_Precio, lbl_error_precio, e);
+        }
+
+        private void Txb_descuento_servicios_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            SoloNumeros(txb_descuento_servicios, lbl_error_descuento, e);
+        }
+        private void txb_Cantidad_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (txb_Cantidad.Text == "")
+                txb_Cantidad.Text = "0";
+        }
+        private void txb_Precio_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (txb_Precio.Text == "")
+                txb_Precio.Text = "0";
+        }
+
+
+        //funcion para poder agregar los dias de credito a la facturacion de servicios
         private void btn_agregarCredito_Servicio_Click(object sender, RoutedEventArgs e)
         {
             if (txb_diasCredito_Servicio.Text != "")
@@ -1242,26 +1270,7 @@ namespace Proyecto
                 txt_Credito_Servicio.Visibility = Visibility.Hidden;
             }
         }
-        //Iniciar facturacion de servicios
-        private void TabItem_Initialized(object sender, EventArgs e)
-        {
-            try
-            {
-                txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
-            }
-            catch (Exception m)
-            {
-                txt_codigo_factura_servicios.Content = "1";
-            }
-            txb_Cantidad.Text = "0";
-            txb_Precio.Text = "0";
-            txb_subtotal_factura_servicios.Text = "0";
-            txb_descuento_servicios.Text = "0";
-            txb_total_factura_servicios.Text = "0";
-            txb_impuesto_Servicios.Text = "0";
-            txb_subneto_servicios.Text = "0";
-        }
-
+        //si desea hacer la facturas en dolares
         private void Rb_Dolar_Servicio_Checked(object sender, RoutedEventArgs e)
         {
             if (txb_Precio.Text != "")
@@ -1270,7 +1279,7 @@ namespace Proyecto
                 CalculaMontosServicios();
             }
         }
-
+        //si desea usar la factura en coloes
         private void Rb_Colon_Servicio_Checked(object sender, RoutedEventArgs e)
         {
             if(txb_Precio.Text!="")
@@ -1279,7 +1288,7 @@ namespace Proyecto
                 CalculaMontosServicios();
             }
         }
-
+        //En caso que el usuario necesite aplicar impuesto a la factura de servicios
         private void Rb_Si_Servicio_Checked(object sender, RoutedEventArgs e)
         {
             if (txb_impuesto_Servicios != null)
@@ -1290,10 +1299,10 @@ namespace Proyecto
                 CalculaMontosServicios();
             }
         }
-
+        //Si el usuario no sea aplicar impuesto a la factura
         private void Rb_No_Servicio_Checked(object sender, RoutedEventArgs e)
         {
-            if (txb_impuesto_Servicios != null && txb_impuesto_Servicios.Text != "0")
+            if (txb_impuesto_Servicios != null && (txb_impuesto_Servicios.Text == "0" || txb_impuesto_Servicios.Text == "0.00") )
             {
                 txb_porcentaje_impuesto.Visibility = Visibility.Hidden;
                 txt_porcentaje_impuesto.Visibility = Visibility.Hidden;
@@ -1319,7 +1328,7 @@ namespace Proyecto
 
 
                     EntidadClientes micliente = new EntidadClientes();
-                    micliente = datos.id_Cliente(cmb_Cliente_Productos_Prueba.SelectedItem.ToString());
+                    micliente = datos.id_Cliente(cmb_Cliente_servicios.SelectedItem.ToString());
                     miFactura.v_Cliente = micliente.v_Codigo.ToString();
 
 
@@ -1365,7 +1374,7 @@ namespace Proyecto
                             {
                                 MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                                Imprimir imprimir = new Imprimir();
+                                //Imprimir imprimir = new Imprimir();
                                 //imprimir.imprimirFacturaServicio()
 
                                 LimpiarServicio();
@@ -1388,11 +1397,39 @@ namespace Proyecto
             }
         }
 
-
-
+         //Calculos facturacion de servicios, en los cuatro textbox que pueden ser editados
+        //hace calculos en la facturacion de servicios cuando el impuesto cambia
         private void txb_porcentaje_impuesto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarErroresTxb(txb_porcentaje_impuesto, lbl_error_impuesto);
+            if (txb_porcentaje_impuesto.Text == "")
+            {
+                lbl_error_impuesto.Content = "No se permiten caracteres especiales";
+                lbl_error_impuesto.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                CalculaMontosServicios();
+            }
+        }
+
+        //hace calculos en la facturacion de servicios cuando la cantidad cambia
+        private void txb_Cantidad_TextChanged(object sender, TextChangedEventArgs e)
         {
             CalculaMontosServicios();
         }
+        //hace calculos en la facturacion de servicios cuando el precio cambia
+        private void txb_Precio_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CalculaMontosServicios();
+        }
+
+        //Hace calculos en la facturacion de servicios cuando el descuento cambia
+        private void txb_descuento_servicios_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CalculaMontosServicios();
+        }
+
+
     }
 }

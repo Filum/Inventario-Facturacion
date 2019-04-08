@@ -125,7 +125,28 @@ namespace Proyecto
             ventana.Show();
             this.Close();
         }
-
+        public void SoloNumeros(TextBox txb, Label lbl, TextCompositionEventArgs e)
+        {
+            //se convierte a Ascci del la tecla presionada 
+            int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
+            //verificamos que se encuentre en ese rango que son entre el 0 y el 9 
+            if (ascci >= 48 && ascci <= 57)
+            {
+                e.Handled = false;
+                lbl.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb.Text) == true)
+                {
+                    lbl.Content = "No se permiten caracteres especiales";
+                    lbl.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl.Content = "No se permite ingresar letras";
+                lbl.Visibility = Visibility.Visible;
+            }
+        }
         private void btn_editar_cliente_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("No se ha seleccionado ningun cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -281,44 +302,21 @@ namespace Proyecto
 
 
         //Métodos para controlar los errores que se pueden cometer a la hora de rellenar el formulario.
-        private void telefono_Oficina_KeyDown(object sender, KeyEventArgs e)
+        private void Txb_TelOf_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_TelO.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_TelOf.Text ) == true)
-                {
-                    txt_error_TelO.Content = "No se permiten caracteres especiales";
-                    txt_error_TelO.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_TelO.Content = "No se permite ingresar letras";
-                txt_error_TelO.Visibility = Visibility.Visible;
-            }
+            SoloNumeros(txb_TelOf, txt_error_TelO, e);
         }
-        private void telefono_Movil_KeyDown(object sender, KeyEventArgs e)
+
+        private void Txb_TelMov_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_telM.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_TelMov.Text) == true)
-                {
-                    txt_error_telM.Content = "No se permiten caracteres especiales";
-                    txt_error_telM.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_telM.Content = "No se permite ingresar letras";
-                txt_error_telM.Visibility = Visibility.Visible;
-            }
+            SoloNumeros(txb_TelMov, txt_error_telM, e);
         }
+
+        private void Txb_cedula_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            SoloNumeros(txb_cedula, txt_error_cedula, e);
+        }
+
         private Boolean email_correcto(String email)
         {
             String v_Expresion;
@@ -733,25 +731,7 @@ namespace Proyecto
             txt_actividad.Visibility = Visibility.Visible;               
         }
 
-        private void txb_cedula_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_cedula.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_cedula.Text) == true)
-                {
-                    txt_error_cedula.Content = "No se permiten caracteres especiales";
-                    txt_error_cedula.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_cedula.Content = "No se permite ingresar letras";
-                txt_error_cedula.Visibility = Visibility.Visible;
-            }
-        }
+       
 
         private void txb_cedula_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -812,5 +792,7 @@ namespace Proyecto
                 Console.Write(m);
             }
         }
+
+
     }
 }
