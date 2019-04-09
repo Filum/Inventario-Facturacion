@@ -118,8 +118,8 @@
                 <ColumnDefinition Width="261*"/>
                 <ColumnDefinition Width="150*"/>
             </Grid.ColumnDefinitions>
-            <Grid Margin="0" MaxWidth="350" MaxHeight="500" Background="#FFE51A1A"/>
-            <Grid Margin="0,0,0,-0.4" Grid.ColumnSpan="2" Grid.Row="1" MaxHeight="190" MaxWidth="950" Background="#FF62B109"/>
+            <Grid Margin="0" MaxWidth="350" MaxHeight="500" />
+            <Grid Margin="0,0,0,-0.4" Grid.ColumnSpan="2" Grid.Row="1" MaxHeight="190" MaxWidth="950" />
             <Grid Margin="0" Grid.Column="2" Grid.RowSpan="2" MaxWidth="300" MaxHeight="750" UseLayoutRounding="False">
                 <Rectangle Margin="0" RadiusY="11.636" RadiusX="11.636" RenderTransformOrigin="0.5,0.5" Fill="#FF111429" Stroke="White">
                     <Rectangle.RenderTransform>
@@ -150,7 +150,9 @@
                 </Button>
                 <Button Foreground="White" Background="{x:Null}" BorderBrush="#FFFAFAFA" VerticalAlignment="Bottom" Height="43" Click="Button_Click" Margin="10,10,10,20" Content="Cerrar Sesión" />
             </Grid>
-            <Grid Grid.Column="1" Margin="0" MaxHeight="500" Background="#FFE78A2D"/>
+            <Grid Grid.Column="1" Margin="0" MaxHeight="500">
+                <Image x:Name="logo" Height="148" Source="Imagenes\img_Delram.png" Width="205" VerticalAlignment="Center" Stretch="Fill" HorizontalAlignment="Center" Margin="-97,145,153,10"/>
+            </Grid>
         </Grid>
 
 
