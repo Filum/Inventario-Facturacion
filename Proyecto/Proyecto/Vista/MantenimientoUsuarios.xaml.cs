@@ -184,6 +184,7 @@ namespace Proyecto
         {
             MostrarFormulario();
             v_Actividad_btnAgregar = true;
+            lbl_actividad.Content = "Agregar usuario";
         }
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
