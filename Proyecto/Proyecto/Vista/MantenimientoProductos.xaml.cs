@@ -211,88 +211,59 @@ namespace Proyecto
                 }
         }
 
-        private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
-        {
-           // LimpiarTextboxAgregar();
-
-            if (txb_busqueda.Text == "")
-            {
-                txb_nombre.Text = "";
-                btn_limpiar_Click(sender, e);
-                btn_agregarProducto.Visibility = Visibility.Collapsed;
-                btn_modificar.Visibility = Visibility.Collapsed;
-            }
-            else if (txb_busqueda.Text.Contains("'"))
-            {
-                lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
-                lbl_errorBusqueda.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                dtg_productos.ItemsSource = v_Model.ValidarBusquedaProductos(txb_busqueda.Text);
-                dtg_productos.Columns[0].Header = "#";
-                dtg_productos.Columns[1].Header = "Código del Producto";
-                dtg_productos.Columns[2].Header = "Nombre del Producto";
-                dtg_productos.Columns[3].Header = "Marca";
-                dtg_productos.Columns[4].Header = "Cantidad en Existencia";
-                dtg_productos.Columns[5].Header = "Cantidad Mínima";
-                dtg_productos.Columns[6].Header = "Proveedor";
-                dtg_productos.Columns[7].Header = "Precio Unitario";
-                dtg_productos.Columns[8].Header = "Descripción";
-                dtg_productos.Columns[9].Header = "Fabricante";
-                dtg_productos.Columns[10].Header = "Estado del Producto";
-                dtg_productos.Columns[11].Header = "Fecha de Ingreso";
-                dtg_productos.Columns[12].Header = "Estado en el Sistema";
-
-                if (dtg_productos.Items.Count == 0)//El producto no existe
-                {
-                    btn_modificar.Visibility = Visibility.Collapsed;
-                    inicializarAgregacion();
-
-                    if (Regex.IsMatch(this.txb_busqueda.Text, "[a-zA-Z]"))
-                    {
-                        if (ValidarCaracteresEspeciales(txb_busqueda.Text, "nombre") == true)
-                        {
-                            lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
-                            lbl_errorBusqueda.Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            //HACER*****************
-                            txb_busqueda.MaxLength = 35;
-                            lbl_errorBusqueda.Visibility = Visibility.Collapsed;
-                        }
-                    }
-                }
-                else//Productos existentes
-                {
-                    v_Actividad_btnAgregar = false;
-                    btn_agregarProducto.Visibility = Visibility.Collapsed;
-                    btn_modificar.Visibility = Visibility.Collapsed;
-                    lbl_actividad.Content = "Productos existentes";
-                    lbl_actividad.Visibility = Visibility.Visible;
-                }
-            }
-        }
-
         /*Método el cual cumple con la funcionalidad de desplegar los datos en los campos correspondientes de un producto seleccionado 
         en el DataGrid con la finalidad de ser modificado, esto en el tab de gestión de productos*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+            MostrarFormulario();
             DataGridRow row = sender as DataGridRow;
 
             v_Clt.v_IdProducto = Convert.ToInt64((dtg_productos.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
 
             txb_codProd.Text = (dtg_productos.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
             txb_nombre.Text = (dtg_productos.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
-            //marca
+            txb_marca.Text = (dtg_productos.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
             txb_cantActual.Text = (dtg_productos.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
             txb_cantMinima.Text = (dtg_productos.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
-            cmb_proveedor.Text = (dtg_productos.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text;
-            txb_precio.Text = (dtg_productos.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
-            txb_descripcion.Text = (dtg_productos.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
-            txb_fabricante.Text = (dtg_productos.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
-            cmb_estadoprod.Text = (dtg_productos.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
+
+            //se guarda el id del proveedor que se obtiene del datagrid en la variable: v_Clt.v_IdProveedor
+            v_Clt.v_IdProveedor = Convert.ToInt64((dtg_productos.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text);
+            //convertir de tipo long(v_Clt.v_IdProveedor) a tipo int(v_Indice) 
+            int v_Indice = unchecked((int)v_Clt.v_IdProveedor);
+            //indica al combobox cual opción debe estar seleccionada (asigna el id del proveedor por defecto según el índice que se obtiene del producto seleccionado en el datagrid)
+            //se hace la resta v_Indice-1 porque los elementos del combobox inician en 0
+            cmb_proveedor.SelectedIndex = v_Indice - 1;
+
+            txb_precio.Text = (dtg_productos.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
+            txb_descripcion.Text = (dtg_productos.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
+            txb_fabricante.Text = (dtg_productos.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
+
+            //Se compara el_Estado del Producto que se obtiene de la celda con los items contenidos en el combobox(cmb_estadoprod) 
+            if ((dtg_productos.SelectedCells[11].Column.GetCellContent(row) as TextBlock).Text == "Nuevo")
+            {
+                //asigna el item del combobox "Nuevo"
+                cmb_estadoprod.SelectedIndex = 0; 
+            } else if ((dtg_productos.SelectedCells[11].Column.GetCellContent(row) as TextBlock).Text == "Usado")
+            {
+                //asigna el item del combobox "Usado"
+                cmb_estadoprod.SelectedIndex = 1;
+            } else if ((dtg_productos.SelectedCells[11].Column.GetCellContent(row) as TextBlock).Text == "Dañado")
+            {
+                //asigna el item del combobox "Dañado"
+                cmb_estadoprod.SelectedIndex = 2;
+            }
+
+            //Se compara el_Estado en el Sistema que se obtiene de la celda para saber si el producto está activo o inactivo
+            if ((dtg_productos.SelectedCells[13].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
+            {
+                //asigna el radiobutton en "Activo"
+                rb_activo.IsChecked = true;
+            }
+            else if ((dtg_productos.SelectedCells[13].Column.GetCellContent(row) as TextBlock).Text == "INACTIVO")
+            {
+                //asigna el radiobutton en "Inactivo"
+                rb_inactivo.IsChecked = true;
+            }
 
             lbl_actividad.Content = "Modificar producto";
             lbl_actividad.Visibility = Visibility.Visible;
@@ -425,6 +396,37 @@ namespace Proyecto
             else if (cmb_tipoBusqueda.SelectedValue == listaProductos)
             {
                 v_EstadoSistema = "LISTAPRODUCTOS";
+            }
+        }
+
+        private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //ValidarErroresTxb(txb_busqueda, lbl_errorBusqueda, "");
+            if (txb_busqueda.Text.Contains("'"))
+            {
+                lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
+                lbl_errorBusqueda.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                //productos existentes
+                dtg_productos.ItemsSource = v_Model.ValidarBusquedaProductos(txb_busqueda.Text);
+                dtg_productos.Columns[0].Header = "#";
+                dtg_productos.Columns[1].Header = "Código del Producto";
+                dtg_productos.Columns[2].Header = "Nombre del Producto";
+                dtg_productos.Columns[3].Header = "Marca";
+                dtg_productos.Columns[4].Header = "Cantidad Actual";
+                dtg_productos.Columns[5].Header = "Cantidad Mínima";
+                dtg_productos.Columns[6].Header = "Id del Proveedor";
+                dtg_productos.Columns[7].Header = "Nombre del Proveedor";
+                dtg_productos.Columns[8].Header = "Precio Unitario";
+                dtg_productos.Columns[9].Header = "Descripción";
+                dtg_productos.Columns[10].Header = "Fabricante";
+                dtg_productos.Columns[11].Header = "Estado del Producto";
+                dtg_productos.Columns[12].Header = "Fecha";
+                dtg_productos.Columns[13].Header = "Estado en el Sistema";
+
+                v_Actividad_btnAgregar = false;
             }
         }
 

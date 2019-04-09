@@ -470,7 +470,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.estadoSistema " +
+            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROD.fk_idProveedor,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.estadoSistema " +
                 "from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON (PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) WHERE translate(UPPER(NOMBREPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU') " +
                 "OR translate(UPPER(CODIGOPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
@@ -486,14 +486,15 @@ namespace Datos
                     producto.v_NombreProducto = dr.GetString(2);
                     producto.v_MarcaProducto = dr.GetString(3);
                     producto.v_CantidadExistencia = Convert.ToInt64(dr.GetValue(4));
-                    producto.v_CantidadMinima = Convert.ToInt32(dr.GetValue(5));
-                    producto.v_Fk_IdProveedor = dr.GetString(6);
-                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(7));
-                    producto.v_Descripcion = dr.GetString(8);
-                    producto.v_Fabricante = dr.GetString(9);
-                    producto.v_EstadoProducto = dr.GetString(10);
-                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(11));
-                    producto.v_EstadoSistema = dr.GetString(12);
+                    producto.v_CantidadMinima = Convert.ToInt64(dr.GetValue(5));
+                    producto.v_IdProveedor = Convert.ToInt64(dr.GetValue(6));
+                    producto.v_NombreProveedor = dr.GetString(7);
+                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(8));
+                    producto.v_Descripcion = dr.GetString(9);
+                    producto.v_Fabricante = dr.GetString(10);
+                    producto.v_EstadoProducto = dr.GetString(11);
+                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(12));
+                    producto.v_EstadoSistema = dr.GetString(13);
                     Lista.Add(producto);
                 }
             }
