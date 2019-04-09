@@ -13,8 +13,8 @@ namespace Entidades
         public Int64 v_CedIdentificacion { set; get; }
         public string v_NombreUsuario { set; get; }
         public string v_Apellidos { set; get; }
-        public Int64 v_TelefonoOpcional { set; get; }
         public Int64 v_Telefono { set; get; }
+        public Int64 v_TelefonoOpcional { set; get; }
         public string v_Correo { set; get; }
         public string v_Puesto { set; get; }
         public Int64 v_IdRol { set; get; }
@@ -25,15 +25,15 @@ namespace Entidades
         public string v_EstadoSistema { set; get; }
 
 
-        public EntidadUsuarios(Int64 v_IdUsuario, DateTime v_Fecha, Int64 v_CedIdentificacion, string v_NombreUsuario, string v_Apellidos, Int64 v_TelefonoOpcional, Int64 v_Telefono, string v_Correo, string v_Puesto, Int64 v_IdRol, string v_NombreRol, string v_UsuarioSistema, string v_Contrasena , string v_estadoSistema)
+        public EntidadUsuarios(Int64 v_IdUsuario, DateTime v_Fecha, Int64 v_CedIdentificacion, string v_NombreUsuario, string v_Apellidos, Int64 v_Telefono, Int64 v_TelefonoOpcional, string v_Correo, string v_Puesto, Int64 v_IdRol, string v_NombreRol, string v_UsuarioSistema, string v_Contrasena , string v_estadoSistema)
         {
             this.v_IdUsuario = v_IdUsuario;
             this.v_CedIdentificacion = v_CedIdentificacion;
             this.v_Fecha = v_Fecha;
             this.v_NombreUsuario = v_NombreUsuario;
             this.v_Apellidos = v_Apellidos;
-            this.v_TelefonoOpcional = v_TelefonoOpcional;
             this.v_Telefono = v_Telefono;
+            this.v_TelefonoOpcional = v_TelefonoOpcional;
             this.v_Correo = v_Correo;
             this.v_Puesto = v_Puesto;
             this.v_IdRol = v_IdRol;
