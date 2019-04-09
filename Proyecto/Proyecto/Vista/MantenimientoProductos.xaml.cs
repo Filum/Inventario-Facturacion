@@ -26,6 +26,7 @@ namespace Proyecto
         EntidadProductos v_Clt = new EntidadProductos();
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
+        String v_EstadoSistema = "";
 
         public MantenimientoProductos()
         {
@@ -37,6 +38,9 @@ namespace Proyecto
             lbl_actividad.Content = "Productos existentes";
             dispatcherTimer.Start();
             LlenarComboboxProveedores();
+            //Cargar productos existentes
+            cmb_tipoBusqueda.SelectedIndex = 2;
+            dtg_lista.ItemsSource = v_Model.MostrarListaProductos("LISTAPRODUCTOS").DefaultView;
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -135,7 +139,7 @@ namespace Proyecto
             lbl_errorPrecio.Visibility = Visibility.Collapsed;
             lbl_errorProveedor.Visibility = Visibility.Collapsed;
             lbl_actividad.Visibility = Visibility.Collapsed;
-            btn_guardar.Visibility = Visibility.Collapsed;
+            btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
             inicializarAgregacion();
@@ -186,28 +190,25 @@ namespace Proyecto
         {
        
                 dtg_lista.ItemsSource = null;
-
-
-                    if (v_Model.MostrarListaProductos().Rows.Count == 0)
-                    {
-                        MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    else
-                    {
-                        dtg_lista.ItemsSource = v_Model.MostrarListaProductos().DefaultView;
-                        dtg_lista.Columns[0].Header = "Código Producto";
-                        dtg_lista.Columns[1].Header = "Nombre del Producto";
-                        dtg_lista.Columns[2].Header = "Marca";
-                        dtg_lista.Columns[3].Header = "Cantidad en existencia";
-                        dtg_lista.Columns[4].Header = "Proveedor";
-                        dtg_lista.Columns[5].Header = "Precio";
-                        dtg_lista.Columns[6].Header = "Descripción";
-                        dtg_lista.Columns[7].Header = "Fabricante";
-                        dtg_lista.Columns[8].Header = "Estado del Producto";
-                        dtg_lista.Columns[9].Header = "Fecha";
-                        
-                    }
-            
+                if (v_Model.MostrarListaProductos(v_EstadoSistema).Rows.Count == 0)
+                {
+                    MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_EstadoSistema).DefaultView;
+                    dtg_lista.Columns[0].Header = "Código Producto";
+                    dtg_lista.Columns[1].Header = "Nombre del Producto";
+                    dtg_lista.Columns[2].Header = "Marca";
+                    dtg_lista.Columns[3].Header = "Cantidad en existencia";
+                    dtg_lista.Columns[4].Header = "Proveedor";
+                    dtg_lista.Columns[5].Header = "Precio";
+                    dtg_lista.Columns[6].Header = "Descripción";
+                    dtg_lista.Columns[7].Header = "Fabricante";
+                    dtg_lista.Columns[8].Header = "Estado del Producto";
+                    dtg_lista.Columns[9].Header = "Fecha";
+                    dtg_lista.Columns[10].Header = "Estado en el Sistema";
+                }
         }
 
         private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
@@ -410,7 +411,24 @@ namespace Proyecto
             }
         }
 
-        private void btn_guardar_Click(object sender, RoutedEventArgs e)
+
+        private void cmb_tipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmb_tipoBusqueda.SelectedValue == productosActivos)
+            {
+                v_EstadoSistema = "ACTIVO";
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == productosInactivos)
+            {
+                v_EstadoSistema = "INACTIVO";
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == listaProductos)
+            {
+                v_EstadoSistema = "LISTAPRODUCTOS";
+            }
+        }
+
+        private void txb_codProd_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
