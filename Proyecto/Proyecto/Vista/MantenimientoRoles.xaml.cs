@@ -36,15 +36,12 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
-
-
         }
 
         public void llenardtg()
         {
-
             dtg_lista.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
-          
+            dtg_roles.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
         }
 
        
@@ -112,6 +109,8 @@ namespace Proyecto
             GridAgregar.Visibility = Visibility.Visible;
 
         }
+
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -169,6 +168,7 @@ namespace Proyecto
                 "   Se utiliza el mismo formato de validaciones de ingresar. \n", "Ayuda",
                 MessageBoxButton.OK);
         }
+
         // Botón para cerrar sesión
         private void btn_usuario_roles_Click(object sender, RoutedEventArgs e)
         {
@@ -188,6 +188,7 @@ namespace Proyecto
  en el DataGrid con la finalidad de ser modificado, esto en el tab de gestión de roles*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+
         }
 
         //Método el cual habilita el botón modificar
@@ -226,7 +227,28 @@ namespace Proyecto
         //Método el cual habilita componentes siempre y cuando no hayan errores en la caja de texto de buscar
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidarErroresTxb(txb_busqueda_rol, lbl_errorBusqueda_rol, "");
+            ValidarErroresTxb(txb_busqueda_rol, lbl_errorNomrol, "");
+            if (txb_busqueda_rol.Text.Contains("'"))
+            {
+                lbl_errorNomrol.Content = "No se permiten caracteres especiales";
+                lbl_errorNomrol.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                //usuarios existentes
+                dtg_roles.ItemsSource = v_Model.ValidarBusquedaRoles(txb_busqueda_rol.Text);//-> revisar que le está pasando la lista ahí está el problema 
+                dtg_roles.Columns[0].Header = "Nombre del Rol";
+                dtg_roles.Columns[1].Header = "Estado en el Sistema";
+                dtg_roles.Columns[2].Header = "Montenimiento Clientes";
+                dtg_roles.Columns[3].Header = "Mantenimiento Proveedores";
+                dtg_roles.Columns[4].Header = "Mantenimiento Productos";
+                dtg_roles.Columns[5].Header = "Mantenimiento Usuarios";
+                dtg_roles.Columns[6].Header = "Mantenimiento Roles";
+                dtg_roles.Columns[7].Header = "Facturación";
+                dtg_roles.Columns[8].Header = "Bitácora";
+                
+                v_Actividad_btnAgregar = false;
+            }
         }
 
        
@@ -273,6 +295,7 @@ namespace Proyecto
         //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
         private void ValidarErroresTxb(TextBox txb_proveedor, Label lbl_error, string tipo)
         {
+
         }
         //Boton para garegar un rol
         private void btn_agregar_Click(object sender, RoutedEventArgs e)

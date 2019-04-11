@@ -174,7 +174,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         <Separator Height="41" Margin="20,50,20,0" VerticalAlignment="Top" Background="White"/>
                     </Grid>
                     <Grid x:Name="GridBuscar" Visibility="Visible" Margin="0">
-                        <TextBox x:Name="txb_busqueda_rol" Margin="325,105,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="250" Height="32" VerticalAlignment="Top"/>
+                        <TextBox x:Name="txb_busqueda_rol" Margin="325,105,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="250" Height="32" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged"/>
                         <Label Content="Ingrese el nombre del rol:" Margin="110,105,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Left" Height="32"/>
                         <Label x:Name="lbl_actividad" Content="Buscar Roles" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="0,15,0,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
                         <Label x:Name="lbl_errorBusqueda_rol"  Margin="84,221,-563,-151" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>

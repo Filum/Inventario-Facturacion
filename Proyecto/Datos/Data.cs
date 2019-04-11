@@ -267,7 +267,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles";
+            comando.CommandText = "select nombre,estadosistema,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
@@ -414,7 +414,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT * FROM TBL_ROLES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
+            comando.CommandText = "select nombre,ESTADOSISTEMA,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora FROM TBL_ROLES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadRoles> Lista = new List<EntidadRoles>();
 
@@ -423,17 +423,17 @@ namespace Datos
                 while (dr.Read())
                 {
                     EntidadRoles rol = new EntidadRoles();
-                    rol.v_IdRol = dr.GetInt64(0);
-                    rol.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
-                    rol.v_Nombre = dr.GetString(2);
-                    rol.v_Mantenimiento_Clientes = dr.GetString(3);
-                    rol.v_Mantenimiento_Proveedores = dr.GetString(4);
-                    rol.v_Mantenimiento_Productos = dr.GetString(5);
-                    rol.v_Mantenimiento_Usuarios = dr.GetString(6);
-                    rol.v_Mantenimiento_Roles = dr.GetString(7);
-                    rol.v_facturacion = dr.GetString(8);
-                    rol.v_bitacora= dr.GetString(9);
-                    rol.v_Estado = dr.GetString(10);
+                    rol.v_Nombre = dr.GetString(0);
+                    rol.v_Estado = dr.GetString(1);
+                    rol.v_Mantenimiento_Clientes = dr.GetString(2);
+                    rol.v_Mantenimiento_Proveedores = dr.GetString(3);
+                    rol.v_Mantenimiento_Productos = dr.GetString(4);
+                    rol.v_Mantenimiento_Usuarios = dr.GetString(5);
+                    rol.v_Mantenimiento_Roles = dr.GetString(6);
+                    rol.v_facturacion = dr.GetString(7);
+                    rol.v_bitacora= dr.GetString(8);
+                  
+ 
                     Lista.Add(rol);
                 }
             }
