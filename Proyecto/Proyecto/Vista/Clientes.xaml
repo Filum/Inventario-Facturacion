@@ -184,7 +184,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
 
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="20,13,24.2,418.6" Grid.ColumnSpan="2"/>
 
-                    <Grid Visibility="Visible"  x:Name="grd_ClientesExistentes" Margin="0,0,0.2,0.2" Grid.ColumnSpan="2">
+                    <Grid Visibility="Hidden"  x:Name="grd_ClientesExistentes" Margin="0,0,0.2,0.2" Grid.ColumnSpan="2">
                         <Label x:Name="txt_nombre_cliente" Content="Ingrese el nombre del cliente:" Margin="101,120,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
                         <TextBox x:Name="txb_buscar_cliente" MaxLength="35" Height="32" Margin="354,116,-52,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_buscar_cliente_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_buscar_cliente_KeyUp" HorizontalAlignment="Left" Width="347"/>
                         <DataGrid x:Name="dtg_clientes"  Margin="20,204,-300.8,-462.8" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
@@ -221,10 +221,10 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Hidden" x:Name="grd_formularioCliente" Margin="47,24,-24,0" Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="4">
+                    <Grid Visibility="Visible" x:Name="grd_formularioCliente" Margin="47,24,-24,0" Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="4">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="67*"/>
-                            <ColumnDefinition Width="602*"/>
+                            <ColumnDefinition Width="82*"/>
+                            <ColumnDefinition Width="735*"/>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="btn_volver" HorizontalAlignment="Left" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-28,-165,0,0" VerticalAlignment="Top" Width="71" Height="72" Click="btn_volver_Click">
                             <StackPanel  VerticalAlignment="Center" Width="76" Height="73">
@@ -234,8 +234,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </Button>
 
 
-                        <Label Margin="4.4,0,-41.8,2.2" VerticalAlignment="Bottom" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.ColumnSpan="7" Height="29" Grid.Column="1" Grid.Row="1"/>
-                        <TextBox x:Name="txb_nombre" Margin="38,-70,0,0" TextWrapping="Wrap"   HorizontalAlignment="Left" Width="316" Height="30" VerticalAlignment="Top"   MaxLength="40" Grid.Column="1" RenderTransformOrigin="0.5,0.5" >
+                        <Label Margin="4,0,-41.4,2" VerticalAlignment="Bottom" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="29" Grid.Column="1"/>
+                        <TextBox x:Name="txb_nombre" Margin="38,-66,0,0" TextWrapping="Wrap"   HorizontalAlignment="Left" Width="312" Height="30" VerticalAlignment="Top"   MaxLength="40" Grid.Column="1" RenderTransformOrigin="0.5,0.5" TextChanged="Txb_nombre_TextChanged" >
 
                         </TextBox>
 
@@ -245,27 +245,27 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                                 <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btn_limpiar_actualizar_cliente" Width="70" Foreground="White" Margin="0,0,413.6,13.8" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Click="btn_limpiar_actualizar_cliente_Click" Height="71" VerticalAlignment="Bottom">
+                        <Button x:Name="btn_limpiar_actualizar_cliente" Width="70" Foreground="White" Margin="0,0,413.6,14" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Click="btn_limpiar_actualizar_cliente_Click" Height="71" VerticalAlignment="Bottom">
                             <StackPanel x:Name="btn_limpiar_actualizar" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Limpiar" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0"/>
                             </StackPanel>
                         </Button>
                         <Separator Margin="17,7,23.6,2" Background="#FF3472DE" Grid.ColumnSpan="2"/>
-                        <Label x:Name="lb_nombre" Content="Nombre Completo:" HorizontalAlignment="Left" Margin="17,-70,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="34" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                        <Label x:Name="txt_correo" Content="Correo:" HorizontalAlignment="Left" Margin="11,0,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="24" VerticalAlignment="Top"/>
+                        <Label x:Name="lb_nombre" Content="Nombre Completo:" HorizontalAlignment="Left" Margin="17,-62,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="34" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                        <Label x:Name="txt_correo" Content="Correo:" HorizontalAlignment="Left" Margin="11,-1,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="24" VerticalAlignment="Top"/>
                         <TextBox x:Name="txb_correo" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="285" Height="28" VerticalAlignment="Top"  LostKeyboardFocus="validar_Actualizar_Correo" MaxLength="50" Margin="38,0,0,0"/>
                         <TextBox x:Name="txb_correo_o" Margin="568,1,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="285" Height="28" VerticalAlignment="Top" LostFocus="validar_Correo_Opc_Act" MaxLength="50"/>
-                        <TextBox x:Name="txb_observaciones" Margin="17,280,392,99" TextWrapping="Wrap" MaxLength="300" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="txb_observaciones" Margin="17,280,391.6,99" TextWrapping="Wrap" MaxLength="300" Grid.ColumnSpan="2"/>
                         <Label x:Name="txt_correo_o" Content="Correo opcional:" HorizontalAlignment="Left" Margin="396,1,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="32" VerticalAlignment="Top" Grid.Column="1"/>
                         <Label x:Name="txt_teleOfi" Content="Teléfono de Oficina:" HorizontalAlignment="Left" Margin="391,-66,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
-                        <Label x:Name="txt_estado" Content="Estado:" HorizontalAlignment="Right" Margin="0,0,134,147" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="32" VerticalAlignment="Bottom" Grid.Column="1"/>
-                        <Label x:Name="txt_teleMovil" Content="Teléfono Móvil:" HorizontalAlignment="Left" Margin="743,-64,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
+                        <Label x:Name="txt_estado" Content="Estado:" HorizontalAlignment="Right" Margin="0,0,133.6,147" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="32" VerticalAlignment="Bottom" Grid.Column="1"/>
+                        <Label x:Name="txt_teleMovil" Content="Teléfono Móvil:" HorizontalAlignment="Left" Margin="743,-64,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="134" Height="30" VerticalAlignment="Top" Grid.Column="1"/>
                         <TextBox x:Name="txb_TelOf" Margin="568,-64,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="141" Height="28" VerticalAlignment="Top" MaxLength="8" LostKeyboardFocus="validar_actualizar_oficina" TextChanged="txb_TelOf_TextChanged" PreviewTextInput="Txb_TelOf_PreviewTextInput"/>
                         <Label x:Name="txt_observaciones" Content="Observaciones:" HorizontalAlignment="Left" Margin="17,245,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                        <TextBox x:Name="txb_TelMov" Margin="884,-62,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="141" Height="28" VerticalAlignment="Top" MaxLength="8" LostKeyboardFocus="validar_actualizar_movil" TextChanged="txb_TelMov_TextChanged" PreviewTextInput="Txb_TelMov_PreviewTextInput"/>
-                        <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Right" Margin="0,0,270.6,106.8" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Width="69" Grid.Column="1" Height="18" VerticalAlignment="Bottom" />
-                        <RadioButton x:Name="rb_inactivo" Content="Inactivo" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,155.6,105.8" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Width="81" Height="19" VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="txb_TelMov" Margin="884,-61,0,0" TextWrapping="Wrap" Grid.Column="1" MaxLength="8" LostKeyboardFocus="validar_actualizar_movil" TextChanged="txb_TelMov_TextChanged" PreviewTextInput="Txb_TelMov_PreviewTextInput" HorizontalAlignment="Left" Width="141" Height="28" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Right" Margin="0,0,270.6,107" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Width="69" Grid.Column="1" Height="18" VerticalAlignment="Bottom" />
+                        <RadioButton x:Name="rb_inactivo" Content="Inactivo" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,155.6,106" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Width="81" Height="19" VerticalAlignment="Bottom"/>
 
                         <Button x:Name="btn_agregar_Cliente" Width="70" Foreground="White" Margin="149,0,0,13" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Cliente_Click" Grid.ColumnSpan="2" Height="71" VerticalAlignment="Bottom">
                             <StackPanel x:Name="btn_agregar" Width="85" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
@@ -274,17 +274,18 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </StackPanel>
                         </Button>
 
-                        <Label x:Name="txt_error_correo" Visibility="Visible" Margin="41,34,411,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
-                        <Label x:Name="txt_error_correo_o" Visibility="Visible" Margin="567,34,-62,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
-                        <Label x:Name="txt_error_TelO" Visibility="Visible" Margin="570,-36,-126,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
-                        <Label x:Name="txt_error_telM" Visibility="Visible" Margin="875,-29,-431,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="57" FontSize="12" Content="" Grid.Column="1"/>
+                        <Label x:Name="txt_error_correo" Visibility="Visible" Margin="41,34,410.6,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
+                        <Label x:Name="txt_error_correo_o" Visibility="Visible" Margin="567,34,-62.4,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
+                        <Label x:Name="txt_error_TelO" Visibility="Visible" Margin="570,-36,34.6,0"  VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="37" FontSize="12" Content="" Grid.Column="1"/>
+                        <Label x:Name="txt_error_telM" Visibility="Visible" Margin="875,-29,-431.4,0" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" FontSize="12" Content="" Grid.Column="1" Height="56" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1026"/>
                         <Label x:Name="txt_representante" Content="Representante:" HorizontalAlignment="Left" Margin="11,69,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="28" VerticalAlignment="Top"/>
-                        <TextBox x:Name="txb_representante" Margin="38,69,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="285" Height="28" VerticalAlignment="Top"  LostKeyboardFocus="validar_Actualizar_Correo" MaxLength="50"/>
+                        <TextBox x:Name="txb_representante" Margin="41,69,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="282" Height="28" VerticalAlignment="Top"  LostKeyboardFocus="validar_Actualizar_Correo" MaxLength="50"/>
                         <Label x:Name="txt_cedula" Content="Cédula:" HorizontalAlignment="Left" Margin="396,69,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="28" VerticalAlignment="Top" Grid.Column="1"/>
-                        <TextBox x:Name="txb_cedula" Margin="568,69,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="285" Height="28" VerticalAlignment="Top"  LostKeyboardFocus="validar_Actualizar_Correo" MaxLength="50" TextChanged="txb_cedula_TextChanged" PreviewTextInput="Txb_cedula_PreviewTextInput"/>
+                        <TextBox x:Name="txb_cedula" Margin="567,73,0,0" TextWrapping="Wrap" Grid.Column="1" HorizontalAlignment="Left" Width="285" Height="28" VerticalAlignment="Top"  LostKeyboardFocus="validar_Cedula" MaxLength="9" TextChanged="txb_cedula_TextChanged" PreviewTextInput="Txb_cedula_PreviewTextInput"/>
                         <Label x:Name="txt_direccion" Content="Dirección:" HorizontalAlignment="Left" Margin="10,144,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="32" VerticalAlignment="Top"/>
                         <TextBox x:Name="txb_direccion" Margin="38,138,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="884" Height="88" MaxLength="90" VerticalAlignment="Top"  LostKeyboardFocus="validar_Actualizar_Correo" Grid.Column="1"/>
-                        <Label x:Name="txt_error_cedula" Visibility="Visible" Margin="568,101,-63,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
+                        <Label x:Name="txt_error_cedula" Visibility="Visible" Margin="568,101,34.6,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Content="" Grid.Column="1"/>
+                        <Label x:Name="txt_error_nombre" Visibility="Visible" Margin="38,-34,592.6,0"  VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="37" FontSize="12" Content="" Grid.Column="1"/>
                     </Grid>
                 </Grid>
             </TabItem>

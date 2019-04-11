@@ -269,6 +269,10 @@ namespace Logica
         {
             return v_Data.DetalleFacturaServicios(codigoFactura);
         }
+        public Int64 VerificarNombre(string nombre)
+        {
+            return v_Data.VerificarNombre(nombre);
+        }
 
 
         }

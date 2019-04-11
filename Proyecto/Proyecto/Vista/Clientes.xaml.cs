@@ -458,7 +458,7 @@ namespace Proyecto
             string tele1 = txb_TelOf.Text;
             if (tele1.Length < 8)
             {
-                txt_error_TelO.Content = "Los números telefónicos deben de tener un formato valido de 8 dígitos.";
+                txt_error_TelO.Content = "Los números telefónicos deben de tener "+ String.Format(Environment.NewLine)+" un formato valido de 8 dígitos.";
                 txt_error_TelO.Visibility = Visibility.Visible;
             }
             else
@@ -793,6 +793,31 @@ namespace Proyecto
             }
         }
 
+        private void validar_Cedula(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string cedula = txb_TelMov.Text;
+            if (cedula.Length < 9)
+            {
+                txt_error_cedula.Content = "La cédula debe tener un formato valido valido de 9 dígitos.";
+                txt_error_cedula.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txt_error_cedula.Visibility = Visibility.Hidden;
+            }
+        }
 
+        private void Txb_nombre_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(model.VerificarNombre(txb_nombre.Text)==1)
+            {
+                txt_error_nombre.Content = "Hay similitudes con cliente existe.";
+                txt_error_nombre.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txt_error_nombre.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }
