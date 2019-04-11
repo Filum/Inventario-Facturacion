@@ -174,7 +174,7 @@ namespace Proyecto
         }
 
         private void btn_volver_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             MostrarUsuariosExistentes();
             btn_limpiar_Click(sender, e);
         }
@@ -184,6 +184,7 @@ namespace Proyecto
         {
             MostrarFormulario();
             v_Actividad_btnAgregar = true;
+            lbl_actividad.Content = "Agregar usuario";
         }
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)

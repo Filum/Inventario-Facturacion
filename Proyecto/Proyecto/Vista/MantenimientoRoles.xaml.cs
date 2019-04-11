@@ -36,12 +36,15 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+
+
         }
 
         public void llenardtg()
         {
+
             dtg_lista.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
-            dtg_roles.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
+          
         }
 
        
@@ -107,10 +110,9 @@ namespace Proyecto
         {
             GridBuscar.Visibility = Visibility.Hidden;
             GridAgregar.Visibility = Visibility.Visible;
-
+            ValidarComponentes();
+            ValidarErroresTxb(txb_nomrol, lbl_errorNomrol, "nombre");
         }
-
-
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -126,7 +128,10 @@ namespace Proyecto
         {
             GridAgregar.Visibility = Visibility.Hidden;
             GridBuscar.Visibility = Visibility.Visible;
-            
+            lbl_error.Content = "";
+            lbl_errorCB.Content = "";
+            lbl_errorRB.Content = "";
+            limpiar();
         }
 
         //Botón encargado de limpiar toda la información ingresada y las opciones seleccionadas
@@ -144,8 +149,8 @@ namespace Proyecto
                         dtg_lista.Columns[3].Header = "Mantenimiento Productos";
                         dtg_lista.Columns[4].Header = "Mantenimiento Usuarios";
                         dtg_lista.Columns[5].Header = "Mantenimiento Roles";
-                        dtg_lista.Columns[6].Header = "Facturacion";
-                        dtg_lista.Columns[7].Header = "Bitacora";
+                        dtg_lista.Columns[6].Header = "Facturación";
+                        dtg_lista.Columns[7].Header = "Bitácora";
                     
              
         }
@@ -168,7 +173,6 @@ namespace Proyecto
                 "   Se utiliza el mismo formato de validaciones de ingresar. \n", "Ayuda",
                 MessageBoxButton.OK);
         }
-
         // Botón para cerrar sesión
         private void btn_usuario_roles_Click(object sender, RoutedEventArgs e)
         {
@@ -188,7 +192,72 @@ namespace Proyecto
  en el DataGrid con la finalidad de ser modificado, esto en el tab de gestión de roles*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+            DataGridRow row = sender as DataGridRow;
 
+            v_ER.v_IdRol = Convert.ToInt64((dtg_roles.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
+            
+            txb_nomrol.Text = (dtg_roles.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+            if ((dtg_roles.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
+            {
+                rb_activo .IsChecked = true;
+            }
+            else if ((dtg_roles.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text == "INACTIVO")
+            {
+                rb_inactivo.IsChecked = true;
+            }
+            if((dtg_roles.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text == "✓")
+            {
+                checkbox_mant_clientes.IsChecked = true;
+            }
+            if ((dtg_roles.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text == "✓")
+            {
+                checkbox_mant_productos.IsChecked = true;
+            }
+            if ((dtg_roles.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text == "✓")
+            {
+                checkbox_mant_proveedores.IsChecked = true;
+            }
+            if ((dtg_roles.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text == "✓")
+            {
+                checkbox_mant_roles.IsChecked = true;
+            }
+            if ((dtg_roles.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text == "✓")
+            {
+                checkbox_mant_usuarios.IsChecked=true;
+            }
+            if ((dtg_roles.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text == "✓")
+            {
+                checkbox_facturacion.IsChecked = true;
+            }
+            if ((dtg_roles.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text == "✓")
+            {
+                checkbox_bitacora.IsChecked = true;
+            }
+
+            HabilitarComponentes();
+            lbl_actividad.Content = "Modificar proveedor";
+            v_Actividad_btnModificar = true;
+            MostrarFormulario();
+        }
+        private void HabilitarComponentes()
+        {
+            txb_nomrol.IsEnabled = true;
+            checkbox_mant_clientes.IsEnabled = true;
+            checkbox_mant_productos.IsEnabled = true;
+            checkbox_mant_proveedores.IsEnabled = true;
+            checkbox_mant_roles.IsEnabled = true;
+            checkbox_mant_usuarios.IsEnabled = true;
+            checkbox_facturacion.IsEnabled = true;
+            checkbox_bitacora.IsEnabled = true;
+            rb_activo.IsEnabled = true;
+            rb_inactivo.IsEnabled = true;
+        }
+
+        private void MostrarFormulario()
+        {
+            GridAgregar.Visibility = Visibility.Visible;
+            GridBuscar.Visibility = Visibility.Collapsed;
+            ValidarRadioButton();
         }
 
         //Método el cual habilita el botón modificar
@@ -227,37 +296,16 @@ namespace Proyecto
         //Método el cual habilita componentes siempre y cuando no hayan errores en la caja de texto de buscar
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidarErroresTxb(txb_busqueda_rol, lbl_errorNomrol, "");
-            if (txb_busqueda_rol.Text.Contains("'"))
-            {
-                lbl_errorNomrol.Content = "No se permiten caracteres especiales";
-                lbl_errorNomrol.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                //usuarios existentes
-                dtg_roles.ItemsSource = v_Model.ValidarBusquedaRoles(txb_busqueda_rol.Text);//-> revisar que le está pasando la lista ahí está el problema 
-                dtg_roles.Columns[0].Header = "Nombre del Rol";
-                dtg_roles.Columns[1].Header = "Estado en el Sistema";
-                dtg_roles.Columns[2].Header = "Montenimiento Clientes";
-                dtg_roles.Columns[3].Header = "Mantenimiento Proveedores";
-                dtg_roles.Columns[4].Header = "Mantenimiento Productos";
-                dtg_roles.Columns[5].Header = "Mantenimiento Usuarios";
-                dtg_roles.Columns[6].Header = "Mantenimiento Roles";
-                dtg_roles.Columns[7].Header = "Facturación";
-                dtg_roles.Columns[8].Header = "Bitácora";
-                
-                v_Actividad_btnAgregar = false;
-            }
+            ValidarErroresTxb(txb_busqueda_rol, lbl_errorBusqueda_rol, "");
         }
 
        
         //Validaciones en caja de texto de nombre
         private void txb_nomrol_TextChanged(object sender, TextChangedEventArgs e)
         {
+            ValidarErroresTxb(txb_busqueda_rol, lbl_error, "");
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
-            ValidarErroresTxb(txb_nomrol, lbl_errorNomrol, "nombre");
         }
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
@@ -295,8 +343,57 @@ namespace Proyecto
         //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
         private void ValidarErroresTxb(TextBox txb_proveedor, Label lbl_error, string tipo)
         {
-
+            if (txb_nomrol.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }else if(txb_nomrol.Text != "") 
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
+            else if (txb_nomrol.Text == " ")
+            {
+                txb_proveedor.Text = "";
+            }
+            else if (txb_nomrol.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_nomrol.Text, tipo) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Collapsed;
+            }
         }
+
+        //Se validan los checkbox
+        private void ValidarComponentes()
+        {
+            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
+            {
+                lbl_errorRB.Visibility = Visibility.Visible;
+                lbl_errorRB.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorRB.Visibility = Visibility.Hidden;
+            }
+            if (checkbox_mant_clientes.IsChecked == false && checkbox_facturacion.IsChecked == false && checkbox_bitacora.IsChecked == false && checkbox_mant_productos.IsChecked == false && checkbox_mant_proveedores.IsChecked == false && checkbox_mant_roles.IsChecked == false && checkbox_mant_usuarios.IsChecked == false)
+            {
+                lbl_errorCB.Content = "De seleccionar al menos un mantenimiento";
+                lbl_errorCB.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_errorCB.Visibility = Visibility.Collapsed;
+            }
+        }
+        
         //Boton para garegar un rol
         private void btn_agregar_Click(object sender, RoutedEventArgs e)
         {
@@ -369,6 +466,7 @@ namespace Proyecto
                     {
                         v_ER.v_Estado = "ACTIVO";
                     }
+                    
 
                     int v_Resultado = v_Model.AgregarRoles(v_ER);
                     if (v_Resultado == -1)
@@ -385,14 +483,30 @@ namespace Proyecto
             }
         }
 
+        private void ValidarRadioButton()
+        {
+            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
+            {
+                lbl_errorRB.Visibility = Visibility.Visible;
+                lbl_errorRB.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorRB.Visibility = Visibility.Collapsed;
+            }
+        }
+
         public void limpiar()
         {
             checkbox_bitacora.IsChecked = false;
+            checkbox_facturacion.IsChecked = false;
             checkbox_mant_proveedores.IsChecked = false;
             checkbox_mant_productos.IsChecked = false;
             checkbox_mant_clientes.IsChecked = false;
             checkbox_mant_roles.IsChecked = false;
             checkbox_mant_usuarios.IsChecked = false;
+            rb_activo.IsChecked = false;
+            rb_inactivo.IsChecked = false;
             txb_nomrol.Text = "";
         }
         private void ValidarTxbNombre(object sender, EventArgs e)
@@ -418,29 +532,191 @@ namespace Proyecto
 
         private void Rb_activo_Checked(object sender, RoutedEventArgs e)
         {
-            ValidarRadioButton();
+            ValidarComponentes();
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
         }
 
         private void Rb_inactivo_Checked(object sender, RoutedEventArgs e)
         {
-            ValidarRadioButton();
+            ValidarComponentes();
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
         }
+      
 
-        private void ValidarRadioButton()
-        {
-            if (rb_inactivo .IsChecked == false && rb_activo.IsChecked == false)
+        private void btn_modificar_roles_Click(object sender, RoutedEventArgs e)
+        {/*
+            if ((lbl_errorBusqueda.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible) ||
+               (lbl_errorTelefono.Visibility == Visibility.Visible || lbl_errorcorreo.Visibility == Visibility.Visible) ||
+               (lbl_errorDesc.Visibility == Visibility.Visible || lbl_errorTelefonoOpcional.Visibility == Visibility.Visible) ||
+               (lbl_errorcorreoOpcional.Visibility == Visibility.Visible || lbl_errorRb.Visibility == Visibility.Visible))
             {
-                lbl_errorRB.Visibility = Visibility.Visible;
-                lbl_errorRB.Content = "Debe seleccionar una opción";
+                MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {*/
+
+                try
+                {
+                    v_ER.v_Nombre = txb_nomrol.Text;
+                    if (checkbox_mant_clientes.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Clientes = "X";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Clientes = "✓";
+                    }
+                    if (checkbox_mant_proveedores.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Proveedores = "X";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Proveedores = "✓";
+                    }
+                    if (checkbox_mant_productos.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Productos = "X";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Productos = "✓";
+                    }
+                    if (checkbox_mant_usuarios.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Usuarios = "X";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Usuarios = "✓";
+                    }
+                    if (checkbox_mant_roles.IsChecked == false)
+                    {
+                        v_ER.v_Mantenimiento_Roles = "X";
+                    }
+                    else
+                    {
+                        v_ER.v_Mantenimiento_Roles = "✓";
+                    }
+                    if (checkbox_facturacion.IsChecked == false)
+                    {
+                        v_ER.v_facturacion = "X";
+                    }
+                    else
+                    {
+                        v_ER.v_facturacion = "✓";
+                    }
+                    if (checkbox_bitacora.IsChecked == false)
+                    {
+                        v_ER.v_bitacora = "X";
+                    }
+                    else
+                    {
+                        v_ER.v_bitacora = "✓";
+                    }
+                    if (rb_inactivo.IsChecked == true)
+                    {
+                        v_ER.v_Estado = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_ER.v_Estado = "ACTIVO";
+                    }
+                    
+                     if (v_Model.ModificarRoles(v_ER) == -1)
+                    {
+                        MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        v_Actividad_btnAgregar = true;
+                        DeshabilitarComponentes();
+                        limpiar();
+                    }
+                }
+                catch (Exception m)
+                {
+                    Console.WriteLine(m.ToString());
+                    MessageBox.Show("Error al modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            
+        }
+        private void DeshabilitarComponentes()
+        {
+            txb_nomrol.IsEnabled = false;
+            checkbox_mant_clientes.IsEnabled = false;
+            checkbox_mant_productos.IsEnabled = false;
+            checkbox_mant_proveedores.IsEnabled = false;
+            checkbox_mant_roles.IsEnabled = false;
+            checkbox_mant_usuarios.IsEnabled = false;
+            checkbox_facturacion.IsEnabled = false;
+            checkbox_bitacora.IsEnabled = false;
+            rb_activo.IsEnabled = false;
+            rb_inactivo.IsEnabled = false;
+        }
+
+        private void checkbox_mant_usuarios_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+        }
+
+        private void txb_busqueda_rol_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txb_busqueda_rol.Text.Contains("'"))
+            {
+               lbl_errorNomrol.Content = "No se permiten caracteres especiales";
+               lbl_errorNomrol.Visibility = Visibility.Visible;
             }
             else
             {
-                lbl_errorRB.Visibility = Visibility.Collapsed;
+                dtg_roles.ItemsSource = v_Model.ValidarBusquedaRoles(txb_busqueda_rol.Text);
+                dtg_roles.Columns[0].Header = "Código";
+                dtg_roles.Columns[1].Header = "Nombre";
+                dtg_roles.Columns[2].Header = "Estado";
+                dtg_roles.Columns[3].Header = "Mantenimiento Clientes";
+                dtg_roles.Columns[4].Header = "Mantenimiento Proveedores";
+                dtg_roles.Columns[5].Header = "Mantenimiento Productos";
+                dtg_roles.Columns[6].Header = "Mantenimiento Usuarios";
+                dtg_roles.Columns[7].Header = "Mantenimiento Roles";
+                dtg_roles.Columns[8].Header = "Facturación";
+                dtg_roles.Columns[9].Header = "Bitácora";
+
+                //Proveedores existentes
+                v_Actividad_btnAgregar = false;
+                btn_agregar.Visibility = Visibility.Collapsed;
+                //btn_modificar.Visibility = Visibility.Collapsed;
+                lbl_actividad.Content = "Roles existentes";
+                lbl_actividad.Visibility = Visibility.Visible;
             }
+        }
+
+        private void checkbox_mant_productos_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+        }
+
+        private void checkbox_mant_proveedores_Checked(object sender, RoutedEventArgs e)
+        {
+           ValidarComponentes();
+        }
+
+        private void checkbox_mant_roles_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+        }
+
+        private void checkbox_facturacion_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+        }
+
+        private void checkbox_mant_clientes_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+        }
+
+        private void checkbox_bitacora_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
         }
     }//fin de la clase
 }//fin proyecto

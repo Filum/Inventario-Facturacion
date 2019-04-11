@@ -267,7 +267,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select nombre,estadosistema,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles";
+            comando.CommandText = "select nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
@@ -414,7 +414,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select nombre,ESTADOSISTEMA,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora FROM TBL_ROLES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
+            comando.CommandText = "SELECT pk_idrol,nombre,estadosistema,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadRoles> Lista = new List<EntidadRoles>();
 
@@ -423,17 +423,16 @@ namespace Datos
                 while (dr.Read())
                 {
                     EntidadRoles rol = new EntidadRoles();
-                    rol.v_Nombre = dr.GetString(0);
-                    rol.v_Estado = dr.GetString(1);
-                    rol.v_Mantenimiento_Clientes = dr.GetString(2);
-                    rol.v_Mantenimiento_Proveedores = dr.GetString(3);
-                    rol.v_Mantenimiento_Productos = dr.GetString(4);
-                    rol.v_Mantenimiento_Usuarios = dr.GetString(5);
-                    rol.v_Mantenimiento_Roles = dr.GetString(6);
-                    rol.v_facturacion = dr.GetString(7);
-                    rol.v_bitacora= dr.GetString(8);
-                  
- 
+                    rol.v_IdRol = dr.GetInt64(0);
+                    rol.v_Nombre = dr.GetString(1);
+                    rol.v_Estado = dr.GetString(2);
+                    rol.v_Mantenimiento_Clientes = dr.GetString(3);
+                    rol.v_Mantenimiento_Proveedores = dr.GetString(4);
+                    rol.v_Mantenimiento_Productos = dr.GetString(5);
+                    rol.v_Mantenimiento_Usuarios = dr.GetString(6);
+                    rol.v_Mantenimiento_Roles = dr.GetString(7);
+                    rol.v_facturacion = dr.GetString(8);
+                    rol.v_bitacora= dr.GetString(9);
                     Lista.Add(rol);
                 }
             }
@@ -471,7 +470,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.estadoSistema " +
+            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROD.fk_idProveedor,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.estadoSistema " +
                 "from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON (PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) WHERE translate(UPPER(NOMBREPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU') " +
                 "OR translate(UPPER(CODIGOPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
@@ -487,14 +486,15 @@ namespace Datos
                     producto.v_NombreProducto = dr.GetString(2);
                     producto.v_MarcaProducto = dr.GetString(3);
                     producto.v_CantidadExistencia = Convert.ToInt64(dr.GetValue(4));
-                    producto.v_CantidadMinima = Convert.ToInt32(dr.GetValue(5));
-                    producto.v_Fk_IdProveedor = dr.GetString(6);
-                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(7));
-                    producto.v_Descripcion = dr.GetString(8);
-                    producto.v_Fabricante = dr.GetString(9);
-                    producto.v_EstadoProducto = dr.GetString(10);
-                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(11));
-                    producto.v_EstadoSistema = dr.GetString(12);
+                    producto.v_CantidadMinima = Convert.ToInt64(dr.GetValue(5));
+                    producto.v_IdProveedor = Convert.ToInt64(dr.GetValue(6));
+                    producto.v_NombreProveedor = dr.GetString(7);
+                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(8));
+                    producto.v_Descripcion = dr.GetString(9);
+                    producto.v_Fabricante = dr.GetString(10);
+                    producto.v_EstadoProducto = dr.GetString(11);
+                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(12));
+                    producto.v_EstadoSistema = dr.GetString(13);
                     Lista.Add(producto);
                 }
             }
@@ -574,13 +574,20 @@ namespace Datos
             return false;
         }
 
-        public DataTable MostarListaProductos()
+        public DataTable MostarListaProductos(String v_EstadoSistema)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) where prod.estadosistema= 'ACTIVO'";
+            if (v_EstadoSistema == "LISTAPRODUCTOS")
+            {
+                comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.ESTADOSISTEMA from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR)";
+            }
+            else
+            {
+                comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.ESTADOSISTEMA from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) where prod.estadosistema='" + v_EstadoSistema + "'";
+            }
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
             DataTable tabla = new DataTable();

@@ -155,7 +155,7 @@
                                 <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="8,0,0,0" Width="56" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <DataGrid x:Name="dtg_proveedores" Margin="20,150,20,20" Visibility="Visible" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
+                        <DataGrid x:Name="dtg_proveedores" Margin="20,150,20,20" Visibility="Visible" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False" >
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridRow">
                                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>

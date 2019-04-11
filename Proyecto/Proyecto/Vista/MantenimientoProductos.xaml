@@ -93,6 +93,12 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
+                    <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,38,524,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
+                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,37,309,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged" >
+                        <ComboBoxItem x:Name="productosActivos" Content="Productos Activos"/>
+                        <ComboBoxItem x:Name="productosInactivos" Content="Productos Inactivos"/>
+                        <ComboBoxItem x:Name="listaProductos" Content="Todos los Productos"/>
+                    </ComboBox>
 
                 </Grid>
             </TabItem>
@@ -108,19 +114,11 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Imagenes/actualizar-16.png" />
-                        <TextBlock Text="  Gestión de Productos" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Global Sans Serif" />
+                        <TextBlock Text="  Configuración de Productos" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" FontFamily="Global Sans Serif" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="59*"/>
-                        <RowDefinition Height="112*"/>
-                        <RowDefinition Height="28*"/>
-                        <RowDefinition Height="268*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black"/>
@@ -133,100 +131,148 @@
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o código del producto:" HorizontalAlignment="Left" Margin="15,13,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="327"/>
-                    <TextBox x:Name="txb_busqueda" Height="32" Margin="361,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="238" FontFamily="Global Sans Serif" MaxLength="35" KeyUp="txb_busqueda_KeyUp"/>
-                    <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="361,43,189,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Grid.RowSpan="2"/>
+                    <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="29,20,35,0" Height="85" VerticalAlignment="Top"/>
+                    <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="184.5,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.Column="1"/>
 
-                    <Image x:Name="img_busqueda" Source="Imagenes/buscar.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="619,10,0,0" Grid.RowSpan="2"/>
-                    <Grid Grid.Row="3" Height="246" VerticalAlignment="Center" Margin="-1,22,104,0">
+                    <Grid Visibility="Collapsed"  x:Name="grd_productosExistentes" Margin="0" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="67*"/>
-                            <ColumnDefinition Width="602*"/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.ColumnSpan="2" Margin="0,1,586,21">
-                            <Label x:Name="lbl_codProd" Content="Código:" Margin="15,0" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.RowSpan="2" FontSize="16"/>
-                            <Label x:Name="lbl_nombre" Content="Nombre:" Margin="15,14" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.RowSpan="2" FontSize="16"/>
-                            <Label x:Name="lbl_cantActual" Content="Cant Actual:" Margin="15,6" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="26" FontSize="16"/>
-                            <Label x:Name="lbl_cantModificar" Content="Cant Modificar:" Margin="15,10" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="2" Grid.RowSpan="2" FontSize="16"/>
-                            <Label x:Name="lbl_cantMinima" Content="Cantidad mín:" Margin="15,8" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="6" Grid.RowSpan="2" FontSize="16"/>
+                        <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o código del producto:" HorizontalAlignment="Left" Margin="124,86,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="326"/>
+                        <TextBox x:Name="txb_busqueda" Height="32" Margin="472,83,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="298" FontFamily="Global Sans Serif" MaxLength="35" TextChanged="txb_busqueda_TextChanged"/>
+                        <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="472,115,76,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
 
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="88,1,371,-1" >
-                            <TextBox x:Name="txb_codProd" HorizontalAlignment="Left" Margin="0,0" TextWrapping="Wrap" Width="132" Height="26" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35"/>
-                            <Label x:Name="lbl_errorCodProd"  Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
-
-                            <TextBox x:Name="txb_nombre" HorizontalAlignment="Left" Margin="0,9" TextWrapping="Wrap" Width="210" Height="26" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35"/>
-                            <Label x:Name="lbl_errorNombre" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
-
-                            <TextBox x:Name="txb_cantActual" HorizontalAlignment="Left" Margin="0,9" TextWrapping="Wrap" Width="70" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
-                            <Label x:Name="lbl_errorCantActual" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
-
-                            <TextBox x:Name="txb_cantModificar" HorizontalAlignment="Left" Margin="0,9" TextWrapping="Wrap" Width="70" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="4" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
-                            <Label x:Name="lbl_errorCantModificar" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
-
-                            <TextBox x:Name="txb_cantMinima" Margin="0,9" TextWrapping="Wrap" Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="70" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
-                            <Label x:Name="lbl_errorCantMinima" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12" RenderTransformOrigin="0.476,1.267"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="1" Margin="328,0,223,35">
-                            <Label x:Name="lbl_estado" Content="Estado:" Margin="0,0" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.ColumnSpan="2" Grid.Row="4" FontSize="16"/>
-                            <Label x:Name="lbl_precio" Content="Precio:" Margin="0,14" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="5" FontSize="16"/>
-                            <Label x:Name="lbl_proveedor" Content="Proveedor:" Margin="0,5" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2" FontSize="16"/>
-                            <Label x:Name="lbl_fabricante" Content="Fabricante:" Margin="0,10" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="6" Grid.Row="1" Grid.RowSpan="2" FontSize="16"/>
-                            <Label x:Name="lbl_descripcion" Content="Descripción:" Margin="0,7" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="6" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="3" Grid.RowSpan="2" FontSize="16"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="1" Margin="451,0,24,1">
-                            <ComboBox x:Name="cmb_estado" HorizontalAlignment="Left" Margin="0,0" Width="120" Height="26"></ComboBox>
-                            <Label x:Name="lbl_errorEstado" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="22" FontSize="12"/>
-
-                            <TextBox x:Name="txb_precio" HorizontalAlignment="Left" Margin="0,7" TextWrapping="Wrap" Width="85" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
-                            <Label x:Name="lbl_errorPrecio" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="24" FontSize="12"/>
-
-                            <ComboBox x:Name="cmb_proveedor" HorizontalAlignment="Left" Margin="0,9" Width="156" Height="26"></ComboBox>
-                            <Label x:Name="lbl_errorProveedor" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
-
-                            <TextBox x:Name="txb_fabricante" Margin="0,9,-18,9" TextWrapping="Wrap" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="152" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" Height="26"/>
-                            <Label x:Name="lbl_errorFabricante" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
-
-                            <TextBox x:Name="txb_descripcion" Margin="0,6" TextWrapping="Wrap" Grid.ColumnSpan="6" Grid.Column="1" Grid.Row="5" Height="52" FontSize="16" FontFamily="Global Sans Serif" MaxLength="300" MaxHeight="100"/>
-                            <Label x:Name="lbl_errorDescripcion" Visibility="Collapsed" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
-                        </StackPanel>
+                        <DataGrid x:Name="dtg_productos" Margin="26,142,33,29"  AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridRow">
+                                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="FontSize"  Value="14" />
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                        </DataGrid>
+                        
+                        <Button x:Name="btn_agregarProducto" Visibility="Visible" Foreground="White" HorizontalAlignment="Left" Margin="26,67,0,0" VerticalAlignment="Top" Width="76" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarProveedor_Click" Height="70">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,3"/>
+                                <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="8,0,0,0" Width="56" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Button>
                     </Grid>
-                    <Button x:Name="btn_agregar" Visibility="Collapsed" Foreground="White" Margin="0,69,29,129" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="70" Height="70" VerticalAlignment="Center" Grid.Row="3" Click="btn_agregar_Click">
-                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
-                        </StackPanel>
-                    </Button>
 
-                    <Button x:Name="btn_modificar" Visibility="Collapsed" Foreground="White" Margin="0,69,29,129" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="70" Height="70" VerticalAlignment="Center" Grid.Row="3" Click="btn_modificar_Click">
-                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
+                    <Grid Visibility="Visible" x:Name="grd_formularioProductos" Margin="10,73,10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="177*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="94*"/>
+                            <ColumnDefinition Width="139*"/>
+                            <ColumnDefinition Width="209*"/>
+                            <ColumnDefinition Width="115*"/>
+                            <ColumnDefinition Width="241*"/>
+                            <ColumnDefinition Width="28*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btn_volver" HorizontalAlignment="Left" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="20,0,0,0" VerticalAlignment="Top" Width="72" Height="72" Click="btn_volver_Click" Grid.RowSpan="2">
+                            <StackPanel  VerticalAlignment="Center" Width="76" Height="74">
+                                <Image Source="Imagenes/regresar.png" Width="41" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,8,25,8"/>
+                                <TextBlock Text="Volver" FontSize="14" FontFamily="Global Sans Serif" Margin="11,0,16,0" Width="49" VerticalAlignment="Center" HorizontalAlignment="Center" Height="15"/>
+                            </StackPanel>
+                        </Button>
+
+                        <StackPanel Margin="3,5,8,36" Grid.Column="1" Grid.Row="1">
+                            <Label x:Name="lbl_codProd" Content="Código:" Margin="0,0" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16"/>
+                            <Label x:Name="lbl_nombre" Content="Nombre:" Margin="0,19" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.RowSpan="2" FontSize="16"/>
+                            <Label x:Name="lbl_marca" Content="Marca:" Margin="0,1" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="6" Grid.RowSpan="2" FontSize="16"/>
+                            <Label x:Name="lbl_cantActual" Content="Cant Actual:" Margin="0,18" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Height="26" FontSize="16"/>
+                            <Label x:Name="lbl_cantModificar" Content="Cant Modificar:" Margin="0,2" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="2" Grid.RowSpan="2" FontSize="16"/>
+                            <Label x:Name="lbl_cantMinima" Content="Cantidad mín:" Margin="0,16" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="6" Grid.RowSpan="2" FontSize="16"/>
+                            <Label x:Name="lbl_estadoProd" Content="Estado Prod:" Margin="0,3" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="6" Grid.RowSpan="2" FontSize="16"/>
                         </StackPanel>
-                    </Button>
-                    <Button x:Name="btn_limpiar" Width="70" Foreground="White" Margin="0,144,29,54"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Center" Grid.Row="3" Click="btn_limpiar_Click">
-                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
+
+                        <StackPanel Margin="3,5,4,111" Grid.Column="3" Grid.Row="1">
+                            <Label x:Name="lbl_precio" Content="Precio:" Margin="0,0" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="5" FontSize="16"/>
+                            <Label x:Name="lbl_proveedor" Content="Proveedor:" Margin="0,22" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2" FontSize="16"/>
+                            <Label x:Name="lbl_fabricante" Content="Fabricante:" Margin="0,-4" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="6" Grid.Row="1" Grid.RowSpan="2" FontSize="16"/>
+                            <Label x:Name="lbl_estado" Content="Estado:" Margin="0,25" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16"/>
+                            <Label x:Name="lbl_descripcion" Content="Descripción:" Margin="0,0" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="6" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="3" Grid.RowSpan="2" FontSize="16"/>
                         </StackPanel>
-                    </Button>
-                    <DataGrid x:Name="dtg_productos" Margin="15,6,60,18" Grid.Row="1"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
-                        <DataGrid.Resources>
-                            <Style TargetType="DataGridRow">
-                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
-                            </Style>
-                        </DataGrid.Resources>
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="FontWeight" Value="Bold" />
-                                <Setter Property="FontSize"  Value="14" />
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                    </DataGrid>
-                    <Separator  Background="#FF3472DE" Grid.RowSpan="3" Margin="34,100,10,251" Grid.Row="1"/>
-                    <Label x:Name="lbl_actividad" Content="Agregar producto" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="299,20,269,0" Grid.Row="2" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" RenderTransformOrigin="0.428,-0.5" Grid.RowSpan="2"/>
+
+                        <StackPanel Margin="4,5,6,10" Grid.Column="2" Grid.Row="1" >
+                            <TextBox x:Name="txb_codProd" TextWrapping="Wrap" Height="28" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" TextChanged="txb_codProd_TextChanged" HorizontalAlignment="Left" Width="120"/>
+                            <Label x:Name="lbl_errorCodProd" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+
+                            <TextBox x:Name="txb_nombre" Margin="0,9" TextWrapping="Wrap" Height="28" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" HorizontalAlignment="Left" Width="198"/>
+                            <Label x:Name="lbl_errorNombre" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
+
+                            <TextBox x:Name="txb_marca" Margin="0,9" TextWrapping="Wrap" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" Height="28" HorizontalAlignment="Left" Width="198"/>
+                            <Label x:Name="lbl_errorMarca" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+
+                            <TextBox x:Name="txb_cantActual" Margin="0,9" TextWrapping="Wrap" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="28" HorizontalAlignment="Left" Width="58"/>
+                            <Label x:Name="lbl_errorCantActual" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+
+                            <TextBox x:Name="txb_cantModificar" Margin="0,9" TextWrapping="Wrap" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="4" FontSize="16" FontFamily="Global Sans Serif" MaxLength="5" Height="28" HorizontalAlignment="Left" Width="58"/>
+                            <Label x:Name="lbl_errorCantModificar" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+
+                            <TextBox x:Name="txb_cantMinima" Margin="0,9" TextWrapping="Wrap" Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" FontSize="16" FontFamily="Global Sans Serif" MaxLength="5" Height="28" HorizontalAlignment="Left" Width="58"/>
+                            <Label x:Name="lbl_errorCantMinima" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12" RenderTransformOrigin="0.476,1.267"/>
+
+                            <ComboBox x:Name="cmb_estadoprod" Margin="0,9" Height="28" HorizontalAlignment="Left" Width="198">
+                                <ComboBoxItem Content="Nuevo"/>
+                                <ComboBoxItem Content="Usado"/>
+                                <ComboBoxItem Content="Dañado"/>
+                            </ComboBox>
+                            
+                            <Label x:Name="lbl_errorestadoProd" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12" RenderTransformOrigin="0.476,1.267"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="1,5,5,57" Grid.Column="4" Grid.Row="1">
+                            <TextBox x:Name="txb_precio" HorizontalAlignment="Left" Margin="0,0" TextWrapping="Wrap" Width="85" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26"/>
+                            <Label x:Name="lbl_errorEstado" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="22" FontSize="12"/>
+                            <Label x:Name="lbl_errorPrecio" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="24" FontSize="12"/>
+
+                            <ComboBox x:Name="cmb_proveedor" HorizontalAlignment="Left" Margin="0,9" Width="210" Height="26"></ComboBox>
+                            <Label x:Name="lbl_errorProveedor" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+
+                            <TextBox x:Name="txb_fabricante" Margin="0,9,-18,9" TextWrapping="Wrap" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="210" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" Height="26"/>
+                            <Label x:Name="lbl_errorFabricante" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
+
+                            <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="0,20" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="69" />
+                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="70,-37,89,-25" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="20"  />
+                            <Label x:Name="lbl_errorRB" Visibility="Hidden" Margin="0,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Height="21" FontSize="12"/>
+
+                            <TextBox x:Name="txb_descripcion" Margin="0,8" TextWrapping="Wrap" Grid.ColumnSpan="6" Grid.Column="1" Grid.Row="5" Height="52" FontSize="16" FontFamily="Global Sans Serif" MaxLength="300" MaxHeight="100" HorizontalAlignment="Left" Width="231"/>
+                            <Label x:Name="lbl_errorDescripcion" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
+                        </StackPanel>
+
+                        <Button x:Name="btn_modificar" Visibility="Visible" Foreground="White" Margin="20,0,0,10" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_modificar_Click" HorizontalAlignment="Left" Width="70" Grid.Row="1">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="btn_limpiar" Visibility="Visible" Foreground="White" Margin="0,0,18,10" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_limpiar_Click" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" Grid.Row="1">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,5"/>
+                                <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btn_agregar" Visibility="Visible" Foreground="White" Margin="20,0,0,10" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_agregar_Click" HorizontalAlignment="Left" Width="70" Grid.Row="1">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/Agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+
+
+
                 </Grid>
             </TabItem>
 
@@ -242,8 +288,8 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
             </Button>
             <Button x:Name="btn_salir" Foreground="White" Margin="7,196,0,117.2" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" Width="90" Height="90" Click="btn_salir_roles__Click">
                 <StackPanel x:Name="btn_salir_rolesStack" VerticalAlignment="Center" Width="90" Height="90">
-                    <Image Source="Imagenes/salir.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10"/>
-                    <TextBlock Text="Salir" FontSize="14" FontFamily="Global Sans Serif" Margin="0" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Image Source="Imagenes/menu.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10"/>
+                    <TextBlock Text="Menú" FontSize="14" FontFamily="Global Sans Serif" Margin="0" Width="37" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
             <Button x:Name="btn_usuarios_usuario" Width="75" Height="90" Foreground="White" Margin="7,0,7,5" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_usuarios_usuario_Click"  >

@@ -88,9 +88,9 @@ namespace Logica
         }
 
         //Recibe como referencia dos fechas las cuales van a ser enviadas a la clase Data para proceder con la actividad de listar productos
-        public DataTable MostrarListaProductos()
+        public DataTable MostrarListaProductos(String v_EstadoSistema)
         {
-            return v_Data.MostarListaProductos();
+            return v_Data.MostarListaProductos(v_EstadoSistema);
         }
 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
