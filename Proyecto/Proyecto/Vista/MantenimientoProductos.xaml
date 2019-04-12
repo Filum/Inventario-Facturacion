@@ -134,7 +134,7 @@
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="29,20,35,0" Height="85" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="184.5,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.Column="1"/>
 
-                    <Grid Visibility="Collapsed"  x:Name="grd_productosExistentes" Margin="0" Grid.ColumnSpan="2">
+                    <Grid Visibility="Visible"  x:Name="grd_productosExistentes" Margin="0" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
@@ -164,7 +164,7 @@
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Visible" x:Name="grd_formularioProductos" Margin="10,73,10,0">
+                    <Grid Visibility="Collapsed" x:Name="grd_formularioProductos" Margin="10,73,10,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20*"/>
                             <RowDefinition Height="177*"/>
@@ -241,15 +241,15 @@
                             <TextBox x:Name="txb_fabricante" Margin="0,9,-18,9" TextWrapping="Wrap" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="210" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" Height="26"/>
                             <Label x:Name="lbl_errorFabricante" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
 
-                            <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="0,20" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="69" />
-                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="70,-37,89,-25" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="20"  />
+                            <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="0,20" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="69" Checked="rb_activo_Checked" />
+                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="70,-37,89,-25" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="20" Checked="rb_inactivo_Checked"  />
                             <Label x:Name="lbl_errorRB" Visibility="Hidden" Margin="0,-22" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Height="21" FontSize="12"/>
 
                             <TextBox x:Name="txb_descripcion" Margin="0,8" TextWrapping="Wrap" Grid.ColumnSpan="6" Grid.Column="1" Grid.Row="5" Height="52" FontSize="16" FontFamily="Global Sans Serif" MaxLength="300" MaxHeight="100" HorizontalAlignment="Left" Width="231"/>
                             <Label x:Name="lbl_errorDescripcion" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
                         </StackPanel>
 
-                        <Button x:Name="btn_modificar" Visibility="Visible" Foreground="White" Margin="20,0,0,10" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_modificar_Click" HorizontalAlignment="Left" Width="70" Grid.Row="1">
+                        <Button x:Name="btn_modificar" Visibility="Collapsed" Foreground="White" Margin="20,0,0,10" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_modificar_Click" HorizontalAlignment="Left" Width="70" Grid.Row="1">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>

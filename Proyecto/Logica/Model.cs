@@ -36,6 +36,10 @@ namespace Logica
         {
             return v_Data.AgregarRoles(clt);
         }
+        public int AgregarProductos(EntidadProductos clt)
+        {
+            return v_Data.AgregarProductos(clt);
+        }
 
 
         //------------------- M O D I F I C A R ---------------
@@ -63,6 +67,10 @@ namespace Logica
             return v_Data.ModificarRoles(clt);
         }
 
+        public int ModificarProductos(EntidadProductos clt)
+        {
+            return v_Data.ModificarProductos(clt);
+        }
 
         //--------------- M O S T R A R -------------------
         //Recibe como referencia un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta.
@@ -156,6 +164,11 @@ namespace Logica
         public bool ValidarModificacionUsuario(EntidadUsuarios clt)
         {
             return v_Data.ValidarModificacionUsuario(clt);
+        }
+
+        public bool ValidarModificacionProducto(EntidadProductos clt)
+        {
+            return v_Data.ValidarModificacionProductos(clt);
         }
 
         public List<EntidadClientes> BuscarClientes(String nombre)

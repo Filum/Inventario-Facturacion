@@ -28,7 +28,7 @@ namespace Entidades
         public DateTime v_Fecha { set; get; }
         public string v_EstadoSistema { set; get; }
 
-        public EntidadProductos(Int64 v_IdProducto, string v_CodigoProducto, string v_NombreProducto, string v_MarcaProducto, Int64 v_CantidadExistencia, Int32 v_CantidadMinima, Int64 v_IdProveedor, string v_NombreProveedor, Int64 v_PrecioUnitario, string v_Descripcion, string v_Fabricante, string v_EstadoProducto, DateTime v_Fecha, string v_EstadoSistema)
+        public EntidadProductos(Int64 v_IdProducto, string v_CodigoProducto, string v_NombreProducto, string v_MarcaProducto, Int64 v_CantidadExistencia, Int64 v_CantidadMinima, Int64 v_IdProveedor, string v_NombreProveedor, Int64 v_PrecioUnitario, string v_Descripcion, string v_Fabricante, string v_EstadoProducto, DateTime v_Fecha, string v_EstadoSistema)
         {
             this.v_IdProducto = v_IdProducto;
             this.v_CodigoProducto = v_CodigoProducto;

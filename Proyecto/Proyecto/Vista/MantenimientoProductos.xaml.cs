@@ -113,6 +113,48 @@ namespace Proyecto
             this.Close();
         }
 
+
+        private void HabilitarBtnAgregar()
+        {
+            if (v_Actividad_btnAgregar == true)
+            {
+                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || txb_cantActual.Text == "" || txb_cantMinima.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
+                {
+                    ValidarComponentes();
+                    btn_agregar.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    btn_agregar.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void ValidarComponentes()
+        {
+            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
+            {
+                lbl_errorRB.Visibility = Visibility.Visible;
+                lbl_errorRB.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorRB.Visibility = Visibility.Hidden;
+            }
+
+
+            if (cmb_estadoprod.SelectedItem == null)
+            {
+                lbl_estadoProd.Visibility = Visibility.Visible;
+                lbl_estadoProd.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_estadoProd.Visibility = Visibility.Hidden;
+            }
+
+        }
+
         private void btn_limpiar_Click(object sender, RoutedEventArgs e)
         {
             txb_busqueda.Text = "";
@@ -124,6 +166,7 @@ namespace Proyecto
             cmb_estadoprod.Text = "";
             txb_precio.Text = "";
             cmb_proveedor.Text = "";
+            txb_marca.Text = "";
             txb_fabricante.Text = "";
             txb_descripcion.Text = "";
             dtg_productos.ItemsSource = null;
@@ -167,12 +210,137 @@ namespace Proyecto
 
         private void btn_agregar_Click(object sender, RoutedEventArgs e)
         {
-         
+
+            try
+            {
+                if (lbl_errorCodProd.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorCantActual.Visibility == Visibility.Visible ||
+                    lbl_errorCantMinima.Visibility == Visibility.Visible || lbl_errorCantModificar.Visibility == Visibility.Visible || lbl_errorDescripcion.Visibility == Visibility.Visible ||
+                    lbl_errorEstado.Visibility == Visibility.Visible || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
+                    lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible || 
+                    lbl_errorRB.Visibility == Visibility.Visible)
+                {
+                    MessageBox.Show("No se puede agregar\nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    v_Clt.v_CodigoProducto = txb_codProd.Text;
+                    v_Clt.v_NombreProducto = txb_nombre.Text;
+                    v_Clt.v_MarcaProducto = txb_marca.Text;
+                    v_Clt.v_CantidadExistencia = Convert.ToInt64(txb_cantActual.Text);
+                    v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
+
+                    EntidadProveedores ComboItem = (EntidadProveedores)cmb_proveedor.SelectedItem;
+                    Int64 idProveedor = ComboItem.v_IdProveedor;
+                    v_Clt.v_IdProveedor = idProveedor;
+
+                    v_Clt.v_PrecioUnitario = Convert.ToInt64(txb_precio.Text);
+                    v_Clt.v_Descripcion = txb_descripcion.Text;
+                    v_Clt.v_Fabricante = txb_fabricante.Text;
+                    v_Clt.v_EstadoProducto = cmb_estadoprod.SelectedItem.ToString();
+
+
+                    if (rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }
+
+                    int v_Resultado = v_Model.AgregarProductos(v_Clt);
+                    if (v_Resultado == -1)
+                    {
+                        MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btn_limpiar_Click(sender, e);
+                    }
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m.ToString());
+                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
+            if ((lbl_errorCodProd.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
+                    (lbl_errorCantMinima.Visibility == Visibility.Visible)|| (lbl_errorCantModificar.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) ||
+                    lbl_errorEstado.Visibility == Visibility.Visible || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
+                    lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible ||
+                    lbl_errorRB.Visibility == Visibility.Visible)
+            {
+                MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                try
+                {
+                    v_Clt.v_CodigoProducto = txb_codProd.Text;
+                    v_Clt.v_NombreProducto = txb_nombre.Text;
+                    v_Clt.v_MarcaProducto = txb_marca.Text;
+                    v_Clt.v_CantidadExistencia = Convert.ToInt64(txb_cantActual.Text);
+                    v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
 
+                    EntidadProveedores ComboItem = (EntidadProveedores)cmb_proveedor.SelectedItem;
+                    Int64 idProveedor = ComboItem.v_IdProveedor;
+                    v_Clt.v_IdProveedor = idProveedor;
+
+                    v_Clt.v_PrecioUnitario = Convert.ToInt64(txb_precio.Text);
+
+                    v_Clt.v_Descripcion = txb_descripcion.Text;
+                    v_Clt.v_Fabricante = txb_fabricante.Text;
+                    v_Clt.v_EstadoProducto = cmb_estadoprod.SelectedItem.ToString();
+
+                    if (rb_inactivo.IsChecked == true)
+                    {
+                        v_Clt.v_EstadoSistema = "INACTIVO";
+                    }
+                    else
+                    {
+                        v_Clt.v_EstadoSistema = "ACTIVO";
+                    }
+                    if (v_Model.ValidarModificacionProducto(v_Clt) == true)
+                    {
+                        lbl_errorCodProd.Visibility = Visibility.Hidden;
+                    }
+                    if (lbl_errorCodProd.Visibility == Visibility.Visible)
+                    {
+                        MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    else if (v_Model.ModificarProductos(v_Clt) == -1)
+                    {
+                        MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btn_limpiar_Click(sender, e);
+                        v_Actividad_btnAgregar = true;
+                        DeshabilitarComponentes();
+                    }
+                }
+                catch (Exception m)
+                {
+                    Console.WriteLine(m.ToString());
+                    MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void DeshabilitarComponentes()
+        {
+            txb_codProd.IsEnabled = false;
+            txb_nombre.IsEnabled = false;
+            txb_marca.IsEnabled = false;
+            txb_cantActual.IsEnabled = false;
+            txb_cantMinima.IsEnabled = false;
+            txb_precio.IsEnabled = false;
+            txb_descripcion.IsEnabled = false;
+            cmb_proveedor.IsEnabled = false;
+            txb_fabricante.IsEnabled = false;
+            cmb_estadoprod.IsEnabled = false;
+            rb_activo.IsEnabled = false;
+            rb_inactivo.IsEnabled = false;
         }
 
         private void btn_usuarios_usuario_Click(object sender, RoutedEventArgs e)
@@ -264,11 +432,11 @@ namespace Proyecto
                 //asigna el radiobutton en "Inactivo"
                 rb_inactivo.IsChecked = true;
             }
-
+            
             lbl_actividad.Content = "Modificar producto";
             lbl_actividad.Visibility = Visibility.Visible;
-            v_Actividad_btnModificar = true;
-            v_Actividad_btnAgregar = false;
+            btn_modificar.Visibility = Visibility.Visible;
+            btn_agregar.Visibility = Visibility.Collapsed;
         }
 
         //Método el cual habilita el botón modificar
@@ -433,6 +601,20 @@ namespace Proyecto
         private void txb_codProd_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
+        private void rb_activo_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
         }
     }//Fin de la clase
 }
