@@ -134,7 +134,7 @@
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="29,20,35,0" Height="85" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="184.5,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.Column="1"/>
 
-                    <Grid Visibility="Visible"  x:Name="grd_productosExistentes" Margin="0" Grid.ColumnSpan="2">
+                    <Grid Visibility="Collapsed"  x:Name="grd_productosExistentes" Margin="0" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
@@ -164,7 +164,7 @@
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Collapsed" x:Name="grd_formularioProductos" Margin="10,73,10,0">
+                    <Grid Visibility="Visible" x:Name="grd_formularioProductos" Margin="10,73,10,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20*"/>
                             <RowDefinition Height="177*"/>

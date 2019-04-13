@@ -145,12 +145,12 @@ namespace Proyecto
 
             if (cmb_estadoprod.SelectedItem == null)
             {
-                lbl_estadoProd.Visibility = Visibility.Visible;
-                lbl_estadoProd.Content = "Debe seleccionar una opción";
+                lbl_errorestadoProd.Visibility = Visibility.Visible;
+                lbl_errorestadoProd.Content = "Debe seleccionar una opción";
             }
             else
             {
-                lbl_estadoProd.Visibility = Visibility.Hidden;
+                lbl_errorestadoProd.Visibility = Visibility.Hidden;
             }
 
         }
@@ -289,10 +289,20 @@ namespace Proyecto
                     v_Clt.v_IdProveedor = idProveedor;
 
                     v_Clt.v_PrecioUnitario = Convert.ToInt64(txb_precio.Text);
-
                     v_Clt.v_Descripcion = txb_descripcion.Text;
                     v_Clt.v_Fabricante = txb_fabricante.Text;
-                    v_Clt.v_EstadoProducto = cmb_estadoprod.SelectedItem.ToString();
+
+                    if(cmb_estadoprod.SelectedIndex == 0){
+                        v_Clt.v_EstadoProducto = "Nuevo";
+                    }
+                    else if (cmb_estadoprod.SelectedIndex == 1)
+                    {
+                        v_Clt.v_EstadoProducto = "Usado";
+                    }
+                    else if (cmb_estadoprod.SelectedIndex == 2)
+                    {
+                        v_Clt.v_EstadoProducto = "Dañado";
+                    }
 
                     if (rb_inactivo.IsChecked == true)
                     {
@@ -302,15 +312,16 @@ namespace Proyecto
                     {
                         v_Clt.v_EstadoSistema = "ACTIVO";
                     }
+
                     if (v_Model.ValidarModificacionProducto(v_Clt) == true)
                     {
                         lbl_errorCodProd.Visibility = Visibility.Hidden;
                     }
+
                     if (lbl_errorCodProd.Visibility == Visibility.Visible)
                     {
                         MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-
                     else if (v_Model.ModificarProductos(v_Clt) == -1)
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -323,6 +334,7 @@ namespace Proyecto
                 {
                     Console.WriteLine(m.ToString());
                     MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 }
             }
         }
