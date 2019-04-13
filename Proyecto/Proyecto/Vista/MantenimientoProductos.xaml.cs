@@ -37,8 +37,8 @@ namespace Proyecto
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             lbl_actividad.Content = "Productos existentes";
             dispatcherTimer.Start();
-            LlenarComboboxProveedores();
-            //Cargar productos existentes
+
+            MostrarProductosExistentes();
             cmb_tipoBusqueda.SelectedIndex = 2;
             dtg_lista.ItemsSource = v_Model.MostrarListaProductos("LISTAPRODUCTOS").DefaultView;
         }
@@ -313,11 +313,11 @@ namespace Proyecto
                         v_Clt.v_EstadoSistema = "ACTIVO";
                     }
 
+
                     if (v_Model.ValidarModificacionProducto(v_Clt) == true)
                     {
                         lbl_errorCodProd.Visibility = Visibility.Hidden;
-                    }
-
+                    } 
                     if (lbl_errorCodProd.Visibility == Visibility.Visible)
                     {
                         MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -327,7 +327,7 @@ namespace Proyecto
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
-                        DeshabilitarComponentes();
+                        MostrarProductosExistentes();
                     }
                 }
                 catch (Exception m)
@@ -337,22 +337,6 @@ namespace Proyecto
 
                 }
             }
-        }
-
-        private void DeshabilitarComponentes()
-        {
-            txb_codProd.IsEnabled = false;
-            txb_nombre.IsEnabled = false;
-            txb_marca.IsEnabled = false;
-            txb_cantActual.IsEnabled = false;
-            txb_cantMinima.IsEnabled = false;
-            txb_precio.IsEnabled = false;
-            txb_descripcion.IsEnabled = false;
-            cmb_proveedor.IsEnabled = false;
-            txb_fabricante.IsEnabled = false;
-            cmb_estadoprod.IsEnabled = false;
-            rb_activo.IsEnabled = false;
-            rb_inactivo.IsEnabled = false;
         }
 
         private void btn_usuarios_usuario_Click(object sender, RoutedEventArgs e)
@@ -413,6 +397,7 @@ namespace Proyecto
             //indica al combobox cual opción debe estar seleccionada (asigna el id del proveedor por defecto según el índice que se obtiene del producto seleccionado en el datagrid)
             //se hace la resta v_Indice-1 porque los elementos del combobox inician en 0
             cmb_proveedor.SelectedIndex = v_Indice - 1;
+
 
             txb_precio.Text = (dtg_productos.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
             txb_descripcion.Text = (dtg_productos.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
@@ -546,6 +531,7 @@ namespace Proyecto
         {
             grd_formularioProductos.Visibility = Visibility.Visible;
             OcultarProveedoresExistentes();
+            LlenarComboboxProveedores();
             ValidarRadioButton();
         }
 
@@ -627,6 +613,11 @@ namespace Proyecto
             ValidarComponentes();
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
+        }
+
+        private void cmb_proveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }//Fin de la clase
 }

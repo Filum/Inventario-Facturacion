@@ -155,7 +155,7 @@
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="10,41,24,0" Height="34" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="304,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278"/>
 
-                    <Grid Visibility="Collapsed"  x:Name="grd_formularioUsuario" >
+                    <Grid Visibility="Visible"  x:Name="grd_formularioUsuario" >
                         <Grid Margin="15,82,26,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="36*"/>
@@ -231,20 +231,20 @@
                             </StackPanel>
                         </Grid>
 
-                        <Button x:Name="btn_limpiar" Width="70" Foreground="White" Margin="0,387,10,10"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Center" Click="btn_limpiar_Click">
+                        <Button x:Name="btn_limpiar" Width="70" Foreground="White" Margin="0,0,10,10"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_limpiar_Click">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
 
-                        <Button x:Name="btn_agregar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,387,0,10" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_agregar_Click" HorizontalAlignment="Left" Width="70">
+                        <Button x:Name="btn_agregar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_agregar_Click" HorizontalAlignment="Left" Width="70">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/Agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btn_modificar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,387,0,10" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_modificar_Click" HorizontalAlignment="Left" Width="70">
+                        <Button x:Name="btn_modificar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_modificar_Click" HorizontalAlignment="Left" Width="70">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0"/>
@@ -252,7 +252,7 @@
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Visible"  x:Name="grd_usuariosExistentes">
+                    <Grid Visibility="Collapsed"  x:Name="grd_usuariosExistentes">
                         <DataGrid x:Name="dtg_usuarios" Margin="10,140,10,24"  AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridRow">

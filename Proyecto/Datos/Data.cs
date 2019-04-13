@@ -226,6 +226,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand("act_Productos", conn as OracleConnection);
             comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("IDPRO", clt.v_IdProducto));
             comando.Parameters.Add(new OracleParameter("COD_PRO", clt.v_CodigoProducto));
             comando.Parameters.Add(new OracleParameter("NOM_PRODUCTO", clt.v_NombreProducto));
             comando.Parameters.Add(new OracleParameter("MARCA", clt.v_MarcaProducto));
@@ -712,13 +713,13 @@ namespace Datos
        cédula jurídica está asociada a dicho id.
        Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
        usuario ingresa o deja la misma cédula que tenia,no le de error*/
-        public Boolean ValidarModificacionProductos(EntidadProductos clt)
+        public Boolean ValidarModificacionProducto(EntidadProductos clt)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT pk_idProducto,codigoProducto from tbl_Productos where pk_idProducto = " + clt.v_IdProducto + " AND cedulaJuridica = " + clt.v_CodigoProducto;
+            comando.CommandText = "SELECT PK_IDPRODUCTO,CODIGOPRODUCTO from TBL_PRODUCTOS where CODIGOPRODUCTO = '" + clt.v_CodigoProducto + "' AND PK_IDPRODUCTO = "+clt.v_IdProducto;
 
             OracleDataReader dr = comando.ExecuteReader();
 

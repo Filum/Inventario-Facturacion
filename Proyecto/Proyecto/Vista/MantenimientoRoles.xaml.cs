@@ -234,23 +234,9 @@ namespace Proyecto
                 checkbox_bitacora.IsChecked = true;
             }
 
-            HabilitarComponentes();
             lbl_actividad.Content = "Modificar proveedor";
             v_Actividad_btnModificar = true;
             MostrarFormulario();
-        }
-        private void HabilitarComponentes()
-        {
-            txb_nomrol.IsEnabled = true;
-            checkbox_mant_clientes.IsEnabled = true;
-            checkbox_mant_productos.IsEnabled = true;
-            checkbox_mant_proveedores.IsEnabled = true;
-            checkbox_mant_roles.IsEnabled = true;
-            checkbox_mant_usuarios.IsEnabled = true;
-            checkbox_facturacion.IsEnabled = true;
-            checkbox_bitacora.IsEnabled = true;
-            rb_activo.IsEnabled = true;
-            rb_inactivo.IsEnabled = true;
         }
 
         private void MostrarFormulario()
@@ -629,8 +615,8 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         v_Actividad_btnAgregar = true;
-                        DeshabilitarComponentes();
                         limpiar();
+                        //MOSTRAR ROLES EXISTENTES
                     }
                 }
                 catch (Exception m)
@@ -640,20 +626,7 @@ namespace Proyecto
                 }
             
         }
-        private void DeshabilitarComponentes()
-        {
-            txb_nomrol.IsEnabled = false;
-            checkbox_mant_clientes.IsEnabled = false;
-            checkbox_mant_productos.IsEnabled = false;
-            checkbox_mant_proveedores.IsEnabled = false;
-            checkbox_mant_roles.IsEnabled = false;
-            checkbox_mant_usuarios.IsEnabled = false;
-            checkbox_facturacion.IsEnabled = false;
-            checkbox_bitacora.IsEnabled = false;
-            rb_activo.IsEnabled = false;
-            rb_inactivo.IsEnabled = false;
-        }
-
+       
         private void checkbox_mant_usuarios_Checked(object sender, RoutedEventArgs e)
         {
             ValidarComponentes();

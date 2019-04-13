@@ -103,7 +103,6 @@ namespace Proyecto
         //Presenta formulario para agregar un nuevo proveedor y oculta el panel de búsqueda, esto en el tab de configuración de proveedores.
         private void btn_agregarProveedor_Click(object sender, RoutedEventArgs e)
         {
-            HabilitarComponentes();
             btn_limpiar_Click(sender, e);
             lbl_actividad.Content = "Agregar proveedor";
             ValidarRadioButton();
@@ -240,7 +239,7 @@ namespace Proyecto
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
-                        DeshabilitarComponentes();
+                        MostrarProveedoresExistentes();
                     }
                 }
                 catch (Exception m)
@@ -369,34 +368,7 @@ namespace Proyecto
             OcultarProveedoresExistentes();
             ValidarRadioButton();
         }
-
-        //Deshabilita los componentes en el tap de "Gestión de Proveedores"
-        private void DeshabilitarComponentes()
-        {
-            txb_cedJur.IsEnabled = false;
-            txb_telefono.IsEnabled = false;
-            txb_telefonoOpcional.IsEnabled = false;
-            txb_nombre.IsEnabled = false;
-            txb_correo.IsEnabled = false;
-            txb_correoOpcional.IsEnabled = false;
-            txb_descripcion.IsEnabled = false;
-            rb_activo.IsEnabled = false;
-            rb_inactivo.IsEnabled = false;
-        }
-
-        //Habilita los componentes en el tap de "Gestión de Proveedores"
-        private void HabilitarComponentes()
-        {
-            txb_cedJur.IsEnabled = true;
-            txb_telefono.IsEnabled = true;
-            txb_telefonoOpcional.IsEnabled = true;
-            txb_nombre.IsEnabled = true;
-            txb_correo.IsEnabled = true;
-            txb_correoOpcional.IsEnabled = true;
-            txb_descripcion.IsEnabled = true;
-            rb_activo.IsEnabled = true;
-            rb_inactivo.IsEnabled = true;
-        }
+               
 
         /*En esta caja de texto se implementa la búsqueda del proveedor que se desea, en caso de ser encontrado este despliega los datos en el DataGrid,
         de lo contrario se podrá agregar un nuevo proveedor*/
@@ -453,7 +425,6 @@ namespace Proyecto
             {
                 rb_inactivo.IsChecked = true;
             }
-            HabilitarComponentes();
             lbl_actividad.Content = "Modificar proveedor";
             btn_limpiar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = true;

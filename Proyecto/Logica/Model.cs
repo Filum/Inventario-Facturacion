@@ -168,7 +168,7 @@ namespace Logica
 
         public bool ValidarModificacionProducto(EntidadProductos clt)
         {
-            return v_Data.ValidarModificacionProductos(clt);
+            return v_Data.ValidarModificacionProducto(clt);
         }
 
         public List<EntidadClientes> BuscarClientes(String nombre)
