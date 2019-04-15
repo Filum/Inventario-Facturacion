@@ -574,6 +574,7 @@ namespace Proyecto
                         btn_agregar.Visibility = Visibility.Visible;
                         btn_modificar_roles.Visibility = Visibility.Collapsed;
                         limpiar();
+                        //MOSTRAR ROLES EXISTENTES
                     }
                 }
                 catch (Exception m)

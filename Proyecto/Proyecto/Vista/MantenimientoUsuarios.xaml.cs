@@ -248,7 +248,7 @@ namespace Proyecto
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
-                        DeshabilitarComponentes();
+                        MostrarUsuariosExistentes();
                     }
                 }
                 catch (Exception m)
@@ -353,45 +353,10 @@ namespace Proyecto
         //Muestra el panel del formulario en el tab de configuración de usuarios
         private void MostrarFormulario()
         {
-            HabilitarComponentes();
             ValidarComponentes();
             OcultarUsuariosExistentes();
             grd_formularioUsuario.Visibility = Visibility.Visible;
             LlenarComboboxRol();
-        }
-
-        //Deshabilita los componentes en el tap de "Gestión de Usuarios"
-        private void DeshabilitarComponentes()
-        {
-            txb_numCed.IsEnabled = false;
-            txb_nombre.IsEnabled = false;
-            txb_apellidos.IsEnabled = false;
-            txb_telefono.IsEnabled = false;
-            txb_telefonoOpcional.IsEnabled = false;
-            txb_correo.IsEnabled = false;
-            txb_puesto.IsEnabled = false;
-            cmb_rol.IsEnabled = false;
-            txb_usuario.IsEnabled = false;
-            txb_contrasenna.IsEnabled = false;
-            rb_activo.IsEnabled = false;
-            rb_inactivo.IsEnabled = false;
-        }
-
-        //Habilita los componentes en el tap de "Gestión de Usuarios"
-        private void HabilitarComponentes()
-        {
-            txb_numCed.IsEnabled = true;
-            txb_nombre.IsEnabled = true;
-            txb_apellidos.IsEnabled = true;
-            txb_telefono.IsEnabled = true;
-            txb_telefonoOpcional.IsEnabled = true;
-            txb_correo.IsEnabled = true;
-            txb_puesto.IsEnabled = true;
-            cmb_rol.IsEnabled = true;
-            txb_usuario.IsEnabled = true;
-            txb_contrasenna.IsEnabled = true;
-            rb_activo.IsEnabled = true;
-            rb_inactivo.IsEnabled = true;
         }
 
         //Método el cual habilita el botón modificar
@@ -752,8 +717,6 @@ namespace Proyecto
             {
                 rb_inactivo.IsChecked = true;
             }
-
-            HabilitarComponentes();
             lbl_actividad.Content = "Modificar usuario";
             btn_limpiar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = true;
