@@ -36,8 +36,6 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
-
-
         }
 
         public void llenardtg()
@@ -103,41 +101,7 @@ namespace Proyecto
             this.Close();
         }
 
-        
-
-        //Botón el cual permite agregar un nuevo rol, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
-        private void btn_agregar_rol_Click(object sender, RoutedEventArgs e)
-        {
-            GridBuscar.Visibility = Visibility.Hidden;
-            GridAgregar.Visibility = Visibility.Visible;
-            ValidarComponentes();
-            ValidarErroresTxb(txb_nomrol, lbl_errorNomrol, "nombre");
-        }
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ListViewItem_Selected_2(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        //Botón el cual permite modificar un rol seleccionado, este botón posee validaciones según funcionalidad 
-        private void btn_volver(object sender, RoutedEventArgs e)
-        {
-            GridAgregar.Visibility = Visibility.Hidden;
-            GridBuscar.Visibility = Visibility.Visible;
-            lbl_error.Content = "";
-            lbl_errorCB.Content = "";
-            lbl_errorRB.Content = "";
-            limpiar();
-        }
-
-        //Botón encargado de limpiar toda la información ingresada y las opciones seleccionadas
-      
-
-        /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
+         /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar*/
         private void btn_listar_roles_Click(object sender, RoutedEventArgs e)
         {
@@ -173,6 +137,34 @@ namespace Proyecto
                 "   Se utiliza el mismo formato de validaciones de ingresar. \n", "Ayuda",
                 MessageBoxButton.OK);
         }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        //Botón el cual permite agregar un nuevo rol, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
+        private void btn_agregar_rol_Click(object sender, RoutedEventArgs e)
+        {
+            btn_agregar.Visibility = Visibility.Visible;
+            btn_modificar_roles.Visibility = Visibility.Collapsed;
+            lbl_actividad2.Content = "Agregar Rol";
+            GridBuscar.Visibility = Visibility.Hidden;
+            GridAgregar.Visibility = Visibility.Visible;
+            lbl_error.Visibility = Visibility.Collapsed;
+            lbl_errorCB.Visibility = Visibility.Collapsed;
+            lbl_errorRB.Visibility = Visibility.Collapsed;
+            rb_activo.IsChecked = true;
+        }
+
+        //Botón el cual permite modificar un rol seleccionado, este botón posee validaciones según funcionalidad 
+        private void btn_volver(object sender, RoutedEventArgs e)
+        {
+            GridAgregar.Visibility = Visibility.Hidden;
+            GridBuscar.Visibility = Visibility.Visible;
+            limpiar();
+        }
+
         // Botón para cerrar sesión
         private void btn_usuario_roles_Click(object sender, RoutedEventArgs e)
         {
@@ -187,11 +179,15 @@ namespace Proyecto
         /*Botón el cual cumple con la funcionalidad de eliminar todos los datos existentes en las cajas de texto a la hora de agregar proveedores
        situadas en el tab de gestión de roles*/
        
-
         /*Método el cual cumple con la funcionalidad de desplegar los datos en los campos correspondientes de un rol seleccionado 
  en el DataGrid con la finalidad de ser modificado, esto en el tab de gestión de roles*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+            GridBuscar.Visibility = Visibility.Collapsed;
+            GridAgregar.Visibility = Visibility.Visible;
+
+            btn_modificar_roles.Visibility = Visibility.Visible;
+            
             DataGridRow row = sender as DataGridRow;
 
             v_ER.v_IdRol = Convert.ToInt64((dtg_roles.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
@@ -235,78 +231,28 @@ namespace Proyecto
             }
 
             HabilitarComponentes();
-            lbl_actividad.Content = "Modificar proveedor";
+            lbl_actividad2.Content = "Modificar Rol";
             v_Actividad_btnModificar = true;
-            MostrarFormulario();
+            
+            
         }
-        private void HabilitarComponentes()
-        {
-            txb_nomrol.IsEnabled = true;
-            checkbox_mant_clientes.IsEnabled = true;
-            checkbox_mant_productos.IsEnabled = true;
-            checkbox_mant_proveedores.IsEnabled = true;
-            checkbox_mant_roles.IsEnabled = true;
-            checkbox_mant_usuarios.IsEnabled = true;
-            checkbox_facturacion.IsEnabled = true;
-            checkbox_bitacora.IsEnabled = true;
-            rb_activo.IsEnabled = true;
-            rb_inactivo.IsEnabled = true;
-        }
-
-        private void MostrarFormulario()
-        {
-            GridAgregar.Visibility = Visibility.Visible;
-            GridBuscar.Visibility = Visibility.Collapsed;
-            ValidarRadioButton();
-        }
-
-        //Método el cual habilita el botón modificar
-        private void HabilitarBtnModificar()
-        {
-            if (v_Actividad_btnModificar == true)
-            {
-                btn_modificar_roles.Visibility = Visibility.Visible;
-            }
-        }
-
-        //Inicializa las opciones de agregar en la ventana 
-        private void inicializarAgregacion()
-        {
-            v_Actividad_btnAgregar = true;
-            lbl_actividad.Visibility = Visibility.Visible;
-        }
-
-        //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de gestión de proveedores
-        private void HabilitarBtnAgregar()
-        {
-            if (v_Actividad_btnAgregar == true)
-            {
-                if (txb_nomrol.Text != "" && rb_inactivo.IsChecked == true|| rb_activo.IsChecked == true)
-                {
-                    btn_agregar.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    btn_agregar.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-
+        
 
         //Método el cual habilita componentes siempre y cuando no hayan errores en la caja de texto de buscar
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidarErroresTxb(txb_busqueda_rol, lbl_errorBusqueda_rol, "");
+            ValidarErroresTxb(txb_busqueda_rol, lbl_errorNomrol, "");
         }
 
-       
         //Validaciones en caja de texto de nombre
         private void txb_nomrol_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidarErroresTxb(txb_busqueda_rol, lbl_error, "");
-            HabilitarBtnModificar();
-            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_busqueda_rol, lbl_error, "");  
         }
+
+
+
+
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
         private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
@@ -340,8 +286,12 @@ namespace Proyecto
             }
             return false;
         }
+
+
+
+
         //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
-        private void ValidarErroresTxb(TextBox txb_proveedor, Label lbl_error, string tipo)
+        private void ValidarErroresTxb(TextBox txb_nombreRol, Label lbl_error, string tipo)
         {
             if (txb_nomrol.Text == "")
             {
@@ -353,7 +303,7 @@ namespace Proyecto
             }
             else if (txb_nomrol.Text == " ")
             {
-                txb_proveedor.Text = "";
+                txb_nombreRol.Text = "";
             }
             else if (txb_nomrol.Text.Contains("  "))
             {
@@ -371,18 +321,19 @@ namespace Proyecto
             }
         }
 
+
+
+
         //Se validan los checkbox
         private void ValidarComponentes()
         {
+            ValidarErroresTxb(txb_nomrol, lbl_error, "numeros");
+
             if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
             {
-                lbl_errorRB.Visibility = Visibility.Visible;
-                lbl_errorRB.Content = "Debe seleccionar una opción";
+                rb_activo.IsChecked = true;
             }
-            else
-            {
-                lbl_errorRB.Visibility = Visibility.Hidden;
-            }
+            
             if (checkbox_mant_clientes.IsChecked == false && checkbox_facturacion.IsChecked == false && checkbox_bitacora.IsChecked == false && checkbox_mant_productos.IsChecked == false && checkbox_mant_proveedores.IsChecked == false && checkbox_mant_roles.IsChecked == false && checkbox_mant_usuarios.IsChecked == false)
             {
                 lbl_errorCB.Content = "De seleccionar al menos un mantenimiento";
@@ -399,8 +350,19 @@ namespace Proyecto
         {
             try
             {
-                
+                ValidarComponentes();
+               
+
+                if (lbl_error.Visibility == Visibility.Visible || lbl_errorCB.Visibility == Visibility.Visible || lbl_errorRB.Visibility == Visibility.Visible)
+                {
+                    MessageBox.Show("No se puede agregar un rol nuevo \nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+
                     v_ER.v_Nombre = txb_nomrol.Text;
+
+
 
                     if (checkbox_mant_clientes.IsChecked == false)
                     {
@@ -466,14 +428,20 @@ namespace Proyecto
                     {
                         v_ER.v_Estado = "ACTIVO";
                     }
-                    
+
 
                     int v_Resultado = v_Model.AgregarRoles(v_ER);
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         limpiar();
+                        lbl_errorRB.Visibility = Visibility.Collapsed;
+                        lbl_error.Visibility = Visibility.Collapsed;
+                        lbl_errorCB.Visibility = Visibility.Collapsed;
+                        GridAgregar.Visibility = Visibility.Collapsed;
+                        GridBuscar.Visibility = Visibility.Visible;
                     }
+                }
                 
             }
             catch (Exception m)
@@ -508,41 +476,14 @@ namespace Proyecto
             rb_activo.IsChecked = false;
             rb_inactivo.IsChecked = false;
             txb_nomrol.Text = "";
+            lbl_error.Content = "";
+            lbl_errorCB.Content = "";
+            lbl_errorRB.Content = "";
+            lbl_error.Visibility = Visibility.Collapsed;
+            lbl_errorCB.Visibility = Visibility.Collapsed;
+            lbl_errorRB.Visibility = Visibility.Collapsed;
         }
-        private void ValidarTxbNombre(object sender, EventArgs e)
-        {
-            string v_NomRol = txb_nomrol.Text;
-            HabilitarBtnAgregar();
-            HabilitarBtnModificar();
-            ValidarErroresTxb(txb_nomrol, lbl_error, "numeros");
-            if (lbl_error.Visibility == Visibility.Collapsed)
-            {
-                bool v_Resultado = v_Model.ValidarCedJurProveedores(txb_nomrol.Text);
-                if (v_Resultado == true)
-                {
-                    lbl_error.Content = "La cédula jurídica ya existe";
-                    lbl_error.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    lbl_error.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-
-        private void Rb_activo_Checked(object sender, RoutedEventArgs e)
-        {
-            ValidarComponentes();
-            HabilitarBtnModificar();
-            HabilitarBtnAgregar();
-        }
-
-        private void Rb_inactivo_Checked(object sender, RoutedEventArgs e)
-        {
-            ValidarComponentes();
-            HabilitarBtnModificar();
-            HabilitarBtnAgregar();
-        }
+       
       
 
         private void btn_modificar_roles_Click(object sender, RoutedEventArgs e)
@@ -628,8 +569,10 @@ namespace Proyecto
                      if (v_Model.ModificarRoles(v_ER) == -1)
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        v_Actividad_btnAgregar = true;
-                        DeshabilitarComponentes();
+                        GridBuscar.Visibility = Visibility.Visible;
+                        GridAgregar.Visibility = Visibility.Collapsed;
+                        btn_agregar.Visibility = Visibility.Visible;
+                        btn_modificar_roles.Visibility = Visibility.Collapsed;
                         limpiar();
                     }
                 }
@@ -640,19 +583,7 @@ namespace Proyecto
                 }
             
         }
-        private void DeshabilitarComponentes()
-        {
-            txb_nomrol.IsEnabled = false;
-            checkbox_mant_clientes.IsEnabled = false;
-            checkbox_mant_productos.IsEnabled = false;
-            checkbox_mant_proveedores.IsEnabled = false;
-            checkbox_mant_roles.IsEnabled = false;
-            checkbox_mant_usuarios.IsEnabled = false;
-            checkbox_facturacion.IsEnabled = false;
-            checkbox_bitacora.IsEnabled = false;
-            rb_activo.IsEnabled = false;
-            rb_inactivo.IsEnabled = false;
-        }
+        
 
         private void checkbox_mant_usuarios_Checked(object sender, RoutedEventArgs e)
         {
@@ -668,6 +599,7 @@ namespace Proyecto
             }
             else
             {
+                lbl_errorNomrol.Visibility = Visibility.Collapsed;
                 dtg_roles.ItemsSource = v_Model.ValidarBusquedaRoles(txb_busqueda_rol.Text);
                 dtg_roles.Columns[0].Header = "Código";
                 dtg_roles.Columns[1].Header = "Nombre";
@@ -718,6 +650,37 @@ namespace Proyecto
         {
             ValidarComponentes();
         }
+
+        private void DeshabilitarComponentes()
+        {
+            txb_nomrol.IsEnabled = false;
+            checkbox_mant_clientes.IsEnabled = false;
+            checkbox_mant_productos.IsEnabled = false;
+            checkbox_mant_proveedores.IsEnabled = false;
+            checkbox_mant_roles.IsEnabled = false;
+            checkbox_mant_usuarios.IsEnabled = false;
+            checkbox_facturacion.IsEnabled = false;
+            checkbox_bitacora.IsEnabled = false;
+            rb_activo.IsEnabled = false;
+            rb_inactivo.IsEnabled = false;
+        }
+
+        private void HabilitarComponentes()
+        {
+            txb_nomrol.IsEnabled = true;
+            checkbox_mant_clientes.IsEnabled = true;
+            checkbox_mant_productos.IsEnabled = true;
+            checkbox_mant_proveedores.IsEnabled = true;
+            checkbox_mant_roles.IsEnabled = true;
+            checkbox_mant_usuarios.IsEnabled = true;
+            checkbox_facturacion.IsEnabled = true;
+            checkbox_bitacora.IsEnabled = true;
+            rb_activo.IsEnabled = true;
+            rb_inactivo.IsEnabled = true;
+        }
+
+
+
     }//fin de la clase
 }//fin proyecto
 

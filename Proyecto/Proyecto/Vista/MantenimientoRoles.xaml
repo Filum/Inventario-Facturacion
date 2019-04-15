@@ -161,18 +161,21 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <CheckBox x:Name="checkbox_bitacora" Content="Bitácora" Margin="529,212,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="checkbox_bitacora_Checked"/>
                             <CheckBox x:Name="checkbox_mant_clientes" Content="Mantenimiento de Clientes" Margin="529,181,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_mant_clientes_Checked"/>
                             <Label x:Name="lbl_estadoSistema" Content="Estado Sistema:" Margin="30,70,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" FontSize="16" HorizontalAlignment="Left"/>
-                            <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="198,76,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Checked="Rb_activo_Checked" />
-                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="298,76,309,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Checked="Rb_inactivo_Checked"   />
+                            <RadioButton x:Name="rb_activo" IsChecked="False" Content="Activo" HorizontalAlignment="Left" Margin="198,76,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16"/>
+                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="298,76,309,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18"/>
                         </Grid>
-                        <Label x:Name="lbl_actividad_Copy" Content="Agregar Rol" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="348.4,15,348.4,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
+                        <Label x:Name="lbl_actividad2" Content="Agregar Rol" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="348.4,15,348.4,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
                         <Separator Height="41" Margin="20,50,20,0" VerticalAlignment="Top" Background="White"/>
+                        <Label x:Name="lbl_error" Visibility="Collapsed" Content="" HorizontalAlignment="Left" Margin="624,111,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="Red" Width="191" Height="25" VerticalAlignment="Top"/>
+                        <Label x:Name="lbl_errorRB" Visibility="Collapsed" Content="" HorizontalAlignment="Left" Margin="514,156,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="#FFEED805" Width="332" Height="26" VerticalAlignment="Top" Background="#00000000"/>
+                        <Label x:Name="lbl_errorCB" Visibility="Collapsed" Content="" HorizontalAlignment="Left" Margin="529,200,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="Red" Width="308" Height="26" VerticalAlignment="Top"/>
                     </Grid>
                     <Grid x:Name="GridBuscar" Visibility="Visible" Margin="0">
-                        <TextBox x:Name="txb_busqueda_rol" Margin="325,105,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="250" Height="32" VerticalAlignment="Top"  KeyUp="txb_busqueda_rol_KeyUp"/>
+                        <TextBox x:Name="txb_busqueda_rol" Margin="325,105,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="250" Height="32" VerticalAlignment="Top"  KeyUp="txb_busqueda_rol_KeyUp" FontSize="18"/>
                         <Label Content="Ingrese el nombre del rol:" Margin="110,105,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Left" Height="32"/>
                         <Label x:Name="lbl_actividad" Content="Buscar Roles" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="0,15,0,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
                         <Label x:Name="lbl_errorBusqueda_rol"  Margin="84,221,-563,-151" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
-                        <Label x:Name="lbl_errorNomrol"  Margin="325,137,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Width="400" HorizontalAlignment="Left"/>
+                        <Label x:Name="lbl_errorNomrol" Visibility="Visible"  Margin="325,137,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Width="400" HorizontalAlignment="Left"/>
                         <DataGrid x:Name="dtg_roles" Margin="20,170,20,20"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False" ScrollViewer.CanContentScroll="True">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridRow}">
@@ -190,13 +193,10 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         <Button x:Name="btn_agregar_rol" Visibility="Visible" Foreground="White" Margin="30,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_rol_Click">
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                                <TextBlock Text="Nuevo Rol" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="Nuevo Rol" FontSize="14" FontFamily="Global Sans Serif" Margin="5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </Grid>
-                    <Label x:Name="lbl_error" Content="" HorizontalAlignment="Left" Margin="624,111,-108,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="Red" Width="330" Height="25" VerticalAlignment="Top"/>
-                    <Label x:Name="lbl_errorRB" Content="" HorizontalAlignment="Left" Margin="514,156,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="#FFEED805" Width="332" Height="26" VerticalAlignment="Top" Background="#00000000"/>
-                    <Label x:Name="lbl_errorCB" Content="" HorizontalAlignment="Left" Margin="529,200,-108,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="Red" Width="425" Height="26" VerticalAlignment="Top"/>
 
                 </Grid>
             </TabItem>
