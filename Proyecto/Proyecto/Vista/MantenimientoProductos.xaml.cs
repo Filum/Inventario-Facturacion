@@ -181,19 +181,21 @@ namespace Proyecto
             txb_descripcion.Text = "";
             dtg_productos.ItemsSource = null;
             lbl_errorCodProd.Visibility = Visibility.Hidden;
-            lbl_errorBusqueda.Visibility = Visibility.Collapsed;
-            lbl_errorNombre.Visibility = Visibility.Collapsed;
-            lbl_errorCantModificar.Visibility = Visibility.Collapsed;
-            lbl_errorCantMinima.Visibility = Visibility.Collapsed;
-            lbl_errorCantActual.Visibility = Visibility.Collapsed;
-            lbl_errorDescripcion.Visibility = Visibility.Collapsed;
-            lbl_errorFabricante.Visibility = Visibility.Collapsed;
-            lbl_errorPrecio.Visibility = Visibility.Collapsed;
-            lbl_errorProveedor.Visibility = Visibility.Collapsed;
+            lbl_errorBusqueda.Visibility = Visibility.Hidden;
+            lbl_errorNombre.Visibility = Visibility.Hidden;
+            lbl_errorCantModificar.Visibility = Visibility.Hidden;
+            lbl_errorCantMinima.Visibility = Visibility.Hidden;
+            lbl_errorCantActual.Visibility = Visibility.Hidden;
+            lbl_errorDescripcion.Visibility = Visibility.Hidden;
+            lbl_errorFabricante.Visibility = Visibility.Hidden;
+            lbl_errorPrecio.Visibility = Visibility.Hidden;
+            lbl_errorProveedor.Visibility = Visibility.Hidden;
             lbl_actividad.Visibility = Visibility.Collapsed;
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
+            rb_aumentar.IsChecked = false;
+            rb_disminuir.IsChecked = false;
             inicializarAgregacion();
         }
 
@@ -306,7 +308,16 @@ namespace Proyecto
                     v_Clt.v_CodigoProducto = txb_codProd.Text;
                     v_Clt.v_NombreProducto = txb_nombre.Text;
                     v_Clt.v_MarcaProducto = txb_marca.Text;
-                    v_Clt.v_CantidadExistencia = Convert.ToInt64(txb_cantActual.Text);
+                    if (rb_aumentar.IsChecked == true) {
+                        long nuevaCantidad = Convert.ToInt64(txb_cantActual.Text) + Convert.ToInt64(txb_cantModificar.Text);
+                        v_Clt.v_CantidadExistencia = nuevaCantidad;
+                    }
+                    if (rb_disminuir.IsChecked == true)
+                    {
+                        long nuevaCantidad = Convert.ToInt64(txb_cantActual.Text) - Convert.ToInt64(txb_cantModificar.Text);
+                        v_Clt.v_CantidadExistencia = nuevaCantidad;
+                    }
+                   // v_Clt.v_CantidadExistencia = Convert.ToInt64(txb_cantActual.Text);
                     v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
 
                     EntidadProveedores ComboItem = (EntidadProveedores)cmb_proveedor.SelectedItem;
@@ -404,6 +415,14 @@ namespace Proyecto
         en el DataGrid con la finalidad de ser modificado, esto en el tab de gestión de productos*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+
+            rb_disminuir.Visibility = Visibility.Visible;
+            rb_aumentar.Visibility = Visibility.Visible;
+            txb_cantModificar.Visibility = Visibility.Visible;
+            lbl_cantModificar.Visibility = Visibility.Visible;
+            txb_cantActual.IsEnabled = false;
+            btn_limpiar.Visibility = Visibility.Hidden;
+
             MostrarFormulario();
             DataGridRow row = sender as DataGridRow;
 
@@ -459,6 +478,8 @@ namespace Proyecto
             lbl_actividad.Visibility = Visibility.Visible;
             btn_modificar.Visibility = Visibility.Visible;
             btn_agregar.Visibility = Visibility.Collapsed;
+
+           
         }
 
         //Método el cual habilita el botón modificar
@@ -523,13 +544,20 @@ namespace Proyecto
         {
             lbl_actividad.Content = "Agregar Producto";
             btn_limpiar.Visibility = Visibility.Visible;
+
+            rb_disminuir.Visibility = Visibility.Collapsed;
+            rb_aumentar.Visibility = Visibility.Collapsed;
+            txb_cantModificar.Visibility = Visibility.Collapsed;
+            lbl_cantModificar.Visibility = Visibility.Collapsed;
+
             MostrarFormulario();
         }
 
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
             MostrarProductosExistentes();
-
+            btn_limpiar_Click(sender, e);
+            txb_cantActual.IsEnabled = true;
         }
 
         private void MostrarProductosExistentes()
@@ -765,6 +793,26 @@ namespace Proyecto
             }
         }
 
+        private void CantMod_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                lbl_errorCantModificar.Visibility = Visibility.Hidden;
+                if (ValidarCaracteresEspeciales(txb_cantMinima.Text, "numeros") == true)
+                {
+                    lbl_errorCantModificar.Content = "No se permiten caracteres especiales";
+                    lbl_errorCantModificar.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl_errorCantModificar.Content = "No se permite ingresar letras";
+                lbl_errorCantModificar.Visibility = Visibility.Visible;
+            }
+        }
+
         private void CantMin_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
@@ -818,6 +866,12 @@ namespace Proyecto
                 lbl_error.Visibility = Visibility.Hidden;
             }
 
+        }
+
+        private void txb_cantModificar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            ValidarErroresTxb(txb_cantMinima, lbl_errorCantMinima, "numeros");
         }
     }//Fin de la clase
 }
