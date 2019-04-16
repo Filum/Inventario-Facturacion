@@ -153,6 +153,16 @@ namespace Proyecto
                 lbl_errorestadoProd.Visibility = Visibility.Hidden;
             }
 
+            if (cmb_proveedor.SelectedItem == null)
+            {
+                lbl_errorProveedor.Visibility = Visibility.Visible;
+                lbl_errorProveedor.Content = "Debe seleccionar una opción";
+            }
+            else
+            {
+                lbl_errorProveedor.Visibility = Visibility.Hidden;
+            }
+
         }
 
         private void btn_limpiar_Click(object sender, RoutedEventArgs e)
@@ -176,7 +186,6 @@ namespace Proyecto
             lbl_errorCantModificar.Visibility = Visibility.Collapsed;
             lbl_errorCantMinima.Visibility = Visibility.Collapsed;
             lbl_errorCantActual.Visibility = Visibility.Collapsed;
-            lbl_errorEstado.Visibility = Visibility.Hidden;
             lbl_errorDescripcion.Visibility = Visibility.Collapsed;
             lbl_errorFabricante.Visibility = Visibility.Collapsed;
             lbl_errorPrecio.Visibility = Visibility.Collapsed;
@@ -210,18 +219,17 @@ namespace Proyecto
 
         private void btn_agregar_Click(object sender, RoutedEventArgs e)
         {
-
-            try
-            {
-                if (lbl_errorCodProd.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorCantActual.Visibility == Visibility.Visible ||
-                    lbl_errorCantMinima.Visibility == Visibility.Visible || lbl_errorCantModificar.Visibility == Visibility.Visible || lbl_errorDescripcion.Visibility == Visibility.Visible ||
-                    lbl_errorEstado.Visibility == Visibility.Visible || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
-                    lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible || 
+            if ((lbl_errorCodProd.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
+                    (lbl_errorCantMinima.Visibility == Visibility.Visible) || (lbl_errorCantModificar.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
+                    lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible ||
                     lbl_errorRB.Visibility == Visibility.Visible)
-                {
-                    MessageBox.Show("No se puede agregar\nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
+            {
+                MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                
+                try
                 {
                     v_Clt.v_CodigoProducto = txb_codProd.Text;
                     v_Clt.v_NombreProducto = txb_nombre.Text;
@@ -236,8 +244,19 @@ namespace Proyecto
                     v_Clt.v_PrecioUnitario = Convert.ToInt64(txb_precio.Text);
                     v_Clt.v_Descripcion = txb_descripcion.Text;
                     v_Clt.v_Fabricante = txb_fabricante.Text;
-                    v_Clt.v_EstadoProducto = cmb_estadoprod.SelectedItem.ToString();
 
+                    if (cmb_estadoprod.SelectedIndex == 0)
+                    {
+                        v_Clt.v_EstadoProducto = "Nuevo";
+                    }
+                    else if (cmb_estadoprod.SelectedIndex == 1)
+                    {
+                        v_Clt.v_EstadoProducto = "Usado";
+                    }
+                    else if (cmb_estadoprod.SelectedIndex == 2)
+                    {
+                        v_Clt.v_EstadoProducto = "Dañado";
+                    }
 
                     if (rb_inactivo.IsChecked == true)
                     {
@@ -249,17 +268,24 @@ namespace Proyecto
                     }
 
                     int v_Resultado = v_Model.AgregarProductos(v_Clt);
-                    if (v_Resultado == -1)
+
+                   
+                    if (lbl_errorCodProd.Visibility == Visibility.Visible)
+                    {
+                        MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
                     }
                 }
-            }
-            catch (Exception m)
-            {
-                Console.WriteLine(m.ToString());
-                MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                catch (Exception m)
+                {
+                    Console.WriteLine(m.ToString());
+                    MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
             }
 
         }
@@ -267,8 +293,7 @@ namespace Proyecto
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
             if ((lbl_errorCodProd.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
-                    (lbl_errorCantMinima.Visibility == Visibility.Visible)|| (lbl_errorCantModificar.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) ||
-                    lbl_errorEstado.Visibility == Visibility.Visible || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
+                    (lbl_errorCantMinima.Visibility == Visibility.Visible)|| (lbl_errorCantModificar.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
                     lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible ||
                     lbl_errorRB.Visibility == Visibility.Visible)
             {
@@ -530,6 +555,7 @@ namespace Proyecto
         private void MostrarFormulario()
         {
             grd_formularioProductos.Visibility = Visibility.Visible;
+            rb_activo.IsChecked = true;
             OcultarProveedoresExistentes();
             LlenarComboboxProveedores();
             ValidarRadioButton();
@@ -547,6 +573,7 @@ namespace Proyecto
                 lbl_errorRB.Visibility = Visibility.Collapsed;
             }
         }
+
 
 
         private void cmb_tipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -596,8 +623,41 @@ namespace Proyecto
             }
         }
 
+        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        private void ValidarErroresTxb(TextBox txb_usuario, Label lbl_error, string tipo)
+        {
+            if (txb_usuario.Text == "")
+            {
+                lbl_error.Content = "Espacio vacío";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Hidden;
+            }
+             if (txb_usuario.Text == " ")
+            {
+                txb_usuario.Text = "";
+            }
+            else if (txb_usuario.Text.Contains("  "))
+            {
+                lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else if (ValidarCaracteresEspeciales(txb_usuario.Text, tipo) == true)
+            {
+                lbl_error.Content = "No se permiten caracteres especiales";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+        }
+
         private void txb_codProd_TextChanged(object sender, TextChangedEventArgs e)
         {
+            ValidarComponentes();
+            ValidaCod(txb_codProd, lbl_errorCodProd);
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_codProd, lbl_errorCodProd, "nombre");
 
         }
 
@@ -617,6 +677,146 @@ namespace Proyecto
 
         private void cmb_proveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
+        private void cmb_estadoprod_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+        }
+
+        private void txb_nombre_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_nombre, lbl_errorNombre, "nombre");
+        }
+
+        private void txb_marca_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_marca, lbl_errorMarca, "nombre");
+        }
+
+        private void txb_fabricante_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_fabricante, lbl_errorFabricante, "nombre");
+        }
+
+        private void txb_cantActual_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_cantActual, lbl_errorCantActual, "numeros");
+        }
+
+        private void txb_cantMinima_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_cantMinima, lbl_errorCantMinima, "numeros");
+        }
+
+        private void txb_precio_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_precio, lbl_errorPrecio, "numeros");
+        }
+
+        private void txb_descripcion_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_descripcion, lbl_errorDescripcion, "descripcion");
+        }
+
+        private void CantAct_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                lbl_errorCantActual.Visibility = Visibility.Hidden;
+                if (ValidarCaracteresEspeciales(txb_cantActual.Text, "numeros") == true)
+                {
+                    lbl_errorCantActual.Content = "No se permiten caracteres especiales";
+                    lbl_errorCantActual.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl_errorCantActual.Content = "No se permite ingresar letras";
+                lbl_errorCantActual.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void CantMin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                lbl_errorCantMinima.Visibility = Visibility.Hidden;
+                if (ValidarCaracteresEspeciales(txb_cantMinima.Text, "numeros") == true)
+                {
+                    lbl_errorCantMinima.Content = "No se permiten caracteres especiales";
+                    lbl_errorCantMinima.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl_errorCantMinima.Content = "No se permite ingresar letras";
+                lbl_errorCantMinima.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Precio_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
+            {
+                e.Handled = false;
+                lbl_errorPrecio.Visibility = Visibility.Hidden;
+                if (ValidarCaracteresEspeciales(txb_precio.Text, "numeros") == true)
+                {
+                    lbl_errorPrecio.Content = "No se permiten caracteres especiales";
+                    lbl_errorPrecio.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl_errorPrecio.Content = "No se permite ingresar letras";
+                lbl_errorPrecio.Visibility = Visibility.Visible;
+            }
+        }
+
+        public void ValidaCod(TextBox txb_usuario, Label lbl_error)
+        {
+            String cod = txb_codProd.Text;
+            if (v_Model.ValidarCodProductos(cod) == true)
+            {
+                lbl_error.Content = "Este código ya existe";
+                lbl_error.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbl_error.Visibility = Visibility.Hidden;
+            }
 
         }
     }//Fin de la clase
