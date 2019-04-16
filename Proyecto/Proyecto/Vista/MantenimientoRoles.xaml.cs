@@ -24,27 +24,32 @@ namespace Proyecto
     {
         EntidadRoles v_ER = new EntidadRoles();
         Model v_Model = new Model();
-        bool v_Actividad_btnModificar = false;
-        bool v_Actividad_btnAgregar = true;
+        
+        String v_EstadoSistema = "";
 
         public MantenimientoRoles()
         {
+           
             InitializeComponent();
-            llenardtg();
             //Formato para la hora
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+
+            cmb_tipoBusqueda.SelectedIndex = 2;
+            dtg_lista.ItemsSource = v_Model.MostrarListaRoles("LISTAROLES").DefaultView;
+            //dtg_roles.ItemsSource = v_Model.MostrarListaRoles("LISTAROLES").DefaultView;
         }
 
         public void llenardtg()
         {
 
-            dtg_lista.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
-          
+            dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
+            
         }
 
+        
        
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -106,7 +111,7 @@ namespace Proyecto
         private void btn_listar_roles_Click(object sender, RoutedEventArgs e)
         {
                    
-                        dtg_lista.ItemsSource = v_Model.MostrarListaRoles().DefaultView;
+                        dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
                         dtg_lista.Columns[0].Header = "Nombre";
                         dtg_lista.Columns[1].Header = "Mantenimiento Clientes";
                         dtg_lista.Columns[2].Header = "Mantenimiento Proveedores";
@@ -232,7 +237,7 @@ namespace Proyecto
 
             HabilitarComponentes();
             lbl_actividad2.Content = "Modificar Rol";
-            v_Actividad_btnModificar = true;
+            
             
             
         }
@@ -440,6 +445,7 @@ namespace Proyecto
                         lbl_errorCB.Visibility = Visibility.Collapsed;
                         GridAgregar.Visibility = Visibility.Collapsed;
                         GridBuscar.Visibility = Visibility.Visible;
+                        txb_busqueda_rol.Text = "";
                     }
                 }
                 
@@ -473,7 +479,7 @@ namespace Proyecto
             checkbox_mant_clientes.IsChecked = false;
             checkbox_mant_roles.IsChecked = false;
             checkbox_mant_usuarios.IsChecked = false;
-            rb_activo.IsChecked = false;
+            rb_activo.IsChecked = true;
             rb_inactivo.IsChecked = false;
             txb_nomrol.Text = "";
             lbl_error.Content = "";
@@ -483,8 +489,28 @@ namespace Proyecto
             lbl_errorCB.Visibility = Visibility.Collapsed;
             lbl_errorRB.Visibility = Visibility.Collapsed;
         }
-       
-      
+
+        private void cmb_tipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmb_tipoBusqueda.SelectedValue == rolesActivos)
+            {
+                v_EstadoSistema = "ACTIVO";
+                llenardtg();
+                
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == rolesInactivos)
+            {
+                v_EstadoSistema = "INACTIVO";
+                llenardtg();
+                
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == listaroles)
+            {
+                v_EstadoSistema = "LISTAROLES";
+                llenardtg();
+                
+            }
+        }
 
         private void btn_modificar_roles_Click(object sender, RoutedEventArgs e)
         {/*
@@ -498,8 +524,19 @@ namespace Proyecto
             else
             {*/
 
+
+            ValidarComponentes();
+
+            if (lbl_error.Visibility == Visibility.Visible || lbl_errorCB.Visibility == Visibility.Visible || lbl_errorRB.Visibility == Visibility.Visible)
+            {
+                MessageBox.Show("No se puede agregar un rol nuevo \nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
                 try
                 {
+
+
                     v_ER.v_Nombre = txb_nomrol.Text;
                     if (checkbox_mant_clientes.IsChecked == false)
                     {
@@ -565,8 +602,8 @@ namespace Proyecto
                     {
                         v_ER.v_Estado = "ACTIVO";
                     }
-                    
-                     if (v_Model.ModificarRoles(v_ER) == -1)
+
+                    if (v_Model.ModificarRoles(v_ER) == -1)
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         GridBuscar.Visibility = Visibility.Visible;
@@ -574,7 +611,7 @@ namespace Proyecto
                         btn_agregar.Visibility = Visibility.Visible;
                         btn_modificar_roles.Visibility = Visibility.Collapsed;
                         limpiar();
-                        //MOSTRAR ROLES EXISTENTES
+                        txb_busqueda_rol.Text = "";
                     }
                 }
                 catch (Exception m)
@@ -582,6 +619,7 @@ namespace Proyecto
                     Console.WriteLine(m.ToString());
                     MessageBox.Show("Error al modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
             
         }
         
@@ -614,7 +652,6 @@ namespace Proyecto
                 dtg_roles.Columns[9].Header = "Bitácora";
 
                 //Proveedores existentes
-                v_Actividad_btnAgregar = false;
                 btn_agregar.Visibility = Visibility.Collapsed;
                 //btn_modificar.Visibility = Visibility.Collapsed;
                 lbl_actividad.Content = "Roles existentes";
@@ -680,8 +717,10 @@ namespace Proyecto
             rb_inactivo.IsEnabled = true;
         }
 
-
-
+        private void Btn_limpiar_Click(object sender, RoutedEventArgs e)
+        {
+            limpiar();
+        }
     }//fin de la clase
 }//fin proyecto
 

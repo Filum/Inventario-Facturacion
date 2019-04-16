@@ -73,7 +73,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-
+                    
 
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -104,6 +104,12 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <TextBlock Text="Listar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="17,0,0,0" Width="36" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
+                    <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,38,338,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
+                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,39,144,0" VerticalAlignment="Top"  Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged">
+                        <ComboBoxItem x:Name="rolesActivos" Content="Roles Activos"/>
+                        <ComboBoxItem x:Name="rolesInactivos" Content="Roles Inactivos"/>
+                        <ComboBoxItem x:Name="listaroles" Content="Todos los Roles"/>
+                    </ComboBox>
                 </Grid>
 
             </TabItem>
@@ -129,17 +135,26 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Grid x:Name="GridAgregar" Visibility="Collapsed" Margin="0">
+                        
                         <StackPanel x:Name="panel_botones" Margin="20,0,20,20" VerticalAlignment="Bottom" Orientation="Horizontal" FlowDirection="RightToLeft">
+                            
                             <Button x:Name="btn_modificar_roles"  Visibility="Collapsed" Foreground="White" IsEnabled="True" Margin="10,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btn_modificar_roles_Click">
                                 <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                     <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </Button>
+                            
                             <Button x:Name="btn_agregar" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Click" Margin="10,0">
                                 <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                     <TextBlock Text="Agregar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="btn_limpiar" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0" Click="Btn_limpiar_Click">
+                                <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                    <TextBlock Text="Limpiar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>

@@ -106,9 +106,9 @@ namespace Logica
             return v_Data.MostrarListaClientes(fecha1,fecha2);
         }
 
-        public DataTable MostrarListaRoles()
+        public DataTable MostrarListaRoles(String v_EstadoSistema)
         {
-            return v_Data.MostarListaRoles();
+            return v_Data.MostarListaRoles(v_EstadoSistema);
         }
 
         public List<EntidadRoles> RolesExistentes()

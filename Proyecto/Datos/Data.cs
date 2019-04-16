@@ -313,13 +313,24 @@ namespace Datos
 
         /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
          Además, en caso de encontrar proveedores estos serán retornados mediante una tabla*/
-        public DataTable MostarListaRoles()
+        public DataTable MostarListaRoles(String v_EstadoSistema)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles";
+
+            if (v_EstadoSistema == "LISTAROLES")
+            {
+                comando.CommandText = "select nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora,estadosistema from tbl_Roles";
+            }
+            else
+            {
+                comando.CommandText = "select nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora,estadosistema from tbl_Roles WHERE estadosistema  = '" + v_EstadoSistema + "'";
+            }
+
+
+            
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
