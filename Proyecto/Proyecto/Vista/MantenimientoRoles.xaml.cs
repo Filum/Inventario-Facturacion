@@ -120,8 +120,9 @@ namespace Proyecto
                         dtg_lista.Columns[5].Header = "Mantenimiento Roles";
                         dtg_lista.Columns[6].Header = "Facturación";
                         dtg_lista.Columns[7].Header = "Bitácora";
-                    
-             
+                        dtg_lista.Columns[8].Header = "Estado en el Sistema";
+
+
         }
 
         //Botón de ayuda 
@@ -206,25 +207,29 @@ namespace Proyecto
             {
                 rb_inactivo.IsChecked = true;
             }
+
+
+
+
             if((dtg_roles.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text == "✓")
             {
                 checkbox_mant_clientes.IsChecked = true;
             }
             if ((dtg_roles.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text == "✓")
             {
-                checkbox_mant_productos.IsChecked = true;
+                checkbox_mant_proveedores.IsChecked = true;
             }
             if ((dtg_roles.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text == "✓")
             {
-                checkbox_mant_proveedores.IsChecked = true;
+                checkbox_mant_productos.IsChecked = true;
             }
             if ((dtg_roles.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text == "✓")
             {
-                checkbox_mant_roles.IsChecked = true;
+                checkbox_mant_usuarios.IsChecked=true;
             }
             if ((dtg_roles.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text == "✓")
             {
-                checkbox_mant_usuarios.IsChecked=true;
+                checkbox_mant_roles.IsChecked = true;
             }
             if ((dtg_roles.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text == "✓")
             {
@@ -495,19 +500,19 @@ namespace Proyecto
             if (cmb_tipoBusqueda.SelectedValue == rolesActivos)
             {
                 v_EstadoSistema = "ACTIVO";
-                llenardtg();
+                
                 
             }
             else if (cmb_tipoBusqueda.SelectedValue == rolesInactivos)
             {
                 v_EstadoSistema = "INACTIVO";
-                llenardtg();
+                
                 
             }
             else if (cmb_tipoBusqueda.SelectedValue == listaroles)
             {
                 v_EstadoSistema = "LISTAROLES";
-                llenardtg();
+                
                 
             }
         }
@@ -653,8 +658,6 @@ namespace Proyecto
 
                 //Proveedores existentes
                 btn_agregar.Visibility = Visibility.Collapsed;
-                //btn_modificar.Visibility = Visibility.Collapsed;
-                lbl_actividad.Content = "Roles existentes";
                 lbl_actividad.Visibility = Visibility.Visible;
             }
         }

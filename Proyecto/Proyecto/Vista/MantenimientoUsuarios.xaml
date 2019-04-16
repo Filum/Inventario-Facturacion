@@ -111,8 +111,8 @@
                         </StackPanel>
                     </Button>
                     <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,38,338,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,39,144,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged">
-                        <ComboBoxItem x:Name="usuariosActivos" Content="Usuarios Activos"/>
+                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,39,144,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged" VerticalContentAlignment="Center">
+                        <ComboBoxItem x:Name="usuariosActivos" Content="Usuarios Activos" FontSize="14"/>
                         <ComboBoxItem x:Name="usuariosInactivos" Content="Usuarios Inactivos"/>
                         <ComboBoxItem x:Name="listaUsuarios" Content="Todos los Usuarios"/>
                     </ComboBox>
