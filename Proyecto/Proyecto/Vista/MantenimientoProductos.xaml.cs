@@ -285,7 +285,7 @@ namespace Proyecto
                 catch (Exception m)
                 {
                     Console.WriteLine(m.ToString());
-                    MessageBox.Show("Error al modificar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Error al agregar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
             }
@@ -308,14 +308,15 @@ namespace Proyecto
                     v_Clt.v_CodigoProducto = txb_codProd.Text;
                     v_Clt.v_NombreProducto = txb_nombre.Text;
                     v_Clt.v_MarcaProducto = txb_marca.Text;
+                    long v_NuevaCantidad;
                     if (rb_aumentar.IsChecked == true) {
-                        long nuevaCantidad = Convert.ToInt64(txb_cantActual.Text) + Convert.ToInt64(txb_cantModificar.Text);
-                        v_Clt.v_CantidadExistencia = nuevaCantidad;
+                        v_NuevaCantidad = Convert.ToInt64(txb_cantActual.Text) + Convert.ToInt64(txb_cantModificar.Text);
+                        v_Clt.v_CantidadExistencia = v_NuevaCantidad;
                     }
                     if (rb_disminuir.IsChecked == true)
                     {
-                        long nuevaCantidad = Convert.ToInt64(txb_cantActual.Text) - Convert.ToInt64(txb_cantModificar.Text);
-                        v_Clt.v_CantidadExistencia = nuevaCantidad;
+                        v_NuevaCantidad = Convert.ToInt64(txb_cantActual.Text) - Convert.ToInt64(txb_cantModificar.Text);
+                        v_Clt.v_CantidadExistencia = v_NuevaCantidad;
                     }
                    // v_Clt.v_CantidadExistencia = Convert.ToInt64(txb_cantActual.Text);
                     v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
