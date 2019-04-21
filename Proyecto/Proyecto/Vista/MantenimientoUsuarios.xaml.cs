@@ -29,7 +29,7 @@ namespace Proyecto
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
         String v_EstadoSistema = "";
-
+        public string nombreUsuario;
         public MantenimientoUsuarios()
         {
             InitializeComponent();
