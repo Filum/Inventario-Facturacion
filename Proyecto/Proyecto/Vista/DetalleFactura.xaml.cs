@@ -1,4 +1,5 @@
-﻿using Logica;
+﻿using Entidades;
+using Logica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,53 @@ namespace Proyecto.Vista
             DateTime dia = DateTime.Now;
             pagoFactura.Content = dia.ToShortDateString();
             btn_pagar_Factura.Visibility = Visibility.Hidden;
+        }
+
+        private void Btn_imprimir_Click(object sender, RoutedEventArgs e)
+        {
+            string tipoFactura = datos.tipoFactura(txt_codigo.Content.ToString());
+            EntidadFacturas miFactura = new EntidadFacturas();
+            EntidadDetalleFactura miDetalle = new EntidadDetalleFactura();
+            Imprimir imprimir = new Imprimir();
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            DateTime fecha = DateTime.Parse(txt_fecha.Content.ToString());
+            EntidadClientes micliente = new EntidadClientes();
+            micliente = datos.id_Cliente(nombreCliente.Content.ToString());
+            miFactura.v_Cliente = micliente.v_Codigo.ToString();
+            miFactura.v_Codigo = int.Parse(txt_codigo.Content.ToString());
+            miFactura.v_Usuario = "";
+
+            miFactura.v_Total = totalGeneralFactura.Content.ToString();
+            miFactura.v_Descuento = descuentoFactura.Content.ToString();
+            if (tipoFactura == "Productos")
+            {
+            }
+            miFactura.v_Moneda = txt_moneda.Content.ToString();
+            miFactura.v_Impuesto = impuestoFactura.Content.ToString();
+            miFactura.v_tipoFactura = "Productos";
+            miFactura.v_Subtotal = subtoalFactura.Content.ToString();
+            miFactura.v_SubtotalNeto = subtotalNetoFactura.Content.ToString();
+            miFactura.v_tipoPago = tipoPago.Content.ToString();
+            if (dias.Content != null)
+                miFactura.v_diasCredito = dias.Content.ToString();
+            else
+                miFactura.v_diasCredito = "";
+
+            miFactura.v_estadoFactura = EstadoFactura.Content.ToString();
+            if (fechaVence.Content != null)
+                miFactura.v_fechaPago = fechaVence.Content.ToString();
+            else
+                miFactura.v_fechaPago = "";
+
+            if (pagoFactura.Content != null)
+                miFactura.v_fechaCancelacion = pagoFactura.Content.ToString();
+            else
+                miFactura.v_fechaCancelacion = "";
+            miFactura.v_tipoCambio = tipoCambio.Content.ToString();
+
+            miDetalle.cantidad = Cantidad.Content.ToString();
+            miDetalle.precioProducto = Precio.Content.ToString();
+            imprimir.imprimirFactura(dtg_listar_detalle_facturas, miFactura, fecha, micliente,"",miDetalle);
         }
     }
 }

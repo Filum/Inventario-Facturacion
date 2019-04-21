@@ -273,6 +273,14 @@ namespace Logica
         {
             return v_Data.VerificarNombre(nombre);
         }
+        public string tipoFactura(string codigo)
+        {
+            return v_Data.tipoFactura(codigo);
+        }
+        public string Descripcion_servicio(string codigo)
+        {
+            return v_Data.Descripcion_servicio(codigo);
+        }
 
 
         }

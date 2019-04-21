@@ -61,7 +61,7 @@
         <Label Content="delram@delramtech.com             310390765  " HorizontalAlignment="Left" Margin="40,101,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="361" Height="30" VerticalAlignment="Top"/>
         <Label Content="Cliente:" HorizontalAlignment="Left" Margin="40,131,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="70" Height="30" VerticalAlignment="Top"/>
         <Label x:Name="idCLiente" Content="idCliente:" HorizontalAlignment="Left" Margin="117,131,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="89" Height="30" VerticalAlignment="Top"/>
-        <Label Content="Cedula:" HorizontalAlignment="Left" Margin="558,131,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="70" Height="30" VerticalAlignment="Top"/>
+        <Label Content="Cédula:" HorizontalAlignment="Left" Margin="558,131,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="70" Height="30" VerticalAlignment="Top"/>
         <Label x:Name="cedulaCliente" Content="cedulaCliente:" HorizontalAlignment="Left" Margin="697,131,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="267" Height="30" VerticalAlignment="Top"/>
         <Label x:Name="nombreCliente" Content="nombre:" HorizontalAlignment="Left" Margin="117,166,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="847" Height="30" VerticalAlignment="Top"/>
         <Label x:Name="representanteCliente" Content="representante:" HorizontalAlignment="Left" Margin="117,201,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="847" Height="30" VerticalAlignment="Top"/>
@@ -73,7 +73,7 @@
         <Label Content="Correo:" HorizontalAlignment="Left" Margin="40,296,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="87" Height="30" VerticalAlignment="Top"/>
         <Label x:Name="correCliente" Content="correo:" HorizontalAlignment="Left" Margin="117,296,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="847" Height="30" VerticalAlignment="Top"/>
         <Border BorderBrush="#FFF7F4F4" BorderThickness="1" HorizontalAlignment="Left" Height="195" Margin="40,131,0,0" VerticalAlignment="Top" Width="1038"/>
-        <Label Content="Codigo Factura:" Margin="0,19,221.8,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="104"/>
+        <Label Content="Número Factura:" Margin="0,19,221.8,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="104"/>
         <Label x:Name="subtoalFactura" Content="#" Margin="0,0,51.8,246.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="183" Height="30" VerticalAlignment="Bottom"/>
         <Label Content="Subtotal:" Margin="0,0,243.8,243.2" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="126" Height="30" VerticalAlignment="Bottom"/>
         <Label x:Name="descuentoFactura" Content="#" Margin="0,0,51.8,216.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="183" Height="30" VerticalAlignment="Bottom"/>
@@ -138,6 +138,14 @@
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="235,0,0,187.2" VerticalAlignment="Bottom" Width="195"/>
         <Border x:Name="br_pago2" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="235,0,0,157.2" VerticalAlignment="Bottom" Width="195"/>
         <Border x:Name="br_contado" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="235,0,0,217.2" VerticalAlignment="Bottom" Width="195"/>
+        <Button x:Name="btn_imprimir" Width="87" Foreground="White" Margin="185,0,0,51.2" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Height="82" VerticalAlignment="Bottom" Click="Btn_imprimir_Click"  >
+            <StackPanel Width="71" Height="93" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,5,15.2,5"/>
+                <TextBlock  Height="28" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="   Imprimir "/></TextBlock>
+            </StackPanel>
+        </Button>
+        <Label Content="Factura en:  " Margin="0,296,247.8,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="79"/>
+        <Label x:Name="txt_moneda" Content="Moneda:" HorizontalAlignment="Right" Margin="0,296,59.8,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="183" Height="30" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

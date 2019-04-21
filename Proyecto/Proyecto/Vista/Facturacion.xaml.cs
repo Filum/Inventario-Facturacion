@@ -324,7 +324,7 @@ namespace Proyecto
                 ventana.Cantidad.Content = detalleServicio[1];
                 ventana.Precio.Content = detalleServicio[2];
             }
-
+            ventana.txt_moneda.Content = detalle[22];
             ventana.Show();
             dtg_listar_facturas.ItemsSource = null;
             cmb_estado_Factura.SelectedItem = null;
@@ -991,10 +991,9 @@ namespace Proyecto
                         if (v_Resultado == -1)
                         {
                             GuardarDetalleFactura();
-                            MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                            
                             Imprimir imprimir = new Imprimir();
-                            imprimir.imprimirFacturaProducto(dtg_facturar_productos_prueba, miFactura, DateTime.Now, micliente);
+                            imprimir.imprimirFactura(dtg_facturar_productos_prueba, miFactura, DateTime.Now, micliente,miFactura.v_Moneda, miDetalle);
 
                             limpiar_Facturaprodutcos();
                         }
@@ -1372,10 +1371,8 @@ namespace Proyecto
                             int v_ResultadoD = datos.AgregarDetalle(miDetalle);
                             if (v_Resultado == -1)
                             {
-                                MessageBox.Show("Factura ingresada correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                                //Imprimir imprimir = new Imprimir();
-                                //imprimir.imprimirFacturaServicio()
+                                Imprimir imprimir = new Imprimir();
+                                imprimir.imprimirFactura(dtg_facturar_productos_prueba, miFactura, DateTime.Now, micliente, miFactura.v_Moneda,miDetalle);
 
                                 LimpiarServicio();
                             }else

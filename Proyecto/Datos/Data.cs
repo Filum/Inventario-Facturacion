@@ -853,7 +853,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_FACTURAS.SUBTOTAL,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.SUBTOTALNETO,TBL_FACTURAS.IMPUESTO,TBL_FACTURAS.TOTAL,TBL_FACTURAS.TIPOPAGO,TBL_FACTURAS.DIASCREDITO,TBL_FACTURAS.ESTADOFACTURA,TBL_FACTURAS.FECHAPAGO,TBL_CLIENTES.PK_IDCLIENTE,TBL_CLIENTES.CEDULA,TBL_CLIENTES.NOMBRE,TBL_CLIENTES.REPRESENTANTE,TBL_CLIENTES.DIRECCION,TBL_CLIENTES.TELEFONOMOVIL,TBL_CLIENTES.TELEFONOOFICINA,TBL_CLIENTES.CORREO,TBL_FACTURAS.FECHACANCELACION,TBL_FACTURAS.TIPOCAMBIO FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO=TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE=TBL_CLIENTES.PK_IDCLIENTE WHERE TBL_FACTURAS.PK_CODIGOFACTURA = '" + codigoFactura + "'";
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_FACTURAS.SUBTOTAL,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.SUBTOTALNETO,TBL_FACTURAS.IMPUESTO,TBL_FACTURAS.TOTAL,TBL_FACTURAS.TIPOPAGO,TBL_FACTURAS.DIASCREDITO,TBL_FACTURAS.ESTADOFACTURA,TBL_FACTURAS.FECHAPAGO,TBL_CLIENTES.PK_IDCLIENTE,TBL_CLIENTES.CEDULA,TBL_CLIENTES.NOMBRE,TBL_CLIENTES.REPRESENTANTE,TBL_CLIENTES.DIRECCION,TBL_CLIENTES.TELEFONOMOVIL,TBL_CLIENTES.TELEFONOOFICINA,TBL_CLIENTES.CORREO,TBL_FACTURAS.FECHACANCELACION,TBL_FACTURAS.TIPOCAMBIO,TBL_FACTURAS.MONEDA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO=TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE=TBL_CLIENTES.PK_IDCLIENTE WHERE TBL_FACTURAS.PK_CODIGOFACTURA = '" + codigoFactura + "'";
             OracleDataReader dr = comando.ExecuteReader();
             var Lista = new List<string>();
 
@@ -882,6 +882,7 @@ namespace Datos
                 Lista.Add(dr.GetString(19));
                 Lista.Add(dr.GetDateTime(20).ToShortDateString());
                 Lista.Add(dr.GetString(21));
+                Lista.Add(dr.GetString(22));
             }
             conn.Close();
             return Lista;
@@ -986,6 +987,40 @@ namespace Datos
             while (dr.Read())
             {
                 valor = Convert.ToInt64(dr.GetValue(0));
+            }
+            conn.Close();
+            return valor;
+        }
+        public string tipoFactura(string codigo)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select tbl_facturas.tipofactura from tbl_facturas where pk_codigofactura = '"+codigo+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            string valor = "";
+            while (dr.Read())
+            {
+                valor = dr.GetString(0);
+            }
+            conn.Close();
+            return valor;
+        }
+        public string Descripcion_servicio(string codigo)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select tbl_detalles.DESCRIPCION_SERVICIO from TBL_DETALLES where FK_IDFACTURA = '" + codigo + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            string valor = "";
+            while (dr.Read())
+            {
+                valor = dr.GetString(0);
             }
             conn.Close();
             return valor;
