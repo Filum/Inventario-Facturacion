@@ -68,6 +68,31 @@ namespace Datos
             return v_Resultado;
         }
 
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo usuario.
+        Si se modifica correctamente retorna un "-1" */
+        public int AgregarUsuarios(EntidadUsuarios clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("ADD_USUARIOS", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("NUMCED", clt.v_CedIdentificacion));
+            comando.Parameters.Add(new OracleParameter("NOM", clt.v_NombreUsuario));
+            comando.Parameters.Add(new OracleParameter("APE", clt.v_Apellidos));
+            comando.Parameters.Add(new OracleParameter("TEL", clt.v_Telefono));
+            comando.Parameters.Add(new OracleParameter("TELOPC", clt.v_TelefonoOpcional));
+            comando.Parameters.Add(new OracleParameter("CORR", clt.v_Correo));
+            comando.Parameters.Add(new OracleParameter("PUES", clt.v_Puesto));
+            comando.Parameters.Add(new OracleParameter("ID_ROL", clt.v_IdRol));
+            comando.Parameters.Add(new OracleParameter("USUA", clt.v_UsuarioSistema));
+            comando.Parameters.Add(new OracleParameter("CONTRA", clt.v_Contrasena));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
+
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
         /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo rol.
         Si se modifica correctamente retorna un "-1" */
         public int AgregarRoles(EntidadRoles clt)
@@ -104,6 +129,32 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("V_DESCUENTO", fact.v_Descuento));
             comando.Parameters.Add(new OracleParameter("V_MONEDA", fact.v_Moneda));
             comando.Parameters.Add(new OracleParameter("V_IMP", fact.v_Impuesto));
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo producto.
+       Si se modifica correctamente retorna un "-1" */
+        public int AgregarProductos(EntidadProductos clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("add_Productos", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("COD_PRO", clt.v_CodigoProducto));
+            comando.Parameters.Add(new OracleParameter("NOM_PRODUCTO", clt.v_NombreProducto));
+            comando.Parameters.Add(new OracleParameter("MARCA", clt.v_MarcaProducto));
+            comando.Parameters.Add(new OracleParameter("CANT_EXI", clt.v_CantidadExistencia));
+            comando.Parameters.Add(new OracleParameter("CANT_MIN", clt.v_CantidadMinima));
+            comando.Parameters.Add(new OracleParameter("ID_PROVEEDOR", clt.v_IdProveedor));
+            comando.Parameters.Add(new OracleParameter("PRECIO", clt.v_PrecioUnitario));
+            comando.Parameters.Add(new OracleParameter("DESCRIP", clt.v_Descripcion));
+            comando.Parameters.Add(new OracleParameter("FABRI", clt.v_Fabricante));
+            comando.Parameters.Add(new OracleParameter("ESTPRO", clt.v_EstadoProducto));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
+
+
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -151,6 +202,31 @@ namespace Datos
             return v_Resultado;
         }
 
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un nuevo proveedor.
+        Si se modifica correctamente retorna un "-1" */
+        public int ModificarUsuarios(EntidadUsuarios clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("act_Usuarios", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("IDUSUARIO", clt.v_IdUsuario));
+            comando.Parameters.Add(new OracleParameter("NUMCED", clt.v_CedIdentificacion));
+            comando.Parameters.Add(new OracleParameter("NOM", clt.v_NombreUsuario));
+            comando.Parameters.Add(new OracleParameter("APE", clt.v_Apellidos));
+            comando.Parameters.Add(new OracleParameter("TEL", clt.v_Telefono));
+            comando.Parameters.Add(new OracleParameter("TELOPC", clt.v_TelefonoOpcional));
+            comando.Parameters.Add(new OracleParameter("CORR", clt.v_Correo));
+            comando.Parameters.Add(new OracleParameter("PUES", clt.v_Puesto));
+            comando.Parameters.Add(new OracleParameter("ID_ROL", clt.v_IdRol));
+            comando.Parameters.Add(new OracleParameter("USUA", clt.v_UsuarioSistema));
+            comando.Parameters.Add(new OracleParameter("CONTRA", clt.v_Contrasena));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
+
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
 
         /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un rol.
        Si se modifica correctamente retorna un "-1" */
@@ -175,6 +251,32 @@ namespace Datos
             return v_Resultado;
         }
 
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite modificar un producto.
+      Si se modifica correctamente retorna un "-1" */
+        public int ModificarProductos(EntidadProductos clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("act_Productos", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("IDPRO", clt.v_IdProducto));
+            comando.Parameters.Add(new OracleParameter("COD_PRO", clt.v_CodigoProducto));
+            comando.Parameters.Add(new OracleParameter("NOM_PRODUCTO", clt.v_NombreProducto));
+            comando.Parameters.Add(new OracleParameter("MARCA", clt.v_MarcaProducto));
+            comando.Parameters.Add(new OracleParameter("CANT_EXI", clt.v_CantidadExistencia));
+            comando.Parameters.Add(new OracleParameter("CANT_MIN", clt.v_CantidadMinima));
+            comando.Parameters.Add(new OracleParameter("ID_PROVEEDOR", clt.v_IdProveedor));
+            comando.Parameters.Add(new OracleParameter("PRECIO", clt.v_PrecioUnitario));
+            comando.Parameters.Add(new OracleParameter("DESCR", clt.v_Descripcion));
+            comando.Parameters.Add(new OracleParameter("FABRI", clt.v_Fabricante));
+            comando.Parameters.Add(new OracleParameter("ESTPRO", clt.v_EstadoProducto));
+            comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
+
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
         //--------------------- M O S T R A R ----------------------------- 
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
@@ -192,21 +294,46 @@ namespace Datos
             return tabla;
         }
 
-        /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
-          Además, recibe un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta. En caso de encontrar proveedores estos serán retornados mediante una tabla*/
-        public DataTable MostarListaProveedores(String v_Fecha1, String v_Fecha2, String v_EstadoSistema)
-        {
+        /*Este método recibe un estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) para realizar la consulta. 
+         * En caso de encontrar proveedores estos serán retornados mediante una tabla*/
+        public DataTable MostarListaProveedores(String v_EstadoSistema)
+        {  
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
             if (v_EstadoSistema == "LISTAPROVEEDORES")
             {
-                comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
+                comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores";
             }
             else
             {
-                comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha,estadoSistema from tbl_Proveedores where trunc(fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "' AND estadoSistema = '" + v_EstadoSistema + "'";
+                comando.CommandText = "select cedulaJuridica,nombre,correo,correoOpcional,telefono,telefonoOpcional,descripcion,fecha,estadoSistema from tbl_Proveedores where estadoSistema = '" + v_EstadoSistema + "'";
+            }
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
+        /*Este métodorecibe un estado en el sistema(ACTIVO, INACTIVO, LISTAUSUARIOS) para realizar la consulta. 
+         * En caso de encontrar usuarios estos serán retornados mediante una tabla*/
+        public DataTable MostarListaUsuarios(String v_EstadoSistema)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            if (v_EstadoSistema == "LISTAUSUARIOS")
+            {
+                comando.CommandText = "select USU.CEDULAIDENTIFICACION,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA from tbl_Usuarios USU INNER JOIN tbl_Roles ROL ON(ROL.PK_IDROL = USU.FK_IDROL)";
+            }
+            else
+            {
+                comando.CommandText = "select USU.CEDULAIDENTIFICACION,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA from tbl_Usuarios USU INNER JOIN tbl_Roles ROL ON(ROL.PK_IDROL = USU.FK_IDROL) WHERE USU.ESTADOSISTEMA = '" + v_EstadoSistema + "'";
             }
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
@@ -219,14 +346,47 @@ namespace Datos
 
         /*Este método recibe un rango de fechas por parámetros para consultarlo con la base de datos y obtener los proveedores ingresados en este rango.
          Además, en caso de encontrar proveedores estos serán retornados mediante una tabla*/
-        public DataTable MostarListaRoles()
+        public DataTable MostarListaRoles(String v_EstadoSistema)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles";
 
+            if (v_EstadoSistema == "LISTAROLES")
+            {
+                comando.CommandText = "select nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora,estadosistema from tbl_Roles";
+            }
+            else
+            {
+                comando.CommandText = "select nombre,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora,estadosistema from tbl_Roles WHERE estadosistema  = '" + v_EstadoSistema + "'";
+            }
+
+
+            
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
+        public DataTable MostarListaProductos(String v_EstadoSistema)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            if (v_EstadoSistema == "LISTAPRODUCTOS")
+            {
+                comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.ESTADOSISTEMA from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR)";
+            }
+            else
+            {
+                comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.ESTADOSISTEMA from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) where prod.estadosistema='" + v_EstadoSistema + "'";
+            }
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
             DataTable tabla = new DataTable();
@@ -300,6 +460,69 @@ namespace Datos
             return Lista;
         }
 
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del usuario mediante el nombre o número de cédula.
+         Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/
+        public List<EntidadUsuarios> ValidarBusquedaUsuarios(String v_busqueda)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select USU.PK_IDUSUARIO,USU.CEDULAIDENTIFICACION,USU.NOMBREUSUARIO,USU.APELLIDOS,USU.TELEFONO,USU.TELEFONOOPCIONAL,USU.CORREO,USU.PUESTO,USU.FK_IDROL,ROL.NOMBRE,USU.USUARIOSISTEMA,USU.CONTRASENA,USU.FECHA,USU.ESTADOSISTEMA " +
+                "from TBL_USUARIOS USU INNER JOIN TBL_ROLES ROL ON(ROL.PK_IDROL = USU.FK_IDROL)" +
+                "WHERE translate(UPPER(NOMBREUSUARIO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')" +
+                "OR translate(UPPER(APELLIDOS),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')" +
+                "OR translate(UPPER(CEDULAIDENTIFICACION),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadUsuarios> Lista = new List<EntidadUsuarios>();
+
+            if (v_busqueda != "")
+            {
+                while (dr.Read())
+                {
+                    EntidadUsuarios usuario = new EntidadUsuarios();
+                    usuario.v_IdUsuario = dr.GetInt64(0);
+                    usuario.v_CedIdentificacion = Convert.ToInt64(dr.GetValue(1));
+                    usuario.v_NombreUsuario = dr.GetString(2);
+                    usuario.v_Apellidos = dr.GetString(3);
+                    usuario.v_Telefono = Convert.ToInt64(dr.GetValue(4));
+                    usuario.v_TelefonoOpcional = Convert.ToInt64(dr.GetValue(5));
+                    usuario.v_Correo = dr.GetString(6);
+                    usuario.v_Puesto = dr.GetString(7);
+                    usuario.v_IdRol = Convert.ToInt64(dr.GetValue(8));
+                    usuario.v_NombreRol = dr.GetString(9);
+                    usuario.v_UsuarioSistema = dr.GetString(10);
+                    usuario.v_Contrasena = dr.GetString(11);
+                    usuario.v_Fecha = Convert.ToDateTime(dr.GetValue(12));
+                    usuario.v_EstadoSistema = dr.GetString(13);
+                    Lista.Add(usuario);
+                }
+            }
+            conn.Close();
+            return Lista;
+        }
+
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia de la cédula de identificación.
+         Además, en caso de encontrar dicho número de cédula retornara un true, en caso contrario retornara un false*/
+        public bool ValidarNumCedUsuarios(String v_NumCed)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT CEDULAIDENTIFICACION FROM TBL_USUARIOS WHERE CEDULAIDENTIFICACION = " + v_NumCed;
+            OracleDataReader dr = comando.ExecuteReader();
+
+            if (v_NumCed != "")
+            {
+                while (dr.Read())
+                {
+                    return true;
+                }
+            }
+            conn.Close();
+            return false;
+        }
 
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del rol mediante el nombre 
          Además, en caso de encontrar proveedores estos serán retornados mediante una lista*/
@@ -309,7 +532,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT * FROM TBL_ROLES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
+            comando.CommandText = "SELECT pk_idrol,nombre,estadosistema,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora from tbl_Roles WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadRoles> Lista = new List<EntidadRoles>();
 
@@ -319,8 +542,8 @@ namespace Datos
                 {
                     EntidadRoles rol = new EntidadRoles();
                     rol.v_IdRol = dr.GetInt64(0);
-                    rol.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
-                    rol.v_Nombre = dr.GetString(2);
+                    rol.v_Nombre = dr.GetString(1);
+                    rol.v_Estado = dr.GetString(2);
                     rol.v_Mantenimiento_Clientes = dr.GetString(3);
                     rol.v_Mantenimiento_Proveedores = dr.GetString(4);
                     rol.v_Mantenimiento_Productos = dr.GetString(5);
@@ -328,9 +551,30 @@ namespace Datos
                     rol.v_Mantenimiento_Roles = dr.GetString(7);
                     rol.v_facturacion = dr.GetString(8);
                     rol.v_bitacora= dr.GetString(9);
-                    rol.v_Estado = dr.GetString(10);
                     Lista.Add(rol);
                 }
+            }
+            conn.Close();
+            return Lista;
+        }
+
+        public List<EntidadRoles> RolesExistentes()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT PK_IDROL, NOMBRE FROM TBL_ROLES";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadRoles> Lista = new List<EntidadRoles>();
+
+
+            while (dr.Read())
+            {
+                EntidadRoles rol = new EntidadRoles();
+                rol.v_IdRol = dr.GetInt64(0);
+                rol.v_Nombre = dr.GetString(1);
+                Lista.Add(rol);
             }
             conn.Close();
             return Lista;
@@ -344,7 +588,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estado,PROD.fecha " +
+            comando.CommandText = "select PROD.pk_idProducto,PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROD.fk_idProveedor,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.estadoSistema " +
                 "from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON (PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) WHERE translate(UPPER(NOMBREPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU') " +
                 "OR translate(UPPER(CODIGOPRODUCTO),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_busqueda + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
@@ -360,13 +604,15 @@ namespace Datos
                     producto.v_NombreProducto = dr.GetString(2);
                     producto.v_MarcaProducto = dr.GetString(3);
                     producto.v_CantidadExistencia = Convert.ToInt64(dr.GetValue(4));
-                    producto.v_CantidadMinima = Convert.ToInt32(dr.GetValue(5));
-                    producto.v_Fk_IdProveedor = dr.GetString(6);
-                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(7));
-                    producto.v_Descripcion = dr.GetString(8);
-                    producto.v_Fabricante = dr.GetString(9);
-                    producto.v_Estado = dr.GetString(10);
-                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(11));
+                    producto.v_CantidadMinima = Convert.ToInt64(dr.GetValue(5));
+                    producto.v_IdProveedor = Convert.ToInt64(dr.GetValue(6));
+                    producto.v_NombreProveedor = dr.GetString(7);
+                    producto.v_PrecioUnitario = Convert.ToInt64(dr.GetValue(8));
+                    producto.v_Descripcion = dr.GetString(9);
+                    producto.v_Fabricante = dr.GetString(10);
+                    producto.v_EstadoProducto = dr.GetString(11);
+                    producto.v_Fecha = Convert.ToDateTime(dr.GetValue(12));
+                    producto.v_EstadoSistema = dr.GetString(13);
                     Lista.Add(producto);
                 }
             }
@@ -422,19 +668,29 @@ namespace Datos
             return false;
         }
 
-        public DataTable MostarListaProductos(String v_Fecha1, String v_Fecha2)
+        /*Recibe como referencia una entidad usuario que contiene el id y la cédula del usuario con el fin de validar si la
+        cédula está asociada a dicho id.
+        Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
+        usuario ingresa o deja la misma cédula que tenia,no le de error*/
+        public Boolean ValidarModificacionUsuario(EntidadUsuarios clt)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estado,PROD.fecha from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR) where trunc(PROD.fecha) BETWEEN '" + v_Fecha1 + "' AND '" + v_Fecha2 + "'";
-            OracleDataAdapter adaptador = new OracleDataAdapter();
-            adaptador.SelectCommand = comando;
-            DataTable tabla = new DataTable();
-            adaptador.Fill(tabla);
+            comando.CommandText = "SELECT PK_IDUSUARIO,CEDULAIDENTIFICACION from TBL_USUARIOS where PK_IDUSUARIO = " + clt.v_IdUsuario + " AND CEDULAIDENTIFICACION = " + clt.v_CedIdentificacion;
+
+            OracleDataReader dr = comando.ExecuteReader();
+
+            if (clt.v_IdUsuario != 0 && clt.v_CedIdentificacion != 0)
+            {
+                while (dr.Read())
+                {
+                    return true;
+                }
+            }
             conn.Close();
-            return tabla;
+            return false;
         }
 
 
@@ -456,6 +712,45 @@ namespace Datos
                 proveedor.v_Nombre = dr.GetString(1);
                 Lista.Add(proveedor);
             }
+            conn.Close();
+            return Lista;
+        }
+
+        public DataTable CargarProveedores()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores";
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
+        /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del usuario mediante el nombre 
+        Además, en caso de encontrar el usuario este será retornado mediante una lista*/
+        public List<EntidadUsuarios> ValidarUsuario(String nombreUsuario)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select USUARIOSISTEMA,CONTRASENA,FK_IDROL from tbl_usuarios where  usuariosistema = '"+nombreUsuario+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+            List<EntidadUsuarios> Lista = new List<EntidadUsuarios>();
+
+                while (dr.Read())
+                {
+                    EntidadUsuarios usuario = new EntidadUsuarios();
+                    usuario.v_UsuarioSistema = dr.GetString(0);
+                    usuario.v_Contrasena = dr.GetString(1);
+                    usuario.v_IdRol = Convert.ToInt64(dr.GetValue(2));
+                    Lista.Add(usuario);
+                }
             conn.Close();
             return Lista;
         }
@@ -632,5 +927,50 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+        /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
+       cédula jurídica está asociada a dicho id.
+       Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
+       usuario ingresa o deja la misma cédula que tenia,no le de error*/
+        public Boolean ValidarModificacionProducto(EntidadProductos clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT PK_IDPRODUCTO,CODIGOPRODUCTO from TBL_PRODUCTOS where CODIGOPRODUCTO = '" + clt.v_CodigoProducto + "' AND PK_IDPRODUCTO = "+clt.v_IdProducto;
+
+            OracleDataReader dr = comando.ExecuteReader();
+
+            if (clt.v_IdProducto != 0 && clt.v_CodigoProducto != "")
+            {
+                while (dr.Read())
+                {
+                    return true;
+                }
+            }
+            conn.Close();
+            return false;
+        }
+
+        public bool ValidarCodProductos(String v_Codigo)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT CODIGOPRODUCTO FROM TBL_PRODUCTOS WHERE codigoProducto = '" + v_Codigo + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            if (v_Codigo != "")
+            {
+                while (dr.Read())
+                {
+                    return true;
+                }
+            }
+            conn.Close();
+            return false;
+        }
+
     }
 }

@@ -40,10 +40,11 @@ namespace Proyecto
             v_DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             v_DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             v_DispatcherTimer.Start();
-            OcultarFormulario();
+            MostrarProveedoresExistentes();
 
-            date_inicio.SelectedDate = DateTime.Now.Date;
-            date_final.SelectedDate = DateTime.Now.Date;
+            //Cargar proveedores existentes
+            cmb_tipoBusqueda.SelectedIndex = 2;
+            dtg_lista.ItemsSource = v_Model.MostrarListaProveedores("LISTAPROVEEDORES").DefaultView;
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -105,7 +106,6 @@ namespace Proyecto
         //Presenta formulario para agregar un nuevo proveedor y oculta el panel de búsqueda, esto en el tab de configuración de proveedores.
         private void btn_agregarProveedor_Click(object sender, RoutedEventArgs e)
         {
-            HabilitarComponentes();
             btn_limpiar_Click(sender, e);
             lbl_actividad.Content = "Agregar proveedor";
             ValidarRadioButton();
@@ -116,7 +116,7 @@ namespace Proyecto
         //Vuelve al panel de búsqueda en el tab de configuración de proveedores y oculta el formulario
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
-            OcultarFormulario();
+            MostrarProveedoresExistentes();
         }
 
         //Botón el cual permite agregar un nuevo proveedor, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
@@ -242,7 +242,7 @@ namespace Proyecto
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
-                        DeshabilitarComponentes();
+                        MostrarProveedoresExistentes();
                     }
                 }
                 catch (Exception m)
@@ -282,50 +282,31 @@ namespace Proyecto
             v_Actividad_btnAgregar = true;
         }
 
-        /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
-         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar.
-         Además, envía el estado en el sistema(ACTIVO, INACTIVO, LISTAPROVEEDORES) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
+        /*Botón el cual permite listar los proveedores existentes en el sistema según su estado, envía el estado en el 
+         * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
         private void btn_listar_Click(object sender, RoutedEventArgs e)
         {
-            if (date_inicio.SelectedDate != null && date_final.SelectedDate != null)
+            if (cmb_tipoBusqueda.SelectedItem == null)
             {
-                DateTime v_FechaInicio = DateTime.Parse(date_inicio.SelectedDate.Value.Date.ToShortDateString());
-                DateTime v_FechaFinal = DateTime.Parse(date_final.SelectedDate.Value.Date.ToShortDateString());
-                String v_Fecha1;
-                v_Fecha1 = date_inicio.SelectedDate.Value.Date.ToShortDateString();
-                String v_Fecha2;
-                v_Fecha2 = date_final.SelectedDate.Value.Date.ToShortDateString();
-                dtg_lista.ItemsSource = null;
-
-                if (v_FechaInicio > v_FechaFinal)
+                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
                 {
-                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else if (cmb_tipoBusqueda.SelectedValue == null)
-                {
-                    MessageBox.Show("Debe seleccionar el tipo de búsqueda", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
-                    if (v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema).Rows.Count == 0)
-                    {
-                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    else
-                    {
-                        dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_Fecha1, v_Fecha2, v_EstadoSistema).DefaultView;
-                        dtg_lista.Columns[0].Header = "Cédula Jurídica";
-                        dtg_lista.Columns[1].Header = "Nombre del Proveedor";
-                        dtg_lista.Columns[2].Header = "Correo";
-                        dtg_lista.Columns[3].Header = "Correo Opcional";
-                        dtg_lista.Columns[4].Header = "Teléfono";
-                        dtg_lista.Columns[5].Header = "Tel. Opcional";
-                        dtg_lista.Columns[6].Header = "Descripción";
-                        dtg_lista.Columns[7].Header = "Fecha de Ingreso";
-                        dtg_lista.Columns[8].Header = "Estado en el Sistema";
-                    }
+                    dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
+                    dtg_lista.Columns[0].Header = "Cédula Jurídica";
+                    dtg_lista.Columns[1].Header = "Nombre del Proveedor";
+                    dtg_lista.Columns[2].Header = "Correo";
+                    dtg_lista.Columns[3].Header = "Correo Opcional";
+                    dtg_lista.Columns[4].Header = "Teléfono";
+                    dtg_lista.Columns[5].Header = "Tel. Opcional";
+                    dtg_lista.Columns[6].Header = "Descripción";
+                    dtg_lista.Columns[7].Header = "Fecha de Ingreso";
+                    dtg_lista.Columns[8].Header = "Estado en el Sistema";
                 }
-            }
         }
 
         //Botón el cual brinda con información necesaria para la utilización de la ventana en la que se encuentra el usuario
@@ -368,6 +349,7 @@ namespace Proyecto
         {
             lbl_actividad.Content = "Proveedores existentes";
             grd_proveedoresExistentes.Visibility = Visibility.Visible;
+            OcultarFormulario();
         }
 
         //Oculta el panel de búsqueda en el tab de configuración de proveedores
@@ -380,7 +362,6 @@ namespace Proyecto
         private void OcultarFormulario()
         {
             grd_formularioProveedor.Visibility = Visibility.Collapsed;
-            MostrarProveedoresExistentes();
         }
 
         //Muestra el panel del formulario en el tab de configuración de proveedores
@@ -388,35 +369,9 @@ namespace Proyecto
         {
             grd_formularioProveedor.Visibility = Visibility.Visible;
             OcultarProveedoresExistentes();
+            ValidarRadioButton();
         }
-
-        //Deshabilita los componentes en el tap de "Gestión de Proveedores"
-        private void DeshabilitarComponentes()
-        {
-            txb_cedJur.IsEnabled = false;
-            txb_telefono.IsEnabled = false;
-            txb_telefonoOpcional.IsEnabled = false;
-            txb_nombre.IsEnabled = false;
-            txb_correo.IsEnabled = false;
-            txb_correoOpcional.IsEnabled = false;
-            txb_descripcion.IsEnabled = false;
-            rb_activo.IsEnabled = false;
-            rb_inactivo.IsEnabled = false;
-        }
-
-        //Habilita los componentes en el tap de "Gestión de Proveedores"
-        private void HabilitarComponentes()
-        {
-            txb_cedJur.IsEnabled = true;
-            txb_telefono.IsEnabled = true;
-            txb_telefonoOpcional.IsEnabled = true;
-            txb_nombre.IsEnabled = true;
-            txb_correo.IsEnabled = true;
-            txb_correoOpcional.IsEnabled = true;
-            txb_descripcion.IsEnabled = true;
-            rb_activo.IsEnabled = true;
-            rb_inactivo.IsEnabled = true;
-        }
+               
 
         /*En esta caja de texto se implementa la búsqueda del proveedor que se desea, en caso de ser encontrado este despliega los datos en el DataGrid,
         de lo contrario se podrá agregar un nuevo proveedor*/
@@ -441,19 +396,12 @@ namespace Proyecto
                 dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
                 dtg_proveedores.Columns[9].Header = "Estado en el Sistema";
 
-                if (dtg_proveedores.Items.Count == 0)//El proveedor no existe
-                {
-                    btn_modificar.Visibility = Visibility.Collapsed;
-                    v_Actividad_btnAgregar = true;
-                }
-                else//Proveedores existentes
-                {
-                    v_Actividad_btnAgregar = false;
-                    btn_agregar.Visibility = Visibility.Collapsed;
-                    btn_modificar.Visibility = Visibility.Collapsed;
-                    lbl_actividad.Content = "Proveedores existentes";
-                    lbl_actividad.Visibility = Visibility.Visible;
-                }
+                //Proveedores existentes
+                v_Actividad_btnAgregar = false;
+                btn_agregar.Visibility = Visibility.Collapsed;
+                btn_modificar.Visibility = Visibility.Collapsed;
+                lbl_actividad.Content = "Proveedores existentes";
+                lbl_actividad.Visibility = Visibility.Visible;
             }
         }
 
@@ -480,7 +428,6 @@ namespace Proyecto
             {
                 rb_inactivo.IsChecked = true;
             }
-            HabilitarComponentes();
             lbl_actividad.Content = "Modificar proveedor";
             btn_limpiar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = true;
@@ -622,7 +569,7 @@ namespace Proyecto
         {
             if (v_Identificador == "numeros")
             {
-                //caracteres que permite si la cadena es de int
+                //caracteres que no permite si la cadena es de int
                 String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -631,7 +578,7 @@ namespace Proyecto
             }
             else if (v_Identificador == "nombre")
             {
-                //caracteres que permite si la cadena es de string
+                //caracteres que no permite si la cadena es de string
                 String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -869,5 +816,6 @@ namespace Proyecto
             }
         }
 
+       
     }//fin de la clase
 }//fin proyecto

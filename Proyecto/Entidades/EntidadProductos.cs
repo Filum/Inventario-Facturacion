@@ -18,15 +18,16 @@ namespace Entidades
         public string v_NombreProducto { set; get; }
         public string v_MarcaProducto { set; get; }
         public Int64 v_CantidadExistencia { set; get; }
-        public Int32 v_CantidadMinima { set; get; }
-        public string v_Fk_IdProveedor { set; get; }
+        public Int64 v_CantidadMinima { set; get; }
+        public Int64 v_IdProveedor { set; get; }
+        public string v_NombreProveedor { set; get; }
         public Int64 v_PrecioUnitario { set; get; }
         public string v_Descripcion { set; get; }
         public string v_Fabricante { set; get; }
         public string v_Estado { set; get; }
         public DateTime v_Fecha { set; get; }
 
-        public EntidadProductos(Int64 v_IdProducto, string v_CodigoProducto, string v_NombreProducto, string v_MarcaProducto, Int64 v_CantidadExistencia, Int32 v_CantidadMinima, string v_Fk_IdProveedor, Int64 v_PrecioUnitario, string v_Descripcion, string v_Fabricante, string v_Estado, DateTime v_Fecha)
+        public EntidadProductos(Int64 v_IdProducto, string v_CodigoProducto, string v_NombreProducto, string v_MarcaProducto, Int64 v_CantidadExistencia, Int64 v_CantidadMinima, Int64 v_IdProveedor, string v_NombreProveedor, Int64 v_PrecioUnitario, string v_Descripcion, string v_Fabricante, string v_EstadoProducto, DateTime v_Fecha, string v_EstadoSistema)
         {
             this.v_IdProducto = v_IdProducto;
             this.v_CodigoProducto = v_CodigoProducto;
@@ -34,7 +35,8 @@ namespace Entidades
             this.v_MarcaProducto = v_MarcaProducto;
             this.v_CantidadExistencia = v_CantidadExistencia;
             this.v_CantidadMinima = v_CantidadMinima;
-            this.v_Fk_IdProveedor = v_Fk_IdProveedor;
+            this.v_IdProveedor = v_IdProveedor;
+            this.v_NombreProveedor = v_NombreProveedor;
             this.v_PrecioUnitario = v_PrecioUnitario;
             this.v_Descripcion = v_Descripcion;
             this.v_Fabricante = v_Fabricante;

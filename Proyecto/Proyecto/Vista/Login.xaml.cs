@@ -134,7 +134,9 @@ namespace Proyecto
                 }
             }
         }
+        private void Validar_Usuario ()
+        {
 
-      
+        }
     }
 }

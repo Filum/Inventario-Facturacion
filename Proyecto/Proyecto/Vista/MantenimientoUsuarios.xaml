@@ -13,8 +13,7 @@
     </Window.Icon>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="286*"/>
-            <ColumnDefinition Width="707*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -22,41 +21,41 @@
                 <GradientStop Color="#FE2E2672" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,120,0" Height="30" HorizontalAlignment="Right" Width="40" Grid.Column="1"/>
-        <Grid Width="120" HorizontalAlignment="Right" Background="#FF3472DE" Margin="0,30,0,0" Grid.Column="1">
+        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,120,0" Height="30" HorizontalAlignment="Right" Width="40"/>
+        <Grid Width="120" HorizontalAlignment="Right" Background="#FF3472DE" Margin="0,30,0,0">
             <Button x:Name="btn_ayuda" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_ayuda_Click"  >
                 <StackPanel x:Name="btn_usuarios_ayuda" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="imagenes/ayuda.png" Width="50" Height="50"
-HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     <TextBlock Text="Ayuda" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="18,0,18,0"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btn_usuarios_salir" Foreground="White" Margin="7,196,0,117.2" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" Width="90" Height="90" Click="btn_salir_usuarios__Click">
-                <StackPanel x:Name="btn_salir_roles" VerticalAlignment="Center" Width="90" Height="90">
-                    <Image Source="Imagenes/salir.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10"/>
-                    <TextBlock Text="Salir" FontSize="14" FontFamily="Global Sans Serif" Margin="0" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button x:Name="btn_regresarMenu" Foreground="White" Margin="18,275,22,197" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" Width="75" Height="90" Click="btn_regresarMenu_Click">
+                <StackPanel x:Name="btn_salir_roles" Width="90" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="Imagenes/menu.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,10" RenderTransformOrigin="0.07,0.56"/>
+                    <TextBlock Text="Menú" FontSize="14" FontFamily="Global Sans Serif" Margin="29,0,20,0" Height="15"/>
                 </StackPanel>
             </Button>
             <Button x:Name="btn_usuario_roles" Width="75" Height="90" Foreground="White" Margin="7,0,7,5" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}"  >
-                <StackPanel x:Name="btn_usuarios_usuario" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel x:Name="btn_usuario" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="imagenes/user.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,11"/>
                     <TextBlock Text="Usuario" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0"/>
                 </StackPanel>
             </Button>
         </Grid>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="0,0,0,-0.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="222" Height="25" VerticalAlignment="Bottom"/>
+        <Label x:Name="txt_fecha" Content="fecha" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="222" Height="25" VerticalAlignment="Bottom"/>
 
 
-        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,80,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click" Grid.Column="1">
+        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,80,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click">
             <Image x:Name="img_minimizar_png" Height="16" Source="Imagenes/img_minimizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,40,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click" Grid.Column="1">
+        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,40,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click">
             <Image x:Name="img_maximizar_png" Height="16" Source="Imagenes/img_maximizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0" Grid.Column="1">
+        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0">
             <Image x:Name="img_cancelar_png" Height="16" Source="Imagenes/img_cancelar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Rectangle x:Name="barra_movil" Height="30" VerticalAlignment="Top" Margin="0,0,120,0" MouseDown="barra_movil__MouseDown" Cursor="Hand" Grid.ColumnSpan="2">
+        <Rectangle x:Name="barra_movil" Height="30" VerticalAlignment="Top" Margin="0,0,120,0" MouseDown="barra_movil__MouseDown" Cursor="Hand">
             <Rectangle.Fill>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
@@ -64,7 +63,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
         <Label Content="Configuración de Usuarios " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="20" Margin="15,10,0,0" Height="37" Width="248"/>
 
 
-        <TabControl x:Name="tab_usuarios" Margin="10,50,130,30" Background="White" SelectionChanged="TabControl_SelectionChanged_1" Grid.ColumnSpan="2">
+        <TabControl x:Name="tab_usuarios" Margin="10,50,130,30" Background="White">
             <TabItem Margin="0" Padding="10">
                 <TabItem.Background>
 
@@ -81,8 +80,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                 </TabItem.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="190*"/>
-                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -97,41 +95,27 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_listar_lista" Margin="20,99,22,21" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.ColumnSpan="2" ColumnHeaderHeight="32">
-                        <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Apellidos" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Teléfono" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="auto"/>
-                        </DataGrid.Columns>
+                    <DataGrid x:Name="dtg_lista" Margin="20,117,24,21" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="FontSize"  Value="14" />
+                                <Setter Property="Padding" Value="5"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
-                    <Button x:Name="btn_listar_listar" Height="70" Width="70" Foreground="White" Margin="0,10,42,0" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <Button x:Name="btn_listar_listar" Height="70" Width="70" Foreground="White" Margin="0,27,27,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_listar_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Listar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="17,0,0,0" Width="36" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <Label Content="Seleccione un rango de fecha del:" Margin="0,30,344.6,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <DatePicker x:Name="date_inicio_usuarios" Margin="0,31,188.6,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
-                        <DatePicker.Resources>
-                            <Style TargetType="{x:Type DatePickerTextBox}">
-                                <Setter Property="IsReadOnly" Value="True"/>
-                            </Style>
-                        </DatePicker.Resources>
-                    </DatePicker>
-                    <Label Content="al:" HorizontalAlignment="Right" Margin="0,32,154.6,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
-                    <DatePicker x:Name="date_final_usuarios" Margin="0,30,9.6,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
-                        <DatePicker.Resources>
-                            <Style TargetType="{x:Type DatePickerTextBox}">
-                                <Setter Property="IsReadOnly" Value="True"/>
-                            </Style>
-                        </DatePicker.Resources>
-                    </DatePicker>
+                    <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,38,338,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
+                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,39,144,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged" VerticalContentAlignment="Center">
+                        <ComboBoxItem x:Name="usuariosActivos" Content="Usuarios Activos" FontSize="14"/>
+                        <ComboBoxItem x:Name="usuariosInactivos" Content="Usuarios Inactivos"/>
+                        <ComboBoxItem x:Name="listaUsuarios" Content="Todos los Usuarios"/>
+                    </ComboBox>
                 </Grid>
             </TabItem>
 
@@ -145,14 +129,12 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Imagenes/actualizar-16.png" />
-                        <TextBlock Text=" Gestión de Usuarios" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" />
+                        <TextBlock Text=" Configuración de Usuarios" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="71*"/>
-                        <RowDefinition Height="100*"/>
-                        <RowDefinition Height="166*"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -169,79 +151,132 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Button x:Name="btn_actualizar_guardar" Foreground="White" VerticalAlignment="Center" Margin="0,14.667,28,13.333" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Row="1" HorizontalAlignment="Right" Width="70"/>
-                    <Separator x:Name="separador" Margin="15,86,39,0" Background="#FF3472DE" Grid.Row="1"/>
 
-                    <Grid Grid.Row="2" Height="135" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,53,0,42" Width="703">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Height="170" Width="175" Margin="0,0,0,-35">
-                            <Label x:Name="lbl_cedula" Content="Cédula:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="87" FontSize="16" Grid.Row="2"/>
-                            <Label x:Name="lbl_nombre" Content="Nombre:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="87" Grid.Row="2" FontSize="16"/>
-                            <Label x:Name="lbl_apellidos" Content="Apellidos:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="87" Grid.Row="2" FontSize="16"/>
-                            <Label x:Name="lbl_email" Content="Correo:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="67" Grid.Row="2" FontSize="16"/>
-                            <Label x:Name="lbl_telHabitacion" Content="Teléfono Habitación:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="165" Grid.Row="2" FontSize="16"/>
-                            <Label x:Name="lbl_telMovil" Content="Teléfono Móvil:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="135" Grid.Row="2" FontSize="16"/>
-                        </StackPanel>
+                    <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="10,41,24,0" Height="34" VerticalAlignment="Top"/>
+                    <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="304,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278"/>
 
-                        <StackPanel Margin="180,0,0,-35" VerticalAlignment="Center" HorizontalAlignment="Left" Height="170" Width="238">
-                            <TextBox x:Name="txb_ced" HorizontalAlignment="Left" Height="24" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontSize="16"  MaxLength="25" Grid.Row="2"/>
-                            <TextBox x:Name="txb_nombre" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="25"/>
-                            <TextBox x:Name="txb_apellidos" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"  MaxLength="25"/>
-                            <TextBox x:Name="txb_email" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged" Grid.Row="2" FontSize="16" LostKeyboardFocus="validar_Actualizar_Correo" MaxLength="25"/>
-                            <TextBox x:Name="txb_telHabitacion" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" KeyDown="validarNumeros_KeyDown" MaxLength="8"/>
-                            <TextBox x:Name="txb_telMovil" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" KeyDown="validarNumeros_KeyDown" MaxLength="8"/>
-                        </StackPanel>
+                    <Grid Visibility="Visible"  x:Name="grd_formularioUsuario" >
+                        <Grid Margin="15,82,26,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="36*"/>
+                                <RowDefinition Height="349*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="58*"/>
+                                <ColumnDefinition Width="101*"/>
+                                <ColumnDefinition Width="201*"/>
+                                <ColumnDefinition Width="133*"/>
+                                <ColumnDefinition Width="312*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btn_volver" HorizontalAlignment="Left" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Margin="-5,-16,0,0" VerticalAlignment="Top" Width="70" Height="72" Click="btn_volver_Click" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                <StackPanel  VerticalAlignment="Center" Width="76" Height="73">
+                                    <Image Source="Imagenes/regresar.png" Width="41" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,8,25,8"/>
+                                    <TextBlock Text="Volver" FontSize="14" FontFamily="Global Sans Serif" Margin="11,0,16,0" Width="49" VerticalAlignment="Center" HorizontalAlignment="Center" Height="15"/>
+                                </StackPanel>
+                            </Button>
 
-                        <StackPanel Margin="418,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="135" Width="131">
-                            <Label x:Name="lbl_actualizar_puesto" Content="Puesto:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="92" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
-                            <Label x:Name="lbl_actualizar_usuario" Content="Usuario:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="92" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
-                            <Label x:Name="lbl_actualizar_contrasenna" Content="Contraseña:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="107" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
-                            <Label x:Name="lbl_actualizar_rol" Content="Rol:" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Width="60" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
-                        </StackPanel>
+                            <StackPanel Margin="7,4,2,10" Grid.Column="1" Grid.Row="1">
+                                <Label x:Name="lbl_cedula" Content="Cédula:" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" FontSize="16" Grid.Row="2"/>
+                                <Label x:Name="lbl_nombre" Content="Nombre:" Margin="0,30" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="2" FontSize="16"/>
+                                <Label x:Name="lbl_apellidos" Content="Apellidos:" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="2" FontSize="16"/>
+                                <Label x:Name="lbl_email" Content="Correo:" Margin="0,30" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="2" FontSize="16"/>
+                                <Label x:Name="lbl_telefono" Content="Teléfono:" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="2" FontSize="16"/>
+                            </StackPanel>
 
-                        <StackPanel Margin="531,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="135" Width="172">
-                            <TextBox x:Name="txb_puesto" HorizontalAlignment="Left" Height="24" Margin="0,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="20"/>
-                            <TextBox x:Name="txb_idusuario" HorizontalAlignment="Left" Height="24" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="20"/>
-                            <TextBox x:Name="txb_contrasenna" HorizontalAlignment="Left" Height="24" Margin="0,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLines="1" MaxLength="16"  LostKeyboardFocus="validar_actualizar_contrasenna"/>
-                            <ComboBox x:Name="cmb_rol" HorizontalAlignment="Left" Height="24" Margin="0,10" Width="170">
-                                <ComboBoxItem Content="Administrador"/>
-                                <ComboBoxItem Content="Operario"/>
-                                <ComboBoxItem Content="Recepcionista"/>
-                            </ComboBox>
-                        </StackPanel>
+                            <StackPanel Margin="6,4,45,10" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1">
+                                <TextBox x:Name="txb_numCed" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="16"  MaxLength="12" Grid.Row="2" LostKeyboardFocus="ValidarTxbNumCed" KeyDown="NumCed_KeyDown"/>
+                                <Label x:Name="lbl_errorNumCed" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <TextBox x:Name="txb_nombre" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="20" TextChanged="txb_nombre_TextChanged"/>
+                                <Label x:Name="lbl_errorNombre" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <TextBox x:Name="txb_apellidos" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"  MaxLength="20" TextChanged="txb_apellidos_TextChanged"/>
+                                <Label x:Name="lbl_errorApellidos" Visibility="Hidden" Margin="0,0,10,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <TextBox x:Name="txb_correo" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="50" TextChanged="txb_Correo_TextChanged" LostKeyboardFocus="Validarcorreo"/>
+                                <Label x:Name="lbl_errorCorreo" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <TextBox x:Name="txb_telefono" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="12" TextChanged="txb_telefono_TextChanged" KeyDown="Telefono_KeyDown"/>
+                                <Label x:Name="lbl_errorTelefono" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="86,4,221,10" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1">
+                                <Label x:Name="lbl_telefonoOpcional" Content="Tel. (Opcional):" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Row="2" FontSize="16"/>
+                                <Label x:Name="lbl_puesto" Content="Puesto:" Margin="0,30" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
+                                <Label x:Name="lbl_rol" Content="Rol:" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
+                                <Label x:Name="lbl_usuario" Content="Usuario:" Margin="0,30" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
+                                <Label x:Name="lbl_contrasenna" Content="Contraseña:" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
+                                <Label x:Name="lbl_estadoSistema" Content="Estado Sistema:" Margin="0,30" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="91,4,15,0" Grid.Column="4" Grid.Row="1">
+                                <TextBox x:Name="txb_telefonoOpcional" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2" Grid.Row="2" FontSize="16" MaxLength="12" TextChanged="txb_telefonoOpcional_TextChanged" KeyDown="TelefonoOpcional_KeyDown"/>
+                                <Label x:Name="lbl_errorTelefonoOpcional" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <TextBox x:Name="txb_puesto" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="35" TextChanged="txb_puesto_TextChanged"/>
+                                <Label x:Name="lbl_errorPuesto" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <ComboBox x:Name="cmb_rol" HorizontalAlignment="Left" Height="30" Margin="0,0" Width="200" SelectionChanged="cmb_rol_SelectionChanged"></ComboBox>
+                                <Label x:Name="lbl_errorRol" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <TextBox x:Name="txb_usuario" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="35" TextChanged="txb_usuario_TextChanged"/>
+                                <Label x:Name="lbl_errorUsuario" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <TextBox x:Name="txb_contrasenna" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLines="1" MaxLength="16" TextChanged="txb_contrasenna_TextChanged"/>
+                                <Label x:Name="lbl_errorContrasenna" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
+
+                                <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Width="69" Checked="rb_activo_Checked" />
+                                <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="70,-17,50,-18" Grid.Row="3" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="16" Checked="rb_inactivo_Checked" />
+                                <Label x:Name="lbl_errorRb" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Grid.Column="1" Height="30" FontSize="12"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Button x:Name="btn_limpiar" Width="70" Foreground="White" Margin="0,0,10,10"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_limpiar_Click">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="btn_agregar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_agregar_Click" HorizontalAlignment="Left" Width="70">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/Agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btn_modificar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_modificar_Click" HorizontalAlignment="Left" Width="70">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Button>
                     </Grid>
 
-                    <Button x:Name="btn_limpiar_usuario" Width="70" Foreground="White" Margin="0,90.667,28,5.333"  HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Center" Grid.Row="2" Click="btn_limpiar_usuario_Click">
-                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="12,0,12,0" Width="48" HorizontalAlignment="Left"/>
-                        </StackPanel>
-                    </Button>
+                    <Grid Visibility="Collapsed"  x:Name="grd_usuariosExistentes">
+                        <DataGrid x:Name="dtg_usuarios" Margin="10,140,10,24"  AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridRow">
+                                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="FontSize"  Value="14" />
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                        </DataGrid>
+                        <Button x:Name="btn_agregarUsuario" Visibility="Visible" Foreground="White" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="76" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarUsuario_Click" Height="70">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,3"/>
+                                <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="8,0,0,0" Width="56" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Button>
+                        <Label x:Name="lbl_busqueda" Content="Ingrese el número de cédula o el nombre: " HorizontalAlignment="Left" Margin="142,76,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="328"/>
+                        <TextBox x:Name="txb_busqueda" Height="32" Margin="475,73,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="295" TextChanged="txb_busqueda_TextChanged"/>
+                        <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="475,105,75,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
+                    </Grid>
 
-                    <Button x:Name="btn_guardar_usuario" Height="70" Foreground="White" Margin="0,20.667,28,75.333" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Row="2" HorizontalAlignment="Right" Width="70" Click="Button_guardar_usuario_Click">
-                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/Guardar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Guardar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
-                        </StackPanel>
-                    </Button>
-                    <DataGrid x:Name="dtg_usuarios" Margin="20,90,22,33" AlternationCount="5" FontFamily="Global Sans Serif" FontWeight="Bold" AutoGenerateColumns="False" GridLinesVisibility="None" ColumnHeaderHeight="32" Grid.RowSpan="2">
-                        <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Número de Cédula" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Nombre" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Apellidos" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Teléfono" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Email" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puesto" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Rol" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Usuario" Width="auto"/>
-                            <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Contraseña" Width="auto"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Label x:Name="lbl_actualizar_numCed" Content="Ingrese el número de cédula o el nombre: " HorizontalAlignment="Left" Margin="20,38,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="329"/>
-                    <TextBox x:Name="txb_usuario" Height="32" Margin="354,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="172"/>
-
-                    <Label x:Name="lbl_actividad" Content="Agregar Usuario" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="332,0,236,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.Row="2"/>
-                   
-                    
                 </Grid>
             </TabItem>
         </TabControl>
