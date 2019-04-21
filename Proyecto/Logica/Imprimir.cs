@@ -386,7 +386,7 @@ namespace Logica
 
                 //UBICAMOS EL GUARDADO O CONFIRMAMOS LA IMPRESION
                 printDialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "");
-              //  MessageBoxResult v_Result = MessageBox.Show("Listo.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBoxResult v_Result = MessageBox.Show("La acción se realizó con éxito.", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             
