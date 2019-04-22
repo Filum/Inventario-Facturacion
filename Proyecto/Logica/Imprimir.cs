@@ -9,6 +9,7 @@ using System.Data;
 using System.Windows.Data;
 using System;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace Logica
 {
@@ -372,9 +373,9 @@ namespace Logica
                 paragraph9.TextAlignment = TextAlignment.Center;
                 //AGREGAMOS CADA PARTE AL DOCUMENTO
                 FlowDocument document = new FlowDocument();
-              //  Image image = new Image();
-              // image.Source = new BitmapImage(new Uri("Imagenes/img_DELRAM.png"));
-              //  document.Blocks.Add(new BlockUIContainer(image));
+                //Image image = new Image();
+                //image.Source = new BitmapImage(new Uri("Imagenes /img_DELRAM.png"));
+                //document.Blocks.Add(new BlockUIContainer(image));
                 document.Blocks.Add(paragraph);
                 document.Blocks.Add(paragraph1);
                 document.Blocks.Add(paragraph2);
