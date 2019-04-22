@@ -27,6 +27,8 @@ namespace Proyecto
         
         String v_EstadoSistema = "";
 
+        public string nombreUsuario;
+
         public MantenimientoRoles()
         {
            
