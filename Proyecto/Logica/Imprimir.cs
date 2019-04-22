@@ -27,12 +27,20 @@ namespace Logica
             {
                 FlowDocument fd = new FlowDocument();
 
+                Paragraph paragraph = new Paragraph();
+                paragraph.Inlines.Add(new Bold(new Run("DELRAM S.A."))); paragraph.Inlines.Add(new LineBreak());
+                paragraph.Inlines.Add(new Run("DELGADO RAMOS SOCIEDAD ANONIMA")); paragraph.Inlines.Add(new LineBreak());
+                paragraph.Inlines.Add(new Run("(506)2431 0896    (506)2443 9149")); paragraph.Inlines.Add(new LineBreak());
+                paragraph.Inlines.Add(new Run("delram@delramtech.com    3101390765"));
+                paragraph.TextAlignment = TextAlignment.Left;
+
                 //Estilo de la letra, tamaño
-                Paragraph p = new Paragraph(new Run(title));
+                Paragraph p = new Paragraph(new Bold(new Run(title)));
                 p.FontStyle = dataGrid.FontStyle;
                 p.FontFamily = dataGrid.FontFamily;
-                p.FontSize = 18;
-                fd.Blocks.Add(p);
+                p.FontSize = 20;
+                p.TextAlignment = TextAlignment.Center;
+
 
 
                 Table table = new Table();
@@ -43,7 +51,7 @@ namespace Logica
                 fd.BringIntoView();
 
                 //alineamiento 
-                fd.TextAlignment = TextAlignment.Center;
+                //fd.TextAlignment = TextAlignment.Center;
                 fd.ColumnWidth = 700;
                 table.CellSpacing = 0;
 
@@ -64,7 +72,7 @@ namespace Logica
                     r.Cells[j].FontWeight = FontWeights.Bold;
                     r.Cells[j].Background = Brushes.GhostWhite;
                     r.Cells[j].Foreground = Brushes.Black;
-                    r.Cells[j].BorderThickness = new Thickness(1, 1, 1, 1);
+                    r.Cells[j].BorderThickness = new Thickness(1);
                     var binding = (dataGrid.Columns[j] as DataGridBoundColumn).Binding as Binding;
 
                     bindList.Add(binding.Path.Path);
@@ -116,11 +124,13 @@ namespace Logica
                     table.RowGroups.Add(tableRowGroup);
 
                 }
+                fd.Blocks.Add(paragraph);
+                fd.Blocks.Add(p); 
                 fd.Blocks.Add(table);
 
 
                 printDialog.PrintDocument(((IDocumentPaginatorSource)fd).DocumentPaginator, "");
-                MessageBoxResult v_Result = MessageBox.Show("Se ha enviado correctamente a imprimir.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBoxResult v_Result = MessageBox.Show("La acción se realizó con éxito.", "", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
         }

@@ -163,7 +163,7 @@ namespace Proyecto
         private void btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
             Imprimir print = new Imprimir();
-            print.imprimir(dtg_listar_facturas, "Imprimir");
+            print.imprimir(dtg_listar_facturas, "REPORTE FACTURACIÓN");
         }
 
         //Cargamos el combobox del estado de la factura

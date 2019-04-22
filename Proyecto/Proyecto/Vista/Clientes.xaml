@@ -184,7 +184,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
 
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="20,13,24.2,418.6" Grid.ColumnSpan="2"/>
 
-                    <Grid Visibility="Hidden"  x:Name="grd_ClientesExistentes" Margin="0,0,0.2,0.2" Grid.ColumnSpan="2">
+                    <Grid Visibility="Visible"  x:Name="grd_ClientesExistentes" Margin="0,0,0.2,0.2" Grid.ColumnSpan="2">
                         <Label x:Name="txt_nombre_cliente" Content="Ingrese el nombre del cliente:" Margin="101,120,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
                         <TextBox x:Name="txb_buscar_cliente" MaxLength="35" Height="32" Margin="354,116,-52,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_buscar_cliente_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_buscar_cliente_KeyUp" HorizontalAlignment="Left" Width="347"/>
                         <DataGrid x:Name="dtg_clientes"  Margin="20,204,-300.8,-462.8" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
@@ -221,7 +221,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Visible" x:Name="grd_formularioCliente" Margin="47,24,-24,0" Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="4">
+                    <Grid Visibility="Hidden" x:Name="grd_formularioCliente" Margin="47,24,-24,0" Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="82*"/>
                             <ColumnDefinition Width="735*"/>
