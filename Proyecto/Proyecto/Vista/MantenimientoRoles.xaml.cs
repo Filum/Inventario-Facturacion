@@ -104,7 +104,8 @@ namespace Proyecto
         private void btn_salir_roles__Click(object sender, RoutedEventArgs e)
         {
             Menu Ventana = new Menu();
-            Ventana.Show();
+            Ventana.cargarMenu(nombreUsuario);
+            Ventana.nombreUser = nombreUsuario;
             this.Close();
         }
 

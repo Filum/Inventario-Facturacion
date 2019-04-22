@@ -29,7 +29,7 @@ namespace Proyecto
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
         String v_EstadoSistema = "";
-        public string nombreUsuario;
+        public string nombreUsuario = "";
         public MantenimientoUsuarios()
         {
             InitializeComponent();
@@ -89,7 +89,7 @@ namespace Proyecto
         {
             Menu ventana = new Menu();
             ventana.cargarMenu(nombreUsuario);
-            ventana.nombreUser = nombreUsuario;
+            ventana.nombreUser = t_Usuario.Text;
             ventana.Show();
             this.Close();
         }

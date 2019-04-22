@@ -60,10 +60,9 @@ namespace Proyecto
 
         private void btn_salir_Click(object sender, RoutedEventArgs e)
         {
-            nombreUsuario = t_Usuario.Text;
             Menu ventana = new Menu();
             ventana.cargarMenu(nombreUsuario);
-            ventana.Show();
+            ventana.nombreUser = nombreUsuario;
             this.Close();
         }
 
@@ -112,7 +111,8 @@ namespace Proyecto
         private void btn_salir_roles__Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
-            ventana.Show();
+            ventana.cargarMenu(nombreUsuario);
+            ventana.nombreUser = nombreUsuario;
             this.Close();
         }
 
