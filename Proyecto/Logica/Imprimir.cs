@@ -92,7 +92,7 @@ namespace Logica
                     }
 
                     table.BorderBrush = Brushes.Gray;
-                    table.BorderThickness = new Thickness(1, 1, 0, 0);
+                    table.BorderThickness = new Thickness(1, 1, 1, 1);
                     table.FontStyle = dataGrid.FontStyle;
                     table.FontFamily = dataGrid.FontFamily;
                     table.FontSize = 13;
@@ -103,13 +103,13 @@ namespace Logica
 
                         if (dataGrid.ItemsSource.ToString().ToLower() == "system.data.linqdataview")
                         {
-                            r.Cells.Add(new TableCell(new Paragraph(new Run(row.GetType().GetProperty(bindList[j]).GetValue(row, null)))));
+                            r.Cells.Add(new TableCell(new Paragraph(new Run(row.GetType().GetProperty(bindList[j]).GetValue(row)))));
 
                         }
                         else
                         {
-
-                            r.Cells.Add(new TableCell(new Paragraph(new Run(row.Row.ItemArray[j].ToString()))));
+                            var valor = ((TextBlock)dataGrid.Columns[j].GetCellContent(row)).Text;
+                            r.Cells.Add(new TableCell(new Paragraph(new Run(valor))));
 
                         }
 
@@ -117,7 +117,7 @@ namespace Logica
                         r.Cells[j].Padding = new Thickness(4);
 
                         r.Cells[j].BorderBrush = Brushes.DarkGray;
-                        r.Cells[j].BorderThickness = new Thickness(0, 0, 1, 1);
+                        r.Cells[j].BorderThickness = new Thickness(0, 1, 1, 0);
                     }
 
                     tableRowGroup.Rows.Add(r);
