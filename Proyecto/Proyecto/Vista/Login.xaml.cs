@@ -123,21 +123,27 @@ namespace Proyecto
                 {
                     if (detalleUsuario[13] == "ACTIVO")
                     {
-                        if (detalleUsuario[1] == txb_contrasena.Password.ToString())
+                        if (detalleUsuario[14] == "ACTIVO")
                         {
-                            MessageBox.Show("Bienvenido " + detalleUsuario[0], "Bienvenido", MessageBoxButton.OK, MessageBoxImage.Information);
-                            ventana.cargarMenu(txb_usuario.Text);
-                            ventana.nombreUser = txb_usuario.Text;
-                            this.Close();
-                        }
-                        else
+                            if (detalleUsuario[1] == txb_contrasena.Password.ToString())
+                            {
+                                MessageBox.Show("Bienvenido " + detalleUsuario[0], "Bienvenido", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ventana.cargarMenu(txb_usuario.Text);
+                                ventana.nombreUser = txb_usuario.Text;
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("El usuario o la contraseña son incorrectos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }else
                         {
-                            MessageBox.Show("El usuario o la contraseña son incorrectos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("El rol asignado a su usario está inactivo, comunicarse con el personal necesario para la asignación de otro rol o la creación de uno nuevo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Su usuario está inactivo ,comunicarse con el personal necesario para la activación del mismo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Su usuario está inactivo, comunicarse con el personal necesario para la activación del mismo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
