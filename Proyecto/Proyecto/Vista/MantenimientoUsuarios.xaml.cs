@@ -33,7 +33,7 @@ namespace Proyecto
         public MantenimientoUsuarios()
         {
             InitializeComponent();
-            MostrarUsuariosExistentes();
+            //MostrarUsuariosExistentes();
             //Formato para la hora
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
@@ -42,7 +42,7 @@ namespace Proyecto
             
             //Cargar usuarios existentes
             cmb_tipoBusqueda.SelectedIndex = 2;
-            dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios("LISTAUSUARIOS").DefaultView;
+            //dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios("LISTAUSUARIOS").DefaultView;
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {

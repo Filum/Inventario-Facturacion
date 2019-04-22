@@ -7,6 +7,7 @@ using Entidades;
 using System.Data;
 using Oracle.DataAccess.Client;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Datos
 {
@@ -18,6 +19,7 @@ namespace Datos
         //metodo para obtener  
         public float ObtenerValorDolar()
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
             DateTime dia = DateTime.Now;
             string fecha = dia.ToShortDateString();
 
@@ -40,6 +42,9 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("CORREOPC", clt.v_CorreoOpc));
             comando.Parameters.Add(new OracleParameter("EST", clt.v_Inactividad));
             comando.Parameters.Add(new OracleParameter("OBVS", clt.v_Observaciones));
+            comando.Parameters.Add(new OracleParameter("CED", clt.v_Cedula));
+            comando.Parameters.Add(new OracleParameter("REP", clt.v_Representante));
+            comando.Parameters.Add(new OracleParameter("DIREC", clt.v_Direccion));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -123,12 +128,22 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand("ADD_FACTURAS", conn as OracleConnection);
             comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("ID_FACTURA", fact.v_Codigo));
             comando.Parameters.Add(new OracleParameter("ID_USU", fact.v_Usuario));
             comando.Parameters.Add(new OracleParameter("ID_CLIE", fact.v_Cliente));
             comando.Parameters.Add(new OracleParameter("V_TOTAL", fact.v_Total));
             comando.Parameters.Add(new OracleParameter("V_DESCUENTO", fact.v_Descuento));
             comando.Parameters.Add(new OracleParameter("V_MONEDA", fact.v_Moneda));
             comando.Parameters.Add(new OracleParameter("V_IMP", fact.v_Impuesto));
+            comando.Parameters.Add(new OracleParameter("V_TIPO", fact.v_tipoFactura));
+            comando.Parameters.Add(new OracleParameter("V_SUBTOTAL", fact.v_Subtotal));
+            comando.Parameters.Add(new OracleParameter("V_SUBNETO", fact.v_SubtotalNeto));
+            comando.Parameters.Add(new OracleParameter("V_TPAGO", fact.v_tipoPago));
+            comando.Parameters.Add(new OracleParameter("V_DCREDITO", fact.v_diasCredito));
+            comando.Parameters.Add(new OracleParameter("V_EFACTURA", fact.v_estadoFactura));
+            comando.Parameters.Add(new OracleParameter("V_FPAGO", fact.v_fechaPago));
+            comando.Parameters.Add(new OracleParameter("V_FCANCELAR", fact.v_fechaCancelacion));
+            comando.Parameters.Add(new OracleParameter("V_TIPOCAM", fact.v_tipoCambio));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -160,6 +175,24 @@ namespace Datos
             return v_Resultado;
         }
 
+        public int AgregarDetalle(EntidadDetalleFactura fact)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("ADD_DETALLES", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("TOTAL", fact.subtotal));
+            comando.Parameters.Add(new OracleParameter("DESCRIPCION_SERVICIO", fact.descripcion_servicio));
+            comando.Parameters.Add(new OracleParameter("FK_IDPRODUCTO", fact.id_producto));
+            comando.Parameters.Add(new OracleParameter("FK_IDFACTURA", fact.id_factura));
+            comando.Parameters.Add(new OracleParameter("CANTIDAD_PRODUCTO", fact.cantidad));
+            comando.Parameters.Add(new OracleParameter("IMPUESTO", fact.impuesto));
+            comando.Parameters.Add(new OracleParameter("DESCUENTO", fact.descuento));
+            comando.Parameters.Add(new OracleParameter("PRECIOPRODUCT", fact.precioProducto));
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
         //------------ M O D I F I C A R ---------------------------------
         public int ModificarClientes(EntidadClientes clt)
         {
@@ -175,6 +208,9 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("CORREOPC", clt.v_CorreoOpc));
             comando.Parameters.Add(new OracleParameter("EST", clt.v_Inactividad));
             comando.Parameters.Add(new OracleParameter("OBVS", clt.v_Observaciones));
+            comando.Parameters.Add(new OracleParameter("CED", clt.v_Cedula));
+            comando.Parameters.Add(new OracleParameter("REP", clt.v_Representante));
+            comando.Parameters.Add(new OracleParameter("DIREC", clt.v_Direccion));
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
@@ -284,7 +320,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "select * from tbl_Clientes where trunc(fecha) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  from tbl_Clientes where trunc(fecha) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
@@ -419,11 +455,59 @@ namespace Datos
                     cliente.v_CorreoOpc = dr.GetString(6);
                     cliente.v_Inactividad = dr.GetString(7);
                     cliente.v_Observaciones = dr.GetString(8);
+                    cliente.v_Cedula = dr.GetString(9);
+                    cliente.v_Representante = dr.GetString(10);
+                    cliente.v_Direccion = dr.GetString(11);
                     Lista.Add(cliente);
                 }
             }
             conn.Close();
             return Lista;
+        }
+        public DataTable BuscarClienteNombre(string nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  FROM TBL_CLIENTES WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%"+nombre+"%'),'ÁÉÍÓÚ', 'AEIOU')";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BuscarClienteEstado(string nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  from tbl_Clientes WHERE ESTADO LIKE '%" + nombre + "%'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BuscarClienteEstadoyNombre(string nombre,string estado)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  from tbl_Clientes WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%"+nombre+"%'),'ÁÉÍÓÚ', 'AEIOU') AND ESTADO = '"+estado+"'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
         }
 
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia del proveedor mediante el nombre o la cédula jurídica.
@@ -619,6 +703,20 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+        public DataTable CargarProveedores()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select cedulaJuridica, nombre, correo, correoOpcional, telefono, telefonoOpcional, descripcion, fecha, estadoSistema from tbl_Proveedores";
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
 
         /*Este método recibe un parámetro tipo string con el cual buscara en la base de datos la existencia de la cédula jurídica.
        Además, en caso de encontrar dicha cédula jurídica retornara un true, en caso contrario retornara un false*/
@@ -764,7 +862,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT usuariosistema,contrasena,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora,nombreusuario,apellidos,puesto,nombre FROM TBL_USUARIOS INNER JOIN TBL_ROLES ON TBL_USUARIOS.FK_IDROL = TBL_ROLES.PK_IDROL AND TBL_USUARIOS.USUARIOSISTEMA = '" + nombreUsuario+"'";
+            comando.CommandText = "SELECT usuariosistema,contrasena,mantenimiento_clientes,mantenimiento_proveedores,mantenimiento_productos,mantenimiento_usuarios,mantenimiento_roles,facturacion,bitacora,nombreusuario,apellidos,puesto,nombre,tbl_usuarios.estadosistema,TBL_ROLES.ESTADOSISTEMA FROM TBL_USUARIOS INNER JOIN TBL_ROLES ON TBL_USUARIOS.FK_IDROL = TBL_ROLES.PK_IDROL AND TBL_USUARIOS.USUARIOSISTEMA = '" + nombreUsuario+"'";
             OracleDataReader dr = comando.ExecuteReader();
             List<string> Lista = new List<string>();
 
@@ -783,6 +881,8 @@ namespace Datos
                 Lista.Add(dr.GetString(10));
                 Lista.Add(dr.GetString(11));
                 Lista.Add(dr.GetString(12));
+                Lista.Add(dr.GetString(13));
+                Lista.Add(dr.GetString(14));
             }
             conn.Close();
             return Lista;
@@ -806,18 +906,39 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        public DataTable Productos()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT DESCRIPCION FROM TBL_PRODUCTOS WHERE ESTADOSISTEMA='ACTIVO' AND CANTIDADEXISTENCIA > 0";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
         public DataTable MostrarListaFacturas(String fecha1, String fecha2)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO=TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE=TBL_CLIENTES.PK_IDCLIENTE where trunc(TBL_FACTURAS.FECHA) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO=TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE=TBL_CLIENTES.PK_IDCLIENTE where trunc(TBL_FACTURAS.FECHA) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
             DataTable tabla = new DataTable();
-            adaptador.Fill(tabla);
+            try
+            {
+                adaptador.Fill(tabla);
+            }catch(Exception m)
+            {
+                Console.WriteLine(m);
+            }
             conn.Close();
             return tabla;
         }
@@ -828,7 +949,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT TBL_FACTURAS.PK_CODIGOFACTURA,TBL_PRODUCTOS.CODIGOPRODUCTO,TBL_PRODUCTOS.NOMBREPRODUCTO,TBL_PRODUCTOS.MARCAPRODUCTO,TBL_PRODUCTOS.PRECIOUNITARIO,TBL_DETALLES.CANTIDAD_PRODUCTO,TBL_DETALLES.TOTAL,TBL_FACTURAS.MONEDA FROM TBL_DETALLES INNER JOIN TBL_FACTURAS ON TBL_DETALLES.FK_IDFACTURA = TBL_FACTURAS.PK_CODIGOFACTURA AND TBL_FACTURAS.PK_CODIGOFACTURA = '" + codigoFactura + "' INNER JOIN TBL_PRODUCTOS ON TBL_DETALLES.FK_IDPRODUCTO = TBL_PRODUCTOS.PK_IDPRODUCTO";
+            comando.CommandText = "SELECT TBL_PRODUCTOS.SERVICIO,TBL_PRODUCTOS.CODIGOPRODUCTO,TBL_PRODUCTOS.DESCRIPCION,TBL_DETALLES.CANTIDAD_PRODUCTO,TBL_DETALLES.PRECIOPRODUCTO,TBL_DETALLES.DESCUENTO,TBL_DETALLES.IMPUESTO,TBL_DETALLES.TOTAL,TBL_FACTURAS.MONEDA FROM TBL_DETALLES INNER JOIN TBL_FACTURAS ON TBL_DETALLES.FK_IDFACTURA = TBL_FACTURAS.PK_CODIGOFACTURA AND TBL_FACTURAS.PK_CODIGOFACTURA = '" + codigoFactura + "' INNER JOIN TBL_PRODUCTOS ON TBL_DETALLES.FK_IDPRODUCTO = TBL_PRODUCTOS.PK_IDPRODUCTO";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;
@@ -843,18 +964,36 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO=TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE=TBL_CLIENTES.PK_IDCLIENTE WHERE TBL_FACTURAS.PK_CODIGOFACTURA = '" + codigoFactura + "'";
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_FACTURAS.SUBTOTAL,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.SUBTOTALNETO,TBL_FACTURAS.IMPUESTO,TBL_FACTURAS.TOTAL,TBL_FACTURAS.TIPOPAGO,TBL_FACTURAS.DIASCREDITO,TBL_FACTURAS.ESTADOFACTURA,TBL_FACTURAS.FECHAPAGO,TBL_CLIENTES.PK_IDCLIENTE,TBL_CLIENTES.CEDULA,TBL_CLIENTES.NOMBRE,TBL_CLIENTES.REPRESENTANTE,TBL_CLIENTES.DIRECCION,TBL_CLIENTES.TELEFONOMOVIL,TBL_CLIENTES.TELEFONOOFICINA,TBL_CLIENTES.CORREO,TBL_FACTURAS.FECHACANCELACION,TBL_FACTURAS.TIPOCAMBIO,TBL_FACTURAS.MONEDA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO=TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE=TBL_CLIENTES.PK_IDCLIENTE WHERE TBL_FACTURAS.PK_CODIGOFACTURA = '" + codigoFactura + "'";
             OracleDataReader dr = comando.ExecuteReader();
             var Lista = new List<string>();
 
 
             while (dr.Read())
             {
-                Lista.Add(dr.GetInt64(0).ToString());
-                Lista.Add(dr.GetDateTime(1).ToString());
-                Lista.Add(dr.GetString(2));
+                Lista.Add(dr.GetString(0));
+                Lista.Add(dr.GetInt64(1).ToString());
+                Lista.Add(dr.GetDateTime(2).ToString());
                 Lista.Add(dr.GetString(3));
-
+                Lista.Add(dr.GetString(4));
+                Lista.Add(dr.GetString(5));
+                Lista.Add(dr.GetString(6));
+                Lista.Add(dr.GetString(7));
+                Lista.Add(dr.GetString(8));
+                Lista.Add(dr.GetString(9));
+                Lista.Add(dr.GetString(10));
+                Lista.Add(dr.GetDateTime(11).ToShortDateString());
+                Lista.Add(dr.GetInt64(12).ToString());
+                Lista.Add(dr.GetString(13));
+                Lista.Add(dr.GetString(14));
+                Lista.Add(dr.GetString(15));
+                Lista.Add(dr.GetString(16));
+                Lista.Add(dr.GetInt64(17).ToString());
+                Lista.Add(dr.GetInt64(18).ToString());
+                Lista.Add(dr.GetString(19));
+                Lista.Add(dr.GetDateTime(20).ToShortDateString());
+                Lista.Add(dr.GetString(21));
+                Lista.Add(dr.GetString(22));
             }
             conn.Close();
             return Lista;
@@ -891,42 +1030,177 @@ namespace Datos
             while (dr.Read())
             {
                 Lista.Add(dr.GetString(0));
-                Lista.Add(dr.GetInt64(1).ToString());
-                Lista.Add(dr.GetInt64(2).ToString());
+                Lista.Add(dr.GetInt32(1).ToString());
+                Lista.Add(dr.GetInt32(2).ToString());
 
             }
             conn.Close();
             return Lista;
         }
-        public List<EntidadFacturas> BuscarFactura(String v_Nombre)
+        public DataTable BuscarFactura(String v_Nombre)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE NOMBRE LIKE '%"+v_Nombre+"%'";
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_Nombre + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
-            List<EntidadFacturas> Lista = new List<EntidadFacturas>();
 
-            if (v_Nombre != "")
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BuscarFacturaEstadoyCliente(string v_Nombre,string estado)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_Nombre + "%'),'ÁÉÍÓÚ', 'AEIOU') AND TBL_FACTURAS.ESTADOFACTURA = '" + estado+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BuscarFacturaEstado(String v_Nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE ESTADOFACTURA LIKE '%" + v_Nombre + "%'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+        public Int64 MaximaFactura()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select max(Pk_codigofactura) from TBL_FACTURAS";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            Int64 valor = 0;
+            while (dr.Read())
             {
-                while (dr.Read())
-                {
-                    EntidadFacturas facturas = new EntidadFacturas();
-                    facturas.v_Codigo = dr.GetInt32(0);
-                    facturas.v_Fecha = Convert.ToDateTime(dr.GetValue(1));
-                    facturas.v_Usuario = dr.GetString(2);
-                    facturas.v_Cliente = dr.GetString(3);
-                    facturas.v_Total = Convert.ToInt32(dr.GetValue(4));
-                    facturas.v_Moneda = dr.GetString(5);
-                    facturas.v_Impuesto = dr.GetString(6);
-                    facturas.v_Descuento = Convert.ToInt32(dr.GetValue(7));
-                    Lista.Add(facturas);
-                }
+                valor = Convert.ToInt64(dr.GetValue(0));
             }
             conn.Close();
-            return Lista;
+            return valor;
         }
+        public string tipoFactura(string codigo)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select tbl_facturas.tipofactura from tbl_facturas where pk_codigofactura = '"+codigo+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            string valor = "";
+            while (dr.Read())
+            {
+                valor = dr.GetString(0);
+            }
+            conn.Close();
+            return valor;
+        }
+        public string Descripcion_servicio(string codigo)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select tbl_detalles.DESCRIPCION_SERVICIO from TBL_DETALLES where FK_IDFACTURA = '" + codigo + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            string valor = "";
+            while (dr.Read())
+            {
+                valor = dr.GetString(0);
+            }
+            conn.Close();
+            return valor;
+        }
+        public Int64 MaximoDetalle()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select max(PK_IDDETALLE) from TBL_DETALLES";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            Int64 valor = 0;
+            while (dr.Read())
+            {
+                valor = Convert.ToInt64(dr.GetValue(0));
+            }
+            conn.Close();
+            return valor;
+        }
+        public Int64 id_Usuario(string nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT PK_IDUSUARIO,USUARIOSISTEMA from tbl_usuarios where usuariosistema = '"+nombre+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            Int64 valor = 0;
+            while (dr.Read())
+            {
+                valor = Convert.ToInt64(dr.GetValue(0));
+            }
+            conn.Close();
+            return valor;
+        }
+        public EntidadClientes IdCliente(string nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT PK_IDCLIENTE, NOMBRE, TELEFONOOFICINA, TELEFONOMOVIL, CORREO, CEDULA, REPRESENTANTE, DIRECCION FROM TBL_CLIENTES WHERE NOMBRE = '"+nombre+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            EntidadClientes cliente = new EntidadClientes();
+            
+            while (dr.Read())
+            {
+                cliente.v_Codigo = Convert.ToInt32(dr.GetValue(0));
+                cliente.v_NombreCompleto = Convert.ToString(dr.GetValue(1));
+                cliente.v_Teleoficina = Convert.ToInt32(dr.GetValue(2));
+                cliente.v_Telemovil = Convert.ToInt32(dr.GetValue(3));
+                cliente.v_Correo = Convert.ToString(dr.GetValue(4));
+                cliente.v_Cedula = Convert.ToString(dr.GetValue(5));
+                cliente.v_Representante = Convert.ToString(dr.GetValue(6));
+                cliente.v_Direccion = Convert.ToString(dr.GetValue(7));
+            }
+            conn.Close();
+            return cliente;
+        }
+
+
+
+
+
+
         /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
        cédula jurídica está asociada a dicho id.
        Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
@@ -951,26 +1225,98 @@ namespace Datos
             conn.Close();
             return false;
         }
-
-        public bool ValidarCodProductos(String v_Codigo)
+        public Int64 VerificarNombre(string nombre)
         {
             OracleConnection conn = DataBase.Conexion();
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT CODIGOPRODUCTO FROM TBL_PRODUCTOS WHERE codigoProducto = '" + v_Codigo + "'";
+            comando.CommandText = "SELECT NOMBRE FROM TBL_CLIENTES WHERE translate(UPPER(NOMBRE), 'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + nombre + "%'),'ÁÉÍÓÚ', 'AEIOU')";
             OracleDataReader dr = comando.ExecuteReader();
 
-            if (v_Codigo != "")
+            string valor = "";
+            while (dr.Read())
             {
-                while (dr.Read())
+                valor = dr.GetString(0);
+            }
+            conn.Close();
+            if (valor != "")
+                return 1;
+            else
+                return 0;
+        }
+        public void DescuentoInventario (string cantidad, string nombre)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "update TBL_PRODUCTOS SET CANTIDADEXISTENCIA = '"+cantidad+"' WHERE DESCRIPCION = '"+nombre+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+            conn.Close();
+        }
+        public void CambiarestadoFactura(string estado, string codigo)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "update TBL_FACTURAS SET ESTADOFACTURA = '" + estado + "', FECHACANCELACION = SYSDATE WHERE PK_CODIGOFACTURA = '" + codigo + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+            conn.Close();
+        }
+        public void Verificarestadofactura()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_CODIGOFACTURA,FECHAPAGO from TBL_FACTURAS WHERE ESTADOFACTURA = 'Pendiente'";
+            OracleDataReader dr = comando.ExecuteReader();
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            DateTime fechaPago = new DateTime();
+            DateTime diaActual = DateTime.Parse(DateTime.Now.ToShortDateString());
+            string codigo = "";
+            while (dr.Read())
+            {
+                codigo=dr.GetInt64(0).ToString();
+                fechaPago = DateTime.Parse(dr.GetDateTime(1).ToShortDateString());
+                if(fechaPago < diaActual)
                 {
-                    return true;
+                    EstadoVencidaFactura(codigo);
                 }
             }
             conn.Close();
-            return false;
         }
+        public void EstadoVencidaFactura(string codigo)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "update TBL_FACTURAS SET ESTADOFACTURA = 'Vencida' WHERE PK_CODIGOFACTURA = '" + codigo + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+            conn.Close();
+        }
+        public List<string> DetalleFacturaServicios(int codigoFactura)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT DESCRIPCION_SERVICIO,CANTIDAD_PRODUCTO,PRECIOPRODUCTO FROM TBL_DETALLES WHERE FK_IDFACTURA = '"+codigoFactura+"'";
+            OracleDataReader dr = comando.ExecuteReader();
+            var Lista = new List<string>();
 
+
+            while (dr.Read())
+            {
+                Lista.Add(dr.GetString(0));
+                Lista.Add(dr.GetInt64(1).ToString());
+                Lista.Add(dr.GetString(2));
+            }
+            conn.Close();
+            return Lista;
+        }
     }
 }

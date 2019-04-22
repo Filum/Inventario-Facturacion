@@ -82,16 +82,22 @@ namespace Proyecto
             txb_TelMov.Text = "";
             txb_TelOf.Text = "";
             txb_buscar_cliente.Text = "";
+            txb_cedula.Text = "";
+            txb_representante.Text = "";
+            txb_direccion.Text = "";
+            txb_cedula.Text = "";
+            txb_representante.Text = "";
+            txb_direccion.Text = "";
             rb_activo.IsChecked = false;
             rb_inactivo.IsChecked = false;
             txt_error_telM.Visibility = Visibility.Hidden;
             txt_error_TelO.Visibility = Visibility.Hidden;
             txt_error_correo.Visibility = Visibility.Hidden;
             txt_error_correo_o.Visibility = Visibility.Hidden;
-            btn_agregar_Cliente.Visibility = Visibility.Hidden;
+            btn_agregar_Cliente.Visibility = Visibility.Visible;
             btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
-            dtg_clientes.ItemsSource = null;
             txt_actividad.Visibility = Visibility.Hidden;
+            dtg_clientes.ItemsSource = null;
             txb_buscar_cliente.IsEnabled = true;
         }
 
@@ -119,7 +125,28 @@ namespace Proyecto
             ventana.Show();
             this.Close();
         }
-
+        public void SoloNumeros(TextBox txb, Label lbl, TextCompositionEventArgs e)
+        {
+            //se convierte a Ascci del la tecla presionada 
+            int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
+            //verificamos que se encuentre en ese rango que son entre el 0 y el 9 
+            if (ascci >= 48 && ascci <= 57)
+            {
+                e.Handled = false;
+                lbl.Visibility = Visibility.Collapsed;
+                if (ValidarCaracteresEspeciales(txb.Text) == true)
+                {
+                    lbl.Content = "No se permiten caracteres especiales";
+                    lbl.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                e.Handled = true;
+                lbl.Content = "No se permite ingresar letras";
+                lbl.Visibility = Visibility.Visible;
+            }
+        }
         private void btn_editar_cliente_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("No se ha seleccionado ningun cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -130,30 +157,35 @@ namespace Proyecto
         {
             try//Comprobamos que se rellenen los espacios obligatorios en la pantlla de actualizar clientes.
             {
-                string v_Inactivo;
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txb_cedula.Text == "" || txb_representante.Text == "" || txb_direccion.Text == "" || txb_TelOf.Text.Length < 8 || txb_TelMov.Text.Length < 8 )
                 {
                     MessageBox.Show("No se puede modificar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
                     if (rb_activo.IsChecked == true)
-                        v_Inactivo = "Activo";
-                    else
-                        v_Inactivo = "Inactivo";
+                    {
+                        clt.v_Inactividad = "Activo";
+                    }
+                    else if (rb_inactivo.IsChecked == true)
+                    {
+                        clt.v_Inactividad = "Inactivo";
+                    }
 
                     //Extraemos los datos de la pantlla de actualizar clientes y los ingresamos al objeto de clientes.
                     clt.v_NombreCompleto = txb_nombre.Text;
                     clt.v_Teleoficina = Convert.ToInt32(txb_TelOf.Text);
                     clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
                     clt.v_Correo = txb_correo.Text;
+                    clt.v_Cedula = txb_cedula.Text;
+                    clt.v_Representante = txb_representante.Text;
+                    clt.v_Direccion = txb_direccion.Text;
                     //A los espacios vacios se rellenan con un "N/A"
                     if (txb_correo_o.Text == "")
                         clt.v_CorreoOpc = "N/A";
                     else
                         clt.v_CorreoOpc = txb_correo_o.Text;
 
-                    clt.v_Inactividad = v_Inactivo;
 
                     if (txb_correo_o.Text == "")
                         clt.v_Observaciones = "N/A";
@@ -166,7 +198,8 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
-                        Inabilitar_Campos();
+                        grd_formularioCliente.Visibility = Visibility.Hidden;
+                        grd_ClientesExistentes.Visibility = Visibility.Visible;
                         txb_buscar_cliente.IsEnabled = true;
                     }
                 }
@@ -255,24 +288,8 @@ namespace Proyecto
                     else
                     {
                         dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(v_Fecha1, v_Fecha2).DefaultView;
-                        dtg_listar_clientes.Columns[0].Header = "Código";
-                        dtg_listar_clientes.Columns[0].Width = 60;
-                        dtg_listar_clientes.Columns[1].Header = "Fecha Ingreso";
-                        dtg_listar_clientes.Columns[1].Width = 133;
-                        dtg_listar_clientes.Columns[2].Header = "Nombre Completo";
-                        dtg_listar_clientes.Columns[2].Width = 260;
-                        dtg_listar_clientes.Columns[3].Header = "Tel. Oficina";
-                        dtg_listar_clientes.Columns[3].Width = 90;
-                        dtg_listar_clientes.Columns[4].Header = "Tel. Móvil";
-                        dtg_listar_clientes.Columns[4].Width = 90;
-                        dtg_listar_clientes.Columns[5].Header = "Correo electrónico";
-                        dtg_listar_clientes.Columns[5].Width = 180;
-                        dtg_listar_clientes.Columns[6].Header = "Correo Opcional";
-                        dtg_listar_clientes.Columns[6].Width = 180;
-                        dtg_listar_clientes.Columns[7].Header = "Estado";
-                        dtg_listar_clientes.Columns[7].Width = 60;
-                        dtg_listar_clientes.Columns[8].Header = "Observaciones";
-                        dtg_listar_clientes.Columns[8].Width = 183;
+                        txb_buscar_cliente_Lista.Text = "";
+                        cmb_estado_Cliente.SelectedItem = null;
                     }
                 }
 
@@ -285,44 +302,21 @@ namespace Proyecto
 
 
         //Métodos para controlar los errores que se pueden cometer a la hora de rellenar el formulario.
-        private void telefono_Oficina_KeyDown(object sender, KeyEventArgs e)
+        private void Txb_TelOf_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_TelO.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_TelOf.Text ) == true)
-                {
-                    txt_error_TelO.Content = "No se permiten caracteres especiales";
-                    txt_error_TelO.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_TelO.Content = "No se permite ingresar letras";
-                txt_error_TelO.Visibility = Visibility.Visible;
-            }
+            SoloNumeros(txb_TelOf, txt_error_TelO, e);
         }
-        private void telefono_Movil_KeyDown(object sender, KeyEventArgs e)
+
+        private void Txb_TelMov_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
-            {
-                e.Handled = false;
-                txt_error_telM.Visibility = Visibility.Collapsed;
-                if (ValidarCaracteresEspeciales(txb_TelMov.Text) == true)
-                {
-                    txt_error_telM.Content = "No se permiten caracteres especiales";
-                    txt_error_telM.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                e.Handled = true;
-                txt_error_telM.Content = "No se permite ingresar letras";
-                txt_error_telM.Visibility = Visibility.Visible;
-            }
+            SoloNumeros(txb_TelMov, txt_error_telM, e);
         }
+
+        private void Txb_cedula_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            SoloNumeros(txb_cedula, txt_error_cedula, e);
+        }
+
         private Boolean email_correcto(String email)
         {
             String v_Expresion;
@@ -366,22 +360,6 @@ namespace Proyecto
         {
             string v_Texto;
             dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
-            dtg_clientes.Columns[0].Header = "Código";
-            dtg_clientes.Columns[0].Width = 60;
-            dtg_clientes.Columns[1].Header = "Nombre Completo";
-            dtg_clientes.Columns[1].Width = 260;
-            dtg_clientes.Columns[2].Header = "Correo electrónico";
-            dtg_clientes.Columns[2].Width = 180;
-            dtg_clientes.Columns[3].Header = "Correo Opcional";
-            dtg_clientes.Columns[3].Width = 180;
-            dtg_clientes.Columns[4].Header = "Tel. Oficina";
-            dtg_clientes.Columns[4].Width = 90;
-            dtg_clientes.Columns[5].Header = "Tel. Móvil";
-            dtg_clientes.Columns[5].Width = 90;
-            dtg_clientes.Columns[6].Header = "Estado";
-            dtg_clientes.Columns[6].Width = 60;
-            dtg_clientes.Columns[7].Header = "Observaciones";
-            dtg_clientes.Columns[7].Width = 285;
             if (txb_buscar_cliente.Text == "")
             {
                 txb_nombre.Text = "";
@@ -425,7 +403,7 @@ namespace Proyecto
             txt_actividad.Content = "Modificar Clientes";
             txt_actividad.Visibility = Visibility.Visible;
             rb_inactivo.Visibility = Visibility.Visible;
-            txb_buscar_cliente.IsEnabled = false;
+            txb_buscar_cliente.IsEnabled = true;
 
 
             clt.v_Codigo = Convert.ToInt32((dtg_clientes.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
@@ -435,8 +413,12 @@ namespace Proyecto
             txb_correo_o.Text = (dtg_clientes.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
             txb_TelOf.Text = (dtg_clientes.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
             txb_TelMov.Text = (dtg_clientes.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
-
             String v_Inacto = (dtg_clientes.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text; ;
+            txb_observaciones.Text = (dtg_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
+            txb_cedula.Text = (dtg_clientes.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
+            txb_representante.Text = (dtg_clientes.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
+            txb_direccion.Text = (dtg_clientes.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
+
             if (v_Inacto == "Inactivo")
             {
                 rb_inactivo.IsChecked = true;
@@ -447,8 +429,10 @@ namespace Proyecto
             }
 
             Habilitar_Campos();
-            txb_observaciones.Text = (dtg_clientes.SelectedCells[7].Column.GetCellContent(row) as TextBlock).Text;
-
+            
+            btn_guardar_cliente_actualizado.Visibility = Visibility.Visible;
+            btn_agregar_Cliente.Visibility = Visibility.Collapsed;
+            MostrarFormulario();
 
         }
 
@@ -474,7 +458,7 @@ namespace Proyecto
             string tele1 = txb_TelOf.Text;
             if (tele1.Length < 8)
             {
-                txt_error_TelO.Content = "Los números telefónicos deben de tener un formato valido de 8 dígitos.";
+                txt_error_TelO.Content = "Los números telefónicos deben de tener "+ String.Format(Environment.NewLine)+" un formato valido de 8 dígitos.";
                 txt_error_TelO.Visibility = Visibility.Visible;
             }
             else
@@ -488,7 +472,7 @@ namespace Proyecto
             string tele = txb_TelMov.Text;
             if (tele.Length < 8)
             {
-                txt_error_telM.Content = "Los números telefónicos deben de tener un formato valido de 8 dígitos.";
+                txt_error_telM.Content = "Los números telefónicos deben de " + String.Format(Environment.NewLine) + "tener un formato " + String.Format(Environment.NewLine) + "valido de 8 dígitos.";
                 txt_error_telM.Visibility = Visibility.Visible;
             }
             else
@@ -522,8 +506,9 @@ namespace Proyecto
 
         private void Grid_Initialized(object sender, EventArgs e)
         {
-            Inabilitar_Campos();
-            btn_guardar_cliente_actualizado.Visibility = Visibility.Hidden;
+            txt_actividad.Visibility = Visibility.Visible;
+            txt_actividad.Content = "Buscar Clientes";
+            btn_agregar_Cliente.Visibility = Visibility.Visible;
         }
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
@@ -545,7 +530,7 @@ namespace Proyecto
             string v_Inactivo;
             try
             {
-                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
+                if (txb_correo.Text == "" || txb_nombre.Text == "" || txb_TelOf.Text == "" || txb_TelMov.Text == "" || txb_cedula.Text == "" || txb_representante.Text == "" || txb_direccion.Text == "" || txt_error_TelO.Visibility == Visibility.Visible || txt_error_telM.Visibility == Visibility.Visible || txt_error_correo.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar\nHacen falta campos por rellenar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -557,6 +542,10 @@ namespace Proyecto
                     clt.v_Telemovil = Convert.ToInt32(txb_TelMov.Text);
 
                     clt.v_Correo = txb_correo.Text;
+                    clt.v_Cedula = txb_cedula.Text;
+                    clt.v_Representante = txb_representante.Text;
+                    clt.v_Direccion = txb_direccion.Text;
+
 
                     if (txb_correo_o.Text == "")
                         clt.v_CorreoOpc = "N/A";
@@ -575,7 +564,6 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         Limpiar_Actualizar_Cliente();
-                        Inabilitar_Campos();
                     }
 
                 }
@@ -666,7 +654,170 @@ namespace Proyecto
         private void btn_imprimirClientes_Click(object sender, RoutedEventArgs e)
         {
             Imprimir print = new Imprimir();
-            print.imprimir(dtg_listar_clientes, "Imprimir");
+            print.imprimir(dtg_listar_clientes, "REPORTE CLIENTES");
+        }
+
+        private void btn_volver_Click(object sender, RoutedEventArgs e)
+        {
+            OcultarFormulario();
+            txt_actividad.Content = "Buscar Clientes";
+        }
+
+        private void OcultarFormulario()
+        {
+            grd_formularioCliente.Visibility = Visibility.Collapsed;
+            MostrarClientesExistentes();
+        }
+
+        //Muestra el panel de búsqueda en el tab de configuración de proveedores
+        private void MostrarClientesExistentes()
+        {
+            txt_actividad.Content = "Clientes existentes";
+            grd_ClientesExistentes.Visibility = Visibility.Visible;
+        }
+
+        private void OcultarClientesExistentes()
+        {
+            grd_ClientesExistentes.Visibility = Visibility.Collapsed;
+        }
+
+        private void btn_agregarCliente_Click(object sender, RoutedEventArgs e)
+        {
+            Habilitar_Campos();
+            btn_limpiar_actualizar_cliente_Click(sender, e);
+            txt_actividad.Visibility = Visibility.Visible;
+            txt_actividad.Content = "Agregar Nuevo Cliente";
+            btn_limpiar_actualizar_cliente.Visibility = Visibility.Visible;
+            btn_guardar_cliente_actualizado.Visibility = Visibility.Collapsed;
+            btn_agregar_Cliente.Visibility = Visibility.Visible;
+            MostrarFormulario();
+        }
+
+        //Muestra el panel del formulario en el tab de configuración de proveedores
+        private void MostrarFormulario()
+        {
+            grd_formularioCliente.Visibility = Visibility.Visible;
+            OcultarClientesExistentes();
+        }
+
+        private void txb_buscar_cliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            
+            dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
+            dtg_clientes.Columns[0].Header = "Código";
+            dtg_clientes.Columns[0].Width = 60;
+            dtg_clientes.Columns[1].Header = "Nombre Completo";
+            dtg_clientes.Columns[1].Width = 260;
+            dtg_clientes.Columns[2].Header = "Correo electrónico";
+            dtg_clientes.Columns[2].Width = 180;
+            dtg_clientes.Columns[3].Header = "Correo Opcional";
+            dtg_clientes.Columns[3].Width = 180;
+            dtg_clientes.Columns[4].Header = "Tel. Oficina";
+            dtg_clientes.Columns[4].Width = 90;
+            dtg_clientes.Columns[5].Header = "Tel. Móvil";
+            dtg_clientes.Columns[5].Width = 90;
+            dtg_clientes.Columns[6].Header = "Estado";
+            dtg_clientes.Columns[6].Width = 60;
+            dtg_clientes.Columns[7].Header = "Observaciones";
+            dtg_clientes.Columns[7].Width = 285;
+            dtg_clientes.Columns[8].Header = "Cédula";
+            dtg_clientes.Columns[8].Width = 180;
+            dtg_clientes.Columns[9].Header = "Representante";
+            dtg_clientes.Columns[9].Width = 180;
+            dtg_clientes.Columns[10].Header = "Dirección";
+            dtg_clientes.Columns[10].Width = 285;
+
+            txt_actividad.Content = "Clientes existentes";
+            txt_actividad.Visibility = Visibility.Visible;               
+        }
+
+       
+
+        private void txb_cedula_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarErroresTxb(txb_cedula, txt_error_cedula);
+            if (txb_cedula.Text == "")
+            {
+                txt_error_cedula.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void cmb_estado_Cliente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (txb_buscar_cliente_Lista.Text == "")
+                {
+                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstado(cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                }
+                else
+                {
+                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstadoyNombre(txb_buscar_cliente_Lista.Text, cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
+        }
+
+        private void cmb_estado_Cliente_Initialized(object sender, EventArgs e)
+        {
+            cmb_estado_Cliente.Items.Add("Activo");
+            cmb_estado_Cliente.Items.Add("Inactivo");
+        }
+
+        private void txb_buscar_cliente_Lista_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if (txb_buscar_cliente_Lista.Text == "")
+                {
+                    dtg_listar_clientes.ItemsSource = null;
+                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstado(cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                }
+                else
+                {
+                    if (cmb_estado_Cliente.SelectedItem == null)
+                    {
+                        dtg_listar_clientes.ItemsSource = model.BuscarClienteNombre(txb_buscar_cliente_Lista.Text).DefaultView;
+                    }
+                    else
+                    {
+                        dtg_listar_clientes.ItemsSource = model.BuscarClienteEstadoyNombre(txb_buscar_cliente_Lista.Text, cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                    }
+                }
+            }catch (Exception m)
+            {
+                Console.Write(m);
+            }
+        }
+
+        private void validar_Cedula(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            string cedula = txb_TelMov.Text;
+            if (cedula.Length < 9)
+            {
+                txt_error_cedula.Content = "La cédula debe tener un formato valido valido de 9 dígitos.";
+                txt_error_cedula.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txt_error_cedula.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void Txb_nombre_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(model.VerificarNombre(txb_nombre.Text)==1)
+            {
+                txt_error_nombre.Content = "Hay similitudes con cliente existe.";
+                txt_error_nombre.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txt_error_nombre.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

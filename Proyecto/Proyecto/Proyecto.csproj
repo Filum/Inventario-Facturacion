@@ -187,9 +187,6 @@
     <Resource Include="Vista\Imagenes\Ingresar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Vista\Imagenes\cubo-de-borrar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Vista\Imagenes\lock.png" />
     <Resource Include="Vista\Imagenes\usuario.png" />
   </ItemGroup>
@@ -285,6 +282,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Vista\Imagenes\regresar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\eliminar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Vista\Imagenes\cash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

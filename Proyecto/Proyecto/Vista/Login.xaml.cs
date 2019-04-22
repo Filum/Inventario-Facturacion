@@ -34,6 +34,7 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+            datos.Verificarestadofactura();
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -120,19 +121,41 @@ namespace Proyecto
                 }
                 else
                 {
-                    if (detalleUsuario[1] == txb_contrasena.Password.ToString())
+                    if (detalleUsuario[13] == "ACTIVO")
                     {
-                        MessageBox.Show("Bienvenido " + detalleUsuario[0], "Bienvenido", MessageBoxButton.OK, MessageBoxImage.Information);
-                        ventana.cargarMenu(txb_usuario.Text);
-                        ventana.nombreUser = txb_usuario.Text;
-                        this.Close();
+                        if (detalleUsuario[14] == "ACTIVO")
+                        {
+                            if (detalleUsuario[1] == txb_contrasena.Password.ToString())
+                            {
+                                MessageBox.Show("Bienvenido " + detalleUsuario[0], "Bienvenido", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ventana.cargarMenu(txb_usuario.Text);
+                                ventana.nombreUser = txb_usuario.Text;
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("El usuario o la contraseña son incorrectos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }else
+                        {
+                            MessageBox.Show("El rol asignado a su usario está inactivo, comunicarse con el personal necesario para la asignación de otro rol o la creación de uno nuevo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("El usuario o la contraseña son incorrectos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Su usuario está inactivo, comunicarse con el personal necesario para la activación del mismo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
+        }
+
+        private void txb_contrasena_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Enter) return;
+
+            // your event handler here
+            e.Handled = true;
+            verificar();
         }
         private void Validar_Usuario ()
         {

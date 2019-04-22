@@ -46,11 +46,15 @@ namespace Logica
         {
             return v_Data.AgregarFacturas(fact);
         }
+        public int AgregarDetalle(EntidadDetalleFactura fact)
+        {
+            return v_Data.AgregarDetalle(fact);
+        }
 
 
-        //------------------- M O D I F I C A R ---------------
+            //------------------- M O D I F I C A R ---------------
 
-        public int ModificarClientes(EntidadClientes clt)
+            public int ModificarClientes(EntidadClientes clt)
         {
             return v_Data.ModificarClientes(clt);
         }
@@ -216,7 +220,7 @@ namespace Logica
         {
             return v_Data.DetalleProducto(descripcion);
         }
-        public List<EntidadFacturas> BuscarFactura(String v_Nombre)
+        public DataTable BuscarFactura(String v_Nombre)
         {
             return v_Data.BuscarFactura(v_Nombre);
         }
@@ -224,5 +228,79 @@ namespace Logica
         {
             return v_Data.consultarUsuario(nombreUsuario);
         }
+        public DataTable Productos()
+        {
+            return v_Data.Productos();
+        }
+        public Int64 MaximaFactura()
+        {
+            return v_Data.MaximaFactura();
+        }
+        public Int64 MaximoDetalle()
+        {
+            return v_Data.MaximoDetalle();
+        }
+        public Int64 id_Usuario(string nombre)
+        {
+            return v_Data.id_Usuario(nombre);
+        }
+        public EntidadClientes id_Cliente(string nombre)
+        {
+            return v_Data.IdCliente(nombre);
+        }
+        public Int64 id_Producto(string nombre)
+        {
+            return v_Data.IdProducto(nombre);
+        }
+        public void DescuentoInventario(string cantidad, string nombre)
+        {
+            v_Data.DescuentoInventario(cantidad, nombre);
+        }
+        public void CambiarestadoFactura(string estado, string codigo)
+        {
+            v_Data.CambiarestadoFactura(estado, codigo);
+        }
+        public void Verificarestadofactura()
+        {
+            v_Data.Verificarestadofactura();
+        }
+        public DataTable BuscarFacturaEstado(String estado)
+        {
+            return v_Data.BuscarFacturaEstado(estado);
+        }
+        public DataTable BuscarFacturaEstadoyCliente(string v_Nombre, string estado)
+        {
+            return v_Data.BuscarFacturaEstadoyCliente(v_Nombre,estado);
+        }
+        public DataTable BuscarClienteNombre(string nombre)
+        {
+            return v_Data.BuscarClienteNombre(nombre);
+        }
+        public DataTable BuscarClienteEstado(string nombre)
+        {
+            return v_Data.BuscarClienteEstado(nombre);
+        }
+        public DataTable BuscarClienteEstadoyNombre(string nombre, string estado)
+        {
+            return v_Data.BuscarClienteEstadoyNombre(nombre, estado);
+        }
+        public List<string> DetalleFacturaServicios(int codigoFactura)
+        {
+            return v_Data.DetalleFacturaServicios(codigoFactura);
+        }
+        public Int64 VerificarNombre(string nombre)
+        {
+            return v_Data.VerificarNombre(nombre);
+        }
+        public string tipoFactura(string codigo)
+        {
+            return v_Data.tipoFactura(codigo);
+        }
+        public string Descripcion_servicio(string codigo)
+        {
+            return v_Data.Descripcion_servicio(codigo);
+        }
+
+
         }
 }
