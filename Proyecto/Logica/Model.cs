@@ -300,7 +300,10 @@ namespace Logica
         {
             return v_Data.Descripcion_servicio(codigo);
         }
-
+        public int AgregarBitacora(EntidadBitacora clt)
+        {
+            return v_Data.AgregarBitacora(clt);
+        }
 
         }
 }

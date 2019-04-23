@@ -175,7 +175,22 @@ namespace Datos
             conn.Close();
             return v_Resultado;
         }
+        public int AgregarBitacora(EntidadBitacora clt)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("add_Bitacora", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("ACCI", clt.usuario_Responsable));
+            comando.Parameters.Add(new OracleParameter("USU_RES", clt.accion));
+            comando.Parameters.Add(new OracleParameter("VENT_MANT", clt.ventana_Mantenimiento));
+            comando.Parameters.Add(new OracleParameter("DESCRIP", clt.descripcion));
 
+
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
         public int AgregarDetalle(EntidadDetalleFactura fact)
         {
             OracleConnection conn = DataBase.Conexion();

@@ -27,6 +27,7 @@ namespace Proyecto
     {
         //Declaramos dos objetos, uno de la entidad de clientes y otro del model.
         EntidadClientes clt = new EntidadClientes();
+        EntidadBitacora bitacora = new EntidadBitacora();
         Model model = new Model();
         public string nombreUsuario;
         public Clientes()
@@ -197,6 +198,11 @@ namespace Proyecto
                     if (v_Resultado == -1)//Si no surge ningun error ,se modifica correctamente.
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        bitacora.usuario_Responsable = Usuario_clientes.Text;
+                        bitacora.accion = "Modificó";
+                        bitacora.ventana_Mantenimiento = "Mantenimieto Clientes";
+                        bitacora.descripcion = "Modificó el cliente con la cédula: " + txb_cedula.Text+" el nombre: "+txb_nombre.Text;
+                        model.AgregarBitacora(bitacora);
                         Limpiar_Actualizar_Cliente();
                         grd_formularioCliente.Visibility = Visibility.Hidden;
                         grd_ClientesExistentes.Visibility = Visibility.Visible;

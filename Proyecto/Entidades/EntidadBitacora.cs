@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entidades
+namespace  Entidades
 {
-    class EntidadBitacora
+    public class EntidadBitacora
     {
-        public string fecha { get; set; }
         public string accion { get; set; }
         public string usuario_Responsable { get; set; }
         public string ventana_Mantenimiento { get; set; }
