@@ -206,6 +206,11 @@ namespace Proyecto
             btn_Mantenimiento.Visibility = Visibility.Collapsed;
             btn_Roles.Visibility = Visibility.Collapsed;
             btn_Facturar.Visibility = Visibility.Collapsed;
+            Bitacora ventana = new Bitacora();
+            ventana.nombreUsuario = nombreUser;
+            ventana.t_Usuario.Text = nombreUser;
+            ventana.Show();
+            this.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
