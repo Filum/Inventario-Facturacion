@@ -113,7 +113,8 @@ namespace Proyecto
                 btn_Mantenimiento.Visibility = Visibility.Collapsed;
                 btn_Roles.Visibility = Visibility.Collapsed;
                 btn_Facturar.Visibility = Visibility.Collapsed;
-            
+                btn_Bitacora.Visibility = Visibility.Collapsed;
+
         }
 
         private void Usuarios_Selected_1(object sender, RoutedEventArgs e)
@@ -122,8 +123,9 @@ namespace Proyecto
                 btn_Productos.Visibility = Visibility.Collapsed;
                 btn_Proveedores.Visibility = Visibility.Collapsed;
                 btn_Facturar.Visibility = Visibility.Collapsed;
+                btn_Bitacora.Visibility = Visibility.Collapsed;
 
-                if (btn_Mantenimiento.IsEnabled == true)
+            if (btn_Mantenimiento.IsEnabled == true)
                     btn_Mantenimiento.Visibility = Visibility.Visible;
 
                 if (btn_Roles.IsEnabled == true)
@@ -139,6 +141,7 @@ namespace Proyecto
             btn_Proveedores.Visibility = Visibility.Collapsed;
             btn_Mantenimiento.Visibility = Visibility.Collapsed;
             btn_Roles.Visibility = Visibility.Collapsed;
+            btn_Bitacora.Visibility = Visibility.Collapsed;
 
             if (btn_Facturar.IsEnabled == true)
                 btn_Facturar.Visibility = Visibility.Visible;
@@ -200,17 +203,13 @@ namespace Proyecto
 
         private void Bitacora_Selected(object sender, RoutedEventArgs e)
         {
-            btn_Clientes.Visibility = Visibility.Collapsed;
-            btn_Productos.Visibility = Visibility.Collapsed;
-            btn_Proveedores.Visibility = Visibility.Collapsed;
-            btn_Mantenimiento.Visibility = Visibility.Collapsed;
-            btn_Roles.Visibility = Visibility.Collapsed;
-            btn_Facturar.Visibility = Visibility.Collapsed;
-            Bitacora ventana = new Bitacora();
-            ventana.nombreUsuario = nombreUser;
-            ventana.t_Usuario.Text = nombreUser;
-            ventana.Show();
-            this.Close();
+                btn_Clientes.Visibility = Visibility.Collapsed;
+                btn_Productos.Visibility = Visibility.Collapsed;
+                btn_Proveedores.Visibility = Visibility.Collapsed;
+                btn_Mantenimiento.Visibility = Visibility.Collapsed;
+                btn_Roles.Visibility = Visibility.Collapsed;
+                btn_Facturar.Visibility = Visibility.Collapsed;
+                btn_Bitacora.Visibility = Visibility.Visible;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -298,6 +297,15 @@ namespace Proyecto
             txt_Rol.Text = nombreRol;
 
             this.Show();
+        }
+
+        private void Btn_Bitacora_Selected(object sender, RoutedEventArgs e)
+        {
+            Bitacora ventana = new Bitacora();
+            ventana.nombreUsuario = nombreUser;
+            ventana.t_Usuario.Text = nombreUser;
+            ventana.Show();
+            this.Close();
         }
     }
 }

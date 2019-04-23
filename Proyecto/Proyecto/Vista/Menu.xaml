@@ -98,6 +98,11 @@
                     <TextBlock Text="Bitácora"  VerticalAlignment="Center" Margin="10,16,10,16.6" Foreground="White" FontSize="14" FontFamily="Global Sans Serif" />
                 </StackPanel>
             </ListViewItem>
+            <ListViewItem x:Name="btn_Bitacora"  Visibility="Collapsed" Background="{x:Null}" Width="185" Height="30" Selected="Btn_Bitacora_Selected"   >
+                <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" Height="50" Width="175">
+                    <TextBlock Text="Bitácora"  VerticalAlignment="Center" Margin="10,0,10,9.6" Foreground="White" FontSize="14" FontFamily="Global Sans Serif" Height="40" />
+                </StackPanel>
+            </ListViewItem>
 
 
 
