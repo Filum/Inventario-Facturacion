@@ -155,7 +155,7 @@
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="10,41,24,0" Height="34" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="304,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278"/>
 
-                    <Grid Visibility="Visible"  x:Name="grd_formularioUsuario" >
+                    <Grid Visibility="Collapsed"  x:Name="grd_formularioUsuario" >
                         <Grid Margin="15,82,26,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="36*"/>
@@ -252,7 +252,7 @@
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Collapsed"  x:Name="grd_usuariosExistentes">
+                    <Grid Visibility="Visible"  x:Name="grd_usuariosExistentes">
                         <DataGrid x:Name="dtg_usuarios" Margin="10,140,10,24"  AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridRow">

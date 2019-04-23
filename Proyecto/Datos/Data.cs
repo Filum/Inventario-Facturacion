@@ -181,8 +181,8 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand("add_Bitacora", conn as OracleConnection);
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add(new OracleParameter("ACCI", clt.usuario_Responsable));
-            comando.Parameters.Add(new OracleParameter("USU_RES", clt.accion));
+            comando.Parameters.Add(new OracleParameter("ACCI", clt.accion));
+            comando.Parameters.Add(new OracleParameter("USU_RES", clt.usuario_Responsable));
             comando.Parameters.Add(new OracleParameter("VENT_MANT", clt.ventana_Mantenimiento));
             comando.Parameters.Add(new OracleParameter("DESCRIP", clt.descripcion));
 

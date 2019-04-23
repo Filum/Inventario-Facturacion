@@ -24,7 +24,7 @@ namespace Proyecto
     {
         EntidadRoles v_ER = new EntidadRoles();
         Model v_Model = new Model();
-        
+        EntidadBitacora bitacora = new EntidadBitacora();
         String v_EstadoSistema = "";
 
         public string nombreUsuario;
@@ -447,6 +447,13 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        bitacora.usuario_Responsable = t_Usuario.Text;
+                        bitacora.accion = "Agregó";
+                        bitacora.ventana_Mantenimiento = "Mantenimieto Roles";
+                        bitacora.descripcion = "Agregó el Rol con el nombre: " + txb_nomrol.Text;
+                        v_Model.AgregarBitacora(bitacora);
+
+
                         limpiar();
                         lbl_errorRB.Visibility = Visibility.Collapsed;
                         lbl_error.Visibility = Visibility.Collapsed;
@@ -614,6 +621,12 @@ namespace Proyecto
                     if (v_Model.ModificarRoles(v_ER) == -1)
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        bitacora.usuario_Responsable = t_Usuario.Text;
+                        bitacora.accion = "Modificó";
+                        bitacora.ventana_Mantenimiento = "Mantenimieto Roles";
+                        bitacora.descripcion = "Modificó el Rol con el nombre: " + txb_nomrol.Text;
+                        v_Model.AgregarBitacora(bitacora);
+
                         GridBuscar.Visibility = Visibility.Visible;
                         GridAgregar.Visibility = Visibility.Collapsed;
                         btn_agregar.Visibility = Visibility.Visible;
