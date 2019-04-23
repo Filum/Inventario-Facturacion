@@ -28,6 +28,7 @@ namespace Proyecto
     {
         public string nombreUsuario; //variable para cargar el nombre del usuario en esta pantalla
         Model datos = new Model();//variable para llamar los metodos de acceso a la base de datos
+        EntidadBitacora bitacora = new EntidadBitacora();
         public Facturacion()
         {
             InitializeComponent();
@@ -994,8 +995,12 @@ namespace Proyecto
                            
                             Imprimir imprimir = new Imprimir();
                             imprimir.imprimirFactura(dtg_facturar_productos_prueba, miFactura, DateTime.Now, micliente,miFactura.v_Moneda, miDetalle);
-
-                            limpiar_Facturaprodutcos();
+                        bitacora.usuario_Responsable = t_Usuario.Text;
+                        bitacora.accion = "Facturar";
+                        bitacora.ventana_Mantenimiento = "Facturación Productos";
+                        bitacora.descripcion = "Realizó una factura con el código: " + txt_codigo_factura.Content + ", al cliente: " + cmb_Cliente_Productos_Prueba.SelectedItem.ToString() + ", con un monto de " + txb_total_factura_prueba.Text + " " + miFactura.v_Moneda;
+                        datos.AgregarBitacora(bitacora);
+                        limpiar_Facturaprodutcos();
                         }
                 }
             }
@@ -1004,7 +1009,6 @@ namespace Proyecto
                 MessageBox.Show(m.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.WriteLine(m.ToString());
             }
-
         }
 
         private void RadioButton_Colon1_Checked(object sender, RoutedEventArgs e)
@@ -1373,7 +1377,11 @@ namespace Proyecto
                             {
                                 Imprimir imprimir = new Imprimir();
                                 imprimir.imprimirFactura(dtg_facturar_productos_prueba, miFactura, DateTime.Now, micliente, miFactura.v_Moneda,miDetalle);
-
+                                bitacora.usuario_Responsable = t_Usuario.Text;
+                                bitacora.accion = "Facturar";
+                                bitacora.ventana_Mantenimiento = "Facturación Servicios";
+                                bitacora.descripcion = "Realizó una factura con el código: " + txt_codigo_factura_servicios.Content + ", al cliente: " + cmb_Cliente_servicios.SelectedItem.ToString() + ", con un monto de "+ txb_total_factura_servicios.Text+" "+miFactura.v_Moneda;
+                                datos.AgregarBitacora(bitacora);
                                 LimpiarServicio();
                             }else
                             {

@@ -1364,6 +1364,96 @@ namespace Datos
             return tabla;
         }
 
+        /////////////////////////////////////////////Bitacora////////////////////////////////////////////////////////
+        ///
+        public DataTable MostrarBitacoraPorFecha(String fecha1, String fecha2)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT FECHA,ACCION,USUARIO_RESPONSABLE,VENTANA_MANTENIMIENTO,DESCRIPCION  from TBL_BITACORA where trunc(TBL_BITACORA.FECHA) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            try
+            {
+                adaptador.Fill(tabla);
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BitacoraMantenimieto(string mantenimiento)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT FECHA,ACCION,USUARIO_RESPONSABLE,VENTANA_MANTENIMIENTO,DESCRIPCION  from TBL_BITACORA where VENTANA_MANTENIMIENTO = '"+mantenimiento+"'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            try
+            {
+                adaptador.Fill(tabla);
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BitacoraAccion(string accion)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT FECHA,ACCION,USUARIO_RESPONSABLE,VENTANA_MANTENIMIENTO,DESCRIPCION  from TBL_BITACORA where ACCION = '"+accion+"'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            try
+            {
+                adaptador.Fill(tabla);
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
+            conn.Close();
+            return tabla;
+        }
+        public DataTable BitacoraMantenimietoyAccion(string mantenimiento,string accion)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT FECHA,ACCION,USUARIO_RESPONSABLE,VENTANA_MANTENIMIENTO,DESCRIPCION  from TBL_BITACORA where VENTANA_MANTENIMIENTO = '"+mantenimiento+"' AND ACCION = '"+accion+"'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            try
+            {
+                adaptador.Fill(tabla);
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
+            conn.Close();
+            return tabla;
+        }
 
 
     }

@@ -304,6 +304,22 @@ namespace Logica
         {
             return v_Data.AgregarBitacora(clt);
         }
+        public DataTable MostrarBitacoraPorFecha(String fecha1, String fecha2)
+        {
+            return v_Data.MostrarBitacoraPorFecha(fecha1, fecha2);
+        }
+        public DataTable BitacoraMantenimieto(string mantenimiento)
+        {
+            return v_Data.BitacoraMantenimieto(mantenimiento);
+        }
+        public DataTable BitacoraAccion(string accion)
+        {
+            return v_Data.BitacoraAccion(accion);
+        }
+        public DataTable BitacoraMantenimietoyAccion(string mantenimiento, string accion)
+        {
+            return v_Data.BitacoraMantenimietoyAccion(mantenimiento, accion);
+        }
 
         }
 }

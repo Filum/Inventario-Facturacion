@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logica;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Proyecto.Vista
     public partial class Bitacora : Window
     {
         public string nombreUsuario;
+        Model datos = new Model();
         public Bitacora()
         {
             InitializeComponent();
@@ -27,6 +29,8 @@ namespace Proyecto.Vista
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
+            date_historial_datte3.SelectedDate = DateTime.Now.Date;
+            date_historial_datte4.SelectedDate = DateTime.Now.Date;
         }
         //Funciones basicas de la pantalla de facturacion
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -83,6 +87,105 @@ namespace Proyecto.Vista
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Cmb_Mantenimiento_Initialized(object sender, EventArgs e)
+        {
+            cmb_Mantenimiento.Items.Add("Mantenimiento Clientes");
+            cmb_Mantenimiento.Items.Add("Mantenimiento Proveedores");
+            cmb_Mantenimiento.Items.Add("Mantenimiento Productos");
+            cmb_Mantenimiento.Items.Add("Mantenimiento Roles");
+            cmb_Mantenimiento.Items.Add("Mantenimiento Usuarios");
+            cmb_Mantenimiento.Items.Add("Facturación Servicios");
+            cmb_Mantenimiento.Items.Add("Facturación Productos");
+
+        }
+
+        private void Cmb_accion_Initialized(object sender, EventArgs e)
+        {
+            cmb_accion.Items.Add("Agregar");
+            cmb_accion.Items.Add("Modificar");
+            cmb_accion.Items.Add("Facturar");
+        }
+
+        private void btn_Listar_Click(object sender, RoutedEventArgs e)
+        {
+            if (date_historial_datte3.SelectedDate != null && date_historial_datte4.SelectedDate != null)
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+                DateTime v_Date1 = DateTime.Parse(date_historial_datte3.SelectedDate.Value.Date.ToShortDateString());
+                DateTime v_Date2 = DateTime.Parse(date_historial_datte4.SelectedDate.Value.Date.ToShortDateString());
+                String v_Fecha1;
+                v_Fecha1 = date_historial_datte3.SelectedDate.Value.Date.ToShortDateString();
+                String v_Fecha2;
+                v_Fecha2 = date_historial_datte4.SelectedDate.Value.Date.ToShortDateString();
+                if (v_Date1 > v_Date2)
+                {
+                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    if (datos.MostrarBitacoraPorFecha(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    {
+                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        dtg_bitacora.ItemsSource = datos.MostrarBitacoraPorFecha(v_Fecha1, v_Fecha2).DefaultView;
+                        cmb_accion.SelectedItem = null;
+                        cmb_Mantenimiento.SelectedItem = null;
+                    }
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un rango de fechas", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_imprimir_Click(object sender, RoutedEventArgs e)
+        {
+            Imprimir print = new Imprimir();
+            print.imprimir(dtg_bitacora, "Bitácora");
+        }
+
+        private void Cmb_Mantenimiento_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (cmb_accion.SelectedItem == null)
+                {
+                    dtg_bitacora.ItemsSource = datos.BitacoraMantenimieto(cmb_Mantenimiento.SelectedItem.ToString()).DefaultView;
+                }
+                else
+                {
+                    dtg_bitacora.ItemsSource = datos.BitacoraMantenimietoyAccion(cmb_Mantenimiento.SelectedItem.ToString(), cmb_accion.SelectedItem.ToString()).DefaultView;
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
+        }
+
+        private void Cmb_accion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (cmb_Mantenimiento.SelectedItem == null)
+                {
+                    dtg_bitacora.ItemsSource = datos.BitacoraAccion(cmb_accion.SelectedItem.ToString()).DefaultView;
+                }
+                else
+                {
+                    dtg_bitacora.ItemsSource = datos.BitacoraMantenimietoyAccion(cmb_Mantenimiento.SelectedItem.ToString(), cmb_accion.SelectedItem.ToString()).DefaultView;
+                }
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
         }
     }
 }

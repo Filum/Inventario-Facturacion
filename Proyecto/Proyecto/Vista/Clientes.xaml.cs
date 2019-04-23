@@ -198,10 +198,10 @@ namespace Proyecto
                     if (v_Resultado == -1)//Si no surge ningun error ,se modifica correctamente.
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        bitacora.accion = "Modificar";
                         bitacora.usuario_Responsable = Usuario_clientes.Text;
-                        bitacora.accion = "Modificó";
-                        bitacora.ventana_Mantenimiento = "Mantenimieto Clientes";
-                        bitacora.descripcion = "Modificó el cliente con la cédula: " + txb_cedula.Text+" el nombre: "+txb_nombre.Text;
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Clientes";
+                        bitacora.descripcion = "Modificó el cliente con la cédula: " + txb_cedula.Text+", con el nombre: "+txb_nombre.Text;
                         model.AgregarBitacora(bitacora);
                         Limpiar_Actualizar_Cliente();
                         grd_formularioCliente.Visibility = Visibility.Hidden;
@@ -569,6 +569,11 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        bitacora.accion = "Agregar";
+                        bitacora.usuario_Responsable = Usuario_clientes.Text;
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Clientes";
+                        bitacora.descripcion = "Agregó el cliente con la cédula: " + txb_cedula.Text + ", con el nombre: " + txb_nombre.Text;
+                        model.AgregarBitacora(bitacora);
                         Limpiar_Actualizar_Cliente();
                     }
 
@@ -599,7 +604,9 @@ namespace Proyecto
 
         private void txb_buscar_cliente_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
+            txt_actividad.Content = "Clientes existentes";
+            txt_actividad.Visibility = Visibility.Visible;
         }
 
         //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
@@ -705,38 +712,6 @@ namespace Proyecto
             grd_formularioCliente.Visibility = Visibility.Visible;
             OcultarClientesExistentes();
         }
-
-        private void txb_buscar_cliente_KeyUp(object sender, KeyEventArgs e)
-        {
-            
-            dtg_clientes.ItemsSource = model.BuscarClientes(txb_buscar_cliente.Text);
-            dtg_clientes.Columns[0].Header = "Código";
-            dtg_clientes.Columns[0].Width = 60;
-            dtg_clientes.Columns[1].Header = "Nombre Completo";
-            dtg_clientes.Columns[1].Width = 260;
-            dtg_clientes.Columns[2].Header = "Correo electrónico";
-            dtg_clientes.Columns[2].Width = 180;
-            dtg_clientes.Columns[3].Header = "Correo Opcional";
-            dtg_clientes.Columns[3].Width = 180;
-            dtg_clientes.Columns[4].Header = "Tel. Oficina";
-            dtg_clientes.Columns[4].Width = 90;
-            dtg_clientes.Columns[5].Header = "Tel. Móvil";
-            dtg_clientes.Columns[5].Width = 90;
-            dtg_clientes.Columns[6].Header = "Estado";
-            dtg_clientes.Columns[6].Width = 60;
-            dtg_clientes.Columns[7].Header = "Observaciones";
-            dtg_clientes.Columns[7].Width = 285;
-            dtg_clientes.Columns[8].Header = "Cédula";
-            dtg_clientes.Columns[8].Width = 180;
-            dtg_clientes.Columns[9].Header = "Representante";
-            dtg_clientes.Columns[9].Width = 180;
-            dtg_clientes.Columns[10].Header = "Dirección";
-            dtg_clientes.Columns[10].Width = 285;
-
-            txt_actividad.Content = "Clientes existentes";
-            txt_actividad.Visibility = Visibility.Visible;               
-        }
-
        
 
         private void txb_cedula_TextChanged(object sender, TextChangedEventArgs e)
@@ -801,7 +776,7 @@ namespace Proyecto
 
         private void validar_Cedula(object sender, KeyboardFocusChangedEventArgs e)
         {
-            string cedula = txb_TelMov.Text;
+            string cedula = txb_cedula.Text;
             if (cedula.Length < 9)
             {
                 txt_error_cedula.Content = "La cédula debe tener un formato valido valido de 9 dígitos.";

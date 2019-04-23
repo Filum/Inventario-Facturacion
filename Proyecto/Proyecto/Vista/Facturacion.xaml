@@ -107,9 +107,9 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             <DataGridTextColumn Binding="{Binding PK_CODIGOFACTURA}" FontFamily="Global Sans Serif"  Header="Código Factura" Width="*"/>
                             <DataGridTextColumn Binding="{Binding FECHA}" FontFamily="Global Sans Serif" Header="Fecha" Width="*"/>
                             <DataGridTextColumn Binding="{Binding NOMBREUSUARIO}" FontFamily="Global Sans Serif" Header="Usuario" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding NOMBRE}" FontFamily="Global Sans Serif" Header="Cliente" Width="200"/>
+                            <DataGridTextColumn Binding="{Binding NOMBRE}" FontFamily="Global Sans Serif" Header="Cliente" Width="230"/>
                             <DataGridTextColumn Binding="{Binding IMPUESTO}" FontFamily="Global Sans Serif" Header="Impuesto" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding DESCUENTO}" FontFamily="Global Sans Serif" Header="Descuento" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding DESCUENTO}" FontFamily="Global Sans Serif" Header="Descuento" Width="90"/>
                             <DataGridTextColumn Binding="{Binding TOTAL}" FontFamily="Global Sans Serif" Header="Total" Width="*"/>
                             <DataGridTextColumn Binding="{Binding MONEDA}" FontFamily="Global Sans Serif" Header="Moneda" Width="*"/>
                             <DataGridTextColumn Binding="{Binding ESTADOFACTURA}" FontFamily="Global Sans Serif" Header="Estado Factura" Width="*"/>
@@ -126,10 +126,10 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
-                    <Button x:Name="btn_imprimir" Height="70" Width="70" Foreground="White" Margin="0,0,11.8,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_Click" Grid.Column="1">
-                        <StackPanel x:Name="_" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:Name="btn_imprimir" Height="97" Width="91" Foreground="White" Margin="0,-1,9.8,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_Click" Grid.Column="1">
+                        <StackPanel x:Name="_" Width="92" Height="104" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Imprimir" Height="22" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="53" HorizontalAlignment="Left"/>
+                            <TextBlock Height="56" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,-26.8,0" Width="76" HorizontalAlignment="Left"><Run Text="   Imprimir"/><LineBreak/><Run Text="         o"/><LineBreak/><Run Text="Guardar pdf "/></TextBlock>
                         </StackPanel>
                     </Button>
                     <Label Content="Seleccione un rango de fecha del:" Margin="0,21,528.8,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269" Grid.Column="1"/>

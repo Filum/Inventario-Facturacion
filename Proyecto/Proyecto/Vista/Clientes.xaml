@@ -105,10 +105,10 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
-                    <Button x:Name="btn_imprimirClientes" Height="70" Width="70" Foreground="White" Margin="0,6,21.8,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"  Grid.Column="1" Click="btn_imprimirClientes_Click">
-                        <StackPanel x:Name="stp_imprimirclientes" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:Name="btn_imprimirClientes" Height="100" Width="90" Foreground="White" Margin="0,6,9.6,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"  Grid.Column="1" Click="btn_imprimirClientes_Click">
+                        <StackPanel x:Name="stp_imprimirclientes" Width="87" Height="104" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Imprimir" Height="22" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="53" HorizontalAlignment="Left"/>
+                            <TextBlock Height="56" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="76" HorizontalAlignment="Left"><Run Text="   Imprimir"/><LineBreak/><Run Text="         o"/><LineBreak/><Run Text="Guardar pdf "/></TextBlock>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btn_Listar" Height="66" Width="79" Foreground="White" Margin="0,10,111.8,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click" Grid.ColumnSpan="2">
@@ -186,7 +186,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
 
                     <Grid Visibility="Visible"  x:Name="grd_ClientesExistentes" Margin="0,0,0.2,0.2" Grid.ColumnSpan="2">
                         <Label x:Name="txt_nombre_cliente" Content="Ingrese el nombre del cliente:" Margin="101,120,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
-                        <TextBox x:Name="txb_buscar_cliente" MaxLength="35" Height="32" Margin="354,116,-52,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_buscar_cliente_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_buscar_cliente_KeyUp" HorizontalAlignment="Left" Width="347"/>
+                        <TextBox x:Name="txb_buscar_cliente" MaxLength="35" Height="32" Margin="354,116,-52,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_buscar_cliente_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" HorizontalAlignment="Left" Width="347"/>
                         <DataGrid x:Name="dtg_clientes"  Margin="20,204,-300.8,-462.8" FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding v_Codigo}" FontFamily="Global Sans Serif"  Header="Código" Width="60"/>

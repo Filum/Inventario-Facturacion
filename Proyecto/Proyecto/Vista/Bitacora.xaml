@@ -53,23 +53,16 @@
             </Button>
 
         </Grid>
-
-        <Button x:Name="btn_imprimir" Width="70" VerticalAlignment="Top" Margin="0,71,10,0" Height="70" HorizontalAlignment="Right" Foreground="White"  Background="{x:Null}" BorderBrush="{x:Null}">
-            <StackPanel x:Name="_" Width="64" VerticalAlignment="Center" Height="70" HorizontalAlignment="Center">
-                <Image Width="40" VerticalAlignment="Top" Source="Imagenes/imprimir.png" Margin="0,5" Height="40" HorizontalAlignment="Center"/>
-                <TextBlock Width="53" Text="Imprimir" Margin="10,0,0,0" Height="22" HorizontalAlignment="Left" FontFamily="Global Sans Serif" FontSize="14"/>
-            </StackPanel>
-        </Button>
-        <Label Width="269" VerticalAlignment="Top" Margin="0,84,451,0" HorizontalAlignment="Right" FontFamily="Global Sans Serif" FontSize="16" FontWeight="Bold" Foreground="White" Content="Seleccione un rango de fecha del:"/>
-        <DatePicker x:Name="date_historial_datte3" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}"  Margin="0,86,314,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
+        <Label Width="269" VerticalAlignment="Top" Margin="0,81,585,0" HorizontalAlignment="Right" FontFamily="Global Sans Serif" FontSize="16" FontWeight="Bold" Foreground="White" Content="Seleccione un rango de fecha del:"/>
+        <DatePicker x:Name="date_historial_datte3" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}"  Margin="0,83,448,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
             <DatePicker.Resources>
                 <Style TargetType="{x:Type DatePickerTextBox}">
                     <Setter Property="IsReadOnly" Value="True"/>
                 </Style>
             </DatePicker.Resources>
         </DatePicker>
-        <Label Content="al:" HorizontalAlignment="Right" Margin="0,86,281,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
-        <DatePicker x:Name="date_historial_datte4" Margin="0,84,134,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
+        <Label Content="al:" HorizontalAlignment="Right" Margin="0,83,415,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
+        <DatePicker x:Name="date_historial_datte4" Margin="0,81,268,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
             <DatePicker.Resources>
                 <Style TargetType="{x:Type DatePickerTextBox}">
                     <Setter Property="IsReadOnly" Value="True"/>
@@ -77,15 +70,15 @@
             </DatePicker.Resources>
         </DatePicker>
         <Label Content="Seleccione el mantenimiento a buscar:" HorizontalAlignment="Left" Margin="38,81,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="289" Height="30" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmb_Mantenimiento" Margin="332,84,746,0" VerticalAlignment="Top"  />
+        <ComboBox x:Name="cmb_Mantenimiento" Margin="332,84,919,0" VerticalAlignment="Top" Initialized="Cmb_Mantenimiento_Initialized" SelectionChanged="Cmb_Mantenimiento_SelectionChanged"  />
         <Label Content="Bitácora " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
-        <DataGrid x:Name="dtg_listar_facturas" Margin="56,198,22,88.4"  FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
+        <DataGrid x:Name="dtg_bitacora" Margin="56,198,22,88.4"  FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding TIPOFACTURA}" FontFamily="Global Sans Serif"  Header="Fecha" Width="*"/>
-                <DataGridTextColumn Binding="{Binding PK_CODIGOFACTURA}" FontFamily="Global Sans Serif"  Header="Usuario Responsable" Width="*"/>
-                <DataGridTextColumn Binding="{Binding PK_CODIGOFACTURA}" FontFamily="Global Sans Serif"  Header="Acción realizada" Width="*"/>
-                <DataGridTextColumn Binding="{Binding PK_CODIGOFACTURA}" FontFamily="Global Sans Serif"  Header="Mantenimiento" Width="*"/>
-                <DataGridTextColumn Binding="{Binding PK_CODIGOFACTURA}" FontFamily="Global Sans Serif"  Header="Descripción" Width="*"/>
+                <DataGridTextColumn Binding="{Binding FECHA}" FontFamily="Global Sans Serif"  Header="Fecha" Width="200"/>
+                <DataGridTextColumn Binding="{Binding ACCION}" FontFamily="Global Sans Serif"  Header="Acción realizada" Width="160"/>
+                <DataGridTextColumn Binding="{Binding USUARIO_RESPONSABLE}" FontFamily="Global Sans Serif"  Header="Usuario Responsable" Width="160"/>
+                <DataGridTextColumn Binding="{Binding VENTANA_MANTENIMIENTO}" FontFamily="Global Sans Serif"  Header="Mantenimiento" Width="240"/>
+                <DataGridTextColumn Binding="{Binding DESCRIPCION}" FontFamily="Global Sans Serif"  Header="Descripción" Width="*"/>
             </DataGrid.Columns>
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -95,7 +88,19 @@
             </DataGrid.ColumnHeaderStyle>
         </DataGrid>
         <Label Content="Seleccione el estado a buscar:" HorizontalAlignment="Left" Margin="38,132,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="229" Height="30" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmb_accion" Margin="332,135,746,0" VerticalAlignment="Top"  />
+        <ComboBox x:Name="cmb_accion" Margin="332,135,919,0" VerticalAlignment="Top" Initialized="Cmb_accion_Initialized" SelectionChanged="Cmb_accion_SelectionChanged"  />
+        <Button x:Name="btn_imprimir_factura_servicios" Height="109" Foreground="White" Margin="0,71,31,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_imprimir_Click" HorizontalAlignment="Right" Width="81">
+            <StackPanel Width="98" Height="110" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                <TextBlock Height="56" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="76" HorizontalAlignment="Left"><Run Text="   Imprimir"/><LineBreak/><Run Text="         o"/><LineBreak/><Run Text="Guardar pdf "/></TextBlock>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btn_Listar" Height="67" Width="79" Foreground="White" Margin="0,71,147,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click">
+            <StackPanel x:Name="stp_ordenarcodigo" Width="70" Height="79" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                <TextBlock x:Name="txb_ordenarcodigo" Height="45" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left" Text="Listar" Margin="18,0,-7.6,0"/>
+            </StackPanel>
+        </Button>
 
     </Grid>
 </Window>
