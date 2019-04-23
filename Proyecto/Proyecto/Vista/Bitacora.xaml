@@ -76,10 +76,10 @@
                 </Style>
             </DatePicker.Resources>
         </DatePicker>
-        <Label Content="Seleccione el estado a buscar:" HorizontalAlignment="Left" Margin="38,81,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="229" Height="30" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmb_estado_Factura" Margin="272,84,746,0" VerticalAlignment="Top"  />
+        <Label Content="Seleccione el mantenimiento a buscar:" HorizontalAlignment="Left" Margin="38,81,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="289" Height="30" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmb_Mantenimiento" Margin="332,84,746,0" VerticalAlignment="Top"  />
         <Label Content="Bitácora " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
-        <DataGrid x:Name="dtg_listar_facturas" Margin="56,146,22,88.4"  FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
+        <DataGrid x:Name="dtg_listar_facturas" Margin="56,198,22,88.4"  FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TIPOFACTURA}" FontFamily="Global Sans Serif"  Header="Fecha" Width="*"/>
                 <DataGridTextColumn Binding="{Binding PK_CODIGOFACTURA}" FontFamily="Global Sans Serif"  Header="Usuario Responsable" Width="*"/>
@@ -94,6 +94,8 @@
                 </Style>
             </DataGrid.ColumnHeaderStyle>
         </DataGrid>
+        <Label Content="Seleccione el estado a buscar:" HorizontalAlignment="Left" Margin="38,132,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="229" Height="30" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmb_accion" Margin="332,135,746,0" VerticalAlignment="Top"  />
 
     </Grid>
 </Window>
