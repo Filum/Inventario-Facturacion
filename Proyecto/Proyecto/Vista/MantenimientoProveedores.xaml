@@ -98,7 +98,19 @@
                             <TextBlock Text="Listar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="17,0,0,0" Width="36" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Button>
-                    <DataGrid x:Name="dtg_lista" Margin="30,108,30,29" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
+                    <DataGrid x:Name="dtg_lista" Margin="30,108,30,29" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding CEDULAJURIDICA}" FontFamily="Global Sans Serif"  Header="Cédula Jurídica" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding NOMBRE}" FontFamily="Global Sans Serif" Header="Nombre del Proveedor" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding CORREO}" FontFamily="Global Sans Serif" Header="Correo" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding CORREOOPCIONAL}" FontFamily="Global Sans Serif" Header="Correo Opcional" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding TELEFONO}" FontFamily="Global Sans Serif" Header="Teléfono" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding TELEFONOOPCIONAL}" FontFamily="Global Sans Serif" Header="Tel. Opcional" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding DESCRIPCION}" FontFamily="Global Sans Serif" Header="Descripción" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding FECHA}" FontFamily="Global Sans Serif" Header="Fecha de Ingreso" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding ESTADOSISTEMA}" FontFamily="Global Sans Serif" Header="Estado en el Sistema" Width="*"/>
+                        </DataGrid.Columns>
+                        
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />

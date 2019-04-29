@@ -41,7 +41,7 @@ namespace Proyecto
 
             cmb_tipoBusqueda.SelectedIndex = 2;
             dtg_lista.ItemsSource = v_Model.MostrarListaRoles("LISTAROLES").DefaultView;
-            //dtg_roles.ItemsSource = v_Model.MostrarListaRoles("LISTAROLES").DefaultView;
+           
         }
 
         public void llenardtg()
@@ -115,15 +115,6 @@ namespace Proyecto
         {
                    
                         dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
-                        dtg_lista.Columns[0].Header = "Nombre";
-                        dtg_lista.Columns[1].Header = "Mantenimiento Clientes";
-                        dtg_lista.Columns[2].Header = "Mantenimiento Proveedores";
-                        dtg_lista.Columns[3].Header = "Mantenimiento Productos";
-                        dtg_lista.Columns[4].Header = "Mantenimiento Usuarios";
-                        dtg_lista.Columns[5].Header = "Mantenimiento Roles";
-                        dtg_lista.Columns[6].Header = "Facturación";
-                        dtg_lista.Columns[7].Header = "Bitácora";
-                        dtg_lista.Columns[8].Header = "Estado en el Sistema";
 
 
         }

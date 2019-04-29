@@ -401,17 +401,6 @@ namespace Proyecto
                 else
                 {
                     dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_EstadoSistema).DefaultView;
-                    dtg_lista.Columns[0].Header = "Código Producto";
-                    dtg_lista.Columns[1].Header = "Nombre del Producto";
-                    dtg_lista.Columns[2].Header = "Marca";
-                    dtg_lista.Columns[3].Header = "Cantidad en existencia";
-                    dtg_lista.Columns[4].Header = "Proveedor";
-                    dtg_lista.Columns[5].Header = "Precio";
-                    dtg_lista.Columns[6].Header = "Descripción";
-                    dtg_lista.Columns[7].Header = "Fabricante";
-                    dtg_lista.Columns[8].Header = "Estado del Producto";
-                    dtg_lista.Columns[9].Header = "Fecha";
-                    dtg_lista.Columns[10].Header = "Estado en el Sistema";
                 }
         }
 

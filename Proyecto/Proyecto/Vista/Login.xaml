@@ -77,13 +77,6 @@
                 <ImageBrush ImageSource="Imagenes/informacion.png"/>
             </Button.Background>
         </Button>
-        <DockPanel x:Name="pan_contraseña" Height="70" Margin="0,395,0,0" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Top" MinWidth="300" MaxWidth="450">
-            <DockPanel.Background>
-                <SolidColorBrush Color="#FF353434" Opacity="0.6"/>
-            </DockPanel.Background>
-            <Image x:Name="padlock__1__png" Margin="10,0" Source="Imagenes\padlock.png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="txb_contrasena"  Height="30"  VerticalAlignment="Center"  FontFamily="Yu Gothic UI Light" FontSize="18" Background="{x:Null}" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10"  Foreground="White" BorderBrush="{x:Null}" HorizontalContentAlignment="Center"  MaxLength="20" KeyUp="txb_contrasena_KeyUp" />
-        </DockPanel>
         <DockPanel x:Name="pan_usuario" HorizontalAlignment="Center" Height="70"  Margin="0,315,0,0" UseLayoutRounding="True" VerticalAlignment="Top" LastChildFill="False" MinWidth="300" MaxWidth="450">
             <DockPanel.Background>
                 <SolidColorBrush Color="#FF353434" Opacity="0.6"/>
@@ -91,12 +84,13 @@
             <Image x:Name="usuario_png" Margin="10,0" Source="Imagenes\user.png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <TextBox x:Name="txb_usuario" Height="35" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Yu Gothic UI Light" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10" Background="{x:Null}" Foreground="White" TextChanged="txt_usuario_TextChanged" BorderBrush="{x:Null}" HorizontalContentAlignment="Center" Style="{StaticResource placeHolder}" Tag="USUARIO"/>
         </DockPanel>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="16,0,0,1.6" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="150" Height="32" VerticalAlignment="Bottom"/>
-        <StackPanel HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" Orientation="Horizontal">
-            <Image x:Name="LOGODELRAM_png" Source="Imagenes/img_DELRAM.png" Stretch="Fill" HorizontalAlignment="Center" Width="252" Height="173" VerticalAlignment="Center" Margin="50,0"/>
-            <Label x:Name="txt_NombreSistema" Content="Sistema de Inventario &#xA;y Facturación  (SIF)" Margin="50,0" Foreground="#FFF7F7F7" FontSize="36" FontFamily="Yu Gothic UI Light" FontWeight="Bold" Height="117" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
-            <Image x:Name="image" HorizontalAlignment="Left" Margin="50,0" Source="Imagenes/Logo SIFmediano.png" Height="169" VerticalAlignment="Top" Width="190"/>
-        </StackPanel>
+        <DockPanel x:Name="pan_contraseña" Height="70" Margin="0,395,0,0" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Top" MinWidth="300" MaxWidth="450">
+            <DockPanel.Background>
+                <SolidColorBrush Color="#FF353434" Opacity="0.6"/>
+            </DockPanel.Background>
+            <Image x:Name="padlock__1__png" Margin="10,0" Source="Imagenes\padlock.png" Stretch="Fill" DockPanel.Dock="Left" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <PasswordBox x:Name="txb_contrasena"  Height="30"  VerticalAlignment="Center"  FontFamily="Yu Gothic UI Light" FontSize="18" Background="{x:Null}" HorizontalAlignment="Left" MinWidth="200" DockPanel.Dock="Left" Margin="10,15,10,10"  Foreground="White" BorderBrush="{x:Null}" HorizontalContentAlignment="Center"  MaxLength="20" KeyUp="txb_contrasena_KeyUp" />
+        </DockPanel>
         <StackPanel HorizontalAlignment="Center" Height="100" Margin="0,480,0,0" VerticalAlignment="Top" Orientation="Horizontal" Width="300">
             <Button Foreground="White" Background="{x:Null}" Margin="0" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Height="100" Click="click_Limpiar_Datos">
                 <StackPanel x:Name="stk_Limpiardatos" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150">
@@ -112,5 +106,12 @@
                 </StackPanel>
             </Button>
         </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" Orientation="Horizontal">
+            <Image x:Name="LOGODELRAM_png" Source="Imagenes/img_DELRAM.png" Stretch="Fill" HorizontalAlignment="Center" Width="252" Height="173" VerticalAlignment="Center" Margin="50,0"/>
+            <Label x:Name="txt_NombreSistema" Content="Sistema de Inventario &#xA;y Facturación  (SIF)" Margin="50,0" Foreground="#FFF7F7F7" FontSize="36" FontFamily="Yu Gothic UI Light" FontWeight="Bold" Height="117" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Image x:Name="image" HorizontalAlignment="Left" Margin="50,0" Source="Imagenes/Logo SIFmediano.png" Height="169" VerticalAlignment="Top" Width="190"/>
+        </StackPanel>
+        <Label x:Name="txt_fecha" Content="fecha" Margin="16,0,0,1.6" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="150" Height="32" VerticalAlignment="Bottom"/>
+        <Label x:Name="label" Content="Label" Margin="0,0,0,68" Visibility="Collapsed" FontSize="36" HorizontalAlignment="Right" Width="138" Height="58" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

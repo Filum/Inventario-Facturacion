@@ -95,7 +95,22 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_lista" Margin="20,117,24,21" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
+                    <DataGrid x:Name="dtg_lista" Margin="20,117,24,21" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding CEDULAIDENTIFICACION}" FontFamily="Global Sans Serif"  Header="Número de Cédula" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding NOMBREUSUARIO}" FontFamily="Global Sans Serif" Header="Nombre del Usuario" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding APELLIDOS}" FontFamily="Global Sans Serif" Header="Apellidos" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding TELEFONO}" FontFamily="Global Sans Serif" Header="Teléfono" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding TELEFONOOPCIONAL}" FontFamily="Global Sans Serif" Header="Tel. Opcional" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding CORREO}" FontFamily="Global Sans Serif" Header="Correo" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding PUESTO}" FontFamily="Global Sans Serif" Header="Puesto" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding NOMBRE}" FontFamily="Global Sans Serif" Header="Rol" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding USUARIOSISTEMA}" FontFamily="Global Sans Serif" Header="Usuario" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding CONTRASENA}" FontFamily="Global Sans Serif" Header="Contraseña" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding FECHA}" FontFamily="Global Sans Serif" Header="Fecha de Ingreso" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding ESTADOSISTEMA}" FontFamily="Global Sans Serif" Header="Estado en el Sistema" Width="*"/>
+                        </DataGrid.Columns>
+
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />

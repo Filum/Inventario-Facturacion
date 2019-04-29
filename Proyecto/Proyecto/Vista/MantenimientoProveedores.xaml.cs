@@ -297,15 +297,6 @@ namespace Proyecto
                 else
                 {
                     dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
-                    dtg_lista.Columns[0].Header = "Cédula Jurídica";
-                    dtg_lista.Columns[1].Header = "Nombre del Proveedor";
-                    dtg_lista.Columns[2].Header = "Correo";
-                    dtg_lista.Columns[3].Header = "Correo Opcional";
-                    dtg_lista.Columns[4].Header = "Teléfono";
-                    dtg_lista.Columns[5].Header = "Tel. Opcional";
-                    dtg_lista.Columns[6].Header = "Descripción";
-                    dtg_lista.Columns[7].Header = "Fecha de Ingreso";
-                    dtg_lista.Columns[8].Header = "Estado en el Sistema";
                 }
         }
 

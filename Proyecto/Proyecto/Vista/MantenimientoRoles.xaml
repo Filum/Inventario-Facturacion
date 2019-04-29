@@ -88,12 +88,24 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <DataGrid x:Name="dtg_lista" Margin="20,100,20,20" AutoGenerateColumns="True" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray" >
+                    <DataGrid x:Name="dtg_lista" Margin="20,100,20,20" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="auto" CanUserResizeColumns="False"  IsReadOnly="True" AlternatingRowBackground="LightGray" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding NOMBRE}" FontFamily="Global Sans Serif"  Header="Nombre" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding MANTENIMIENTO_CLIENTES}" FontFamily="Global Sans Serif" Header="Mantenimiento Clientes" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding MANTENIMIENTO_PROVEEDORES}" FontFamily="Global Sans Serif" Header="Mantenimiento Proveedores" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding MANTENIMIENTO_PRODUCTOS}" FontFamily="Global Sans Serif" Header="Mantenimiento Productos" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding MANTENIMIENTO_USUARIOS}" FontFamily="Global Sans Serif" Header="Mantenimiento Usuarios" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding MANTENIMIENTO_ROLES}" FontFamily="Global Sans Serif" Header="Mantenimiento Roles" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding FACTURACION}" FontFamily="Global Sans Serif" Header="Facturación" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding BITACORA}" FontFamily="Global Sans Serif" Header="Bitácora" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding ESTADOSISTEMA}" FontFamily="Global Sans Serif" Header="Estado en el Sistema" Width="*"/>
+                        </DataGrid.Columns>
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />
                                 <Setter Property="FontSize"  Value="14" />
                                 <Setter Property="Padding" Value="5"/>
+                                
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
 
