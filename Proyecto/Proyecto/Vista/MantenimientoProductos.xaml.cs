@@ -182,6 +182,8 @@ namespace Proyecto
             txb_marca.Text = "";
             txb_fabricante.Text = "";
             txb_descripcion.Text = "";
+            rb_activo.IsChecked = true;
+            rb_activo.IsChecked = false;
             dtg_productos.ItemsSource = null;
             lbl_errorCodProd.Visibility = Visibility.Hidden;
             lbl_errorBusqueda.Visibility = Visibility.Hidden;
@@ -233,7 +235,6 @@ namespace Proyecto
             }
             else
             {
-                
                 try
                 {
                     v_Clt.v_CodigoProducto = txb_codProd.Text;
@@ -283,6 +284,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
+                        MostrarProductosExistentes();
                     }
                 }
                 catch (Exception m)
@@ -469,7 +471,8 @@ namespace Proyecto
             
             lbl_actividad.Content = "Modificar producto";
             lbl_actividad.Visibility = Visibility.Visible;
-            btn_modificar.Visibility = Visibility.Visible;
+            v_Actividad_btnModificar = true;
+            v_Actividad_btnAgregar = false;
             btn_agregar.Visibility = Visibility.Collapsed;
 
            
@@ -544,6 +547,7 @@ namespace Proyecto
             lbl_cantModificar.Visibility = Visibility.Collapsed;
 
             MostrarFormulario();
+            rb_activo.IsChecked = true;
         }
 
         private void btn_volver_Click(object sender, RoutedEventArgs e)

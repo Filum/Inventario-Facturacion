@@ -107,7 +107,7 @@ namespace Proyecto
             txb_puesto.Text = "";
             cmb_rol.Text = "";
             txb_usuario.Text = "";
-            rb_activo.IsChecked = false;
+            rb_activo.IsChecked = true;
             rb_inactivo.IsChecked = false;
             lbl_errorNumCed.Visibility = Visibility.Hidden;
             lbl_errorBusqueda.Visibility = Visibility.Hidden;
@@ -187,6 +187,7 @@ namespace Proyecto
             MostrarFormulario();
             v_Actividad_btnAgregar = true;
             lbl_actividad.Content = "Agregar usuario";
+            rb_activo.IsChecked = true;
         }
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
@@ -312,6 +313,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
+                        MostrarUsuariosExistentes();
                     }
                 }
             }

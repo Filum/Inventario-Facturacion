@@ -111,6 +111,7 @@ namespace Proyecto
             ValidarRadioButton();
             btn_limpiar.Visibility = Visibility.Visible;
             MostrarFormulario();
+            rb_activo.IsChecked = true;
         }
 
         //Vuelve al panel de búsqueda en el tab de configuración de proveedores y oculta el formulario
@@ -170,6 +171,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
+                        MostrarProveedoresExistentes();
                     }
                 }
             }
@@ -264,7 +266,7 @@ namespace Proyecto
             txb_correo.Text = "";
             txb_correoOpcional.Text = "";
             txb_descripcion.Text = "";
-            rb_activo.IsChecked = false;
+            rb_activo.IsChecked = true;
             rb_inactivo.IsChecked = false;
             dtg_proveedores.ItemsSource = null;
             lbl_errorCedJur.Visibility = Visibility.Collapsed;
@@ -434,7 +436,7 @@ namespace Proyecto
             }
         }
 
-        //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de gestión de proveedores
+        //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de configuración de proveedores
         private void HabilitarBtnAgregar()
         {
             if (v_Actividad_btnAgregar == true)

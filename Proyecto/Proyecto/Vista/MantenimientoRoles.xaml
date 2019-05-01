@@ -57,7 +57,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
         </Rectangle>
         <Label x:Name="lbl_fecha" Content="fecha" Margin="0,0,0,-0.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="204" Height="25" VerticalAlignment="Bottom"/>
 
-        <TabControl Margin="10,50,130,30" SelectionChanged="TabControl_SelectionChanged" Grid.ColumnSpan="2">
+        <TabControl Margin="10,50,130,30" Grid.ColumnSpan="2">
             <TabItem Padding="10" Margin="0">
 
                 <TabItem.Background>
@@ -73,7 +73,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    
+
 
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -105,7 +105,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                                 <Setter Property="FontWeight" Value="Bold" />
                                 <Setter Property="FontSize"  Value="14" />
                                 <Setter Property="Padding" Value="5"/>
-                                
+
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
 
@@ -126,7 +126,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
 
             </TabItem>
 
-            <TabItem Margin="0,0,-24,0" Padding="10">
+            <TabItem Margin="0,0,3,0" Padding="10">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -136,7 +136,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Imagenes/actualizar-16.png" />
-                        <TextBlock Text="Gestión de Roles" Foreground="Black" VerticalAlignment="Center" Width="100" Height="14" Margin="10,0,0,0" FontWeight="Bold" />
+                        <TextBlock Text="Configuración de Roles" Foreground="Black" VerticalAlignment="Center" Width="139" Height="14" Margin="10,0,0,0" FontWeight="Bold" />
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
@@ -146,30 +146,30 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             <GradientStop Color="#FE2E2672" Offset="1"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Grid x:Name="GridAgregar" Visibility="Collapsed" Margin="0">
-                        
-                        <StackPanel x:Name="panel_botones" Margin="20,0,20,20" VerticalAlignment="Bottom" Orientation="Horizontal" FlowDirection="RightToLeft">
-                            
-                            <Button x:Name="btn_modificar_roles"  Visibility="Collapsed" Foreground="White" IsEnabled="True" Margin="10,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btn_modificar_roles_Click">
-                                <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                                    <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
-                                </StackPanel>
-                            </Button>
-                            
-                            <Button x:Name="btn_agregar" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Click" Margin="10,0">
-                                <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                                    <TextBlock Text="Agregar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="btn_limpiar" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0" Click="Btn_limpiar_Click">
-                                <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                                    <TextBlock Text="Limpiar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
+                    <Grid x:Name="grd_formularioRoles" Visibility="Visible" Margin="0">
+
+
+                        <Button x:Name="btn_modificar"  Visibility="Collapsed" Foreground="White" Margin="31,0,0,9" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Click="btn_modificar_Click" Height="74" VerticalAlignment="Bottom">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                <TextBlock Text="Modificar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="4,0,0,0" Width="66" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="btn_agregar" Height="73" Width="73" Visibility="Collapsed" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Click" Margin="31,0,0,10">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                <TextBlock Text="Agregar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="btn_limpiar" Height="73" Width="73" Visibility="Visible" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,0,31,10" Click="Btn_limpiar_Click">
+                            <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/limpiar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                <TextBlock Text="Limpiar" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center" UseLayoutRounding="False" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Button>
+
                         <Button x:Name="btn_volver_roles"  Visibility="Visible" Foreground="White" IsEnabled="True" Margin="30,80,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btn_volver">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/regresar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
@@ -179,34 +179,33 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                         <Grid Margin="90,85,10,69.6">
                             <Label Content="Nombre del Rol:" HorizontalAlignment="Left" Margin="30,20,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="127" Height="25" VerticalAlignment="Top"/>
                             <Label Content="Seleccione las ventanas a las que puede accesar el rol:" HorizontalAlignment="Left" Margin="30,110,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="33" VerticalAlignment="Top"/>
-                            <CheckBox x:Name="checkbox_mant_usuarios" Content="Mantenimiento de Usuarios" Margin="99,150,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_mant_usuarios_Checked"/>
-                            <CheckBox x:Name="checkbox_mant_productos" Content="Mantenimiento de Productos" Margin="99,181,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_mant_productos_Checked"/>
-                            <CheckBox x:Name="checkbox_mant_roles" Content="Mantenimiento de Roles" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" Margin="99,250,0,0" HorizontalAlignment="Left" Checked="checkbox_mant_roles_Checked"/>
-                            <CheckBox x:Name="checkbox_mant_proveedores" Content="Mantenimiento de Proveedores" Margin="99,212,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="checkbox_mant_proveedores_Checked"/>
+                            <CheckBox x:Name="checkbox_mant_usuarios" Content="Mantenimiento de Usuarios" Margin="99,150,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_mant_usuarios_Checked" Unchecked="checkbox_mant_usuarios_Unchecked"/>
+                            <CheckBox x:Name="checkbox_mant_productos" Content="Mantenimiento de Productos" Margin="99,181,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_mant_productos_Checked" Unchecked="checkbox_mant_productos_Unchecked"/>
+                            <CheckBox x:Name="checkbox_mant_roles" Content="Mantenimiento de Roles" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" Margin="99,250,0,0" HorizontalAlignment="Left" Checked="checkbox_mant_roles_Checked" Unchecked="checkbox_mant_roles_Unchecked"/>
+                            <CheckBox x:Name="checkbox_mant_proveedores" Content="Mantenimiento de Proveedores" Margin="99,212,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="checkbox_mant_proveedores_Checked" Unchecked="checkbox_mant_proveedores_Unchecked"/>
                             <TextBox x:Name="txb_nomrol" MaxLength="35" Margin="198,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Left" Width="325" FontFamily="Global Sans Serif"  Height="30" VerticalContentAlignment="Center" TextChanged="txb_nomrol_TextChanged"/>
-                            <CheckBox x:Name="checkbox_facturacion" Content="Facturación" Margin="529,150,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_facturacion_Checked"/>
-                            <CheckBox x:Name="checkbox_bitacora" Content="Bitácora" Margin="529,212,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="checkbox_bitacora_Checked"/>
-                            <CheckBox x:Name="checkbox_mant_clientes" Content="Mantenimiento de Clientes" Margin="529,181,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_mant_clientes_Checked"/>
+                            <CheckBox x:Name="checkbox_facturacion" Content="Facturación" Margin="529,150,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_facturacion_Checked" Unchecked="checkbox_facturacion_Unchecked"/>
+                            <CheckBox x:Name="checkbox_bitacora" Content="Bitácora" Margin="529,212,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="checkbox_bitacora_Checked" Unchecked="checkbox_bitacora_Unchecked"/>
+                            <CheckBox x:Name="checkbox_mant_clientes" Content="Mantenimiento de Clientes" Margin="529,181,0,0" Foreground="White" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="checkbox_mant_clientes_Checked" Unchecked="checkbox_mant_clientes_Unchecked"/>
                             <Label x:Name="lbl_estadoSistema" Content="Estado Sistema:" Margin="30,70,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" FontSize="16" HorizontalAlignment="Left"/>
-                            <RadioButton x:Name="rb_activo" IsChecked="False" Content="Activo" HorizontalAlignment="Left" Margin="198,76,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16"/>
-                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="298,76,309,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18"/>
+                            <RadioButton x:Name="rb_activo" Content="Activo" HorizontalAlignment="Left" Margin="198,76,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Checked="Rb_activo_Checked"/>
+                            <RadioButton x:Name="rb_inactivo" Content="Inactivo" Margin="298,76,367,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="18" Checked="Rb_inactivo_Checked"/>
                         </Grid>
                         <Label x:Name="lbl_actividad2" Content="Agregar Rol" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="348.4,15,348.4,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
                         <Separator Height="41" Margin="20,50,20,0" VerticalAlignment="Top" Background="White"/>
                         <Label x:Name="lbl_error" Visibility="Collapsed" Content="" HorizontalAlignment="Left" Margin="624,111,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="Red" Width="191" Height="25" VerticalAlignment="Top"/>
-                        <Label x:Name="lbl_errorRB" Visibility="Collapsed" Content="" HorizontalAlignment="Left" Margin="514,156,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="#FFEED805" Width="332" Height="26" VerticalAlignment="Top" Background="#00000000"/>
-                        <Label x:Name="lbl_errorCB" Visibility="Collapsed" Content="" HorizontalAlignment="Left" Margin="529,200,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="Red" Width="308" Height="26" VerticalAlignment="Top"/>
+                        <Label x:Name="lbl_errorCB" Visibility="Collapsed" Content="" HorizontalAlignment="Left" Margin="529,197,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="Red" Width="317" Height="26" VerticalAlignment="Top"/>
                     </Grid>
-                    <Grid x:Name="GridBuscar" Visibility="Visible" Margin="0">
+                    <Grid x:Name="grd_rolesExistentes" Visibility="Collapsed" Margin="0">
                         <TextBox x:Name="txb_busqueda_rol" Margin="325,105,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Width="250" Height="32" VerticalAlignment="Top"  KeyUp="txb_busqueda_rol_KeyUp" FontSize="14" VerticalContentAlignment="Center"/>
                         <Label Content="Ingrese el nombre del rol:" Margin="110,105,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Left" Height="32"/>
                         <Label x:Name="lbl_actividad" Content="Buscar Roles" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="0,15,0,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif"/>
                         <Label x:Name="lbl_errorBusqueda_rol"  Margin="84,221,-563,-151" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
                         <Label x:Name="lbl_errorNomrol" Visibility="Visible"  Margin="325,137,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Width="400" HorizontalAlignment="Left"/>
-                        <DataGrid x:Name="dtg_roles" Margin="20,170,20,20"  FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False" ScrollViewer.CanContentScroll="True">
+                        <DataGrid x:Name="dtg_roles" Margin="20,170,20,20"  Visibility="Visible" FontSize="12" AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False" >
                             <DataGrid.Resources>
-                                <Style TargetType="{x:Type DataGridRow}">
-                                    <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick"/>
+                                <Style TargetType="DataGridRow">
+                                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
                                 </Style>
                             </DataGrid.Resources>
                             <DataGrid.ColumnHeaderStyle>
@@ -217,7 +216,7 @@ HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10"/>
                             </DataGrid.ColumnHeaderStyle>
                         </DataGrid>
                         <Separator Height="41" Margin="20,50,20,0" VerticalAlignment="Top" Background="White"/>
-                        <Button x:Name="btn_agregar_rol" Visibility="Visible" Foreground="White" Margin="30,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_rol_Click">
+                        <Button x:Name="btn_agregar_rol" Visibility="Visible" Foreground="White" Margin="30,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarRol_Click">
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Nuevo Rol" FontSize="14" FontFamily="Global Sans Serif" Margin="5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>

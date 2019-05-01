@@ -13,8 +13,7 @@
     </Window.Icon>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="659*"/>
-            <ColumnDefinition Width="333*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -22,7 +21,7 @@
                 <GradientStop Color="#FE2E2672" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid Background="#FF3472DE" Margin="0,30,0,0" HorizontalAlignment="Right" Width="120" Grid.Column="1">
+        <Grid Background="#FF3472DE" Margin="0,30,0,0" HorizontalAlignment="Right" Width="120">
             <Button x:Name="btn_ayuda" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_ayuda_Click"  >
                 <StackPanel x:Name="btn_ayuda_roles" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="imagenes/ayuda.png" Width="50" Height="50"
@@ -46,24 +45,24 @@
         </Grid>
         <Label x:Name="lbl_fecha" Content="fecha" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="278" Height="25" VerticalAlignment="Bottom"/>
 
-        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,80,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click" Grid.Column="1">
+        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,80,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click">
             <Image x:Name="img_minimizar_png" Height="16" Source="Imagenes/img_minimizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,40,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click" Grid.Column="1">
+        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,40,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click">
             <Image x:Name="img_maximizar_png" Height="16" Source="Imagenes/img_maximizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0" Grid.Column="1">
+        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0">
             <Image x:Name="img_cancelar_png" Height="16" Source="Imagenes/img_cancelar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Rectangle x:Name="barra_movil" Height="30" VerticalAlignment="Top" Margin="0,0,120,0" MouseDown="barra_movil__MouseDown" Cursor="Hand" Grid.ColumnSpan="2">
+        <Rectangle x:Name="barra_movil" Height="30" VerticalAlignment="Top" Margin="0,0,120,0" MouseDown="barra_movil__MouseDown" Cursor="Hand">
             <Rectangle.Fill>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Mantenimiento de Proveedores " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="20" Margin="15,10,0,0" Height="37" Width="294"/>
-        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,120,0" Height="30" HorizontalAlignment="Right" Width="40" Grid.Column="1"/>
+        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,120,0" Height="30" HorizontalAlignment="Right" Width="40"/>
 
-        <TabControl x:Name="tbc_mantProd" Margin="10,50,130,30" Background="White" Grid.ColumnSpan="2">
+        <TabControl x:Name="tbc_mantProd" Margin="10,50,130,30" Background="White">
             <TabItem Margin="0" Padding="10">
                 <TabItem.Background>
 
@@ -110,7 +109,7 @@
                             <DataGridTextColumn Binding="{Binding FECHA}" FontFamily="Global Sans Serif" Header="Fecha de Ingreso" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding ESTADOSISTEMA}" FontFamily="Global Sans Serif" Header="Estado en el Sistema" Width="*"/>
                         </DataGrid.Columns>
-                        
+
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="FontWeight" Value="Bold" />
@@ -120,7 +119,7 @@
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
                     <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,38,338,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,39,144,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged">
+                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,39,144,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged" FontSize="14" VerticalContentAlignment="Center">
                         <ComboBoxItem Name="proveedoresActivos">Proveedores Activos</ComboBoxItem>
                         <ComboBoxItem Name="proveedoresInactivos">Proveedores Inactivos</ComboBoxItem>
                         <ComboBoxItem Name="listaProveedores">Todos los Proveedores</ComboBoxItem>
@@ -157,10 +156,10 @@
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="34,20,34,0" Height="85" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="305,20,264.2,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.ColumnSpan="2"/>
 
-                    <Grid Visibility="Collapsed"  x:Name="grd_proveedoresExistentes" Margin="0" Grid.ColumnSpan="2">
+                    <Grid Visibility="Visible"  x:Name="grd_proveedoresExistentes" Margin="0" Grid.ColumnSpan="2">
                         <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o la cédula jurídica:" Margin="129,81,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
                         <TextBox x:Name="txb_busqueda" MaxLength="35" Height="32" Margin="452,81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_busqueda_KeyUp" HorizontalAlignment="Left" Width="296"/>
-                        <Label x:Name="lbl_errorBusqueda" Visibility="Visible" Margin="407,117,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" HorizontalAlignment="Left" Width="294"/>
+                        <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="452,118,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" HorizontalAlignment="Left" Width="294"/>
                         <Button x:Name="btn_agregarProveedor" Visibility="Visible" Foreground="White" HorizontalAlignment="Left" Margin="35,75,0,0" VerticalAlignment="Top" Width="76" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregarProveedor_Click" Height="70">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                 <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,3"/>
@@ -181,7 +180,7 @@
                             </DataGrid.ColumnHeaderStyle>
                         </DataGrid>
                     </Grid>
-                    <Grid Visibility="Visible" x:Name="grd_formularioProveedor" Margin="34,174,66,15">
+                    <Grid Visibility="Collapsed" x:Name="grd_formularioProveedor" Margin="34,174,66,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="67*"/>
                             <ColumnDefinition Width="602*"/>
