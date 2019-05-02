@@ -39,8 +39,8 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
-            
-            //Cargar usuarios existentes
+
+            MostrarUsuariosExistentes();
             cmb_tipoBusqueda.SelectedIndex = 2;
             dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios("LISTAUSUARIOS").DefaultView;
         }
@@ -292,11 +292,10 @@ namespace Proyecto
                     v_Clt.v_Puesto = txb_puesto.Text;
 
                     EntidadRoles ComboItem = (EntidadRoles)cmb_rol.SelectedItem;
-                    Int64 idRol = ComboItem.v_IdRol;
-                    v_Clt.v_IdRol = idRol;
+                    Int64 v_IdRol = ComboItem.v_IdRol;
+                    v_Clt.v_IdRol = v_IdRol;
 
                     v_Clt.v_UsuarioSistema = txb_usuario.Text;
-
                     v_Clt.v_Contrasena = txb_contrasenna.Text;
 
                     if (rb_inactivo.IsChecked == true)
@@ -308,6 +307,20 @@ namespace Proyecto
                         v_Clt.v_EstadoSistema = "ACTIVO";
                     }
 
+
+                    MessageBox.Show("ced "+ v_Clt.v_CedIdentificacion);
+                    MessageBox.Show("nombre "+ v_Clt.v_NombreUsuario);
+                    MessageBox.Show("ape "+ v_Clt.v_Apellidos);
+                    MessageBox.Show("corr"+v_Clt.v_Correo);
+                    MessageBox.Show("tel " + v_Clt.v_Telefono);
+                    MessageBox.Show("tel op " + v_Clt.v_TelefonoOpcional);
+                    MessageBox.Show("puesto " + v_Clt.v_Puesto);
+                    MessageBox.Show("rol " + v_Clt.v_IdRol);
+                    MessageBox.Show("usu " + v_Clt.v_UsuarioSistema);
+                    MessageBox.Show("contra " + v_Clt.v_Contrasena);
+                    MessageBox.Show("est sis " + v_Clt.v_EstadoSistema);
+
+                    MessageBox.Show("llamare data");
                     int v_Resultado = v_Model.AgregarUsuarios(v_Clt);
                     if (v_Resultado == -1)
                     {
@@ -705,13 +718,9 @@ namespace Proyecto
             txb_usuario.Text = (dtg_usuarios.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
             txb_contrasenna.Text = (dtg_usuarios.SelectedCells[11].Column.GetCellContent(row) as TextBlock).Text;
 
-            //se guarda el id del rol que se obtiene del datagrid en la variable: v_Clt.v_IdRol
+            //se guarda el id del rol que se obtiene del datagrid en la variable: v_Clt.v_IdRol y se asigna al combobox
             v_Clt.v_IdRol = Convert.ToInt64((dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text);
-            //convertir de tipo long(v_Clt.v_IdRol) a tipo int(v_Indice) 
-            int v_Indice = unchecked((int)v_Clt.v_IdRol);
-            //indica al combobox cual opción debe estar seleccionada (asigna el id del rol por defecto según el índice que se obtiene del usuario seleccionado en el datagrid)
-            //se hace la resta v_Indice-1 porque los elementos del combobox inician en 0
-            cmb_rol.SelectedIndex = v_Indice-1;
+            cmb_rol.SelectedValue = v_Clt.v_IdRol; 
 
             if ((dtg_usuarios.SelectedCells[13].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
             {

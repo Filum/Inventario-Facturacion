@@ -27,7 +27,7 @@ namespace Proyecto
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
         String v_EstadoSistema = "";
-        public string nombreUsuario;
+        public string v_NombreUsuario;
 
         public MantenimientoProductos()
         {
@@ -61,8 +61,8 @@ namespace Proyecto
         private void btn_salir_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
-            ventana.cargarMenu(nombreUsuario);
-            ventana.nombreUser = nombreUsuario;
+            ventana.cargarMenu(v_NombreUsuario);
+            ventana.nombreUser = v_NombreUsuario;
             this.Close();
         }
 
@@ -111,8 +111,8 @@ namespace Proyecto
         private void btn_salir_roles__Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
-            ventana.cargarMenu(nombreUsuario);
-            ventana.nombreUser = nombreUsuario;
+            ventana.cargarMenu(v_NombreUsuario);
+            ventana.nombreUser = v_NombreUsuario;
             this.Close();
         }
 
@@ -428,14 +428,9 @@ namespace Proyecto
             txb_cantActual.Text = (dtg_productos.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
             txb_cantMinima.Text = (dtg_productos.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
 
-            //se guarda el id del proveedor que se obtiene del datagrid en la variable: v_Clt.v_IdProveedor
+            //se guarda el id del proveedor que se obtiene del datagrid en la variable: v_Clt.v_IdProveedor y se asigna al combobox
             v_Clt.v_IdProveedor = Convert.ToInt64((dtg_productos.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text);
-            //convertir de tipo long(v_Clt.v_IdProveedor) a tipo int(v_Indice) 
-            int v_Indice = unchecked((int)v_Clt.v_IdProveedor);
-            //indica al combobox cual opción debe estar seleccionada (asigna el id del proveedor por defecto según el índice que se obtiene del producto seleccionado en el datagrid)
-            //se hace la resta v_Indice-1 porque los elementos del combobox inician en 0
-            cmb_proveedor.SelectedIndex = v_Indice - 1;
-
+            cmb_proveedor.SelectedValue = v_Clt.v_IdProveedor;
 
             txb_precio.Text = (dtg_productos.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
             txb_descripcion.Text = (dtg_productos.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
@@ -547,13 +542,13 @@ namespace Proyecto
 
             MostrarFormulario();
             rb_activo.IsChecked = true;
+            txb_cantActual.IsEnabled = true;
         }
 
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
             MostrarProductosExistentes();
             btn_limpiar_Click(sender, e);
-            txb_cantActual.IsEnabled = true;
         }
 
         private void MostrarProductosExistentes()
@@ -581,8 +576,8 @@ namespace Proyecto
             grd_formularioProductos.Visibility = Visibility.Visible;
             rb_activo.IsChecked = true;
             OcultarProveedoresExistentes();
-            LlenarComboboxProveedores();
             ValidarRadioButton();
+            LlenarComboboxProveedores();
         }
 
         private void ValidarRadioButton()

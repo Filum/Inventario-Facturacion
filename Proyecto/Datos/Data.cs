@@ -663,7 +663,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT PK_IDROL, NOMBRE FROM TBL_ROLES";
+            comando.CommandText = "SELECT PK_IDROL, NOMBRE FROM TBL_ROLES ORDER BY NOMBRE ASC";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadRoles> Lista = new List<EntidadRoles>();
 
@@ -813,7 +813,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT PK_IDPROVEEDOR, NOMBRE FROM TBL_PROVEEDORES";
+            comando.CommandText = "SELECT PK_IDPROVEEDOR, NOMBRE FROM TBL_PROVEEDORES ORDER BY NOMBRE ASC";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadProveedores> Lista = new List<EntidadProveedores>();
 
