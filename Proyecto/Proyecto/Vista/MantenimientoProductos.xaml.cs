@@ -672,11 +672,25 @@ namespace Proyecto
 
         private void txb_codProd_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string v_CodProd = txb_codProd.Text;
             ValidarComponentes();
-            ValidaCod(txb_codProd, lbl_errorCodProd);
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
             ValidarErroresTxb(txb_codProd, lbl_errorCodProd, "nombre");
+
+            if (lbl_errorCodProd.Visibility == Visibility.Hidden)
+            {
+                bool v_Resultado = v_Model.ValidarCodProductos(v_CodProd);
+                if (v_Resultado == true)
+                {
+                    lbl_errorCodProd.Content = "El código del producto ya existe";
+                    lbl_errorCodProd.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lbl_errorCodProd.Visibility = Visibility.Hidden;
+                }
+            }
 
         }
 
@@ -842,21 +856,6 @@ namespace Proyecto
                 lbl_errorPrecio.Content = "No se permite ingresar letras";
                 lbl_errorPrecio.Visibility = Visibility.Visible;
             }
-        }
-
-        public void ValidaCod(TextBox txb_usuario, Label lbl_error)
-        {
-            String cod = txb_codProd.Text;
-            if (v_Model.ValidarCodProductos(cod) == true)
-            {
-                lbl_error.Content = "Este código ya existe";
-                lbl_error.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                lbl_error.Visibility = Visibility.Hidden;
-            }
-
         }
 
         private void txb_cantModificar_TextChanged(object sender, TextChangedEventArgs e)

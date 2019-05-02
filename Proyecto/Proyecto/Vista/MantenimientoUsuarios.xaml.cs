@@ -186,6 +186,7 @@ namespace Proyecto
         {
             MostrarFormulario();
             v_Actividad_btnAgregar = true;
+            btn_limpiar.Visibility = Visibility.Visible;
             lbl_actividad.Content = "Agregar usuario";
             rb_activo.IsChecked = true;
         }
@@ -307,20 +308,6 @@ namespace Proyecto
                         v_Clt.v_EstadoSistema = "ACTIVO";
                     }
 
-
-                    MessageBox.Show("ced "+ v_Clt.v_CedIdentificacion);
-                    MessageBox.Show("nombre "+ v_Clt.v_NombreUsuario);
-                    MessageBox.Show("ape "+ v_Clt.v_Apellidos);
-                    MessageBox.Show("corr"+v_Clt.v_Correo);
-                    MessageBox.Show("tel " + v_Clt.v_Telefono);
-                    MessageBox.Show("tel op " + v_Clt.v_TelefonoOpcional);
-                    MessageBox.Show("puesto " + v_Clt.v_Puesto);
-                    MessageBox.Show("rol " + v_Clt.v_IdRol);
-                    MessageBox.Show("usu " + v_Clt.v_UsuarioSistema);
-                    MessageBox.Show("contra " + v_Clt.v_Contrasena);
-                    MessageBox.Show("est sis " + v_Clt.v_EstadoSistema);
-
-                    MessageBox.Show("llamare data");
                     int v_Resultado = v_Model.AgregarUsuarios(v_Clt);
                     if (v_Resultado == -1)
                     {
