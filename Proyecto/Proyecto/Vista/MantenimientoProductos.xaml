@@ -150,7 +150,7 @@
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="29,20,35,0" Height="85" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="184.5,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.Column="1"/>
 
-                    <Grid Visibility="Visible"  x:Name="grd_productosExistentes" Margin="0" Grid.ColumnSpan="2">
+                    <Grid Visibility="Collapsed"  x:Name="grd_productosExistentes" Margin="0" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
@@ -180,7 +180,7 @@
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Collapsed" x:Name="grd_formularioProductos" Margin="10,73,10,0">
+                    <Grid Visibility="Visible" x:Name="grd_formularioProductos" Margin="10,73,10,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20*"/>
                             <RowDefinition Height="177*"/>
@@ -228,12 +228,12 @@
                             <TextBox x:Name="txb_marca" Margin="0,9" TextWrapping="Wrap" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" Height="28" HorizontalAlignment="Left" Width="198" TextChanged="txb_marca_TextChanged"/>
                             <Label x:Name="lbl_errorMarca" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
 
-                            <ComboBox x:Name="cmb_estadoprod" Margin="0,9" Height="33" HorizontalAlignment="Left" Width="198" SelectionChanged="cmb_estadoprod_SelectionChanged">
+                            <ComboBox x:Name="cmb_estadoprod" Margin="0,9" Height="33" HorizontalAlignment="Left" Width="198" SelectionChanged="cmb_estadoprod_SelectionChanged" FontSize="14">
                                 <ComboBoxItem Content="Nuevo"/>
                                 <ComboBoxItem Content="Usado"/>
                                 <ComboBoxItem Content="Dañado"/>
                             </ComboBox>
-                            <Label x:Name="lbl_errorestadoProd" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12" RenderTransformOrigin="0.476,1.267"/>
+                            <Label x:Name="lbl_errorestadoProd" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Height="23" FontSize="12" RenderTransformOrigin="0.476,1.267"/>
 
                             <TextBox x:Name="txb_cantMinima" Margin="0,8" TextWrapping="Wrap" Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" FontSize="16" FontFamily="Global Sans Serif" MaxLength="5" Height="28" HorizontalAlignment="Left" Width="58" TextChanged="txb_cantMinima_TextChanged" KeyDown="CantMin_KeyDown"/>
                             <Label x:Name="lbl_errorCantMinima" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12" RenderTransformOrigin="0.476,1.267"/>
@@ -254,8 +254,8 @@
                             <TextBox x:Name="txb_precio" HorizontalAlignment="Left" Margin="0,0" TextWrapping="Wrap" Width="85" FontSize="16" FontFamily="Global Sans Serif" MaxLength="9" Height="26" TextChanged="txb_precio_TextChanged" KeyDown="Precio_KeyDown"/>
                             <Label x:Name="lbl_errorPrecio" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
 
-                            <ComboBox x:Name="cmb_proveedor" HorizontalAlignment="Left" Margin="0,9" Width="210" Height="26" SelectionChanged="cmb_proveedor_SelectionChanged"></ComboBox>
-                            <Label x:Name="lbl_errorProveedor" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
+                            <ComboBox x:Name="cmb_proveedor" HorizontalAlignment="Left" Margin="0,9" Width="210" Height="26" SelectionChanged="cmb_proveedor_SelectionChanged" FontSize="14"></ComboBox>
+                            <Label x:Name="lbl_errorProveedor" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Height="23" FontSize="12"/>
 
                             <TextBox x:Name="txb_fabricante" Margin="0,9,-18,9" TextWrapping="Wrap" Grid.Column="7" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="210" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" Height="26" TextChanged="txb_fabricante_TextChanged"/>
                             <Label x:Name="lbl_errorFabricante" Visibility="Hidden" Margin="0,-10" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="23" FontSize="12"/>
@@ -281,7 +281,7 @@
                                 <TextBlock Text="Limpiar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btn_agregar" Visibility="Visible" Foreground="White" Margin="20,0,0,10" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_agregar_Click" HorizontalAlignment="Left" Width="70" Grid.Row="1">
+                        <Button x:Name="btn_agregar" Visibility="Collapsed" Foreground="White" Margin="20,0,0,10" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_agregar_Click" HorizontalAlignment="Left" Width="70" Grid.Row="1">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/Agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>

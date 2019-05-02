@@ -121,7 +121,7 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || txb_cantActual.Text == "" || txb_cantMinima.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
+                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || cmb_estadoprod.Text == "" || txb_cantActual.Text == "" || txb_cantMinima.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
                 {
                     ValidarComponentes();
                     btn_agregar.Visibility = Visibility.Collapsed;
@@ -183,18 +183,18 @@ namespace Proyecto
             txb_fabricante.Text = "";
             txb_descripcion.Text = "";
             rb_activo.IsChecked = true;
-            rb_activo.IsChecked = false;
+            rb_inactivo.IsChecked = false;
             dtg_productos.ItemsSource = null;
             lbl_errorCodProd.Visibility = Visibility.Hidden;
             lbl_errorBusqueda.Visibility = Visibility.Hidden;
             lbl_errorNombre.Visibility = Visibility.Hidden;
+            lbl_errorMarca.Visibility = Visibility.Hidden;
             lbl_errorCantModificar.Visibility = Visibility.Hidden;
             lbl_errorCantMinima.Visibility = Visibility.Hidden;
             lbl_errorCantActual.Visibility = Visibility.Hidden;
             lbl_errorDescripcion.Visibility = Visibility.Hidden;
             lbl_errorFabricante.Visibility = Visibility.Hidden;
             lbl_errorPrecio.Visibility = Visibility.Hidden;
-            lbl_errorProveedor.Visibility = Visibility.Hidden;
             lbl_actividad.Visibility = Visibility.Collapsed;
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
@@ -417,12 +417,11 @@ namespace Proyecto
             lbl_cantModificar.Visibility = Visibility.Visible;
             txb_cantActual.IsEnabled = false;
             btn_limpiar.Visibility = Visibility.Hidden;
-
             MostrarFormulario();
+
+
             DataGridRow row = sender as DataGridRow;
-
             v_Clt.v_IdProducto = Convert.ToInt64((dtg_productos.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
-
             txb_codProd.Text = (dtg_productos.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
             txb_nombre.Text = (dtg_productos.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
             txb_marca.Text = (dtg_productos.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;

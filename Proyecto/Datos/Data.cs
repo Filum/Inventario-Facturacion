@@ -167,7 +167,6 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("DESCRIP", clt.v_Descripcion));
             comando.Parameters.Add(new OracleParameter("FABRI", clt.v_Fabricante));
             comando.Parameters.Add(new OracleParameter("ESTPRO", clt.v_EstadoProducto));
-            comando.Parameters.Add(new OracleParameter("SERV", "Mercaderia"));
             comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
 
 
@@ -1184,11 +1183,6 @@ namespace Datos
             return cliente;
         }
 
-
-
-
-
-
         /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
        cédula jurídica está asociada a dicho id.
        Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
@@ -1255,26 +1249,26 @@ namespace Datos
         }
         public void Verificarestadofactura()
         {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand();
-            comando.Connection = conn;
-            comando.CommandText = "select PK_CODIGOFACTURA,FECHAPAGO from TBL_FACTURAS WHERE ESTADOFACTURA = 'Pendiente'";
-            OracleDataReader dr = comando.ExecuteReader();
-            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
-            DateTime fechaPago = new DateTime();
-            DateTime diaActual = DateTime.Parse(DateTime.Now.ToShortDateString());
-            string codigo = "";
-            while (dr.Read())
-            {
-                codigo=dr.GetInt64(0).ToString();
-                fechaPago = DateTime.Parse(dr.GetDateTime(1).ToShortDateString());
-                if(fechaPago < diaActual)
-                {
-                    EstadoVencidaFactura(codigo);
-                }
-            }
-            conn.Close();
+            //OracleConnection conn = DataBase.Conexion();
+            //conn.Open();
+            //OracleCommand comando = new OracleCommand();
+            //comando.Connection = conn;
+            //comando.CommandText = "select PK_CODIGOFACTURA,FECHAPAGO from TBL_FACTURAS WHERE ESTADOFACTURA = 'Pendiente'";
+            //OracleDataReader dr = comando.ExecuteReader();
+            //System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            //DateTime fechaPago = new DateTime();
+            //DateTime diaActual = DateTime.Parse(DateTime.Now.ToShortDateString());
+            //string codigo = "";
+            //while (dr.Read())
+            //{
+            //    codigo=dr.GetInt64(0).ToString();
+            //    fechaPago = DateTime.Parse(dr.GetDateTime(1).ToShortDateString());
+            //    if(fechaPago < diaActual)
+            //    {
+            //        EstadoVencidaFactura(codigo);
+            //    }
+            //}
+            //conn.Close();
         }
         public void EstadoVencidaFactura(string codigo)
         {
