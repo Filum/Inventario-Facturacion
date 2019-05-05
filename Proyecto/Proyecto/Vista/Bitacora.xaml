@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:Proyecto.Vista"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Proyecto.Vista.Bitacora"
         mc:Ignorable="d"
-        Title="Bitacora" Height="1025.2" Width="1883.2" WindowState="Maximized" WindowStyle="None" MinWidth="1000" MinHeight="600">
+        Title="Bitacora" Height="600" Width="1300" WindowState="Maximized" WindowStyle="None" MinWidth="1300" MinHeight="600">
     <Grid Margin="0,0,0.4,-6.2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="798*"/>
-            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="554*"/>
+            <ColumnDefinition Width="643*"/>
+            <ColumnDefinition Width="120"/>
+
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -19,60 +21,67 @@
                 <GradientStop Color="#FF040608"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,10,88,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click" Grid.ColumnSpan="2">
+        <Label x:Name="txt_fecha" Content="fecha" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="278" Height="25" VerticalAlignment="Bottom" Margin="10,0,0,10"/>
+
+        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,80,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click" Grid.Column="2">
             <Image x:Name="img_minimizar_png" Height="16" Source="Imagenes/img_minimizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,10,48,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click" Grid.Column="1">
+        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,40,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click" Grid.Column="2">
             <Image x:Name="img_maximizar_png" Height="16" Source="Imagenes/img_maximizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0,10,8,0" Grid.Column="1">
+        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0" Grid.Column="2">
             <Image x:Name="img_cancelar_png" Height="16" Source="Imagenes/img_cancelar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,10,22.236,0" HorizontalAlignment="Right" Width="90"/>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="10,0,0,10" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="245" Height="32" VerticalAlignment="Bottom"/>
-        <Grid Width="90" HorizontalAlignment="Right" Background="#FF3472DE" Margin="0,45,0,0" Grid.Column="1">
-            <Button x:Name="btn_menu" Width="75" Height="90" Foreground="White" Margin="7,196,0,117.2" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Salir_Click" HorizontalAlignment="Center" >
+        <Rectangle x:Name="barra_movil" Height="30" VerticalAlignment="Top" Margin="0,0,119.8,0" MouseDown="barra_movil__MouseDown" Cursor="Hand" Grid.ColumnSpan="3">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Bitácora de Registro" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="20" Margin="15,10,0,0" Height="37" Width="294"/>
+        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,119.8,0" Height="30" HorizontalAlignment="Right" Width="40" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Grid Background="#FF3472DE" Margin="0,30,0,0" Grid.Column="2" Width="120" HorizontalAlignment="Right">
+            <Button x:Name="btn_menu" Width="75" Height="90" Foreground="White" Margin="0,312,0,168" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Salir_Click" HorizontalAlignment="Center" >
                 <StackPanel x:Name="btn_menu_facturas" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="Imagenes/menu.png" Width="60" Height="60"
                         HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
-                    <TextBlock Text="Menú" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="18,0,18,0"/>
+                    <TextBlock Text="Menú" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btn_Usuario" Width="75" Height="90" Foreground="White" Margin="7,0,7,5" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Usuario_Click" >
+            <Button x:Name="btn_Usuario" Width="75" Height="90" Foreground="White" Margin="0,0,0,10" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Usuario_Click" HorizontalAlignment="Center" >
                 <StackPanel x:Name="btn_usuario" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="Imagenes/user.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                    <TextBlock x:Name="t_Usuario" Text="Usuario" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="19,0,7.2,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="t_Usuario" Text="Usuario" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btn_ayuda_Copy" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Button x:Name="btn_ayuda_Copy" Width="75" Height="90" Foreground="White" Margin="0,164,0,316" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Center">
                 <StackPanel x:Name="btn_ayuda_roles1" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="Imagenes/ayuda.png" Width="60" Height="60"
                         HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
-                    <TextBlock Text="Ayuda" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="18,0,18,0"/>
+                    <TextBlock Text="Ayuda" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="0" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
         </Grid>
-        <Label Width="269" VerticalAlignment="Top" Margin="0,81,585,0" HorizontalAlignment="Right" FontFamily="Global Sans Serif" FontSize="16" FontWeight="Bold" Foreground="White" Content="Seleccione un rango de fecha del:"/>
-        <DatePicker x:Name="date_historial_datte3" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}"  Margin="0,83,448,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
+        <Label Width="269" VerticalAlignment="Top" Margin="0,78,0,0" HorizontalAlignment="Left" FontFamily="Global Sans Serif" FontSize="16" FontWeight="Bold" Foreground="White" Content="Seleccione un rango de fecha del:" Grid.Column="1" Height="29"/>
+        <DatePicker x:Name="date_historial_datte3" ToolTip="Formato: DD/MM/AAAA" DisplayDateEnd="{x:Static System:DateTime.Now}"  Margin="280,76,0,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Left" Width="200" Grid.Column="1">
             <DatePicker.Resources>
                 <Style TargetType="{x:Type DatePickerTextBox}">
                     <Setter Property="IsReadOnly" Value="True"/>
                 </Style>
             </DatePicker.Resources>
         </DatePicker>
-        <Label Content="al:" HorizontalAlignment="Right" Margin="0,83,415,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif"/>
-        <DatePicker x:Name="date_historial_datte4" Margin="0,81,268,0" VerticalAlignment="Top" Height="30" FontSize="16" HorizontalAlignment="Right" Width="140">
+        <Label Content="al:" HorizontalAlignment="Left" Margin="240,134,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" Grid.Column="1" RenderTransformOrigin="0.097,0.023" Height="30" Width="29"/>
+        <DatePicker x:Name="date_historial_datte4" Margin="280,134,0,0" VerticalAlignment="Top" Height="28" FontSize="16" HorizontalAlignment="Left" Width="200" Grid.Column="1">
             <DatePicker.Resources>
                 <Style TargetType="{x:Type DatePickerTextBox}">
                     <Setter Property="IsReadOnly" Value="True"/>
                 </Style>
             </DatePicker.Resources>
         </DatePicker>
-        <Label Content="Seleccione el mantenimiento a buscar:" HorizontalAlignment="Left" Margin="38,81,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="289" Height="30" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmb_Mantenimiento" Margin="332,84,919,0" VerticalAlignment="Top" Initialized="Cmb_Mantenimiento_Initialized" SelectionChanged="Cmb_Mantenimiento_SelectionChanged"  />
-        <Label Content="Bitácora " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
-        <DataGrid x:Name="dtg_bitacora" Margin="56,198,22,88.4"  FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" >
+        <Label Content="Seleccione el mantenimiento a buscar:" HorizontalAlignment="Left" Margin="40,81,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="289" Height="30" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmb_Mantenimiento" Margin="332,84,34.6,0" VerticalAlignment="Top" Initialized="Cmb_Mantenimiento_Initialized" SelectionChanged="Cmb_Mantenimiento_SelectionChanged" Height="22"  />
+
+        <DataGrid x:Name="dtg_bitacora" Margin="40,230,25,50"  FrozenColumnCount="5" FontSize="12" AutoGenerateColumns="False" CanUserAddRows="False"   IsReadOnly="True"  AlternatingRowBackground="LightGray"  CanUserResizeColumns="True" CanUserReorderColumns="False" Grid.ColumnSpan="2" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding FECHA}" FontFamily="Global Sans Serif"  Header="Fecha" Width="200"/>
                 <DataGridTextColumn Binding="{Binding ACCION}" FontFamily="Global Sans Serif"  Header="Acción realizada" Width="160"/>
@@ -87,18 +96,18 @@
                 </Style>
             </DataGrid.ColumnHeaderStyle>
         </DataGrid>
-        <Label Content="Seleccione el estado a buscar:" HorizontalAlignment="Left" Margin="38,132,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="229" Height="30" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmb_accion" Margin="332,135,919,0" VerticalAlignment="Top" Initialized="Cmb_accion_Initialized" SelectionChanged="Cmb_accion_SelectionChanged"  />
-        <Button x:Name="btn_imprimir_factura_servicios" Height="109" Foreground="White" Margin="0,71,31,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_imprimir_Click" HorizontalAlignment="Right" Width="81">
-            <StackPanel Width="98" Height="110" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                <TextBlock Height="56" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="76" HorizontalAlignment="Left"><Run Text="   Imprimir"/><LineBreak/><Run Text="         o"/><LineBreak/><Run Text="Guardar pdf "/></TextBlock>
+        <Label Content="Seleccione el estado a buscar:" HorizontalAlignment="Left" Margin="40,145,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="229" Height="30" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmb_accion" Margin="332,145,34.6,0" VerticalAlignment="Top" Initialized="Cmb_accion_Initialized" SelectionChanged="Cmb_accion_SelectionChanged" Height="22"  />
+        <Button x:Name="btn_imprimir_factura_servicios" Height="78" Foreground="White" Margin="500,50,25,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_imprimir_Click" HorizontalAlignment="Left" Width="78" Grid.Column="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="78" Height="78">
+                <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5,10"/>
+                <TextBlock FontSize="14" FontFamily="Global Sans Serif" Margin="10,0" HorizontalAlignment="Center" Text="Imprimir"/>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_Listar" Height="67" Width="79" Foreground="White" Margin="0,71,147,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click">
-            <StackPanel x:Name="stp_ordenarcodigo" Width="70" Height="79" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                <TextBlock x:Name="txb_ordenarcodigo" Height="45" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left" Text="Listar" Margin="18,0,-7.6,0"/>
+        <Button x:Name="btn_Listar" Height="78" Width="78" Foreground="White" Margin="500,134,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Listar_Click" Grid.Column="1">
+            <StackPanel x:Name="stp_ordenarcodigo" Width="78" HorizontalAlignment="Center" VerticalAlignment="Center" Height="78">
+                <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10"/>
+                <TextBlock x:Name="txb_ordenarcodigo" FontFamily="Global Sans Serif" HorizontalAlignment="Center" Text="Listar" Margin="0"/>
             </StackPanel>
         </Button>
 
