@@ -156,7 +156,7 @@
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="34,20,34,0" Height="85" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="305,20,264.2,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278" Grid.ColumnSpan="2"/>
 
-                    <Grid Visibility="Visible"  x:Name="grd_proveedoresExistentes" Margin="0" Grid.ColumnSpan="2">
+                    <Grid Visibility="Collapsed"  x:Name="grd_proveedoresExistentes" Margin="0" Grid.ColumnSpan="2">
                         <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o la cédula jurídica:" Margin="129,81,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Width="301"/>
                         <TextBox x:Name="txb_busqueda" MaxLength="35" Height="32" Margin="452,81,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="txb_busqueda_TextChanged" FontSize="16" FontFamily="Global Sans Serif" VerticalContentAlignment="Center" MinWidth="296" KeyUp="txb_busqueda_KeyUp" HorizontalAlignment="Left" Width="296"/>
                         <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="452,118,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" HorizontalAlignment="Left" Width="294"/>
@@ -180,7 +180,7 @@
                             </DataGrid.ColumnHeaderStyle>
                         </DataGrid>
                     </Grid>
-                    <Grid Visibility="Collapsed" x:Name="grd_formularioProveedor" Margin="34,174,66,15">
+                    <Grid Visibility="Visible" x:Name="grd_formularioProveedor" Margin="34,174,66,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="67*"/>
                             <ColumnDefinition Width="602*"/>

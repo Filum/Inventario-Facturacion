@@ -36,7 +36,6 @@ namespace Proyecto
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            lbl_actividad.Content = "Productos existentes";
             dispatcherTimer.Start();
 
             MostrarProductosExistentes();
@@ -195,13 +194,11 @@ namespace Proyecto
             lbl_errorDescripcion.Visibility = Visibility.Hidden;
             lbl_errorFabricante.Visibility = Visibility.Hidden;
             lbl_errorPrecio.Visibility = Visibility.Hidden;
-            lbl_actividad.Visibility = Visibility.Collapsed;
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
             rb_aumentar.IsChecked = false;
             rb_disminuir.IsChecked = false;
-            inicializarAgregacion();
         }
 
         private void btn_productos_ayuda_Click(object sender, RoutedEventArgs e)
@@ -299,7 +296,7 @@ namespace Proyecto
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
-            if ((lbl_errorCodProd.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
+            if ((lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
                     (lbl_errorCantMinima.Visibility == Visibility.Visible)|| (lbl_errorCantModificar.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
                     lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible ||
                     lbl_errorRB.Visibility == Visibility.Visible)
@@ -479,16 +476,7 @@ namespace Proyecto
             {
                 btn_modificar.Visibility = Visibility.Visible;
             }
-        }
-
-        //Inicializa las opciones de agregar en la ventana 
-        private void inicializarAgregacion()
-        {
-            v_Actividad_btnAgregar = true;
-            lbl_actividad.Content = "Agregar producto";
-            lbl_actividad.Visibility = Visibility.Visible;
-        }
-        
+        }        
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
         private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
@@ -532,7 +520,7 @@ namespace Proyecto
 
         private void btn_agregarProveedor_Click(object sender, RoutedEventArgs e)
         {
-            lbl_actividad.Content = "Agregar Producto";
+            lbl_actividad.Content = "Agregar producto";
             btn_limpiar.Visibility = Visibility.Visible;
 
             rb_disminuir.Visibility = Visibility.Collapsed;
@@ -554,6 +542,7 @@ namespace Proyecto
         private void MostrarProductosExistentes()
         {
             lbl_actividad.Content = "Productos existentes";
+            lbl_actividad.Visibility = Visibility.Visible;
             grd_productosExistentes.Visibility = Visibility.Visible;
             OcultarFormulario();
         }
@@ -670,7 +659,7 @@ namespace Proyecto
             }
         }
 
-        private void txb_codProd_TextChanged(object sender, TextChangedEventArgs e)
+        private void ValidarTxbCodProd(object sender, EventArgs e)
         {
             string v_CodProd = txb_codProd.Text;
             ValidarComponentes();
