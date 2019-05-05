@@ -178,7 +178,7 @@ namespace Proyecto
         private void btn_Productos_Selected(object sender, RoutedEventArgs e)
         {
             MantenimientoProductos ventana = new MantenimientoProductos();
-            ventana.nombreUsuario = nombreUser;
+            ventana.v_NombreUsuario = nombreUser;
             ventana.t_Usuario.Text = nombreUser;
             ventana.Show();
             this.Close();

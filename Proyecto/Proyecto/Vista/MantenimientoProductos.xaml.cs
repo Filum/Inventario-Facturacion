@@ -27,7 +27,7 @@ namespace Proyecto
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
         String v_EstadoSistema = "";
-        public string nombreUsuario;
+        public string v_NombreUsuario;
 
         public MantenimientoProductos()
         {
@@ -36,7 +36,6 @@ namespace Proyecto
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            lbl_actividad.Content = "Productos existentes";
             dispatcherTimer.Start();
 
             MostrarProductosExistentes();
@@ -61,8 +60,8 @@ namespace Proyecto
         private void btn_salir_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
-            ventana.cargarMenu(nombreUsuario);
-            ventana.nombreUser = nombreUsuario;
+            ventana.cargarMenu(v_NombreUsuario);
+            ventana.nombreUser = v_NombreUsuario;
             this.Close();
         }
 
@@ -111,8 +110,8 @@ namespace Proyecto
         private void btn_salir_roles__Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
-            ventana.cargarMenu(nombreUsuario);
-            ventana.nombreUser = nombreUsuario;
+            ventana.cargarMenu(v_NombreUsuario);
+            ventana.nombreUser = v_NombreUsuario;
             this.Close();
         }
 
@@ -121,7 +120,7 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || txb_cantActual.Text == "" || txb_cantMinima.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
+                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || cmb_estadoprod.Text == "" || txb_cantActual.Text == "" || txb_cantMinima.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
                 {
                     ValidarComponentes();
                     btn_agregar.Visibility = Visibility.Collapsed;
@@ -183,25 +182,23 @@ namespace Proyecto
             txb_fabricante.Text = "";
             txb_descripcion.Text = "";
             rb_activo.IsChecked = true;
-            rb_activo.IsChecked = false;
+            rb_inactivo.IsChecked = false;
             dtg_productos.ItemsSource = null;
             lbl_errorCodProd.Visibility = Visibility.Hidden;
             lbl_errorBusqueda.Visibility = Visibility.Hidden;
             lbl_errorNombre.Visibility = Visibility.Hidden;
+            lbl_errorMarca.Visibility = Visibility.Hidden;
             lbl_errorCantModificar.Visibility = Visibility.Hidden;
             lbl_errorCantMinima.Visibility = Visibility.Hidden;
             lbl_errorCantActual.Visibility = Visibility.Hidden;
             lbl_errorDescripcion.Visibility = Visibility.Hidden;
             lbl_errorFabricante.Visibility = Visibility.Hidden;
             lbl_errorPrecio.Visibility = Visibility.Hidden;
-            lbl_errorProveedor.Visibility = Visibility.Hidden;
-            lbl_actividad.Visibility = Visibility.Collapsed;
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
             rb_aumentar.IsChecked = false;
             rb_disminuir.IsChecked = false;
-            inicializarAgregacion();
         }
 
         private void btn_productos_ayuda_Click(object sender, RoutedEventArgs e)
@@ -299,7 +296,7 @@ namespace Proyecto
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
-            if ((lbl_errorCodProd.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
+            if ((lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
                     (lbl_errorCantMinima.Visibility == Visibility.Visible)|| (lbl_errorCantModificar.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
                     lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible ||
                     lbl_errorRB.Visibility == Visibility.Visible)
@@ -417,26 +414,20 @@ namespace Proyecto
             lbl_cantModificar.Visibility = Visibility.Visible;
             txb_cantActual.IsEnabled = false;
             btn_limpiar.Visibility = Visibility.Hidden;
-
             MostrarFormulario();
+
+
             DataGridRow row = sender as DataGridRow;
-
             v_Clt.v_IdProducto = Convert.ToInt64((dtg_productos.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
-
             txb_codProd.Text = (dtg_productos.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
             txb_nombre.Text = (dtg_productos.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text;
             txb_marca.Text = (dtg_productos.SelectedCells[3].Column.GetCellContent(row) as TextBlock).Text;
             txb_cantActual.Text = (dtg_productos.SelectedCells[4].Column.GetCellContent(row) as TextBlock).Text;
             txb_cantMinima.Text = (dtg_productos.SelectedCells[5].Column.GetCellContent(row) as TextBlock).Text;
 
-            //se guarda el id del proveedor que se obtiene del datagrid en la variable: v_Clt.v_IdProveedor
+            //se guarda el id del proveedor que se obtiene del datagrid en la variable: v_Clt.v_IdProveedor y se asigna al combobox
             v_Clt.v_IdProveedor = Convert.ToInt64((dtg_productos.SelectedCells[6].Column.GetCellContent(row) as TextBlock).Text);
-            //convertir de tipo long(v_Clt.v_IdProveedor) a tipo int(v_Indice) 
-            int v_Indice = unchecked((int)v_Clt.v_IdProveedor);
-            //indica al combobox cual opción debe estar seleccionada (asigna el id del proveedor por defecto según el índice que se obtiene del producto seleccionado en el datagrid)
-            //se hace la resta v_Indice-1 porque los elementos del combobox inician en 0
-            cmb_proveedor.SelectedIndex = v_Indice - 1;
-
+            cmb_proveedor.SelectedValue = v_Clt.v_IdProveedor;
 
             txb_precio.Text = (dtg_productos.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text;
             txb_descripcion.Text = (dtg_productos.SelectedCells[9].Column.GetCellContent(row) as TextBlock).Text;
@@ -485,16 +476,7 @@ namespace Proyecto
             {
                 btn_modificar.Visibility = Visibility.Visible;
             }
-        }
-
-        //Inicializa las opciones de agregar en la ventana 
-        private void inicializarAgregacion()
-        {
-            v_Actividad_btnAgregar = true;
-            lbl_actividad.Content = "Agregar producto";
-            lbl_actividad.Visibility = Visibility.Visible;
-        }
-        
+        }        
 
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
         private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
@@ -538,7 +520,7 @@ namespace Proyecto
 
         private void btn_agregarProveedor_Click(object sender, RoutedEventArgs e)
         {
-            lbl_actividad.Content = "Agregar Producto";
+            lbl_actividad.Content = "Agregar producto";
             btn_limpiar.Visibility = Visibility.Visible;
 
             rb_disminuir.Visibility = Visibility.Collapsed;
@@ -548,18 +530,19 @@ namespace Proyecto
 
             MostrarFormulario();
             rb_activo.IsChecked = true;
+            txb_cantActual.IsEnabled = true;
         }
 
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
             MostrarProductosExistentes();
             btn_limpiar_Click(sender, e);
-            txb_cantActual.IsEnabled = true;
         }
 
         private void MostrarProductosExistentes()
         {
             lbl_actividad.Content = "Productos existentes";
+            lbl_actividad.Visibility = Visibility.Visible;
             grd_productosExistentes.Visibility = Visibility.Visible;
             OcultarFormulario();
         }
@@ -582,8 +565,8 @@ namespace Proyecto
             grd_formularioProductos.Visibility = Visibility.Visible;
             rb_activo.IsChecked = true;
             OcultarProveedoresExistentes();
-            LlenarComboboxProveedores();
             ValidarRadioButton();
+            LlenarComboboxProveedores();
         }
 
         private void ValidarRadioButton()
@@ -676,13 +659,27 @@ namespace Proyecto
             }
         }
 
-        private void txb_codProd_TextChanged(object sender, TextChangedEventArgs e)
+        private void ValidarTxbCodProd(object sender, EventArgs e)
         {
+            string v_CodProd = txb_codProd.Text;
             ValidarComponentes();
-            ValidaCod(txb_codProd, lbl_errorCodProd);
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
             ValidarErroresTxb(txb_codProd, lbl_errorCodProd, "nombre");
+
+            if (lbl_errorCodProd.Visibility == Visibility.Hidden)
+            {
+                bool v_Resultado = v_Model.ValidarCodProductos(v_CodProd);
+                if (v_Resultado == true)
+                {
+                    lbl_errorCodProd.Content = "El código del producto ya existe";
+                    lbl_errorCodProd.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lbl_errorCodProd.Visibility = Visibility.Hidden;
+                }
+            }
 
         }
 
@@ -848,21 +845,6 @@ namespace Proyecto
                 lbl_errorPrecio.Content = "No se permite ingresar letras";
                 lbl_errorPrecio.Visibility = Visibility.Visible;
             }
-        }
-
-        public void ValidaCod(TextBox txb_usuario, Label lbl_error)
-        {
-            String cod = txb_codProd.Text;
-            if (v_Model.ValidarCodProductos(cod) == true)
-            {
-                lbl_error.Content = "Este código ya existe";
-                lbl_error.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                lbl_error.Visibility = Visibility.Hidden;
-            }
-
         }
 
         private void txb_cantModificar_TextChanged(object sender, TextChangedEventArgs e)

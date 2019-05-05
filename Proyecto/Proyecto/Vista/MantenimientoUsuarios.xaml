@@ -170,7 +170,7 @@
                     <Separator  x:Name="spt_separador" Background="#FF3472DE" Margin="10,41,24,0" Height="34" VerticalAlignment="Top"/>
                     <Label x:Name="lbl_actividad" Content="Actividad" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="22" Margin="304,20,264,0" Foreground="White" Height="40" FontWeight="Bold" FontFamily="Global Sans Serif" Width="278"/>
 
-                    <Grid Visibility="Collapsed"  x:Name="grd_formularioUsuario" >
+                    <Grid Visibility="Visible"  x:Name="grd_formularioUsuario" >
                         <Grid Margin="15,82,26,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="36*"/>
@@ -231,7 +231,7 @@
                                 <TextBox x:Name="txb_puesto" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="35" TextChanged="txb_puesto_TextChanged"/>
                                 <Label x:Name="lbl_errorPuesto" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Grid.Column="1" Height="30" FontSize="12"/>
 
-                                <ComboBox x:Name="cmb_rol" HorizontalAlignment="Left" Height="30" Margin="0,0" Width="200" SelectionChanged="cmb_rol_SelectionChanged"></ComboBox>
+                                <ComboBox x:Name="cmb_rol" HorizontalAlignment="Left" Height="30" Margin="0,0" Width="200" SelectionChanged="cmb_rol_SelectionChanged" FontSize="14"></ComboBox>
                                 <Label x:Name="lbl_errorRol" Visibility="Hidden" Margin="0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Yellow" Grid.Column="1" Height="30" FontSize="12"/>
 
                                 <TextBox x:Name="txb_usuario" HorizontalAlignment="Left" Height="30" Margin="0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="2" FontSize="16" MaxLength="35" TextChanged="txb_usuario_TextChanged"/>
@@ -267,7 +267,7 @@
                         </Button>
                     </Grid>
 
-                    <Grid Visibility="Visible"  x:Name="grd_usuariosExistentes">
+                    <Grid Visibility="Collapsed"  x:Name="grd_usuariosExistentes">
                         <DataGrid x:Name="dtg_usuarios" Margin="10,140,10,24"  AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridRow">
