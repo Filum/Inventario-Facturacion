@@ -155,7 +155,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="lbl_busqueda" Content="Ingrese el nombre o código del producto:" HorizontalAlignment="Left" Margin="124,86,0,0" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="16" Foreground="White" FontWeight="Bold" Height="29" Width="326"/>
-                        <TextBox x:Name="txb_busqueda" Height="32" Margin="472,83,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="298" FontFamily="Global Sans Serif" MaxLength="35" TextChanged="txb_busqueda_TextChanged"/>
+                        <TextBox x:Name="txb_busqueda" Height="32" Margin="472,83,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="298" FontFamily="Global Sans Serif" MaxLength="35" TextChanged="txb_busqueda_TextChanged" VerticalContentAlignment="Center"/>
                         <Label x:Name="lbl_errorBusqueda" Visibility="Collapsed" Margin="472,115,76,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12"/>
 
                         <DataGrid x:Name="dtg_productos" Margin="26,142,33,29"  AutoGenerateColumns="True" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="auto" AlternatingRowBackground="LightGray"  CanUserResizeColumns="False" CanUserReorderColumns="False">
