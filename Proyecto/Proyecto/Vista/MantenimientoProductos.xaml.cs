@@ -598,6 +598,16 @@ namespace Proyecto
             {
                 v_EstadoSistema = "LISTAPRODUCTOS";
             }
+
+            dtg_lista.ItemsSource = null;
+            if (v_Model.MostrarListaProductos(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_EstadoSistema).DefaultView;
+            }
         }
 
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)

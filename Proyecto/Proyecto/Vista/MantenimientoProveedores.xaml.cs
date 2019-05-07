@@ -807,6 +807,19 @@ namespace Proyecto
             {
                 v_EstadoSistema = "LISTAPROVEEDORES";
             }
+
+            if (cmb_tipoBusqueda.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
+            }
         }
 
        

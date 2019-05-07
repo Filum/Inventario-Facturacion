@@ -160,18 +160,7 @@ namespace Proyecto
             else
             {
                 dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios(v_EstadoSistema).DefaultView;
-                dtg_lista.Columns[0].Header = "Número de Cédula";
-                dtg_lista.Columns[1].Header = "Nombre del Usuario";
-                dtg_lista.Columns[2].Header = "Apellidos";
-                dtg_lista.Columns[3].Header = "Teléfono";
-                dtg_lista.Columns[4].Header = "Tel. Opcional";
-                dtg_lista.Columns[5].Header = "Correo";
-                dtg_lista.Columns[6].Header = "Puesto";
-                dtg_lista.Columns[7].Header = "Rol";
-                dtg_lista.Columns[8].Header = "Usuario";
-                dtg_lista.Columns[9].Header = "Contraseña";
-                dtg_lista.Columns[10].Header = "Fecha de Ingreso";
-                dtg_lista.Columns[11].Header = "Estado en el Sistema";
+               
             }
         }
 
@@ -853,6 +842,16 @@ namespace Proyecto
             else if (cmb_tipoBusqueda.SelectedValue == listaUsuarios)
             {
                 v_EstadoSistema = "LISTAUSUARIOS";
+            }
+
+            if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios(v_EstadoSistema).DefaultView;
+
             }
         }
                 

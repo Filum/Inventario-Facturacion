@@ -107,7 +107,15 @@ namespace Proyecto
         cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar*/
         private void btn_listar_roles_Click(object sender, RoutedEventArgs e)
         {
-            dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
+            if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
+            }
+        
 
         }
 
@@ -518,6 +526,15 @@ namespace Proyecto
             else if (cmb_tipoBusqueda.SelectedValue == listaroles)
             {
                 v_EstadoSistema = "LISTAROLES";
+            }
+
+            if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
             }
         }
 
