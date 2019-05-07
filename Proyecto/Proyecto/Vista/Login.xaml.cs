@@ -23,6 +23,9 @@ namespace Proyecto
     /// Interaction logic for Login.xaml
     /// </summary>
     public partial class Login : Window
+
+
+    //Style="{StaticResource placeHolder}" Tag="USUARIO"
     {
         Model datos = new Model();
         public Login()
