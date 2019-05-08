@@ -245,6 +245,7 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarProveedoresExistentes();
+                        btn_listar_Click(sender, e);
                     }
                 }
                 catch (Exception m)

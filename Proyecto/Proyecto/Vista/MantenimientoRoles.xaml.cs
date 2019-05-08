@@ -114,9 +114,8 @@ namespace Proyecto
             else
             {
                 dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
+                btn_listar_roles_Click(sender, e);
             }
-        
-
         }
 
         //Botón de ayuda 
