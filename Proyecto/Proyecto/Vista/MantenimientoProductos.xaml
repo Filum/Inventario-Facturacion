@@ -97,7 +97,7 @@
                             <DataGridTextColumn Binding="{Binding FABRICANTE}" FontFamily="Global Sans Serif" Header="Fabricante" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding ESTADOPRODUCTO}" FontFamily="Global Sans Serif" Header="Estado del Producto" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding FECHA}" FontFamily="Global Sans Serif" Header="Fecha" Width="auto"/>
-                            <DataGridTextColumn Binding="{Binding ESTADOSISTEMA}" FontFamily="Global Sans Serif" Header="Estado en el Sistema" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding ESTADOSISTEMA}" FontFamily="Global Sans Serif" Header="Estado en el Sistema" Width="auto"/>
                         </DataGrid.Columns>
 
                         <DataGrid.ColumnHeaderStyle>

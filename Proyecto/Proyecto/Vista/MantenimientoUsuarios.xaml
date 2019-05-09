@@ -108,7 +108,7 @@
                             <DataGridTextColumn Binding="{Binding USUARIOSISTEMA}" FontFamily="Global Sans Serif" Header="Usuario" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding CONTRASENA}" FontFamily="Global Sans Serif" Header="Contraseña" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding FECHA}" FontFamily="Global Sans Serif" Header="Fecha de Ingreso" Width="auto"/>
-                            <DataGridTextColumn Binding="{Binding ESTADOSISTEMA}" FontFamily="Global Sans Serif" Header="Estado en el Sistema" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding ESTADOSISTEMA}" FontFamily="Global Sans Serif" Header="Estado en el Sistema" Width="auto"/>
                         </DataGrid.Columns>
 
                         <DataGrid.ColumnHeaderStyle>

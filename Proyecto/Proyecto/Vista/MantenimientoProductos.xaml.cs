@@ -280,7 +280,8 @@ namespace Proyecto
                     else if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        btn_limpiar_Click(sender, e);
+                        v_EstadoSistema = "LISTAPRODUCTOS";
+                        btn_listar_Click(sender, e);
                         MostrarProductosExistentes();
                     }
                 }
@@ -367,6 +368,8 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarProductosExistentes();
+
+                        v_EstadoSistema = "LISTAPRODUCTOS";
                         btn_listar_Click(sender,e);
                     }
                 }

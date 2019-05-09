@@ -170,6 +170,7 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        v_EstadoSistema = "LISTAPROVEEDORES";
                         btn_limpiar_Click(sender, e);
                         MostrarProveedoresExistentes();
                     }
@@ -245,7 +246,8 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarProveedoresExistentes();
-                        btn_listar_Click(sender, e);
+                        v_EstadoSistema = "LISTAPROVEEDORES";
+                        btn_limpiar_Click(sender, e);
                     }
                 }
                 catch (Exception m)

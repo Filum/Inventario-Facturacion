@@ -242,6 +242,7 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarUsuariosExistentes();
+                        v_EstadoSistema = "LISTAUSUARIOS";
                         btn_listar_Click(sender, e);
                     }
                 }
@@ -302,6 +303,7 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        v_EstadoSistema = "LISTAUSUARIOS";
                         btn_limpiar_Click(sender, e);
                         MostrarUsuariosExistentes();
                     }

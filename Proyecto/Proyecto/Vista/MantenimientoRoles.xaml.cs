@@ -114,7 +114,6 @@ namespace Proyecto
             else
             {
                 dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
-                btn_listar_roles_Click(sender, e);
             }
         }
 
@@ -318,6 +317,9 @@ namespace Proyecto
                         MostrarRolesExistentes();
                         txb_busqueda_rol.Text = "";
                         limpiar();
+
+                        v_EstadoSistema = "LISTAROLES";
+                        btn_listar_roles_Click(sender, e);
                     }
                 }
                 
@@ -421,6 +423,9 @@ namespace Proyecto
                         v_Actividad_btnAgregar = true;
                         MostrarRolesExistentes();
                         txb_busqueda_rol.Text = "";
+
+                        v_EstadoSistema = "LISTAROLES";
+                        btn_listar_roles_Click(sender, e);
                     }
                 }
                 catch (Exception m)
