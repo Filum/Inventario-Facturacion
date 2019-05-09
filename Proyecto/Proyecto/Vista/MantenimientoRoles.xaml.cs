@@ -532,7 +532,7 @@ namespace Proyecto
                 v_EstadoSistema = "LISTAROLES";
             }
 
-            if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
+            if (v_Model.MostrarListaRoles(v_EstadoSistema).Rows.Count == 0)
             {
                 MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
