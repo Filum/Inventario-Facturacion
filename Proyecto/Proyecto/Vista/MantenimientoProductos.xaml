@@ -85,6 +85,7 @@
                             <DataGridTextColumn Binding="{Binding NOMBREPRODUCTO}" FontFamily="Global Sans Serif" Header="Nombre del Producto" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding MARCAPRODUCTO}" FontFamily="Global Sans Serif" Header="Marca" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding CANTIDADEXISTENCIA}" FontFamily="Global Sans Serif" Header="Cantidad en existencia" Width="auto"/>
+                            <DataGridTextColumn Binding="{Binding CANTIDADMINIMA}" FontFamily="Global Sans Serif" Header="Cantidad mínima" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding NOMBRE}" FontFamily="Global Sans Serif" Header="Proveedor" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding PRECIOUNITARIO}" FontFamily="Global Sans Serif" Header="Precio" Width="auto"/>
                             <DataGridTextColumn Binding="{Binding DESCRIPCION}" FontFamily="Global Sans Serif" Header="Descripción" Width="auto"/>
