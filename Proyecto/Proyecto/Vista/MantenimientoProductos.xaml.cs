@@ -28,6 +28,7 @@ namespace Proyecto
         bool v_Actividad_btnAgregar = true;
         String v_EstadoSistema = "";
         public string v_NombreUsuario;
+        long v_NuevaCantidad, v_CantActual, v_CantModificar;
 
         public MantenimientoProductos()
         {
@@ -312,17 +313,27 @@ namespace Proyecto
                     v_Clt.v_CodigoProducto = txb_codProd.Text;
                     v_Clt.v_NombreProducto = txb_nombre.Text;
                     v_Clt.v_MarcaProducto = txb_marca.Text;
-                    long v_NuevaCantidad;
+                    
+                    v_CantActual = Convert.ToInt64(txb_cantActual.Text);
+                    v_CantModificar = Convert.ToInt64(txb_cantModificar.Text);
+
                     if (rb_aumentar.IsChecked == true) {
-                        v_NuevaCantidad = Convert.ToInt64(txb_cantActual.Text) + Convert.ToInt64(txb_cantModificar.Text);
+                        v_NuevaCantidad = v_CantActual + v_CantModificar;
                         v_Clt.v_CantidadExistencia = v_NuevaCantidad;
                     }
                     if (rb_disminuir.IsChecked == true)
                     {
-                        v_NuevaCantidad = Convert.ToInt64(txb_cantActual.Text) - Convert.ToInt64(txb_cantModificar.Text);
-                        v_Clt.v_CantidadExistencia = v_NuevaCantidad;
+                        if (v_CantActual < v_CantModificar)
+                        {
+                            lbl_errorCantModificar.Visibility = Visibility.Visible;
+                            lbl_errorCantModificar.Content = "La cant. actual es inferior a la cant. a disminuir";
+                        }
+                        else
+                        {
+                            v_NuevaCantidad = v_CantActual - v_CantModificar;
+                            v_Clt.v_CantidadExistencia = v_NuevaCantidad;
+                        }
                     }
-                   // v_Clt.v_CantidadExistencia = Convert.ToInt64(txb_cantActual.Text);
                     v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
 
                     EntidadProveedores ComboItem = (EntidadProveedores)cmb_proveedor.SelectedItem;
@@ -358,8 +369,13 @@ namespace Proyecto
                     if (v_Model.ValidarModificacionProducto(v_Clt) == true)
                     {
                         lbl_errorCodProd.Visibility = Visibility.Hidden;
-                    } 
+                    }
+
                     if (lbl_errorCodProd.Visibility == Visibility.Visible)
+                    {
+                        MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else if (lbl_errorCantModificar.Visibility == Visibility.Visible)
                     {
                         MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
@@ -688,7 +704,6 @@ namespace Proyecto
                     lbl_errorCodProd.Visibility = Visibility.Hidden;
                 }
             }
-
         }
 
         private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
