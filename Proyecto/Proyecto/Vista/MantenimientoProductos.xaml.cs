@@ -280,9 +280,10 @@ namespace Proyecto
                     else if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        v_EstadoSistema = "LISTAPRODUCTOS";
-                        btn_listar_Click(sender, e);
                         MostrarProductosExistentes();
+
+                        v_EstadoSistema = "LISTAPRODUCTOS";
+                        ListarProductos();
                     }
                 }
                 catch (Exception m)
@@ -370,7 +371,7 @@ namespace Proyecto
                         MostrarProductosExistentes();
 
                         v_EstadoSistema = "LISTAPRODUCTOS";
-                        btn_listar_Click(sender,e);
+                        ListarProductos();
                     }
                 }
                 catch (Exception m)
@@ -393,18 +394,19 @@ namespace Proyecto
             }
         }
 
-        private void btn_listar_Click(object sender, RoutedEventArgs e)
+        /*Lista los productos existentes en el sistema según su estado, envía el estado en el sistema(v_EstadoSistema) que se 
+         * obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
+        private void ListarProductos()
         {
-       
-                dtg_lista.ItemsSource = null;
-                if (v_Model.MostrarListaProductos(v_EstadoSistema).Rows.Count == 0)
-                {
-                    MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-                else
-                {
-                    dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_EstadoSistema).DefaultView;
-                }
+            dtg_lista.ItemsSource = null;
+            if (v_Model.MostrarListaProductos(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_EstadoSistema).DefaultView;
+            }
         }
 
         /*Método el cual cumple con la funcionalidad de desplegar los datos en los campos correspondientes de un producto seleccionado 
@@ -603,15 +605,7 @@ namespace Proyecto
                 v_EstadoSistema = "LISTAPRODUCTOS";
             }
 
-            dtg_lista.ItemsSource = null;
-            if (v_Model.MostrarListaProductos(v_EstadoSistema).Rows.Count == 0)
-            {
-                MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else
-            {
-                dtg_lista.ItemsSource = v_Model.MostrarListaProductos(v_EstadoSistema).DefaultView;
-            }
+            ListarProductos();
         }
 
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)

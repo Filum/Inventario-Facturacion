@@ -103,11 +103,11 @@ namespace Proyecto
             this.Close();
         }
 
-         /*Botón el cual permite listar los proveedores existentes en el sistema según un rango de fechas establecidas siempre 
-        cumpla con las validaciones necesarias para la ejecución de su funcionalidad situadas en el tab de listar*/
-        private void btn_listar_roles_Click(object sender, RoutedEventArgs e)
+        /*Lista los roles existentes en el sistema según su estado, envía el estado en el sistema(v_EstadoSistema) 
+        que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
+        private void ListarRoles()
         {
-            if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
+            if (v_Model.MostrarListaRoles(v_EstadoSistema).Rows.Count == 0)
             {
                 MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -319,7 +319,7 @@ namespace Proyecto
                         limpiar();
 
                         v_EstadoSistema = "LISTAROLES";
-                        btn_listar_roles_Click(sender, e);
+                        ListarRoles();
                     }
                 }
                 
@@ -425,7 +425,7 @@ namespace Proyecto
                         txb_busqueda_rol.Text = "";
 
                         v_EstadoSistema = "LISTAROLES";
-                        btn_listar_roles_Click(sender, e);
+                        ListarRoles();
                     }
                 }
                 catch (Exception m)
@@ -532,14 +532,7 @@ namespace Proyecto
                 v_EstadoSistema = "LISTAROLES";
             }
 
-            if (v_Model.MostrarListaRoles(v_EstadoSistema).Rows.Count == 0)
-            {
-                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else
-            {
-                dtg_lista.ItemsSource = v_Model.MostrarListaRoles(v_EstadoSistema).DefaultView;
-            }
+            ListarRoles();
         }
 
         private void txb_busqueda_rol_KeyUp(object sender, KeyEventArgs e)

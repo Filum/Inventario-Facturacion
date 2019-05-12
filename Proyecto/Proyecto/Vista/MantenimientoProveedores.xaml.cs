@@ -170,9 +170,11 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        v_EstadoSistema = "LISTAPROVEEDORES";
                         btn_limpiar_Click(sender, e);
                         MostrarProveedoresExistentes();
+
+                        v_EstadoSistema = "LISTAPROVEEDORES";
+                        ListarProveedores();
                     }
                 }
             }
@@ -246,8 +248,9 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarProveedoresExistentes();
+
                         v_EstadoSistema = "LISTAPROVEEDORES";
-                        btn_limpiar_Click(sender, e);
+                        ListarProveedores();
                     }
                 }
                 catch (Exception m)
@@ -287,24 +290,6 @@ namespace Proyecto
             v_Actividad_btnAgregar = true;
         }
 
-        /*Botón el cual permite listar los proveedores existentes en el sistema según su estado, envía el estado en el 
-         * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
-        private void btn_listar_Click(object sender, RoutedEventArgs e)
-        {
-            if (cmb_tipoBusqueda.SelectedItem == null)
-            {
-                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
-                {
-                    MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-                else
-                {
-                    dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
-                }
-        }
-
         //Botón el cual brinda con información necesaria para la utilización de la ventana en la que se encuentra el usuario
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
@@ -337,6 +322,24 @@ namespace Proyecto
                 Login v_Ventana = new Login();
                 this.Close();
                 v_Ventana.Show();
+            }
+        }
+
+        /*Lista los proveedores existentes en el sistema según su estado, envía el estado en el sistema(v_EstadoSistema) que se 
+         * obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
+        private void ListarProveedores()
+        {
+            if (cmb_tipoBusqueda.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
             }
         }
 
@@ -811,18 +814,7 @@ namespace Proyecto
                 v_EstadoSistema = "LISTAPROVEEDORES";
             }
 
-            if (cmb_tipoBusqueda.SelectedItem == null)
-            {
-                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
-            {
-                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else
-            {
-                dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
-            }
+            ListarProveedores();
         }
 
        

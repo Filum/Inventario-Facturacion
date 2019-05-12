@@ -149,9 +149,9 @@ namespace Proyecto
                 MessageBoxButton.OK);
         }
 
-        /*Botón el cual permite listar los usuarios existentes en el sistema según su estado, envía el estado en el 
+        /*Lista los usuarios existentes en el sistema según su estado, envía el estado en el 
         * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
-        private void btn_listar_Click(object sender, RoutedEventArgs e)
+        private void ListarUsuarios()
         {
             if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
             {
@@ -242,8 +242,9 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarUsuariosExistentes();
+
                         v_EstadoSistema = "LISTAUSUARIOS";
-                        btn_listar_Click(sender, e);
+                        ListarUsuarios();
                     }
                 }
                 catch (Exception m)
@@ -303,9 +304,11 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
-                        v_EstadoSistema = "LISTAUSUARIOS";
                         btn_limpiar_Click(sender, e);
                         MostrarUsuariosExistentes();
+
+                        v_EstadoSistema = "LISTAUSUARIOS";
+                        ListarUsuarios();
                     }
                 }
             }
@@ -847,15 +850,7 @@ namespace Proyecto
                 v_EstadoSistema = "LISTAUSUARIOS";
             }
 
-            if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
-            {
-                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else
-            {
-                dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios(v_EstadoSistema).DefaultView;
-
-            }
+            ListarUsuarios();
         }
                 
     }

@@ -72,13 +72,7 @@
                             <GradientStop Color="#FE2E2672" Offset="0.942"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Button  x:Name="btn_listar" Height="70" Width="70" Foreground="White" Margin="0,10,35.333,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_listar_Click">
-                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/Ordenar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Listar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="17,0,0,0" Width="36" HorizontalAlignment="Left"/>
-                        </StackPanel>
-                    </Button>
-                    <Button  x:Name="btn_imprimir" Height="70" Width="70" Foreground="White" Margin="0,10,137.333,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_Click">
+                    <Button  x:Name="btn_imprimir" Height="70" Width="70" Foreground="White" Margin="0,24,35,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_imprimir_Click">
                         <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/Imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                             <TextBlock Text="Imprimir" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
@@ -108,8 +102,8 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                     </DataGrid>
-                    <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,38,524,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
-                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,37,309,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged" FontSize="14" VerticalContentAlignment="Center">
+                    <Label x:Name="lbl_filtro" Content="Seleccione el tipo de búsqueda:" Margin="0,38,341,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Global Sans Serif" HorizontalAlignment="Right" Width="269"/>
+                    <ComboBox x:Name="cmb_tipoBusqueda" Margin="0,38,144,0" VerticalAlignment="Top" Text="Elija una opción" Height="30" HorizontalAlignment="Right" Width="174" SelectionChanged="cmb_tipoBusqueda_SelectionChanged" FontSize="14" VerticalContentAlignment="Center">
                         <ComboBoxItem x:Name="productosActivos" Content="Productos Activos"/>
                         <ComboBoxItem x:Name="productosInactivos" Content="Productos Inactivos"/>
                         <ComboBoxItem x:Name="listaProductos" Content="Todos los Productos"/>
