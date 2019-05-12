@@ -167,7 +167,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("DESCRIP", clt.v_Descripcion));
             comando.Parameters.Add(new OracleParameter("FABRI", clt.v_Fabricante));
             comando.Parameters.Add(new OracleParameter("ESTPRO", clt.v_EstadoProducto));
-            comando.Parameters.Add(new OracleParameter("SERV", "Mercaderia"));
+            comando.Parameters.Add(new OracleParameter("SERV", "Mercadería"));
             comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
 
 
@@ -322,6 +322,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("DESCR", clt.v_Descripcion));
             comando.Parameters.Add(new OracleParameter("FABRI", clt.v_Fabricante));
             comando.Parameters.Add(new OracleParameter("ESTPRO", clt.v_EstadoProducto));
+            comando.Parameters.Add(new OracleParameter("SERV", "Mercadería"));
             comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
 
             int v_Resultado = comando.ExecuteNonQuery();
@@ -480,6 +481,7 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+        //Este metodo busca los clientes por nombre, el que se va asimilando
         public DataTable BuscarClienteNombre(string nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -495,6 +497,8 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+
+        //Este metodo resive el estado que tiene el cliente en el sistema y devuelve los clientes solicitados
         public DataTable BuscarClienteEstado(string nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -510,6 +514,8 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+
+        //El sistema va buscando el nombre y estado del cliente solicitado
         public DataTable BuscarClienteEstadoyNombre(string nombre,string estado)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -909,6 +915,7 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        //Funcion para mostrar los productos que que estan activos y que haya en existencia 
         public DataTable Productos()
         {
             OracleConnection conn = DataBase.Conexion();
@@ -924,6 +931,8 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+
+        //funcion para mostrar todas las facturas en un rango de fechas establecido
         public DataTable MostrarListaFacturas(String fecha1, String fecha2)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -946,6 +955,7 @@ namespace Datos
             return tabla;
         }
 
+        //Funcion para mostrar el detalle de la factura ,dependiendo la facutra solicitada, se solicita por el codigo de la misma
         public DataTable MostrarDetalleFactura(int codigoFactura)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -961,6 +971,8 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+
+        //funcion para optener todos los atributos necesarios del detalle de la factura solicitada
         public List<string> DetalleFactura(int codigoFactura)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1001,6 +1013,8 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+
+        //funcion para obtenerla descripcion de los productos del sistema
         public ObservableCollection<string> ListaProductos()
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1019,6 +1033,7 @@ namespace Datos
             conn.Close();
             return Lista;
         }
+        //carga el detalle del producto, dependiendo su descripcion
         public List<string> DetalleProducto(string descripcion)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1040,7 +1055,7 @@ namespace Datos
             conn.Close();
             return Lista;
         }
-        
+        //Busca las facturas por el estado de la factura y el nombre del cliente
         public DataTable BuscarFacturaEstadoyCliente(string v_Nombre,string estado)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1057,6 +1072,7 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        //busca la factura por el estado de la misma
         public DataTable BuscarFacturaEstado(String v_Nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1073,6 +1089,8 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+
+        //busca el codigo maximo de todas las facturas
         public Int64 MaximaFactura()
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1090,6 +1108,7 @@ namespace Datos
             conn.Close();
             return valor;
         }
+        //verifica si la factura es de servicios o productos
         public string tipoFactura(string codigo)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1107,6 +1126,8 @@ namespace Datos
             conn.Close();
             return valor;
         }
+
+        //seleccionamos la descripcion del servicio solicitado por el codigo de la factura
         public string Descripcion_servicio(string codigo)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1124,6 +1145,7 @@ namespace Datos
             conn.Close();
             return valor;
         }
+        //buscamos el maximo valor de detalle de las facturas
         public Int64 MaximoDetalle()
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1141,6 +1163,7 @@ namespace Datos
             conn.Close();
             return valor;
         }
+        //verificamos el id del usuario por medio del nombre del mismo
         public Int64 id_Usuario(string nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1158,6 +1181,7 @@ namespace Datos
             conn.Close();
             return valor;
         }
+        //obtenemos valores de la tabla de clientes, por medio del nombre del mismo
         public EntidadClientes IdCliente(string nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1233,6 +1257,7 @@ namespace Datos
             else
                 return 0;
         }
+        //actualizamos la cantidad de productos que se descuentan cuando la factura es realizada
         public void DescuentoInventario (string cantidad, string nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1243,6 +1268,7 @@ namespace Datos
             OracleDataReader dr = comando.ExecuteReader();
             conn.Close();
         }
+        //Cambia el estado de la factura 
         public void CambiarestadoFactura(string estado, string codigo)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1253,6 +1279,7 @@ namespace Datos
             OracleDataReader dr = comando.ExecuteReader();
             conn.Close();
         }
+        //funcion para verificar el estado de la factura cada vez que se inicia el sistema
         public void Verificarestadofactura()
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1276,6 +1303,7 @@ namespace Datos
             }
             conn.Close();
         }
+        //Cambiar el estado de la factura a vencida
         public void EstadoVencidaFactura(string codigo)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1286,6 +1314,8 @@ namespace Datos
             OracleDataReader dr = comando.ExecuteReader();
             conn.Close();
         }
+
+        //obtenemos los valores que necesitamos del detalle de la factura de servicios
         public List<string> DetalleFacturaServicios(int codigoFactura)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1346,7 +1376,7 @@ namespace Datos
             conn.Close();
             return valor;
         }
-
+        //busca las facturas por nombre de cliente
         public DataTable BuscarFactura(String v_Nombre)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1366,6 +1396,7 @@ namespace Datos
 
         /////////////////////////////////////////////Bitacora////////////////////////////////////////////////////////
         ///
+        //Busca la bitacora por el rango de fechas solicitado
         public DataTable MostrarBitacoraPorFecha(String fecha1, String fecha2)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1388,6 +1419,7 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        //Busca la bitacora dependiendo el mantenimiento solicitado
         public DataTable BitacoraMantenimieto(string mantenimiento)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1410,6 +1442,7 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        //Busca la bitacora dependiendo de la accion realizada
         public DataTable BitacoraAccion(string accion)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -1432,6 +1465,7 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        //busca la bitacora por medio de la accion y mantenimiento solicitado
         public DataTable BitacoraMantenimietoyAccion(string mantenimiento,string accion)
         {
             OracleConnection conn = DataBase.Conexion();
