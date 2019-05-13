@@ -167,6 +167,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("DESCRIP", clt.v_Descripcion));
             comando.Parameters.Add(new OracleParameter("FABRI", clt.v_Fabricante));
             comando.Parameters.Add(new OracleParameter("ESTPRO", clt.v_EstadoProducto));
+            comando.Parameters.Add(new OracleParameter("SERV", "Mercadería"));
             comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
 
 
@@ -321,6 +322,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("DESCR", clt.v_Descripcion));
             comando.Parameters.Add(new OracleParameter("FABRI", clt.v_Fabricante));
             comando.Parameters.Add(new OracleParameter("ESTPRO", clt.v_EstadoProducto));
+            comando.Parameters.Add(new OracleParameter("SERV", "Mercadería"));
             comando.Parameters.Add(new OracleParameter("ESTSIS", clt.v_EstadoSistema));
 
             int v_Resultado = comando.ExecuteNonQuery();
