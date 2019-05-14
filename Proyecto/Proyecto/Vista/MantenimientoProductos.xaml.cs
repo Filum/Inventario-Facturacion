@@ -108,7 +108,7 @@ namespace Proyecto
             this.Close();
         }
 
-        private void btn_salir_roles__Click(object sender, RoutedEventArgs e)
+        private void btn_menu_Click(object sender, RoutedEventArgs e)
         {
             Menu ventana = new Menu();
             ventana.cargarMenu(v_NombreUsuario);
@@ -121,7 +121,7 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || cmb_estadoprod.Text == "" || txb_cantActual.Text == "" || txb_cantMinima.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
+                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || cmb_estadoprod.Text == "" || txb_cantActual.Text == "" || txb_cantMinima.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "")
                 {
                     ValidarComponentes();
                     btn_agregar.Visibility = Visibility.Collapsed;
@@ -135,17 +135,6 @@ namespace Proyecto
 
         private void ValidarComponentes()
         {
-            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
-            {
-                lbl_errorRB.Visibility = Visibility.Visible;
-                lbl_errorRB.Content = "Debe seleccionar una opción";
-            }
-            else
-            {
-                lbl_errorRB.Visibility = Visibility.Hidden;
-            }
-
-
             if (cmb_estadoprod.SelectedItem == null)
             {
                 lbl_errorestadoProd.Visibility = Visibility.Visible;
@@ -198,6 +187,7 @@ namespace Proyecto
             btn_agregar.Visibility = Visibility.Collapsed;
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
+            v_Actividad_btnAgregar = true;
             rb_aumentar.IsChecked = false;
             rb_disminuir.IsChecked = false;
         }
@@ -225,7 +215,7 @@ namespace Proyecto
         private void btn_agregar_Click(object sender, RoutedEventArgs e)
         {
             if ((lbl_errorCodProd.Visibility == Visibility.Visible) || (lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
-                    (lbl_errorCantMinima.Visibility == Visibility.Visible) || (lbl_errorCantModificar.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
+                    (lbl_errorCantMinima.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
                     lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible ||
                     lbl_errorRB.Visibility == Visibility.Visible)
             {
@@ -274,13 +264,10 @@ namespace Proyecto
                     int v_Resultado = v_Model.AgregarProductos(v_Clt);
 
                    
-                    if (lbl_errorCodProd.Visibility == Visibility.Visible)
-                    {
-                        MessageBox.Show("Error al agregar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else if (v_Resultado == -1)
+                    if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btn_limpiar_Click(sender, e);
                         MostrarProductosExistentes();
 
                         v_EstadoSistema = "LISTAPRODUCTOS";
@@ -399,7 +386,7 @@ namespace Proyecto
             }
         }
 
-        private void btn_usuarios_usuario_Click(object sender, RoutedEventArgs e)
+        private void btn_usuarios_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult v_Result = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar Sesión", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (v_Result == MessageBoxResult.Yes)
@@ -540,10 +527,11 @@ namespace Proyecto
 
         }
 
-        private void btn_agregarProveedor_Click(object sender, RoutedEventArgs e)
+        private void btn_agregarProducto_Click(object sender, RoutedEventArgs e)
         {
             lbl_actividad.Content = "Agregar producto";
             btn_limpiar.Visibility = Visibility.Visible;
+            btn_limpiar_Click(sender, e);
 
             rb_disminuir.Visibility = Visibility.Collapsed;
             rb_aumentar.Visibility = Visibility.Collapsed;
@@ -561,6 +549,7 @@ namespace Proyecto
             btn_limpiar_Click(sender, e);
         }
 
+        //Muestra el panel de búsqueda en el tab de configuración de productos
         private void MostrarProductosExistentes()
         {
             lbl_actividad.Content = "Productos existentes";
@@ -569,24 +558,24 @@ namespace Proyecto
             OcultarFormulario();
         }
 
-        //Oculta el panel de búsqueda en el tab de configuración de proveedores
-        private void OcultarProveedoresExistentes()
+        //Oculta el panel de búsqueda en el tab de configuración de productos
+        private void OcultarProductosExistentes()
         {
             grd_productosExistentes.Visibility = Visibility.Collapsed;
         }
 
-        //Oculta el panel del formulario en el tab de configuración de proveedores
+        //Oculta el panel del formulario en el tab de configuración de productos
         private void OcultarFormulario()
         {
             grd_formularioProductos.Visibility = Visibility.Collapsed;
         }
 
-        //Muestra el panel del formulario en el tab de configuración de proveedores
+        //Muestra el panel del formulario en el tab de configuración de productos
         private void MostrarFormulario()
         {
             grd_formularioProductos.Visibility = Visibility.Visible;
             rb_activo.IsChecked = true;
-            OcultarProveedoresExistentes();
+            OcultarProductosExistentes();
             ValidarRadioButton();
             LlenarComboboxProveedores();
         }

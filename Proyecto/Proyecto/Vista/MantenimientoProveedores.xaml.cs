@@ -108,7 +108,6 @@ namespace Proyecto
         {
             btn_limpiar_Click(sender, e);
             lbl_actividad.Content = "Agregar proveedor";
-            ValidarRadioButton();
             btn_limpiar.Visibility = Visibility.Visible;
             MostrarFormulario();
             rb_activo.IsChecked = true;
@@ -368,7 +367,6 @@ namespace Proyecto
         {
             grd_formularioProveedor.Visibility = Visibility.Visible;
             OcultarProveedoresExistentes();
-            ValidarRadioButton();
         }
                
 
@@ -447,9 +445,8 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_cedJur.Text == "" || txb_correo.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_descripcion.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
+                if (txb_cedJur.Text == "" || txb_correo.Text == "" || txb_nombre.Text == "" || txb_telefono.Text == "" || txb_descripcion.Text == "")
                 {
-                    ValidarRadioButton();
                     btn_agregar.Visibility = Visibility.Collapsed;
                 }
                 else
@@ -550,7 +547,6 @@ namespace Proyecto
         //Validación en la actividad de los radiobutton
         private void rb_activo_Checked(object sender, RoutedEventArgs e)
         {
-            ValidarRadioButton();
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
         }
@@ -558,7 +554,6 @@ namespace Proyecto
         //Validación en la actividad de los radiobutton
         private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
         {
-            ValidarRadioButton();
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
         }
@@ -780,20 +775,6 @@ namespace Proyecto
             else
             {
                 lbl_error.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        //Valida si se selecciona el estado del proveedor (Activo - Inactivo) en el sistema
-        private void ValidarRadioButton()
-        {
-            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
-            {
-                lbl_errorRb.Visibility = Visibility.Visible;
-                lbl_errorRb.Content = "Debe seleccionar una opción";
-            }
-            else
-            {
-                lbl_errorRb.Visibility = Visibility.Collapsed;
             }
         }
 

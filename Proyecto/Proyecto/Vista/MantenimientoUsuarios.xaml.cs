@@ -372,7 +372,7 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_numCed.Text == "" || txb_nombre.Text == "" || txb_apellidos.Text == "" || txb_telefono.Text == "" || txb_correo.Text == "" || txb_puesto.Text == "" || cmb_rol.Text == "" || txb_usuario.Text == "" || txb_contrasenna.Text == "" || (rb_activo.IsChecked == false && rb_inactivo.IsChecked == false))
+                if (txb_numCed.Text == "" || txb_nombre.Text == "" || txb_apellidos.Text == "" || txb_telefono.Text == "" || txb_correo.Text == "" || txb_puesto.Text == "" || cmb_rol.Text == "" || txb_usuario.Text == "" || txb_contrasenna.Text == "")
                 {
                     ValidarComponentes();
                     btn_agregar.Visibility = Visibility.Collapsed;
@@ -624,16 +624,6 @@ namespace Proyecto
         //Valida si se selecciona el estado del usuario (Activo - Inactivo) en el sistema
         private void ValidarComponentes()
         {
-            if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
-            {
-                lbl_errorRb.Visibility = Visibility.Visible;
-                lbl_errorRb.Content = "Debe seleccionar una opción";
-            }
-            else
-            {
-                lbl_errorRb.Visibility = Visibility.Hidden;
-            }
-
             if (cmb_rol.SelectedItem == null)
             {
                 lbl_errorRol.Visibility = Visibility.Visible;
