@@ -66,12 +66,10 @@ namespace Proyecto
         //boton para mostrar la ayuda del sistema
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Secciones Mantenimiento de Facturas:\n" + "Listar: usted podra imprimir la lista de facturas, aparte de ordenarlos ya sea por código o por nombre del cliente.\n" +
-                            "Buscar: aca usted podra buscar los clientes que desee.\n" +
-                            "Facturación de productos: esta sección le permite la facturación de productos.\n" +
-                            "Facturación de servicios: esta sección le permite la facturación de servicios.\n" +
-                            "Historial: esta ventana le mostrara todos los cambios realizados en esta sección.\n"
-                           , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
+            Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.Show();
+            ventana.Pantalla = "Facturacion";
+            this.Close();
         }
 
        

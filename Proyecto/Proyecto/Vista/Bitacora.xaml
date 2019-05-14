@@ -44,7 +44,7 @@
                     <TextBlock x:Name="t_Usuario" Text="Usuario" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="19,0,7.2,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="btn_ayuda_Copy" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Button x:Name="btn_ayuda_Copy" Width="75" Height="90" Foreground="White" Margin="7,74,7,215" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_ayuda_Copy_Click">
                 <StackPanel x:Name="btn_ayuda_roles1" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="Imagenes/ayuda.png" Width="60" Height="60"
                         HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>

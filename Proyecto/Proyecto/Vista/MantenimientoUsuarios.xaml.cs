@@ -129,24 +129,10 @@ namespace Proyecto
 
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Reglas: \n" +
-                "1. Listar: Seleccione el botón Listar para desplegar los datos. \n" +
-                "2. Buscar: Ingrese el elemento a buscar y seleccione el botón Buscar para ver los resultados. \n" +
-                "3. Ingresar: \n" +
-                "   Complete todos los campos.\n" +
-                "   Las cajas de texto de los teléfonos solo permiten números.\n" +
-                "   Formato de correo: usuario@dominio.extension \n" +
-                "   Seleccionar el rol que se le desea asignar al usuario. \n" +
-                "   Formato de contraseña: Tamaño entre 8 y 16 caracteres alfanuméricos.\n" +
-                "4. Deshabilitar: \n" +
-                "   Ingrese el elemento a deshabilitar y seleccione el botón Buscar para ver los resultados.\n" +
-                "   Seleccione el elemento e ingrese el motivo por el cual se desea deshabilitar\n" +
-                "5. Actualizar: \n" +
-                "   Ingrese el elemento a actualizar y seleccione el botón Buscar para ver los resultados.\n" +
-                "   Seleccione el elemento y proceda a editar el/los campos que desee.\n" +
-                "   Se utiliza el mismo formato que ingresar. No deje campos vacíos.\n" +
-                "6. Historial: Seleccione el botón Historial para desplegar los datos.", "Ayuda",
-                MessageBoxButton.OK);
+            Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.Show();
+            ventana.Pantalla = "Usuarios";
+            this.Close();
         }
 
         /*Botón el cual permite listar los usuarios existentes en el sistema según su estado, envía el estado en el 
