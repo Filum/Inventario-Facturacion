@@ -434,7 +434,7 @@ namespace Datos
             comando.Connection = conn;
             if (v_EstadoSistema == "LISTAPRODUCTOS")
             {
-                comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.ESTADOSISTEMA from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR)";
+                comando.CommandText = "select PROD.codigoProducto,PROD.nombreProducto,PROD.marcaProducto,PROD.cantidadExistencia,PROD.cantidadMinima,PROV.NOMBRE,PROD.precioUnitario,PROD.descripcion,PROD.fabricante,PROD.estadoProducto,PROD.fecha,PROD.ESTADOSISTEMA from tbl_Productos PROD INNER JOIN TBL_PROVEEDORES PROV ON(PROV.PK_IDPROVEEDOR = PROD.FK_IDPROVEEDOR)";
             }
             else
             {
@@ -670,7 +670,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT PK_IDROL, NOMBRE FROM TBL_ROLES";
+            comando.CommandText = "SELECT PK_IDROL, NOMBRE FROM TBL_ROLES ORDER BY NOMBRE ASC";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadRoles> Lista = new List<EntidadRoles>();
 
@@ -820,7 +820,7 @@ namespace Datos
             conn.Open();
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
-            comando.CommandText = "SELECT PK_IDPROVEEDOR, NOMBRE FROM TBL_PROVEEDORES";
+            comando.CommandText = "SELECT PK_IDPROVEEDOR, NOMBRE FROM TBL_PROVEEDORES ORDER BY NOMBRE ASC";
             OracleDataReader dr = comando.ExecuteReader();
             List<EntidadProveedores> Lista = new List<EntidadProveedores>();
 
@@ -1208,11 +1208,6 @@ namespace Datos
             return cliente;
         }
 
-
-
-
-
-
         /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
        cédula jurídica está asociada a dicho id.
        Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
@@ -1282,26 +1277,26 @@ namespace Datos
         //funcion para verificar el estado de la factura cada vez que se inicia el sistema
         public void Verificarestadofactura()
         {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand();
-            comando.Connection = conn;
-            comando.CommandText = "select PK_CODIGOFACTURA,FECHAPAGO from TBL_FACTURAS WHERE ESTADOFACTURA = 'Pendiente'";
-            OracleDataReader dr = comando.ExecuteReader();
-            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
-            DateTime fechaPago = new DateTime();
-            DateTime diaActual = DateTime.Parse(DateTime.Now.ToShortDateString());
-            string codigo = "";
-            while (dr.Read())
-            {
-                codigo=dr.GetInt64(0).ToString();
-                fechaPago = DateTime.Parse(dr.GetDateTime(1).ToShortDateString());
-                if(fechaPago < diaActual)
-                {
-                    EstadoVencidaFactura(codigo);
-                }
-            }
-            conn.Close();
+            //OracleConnection conn = DataBase.Conexion();
+            //conn.Open();
+            //OracleCommand comando = new OracleCommand();
+            //comando.Connection = conn;
+            //comando.CommandText = "select PK_CODIGOFACTURA,FECHAPAGO from TBL_FACTURAS WHERE ESTADOFACTURA = 'Pendiente'";
+            //OracleDataReader dr = comando.ExecuteReader();
+            //System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            //DateTime fechaPago = new DateTime();
+            //DateTime diaActual = DateTime.Parse(DateTime.Now.ToShortDateString());
+            //string codigo = "";
+            //while (dr.Read())
+            //{
+            //    codigo=dr.GetInt64(0).ToString();
+            //    fechaPago = DateTime.Parse(dr.GetDateTime(1).ToShortDateString());
+            //    if(fechaPago < diaActual)
+            //    {
+            //        EstadoVencidaFactura(codigo);
+            //    }
+            //}
+            //conn.Close();
         }
         //Cambiar el estado de la factura a vencida
         public void EstadoVencidaFactura(string codigo)

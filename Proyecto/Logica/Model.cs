@@ -150,19 +150,19 @@ namespace Logica
         }
 
         //-------------------------- V A L I D A R C E D U L A -------------------
-        //Recibe como referencia un string necesario para proceder con la existencia de cédulas jurídicas
+        //Recibe como referencia un string necesario para proceder con la verificación de la cédula jurídica
         public bool ValidarCedJurProveedores(String v_CedJur)
         {
             return v_Data.ValidarCedJurProveedores(v_CedJur);
         }
 
-        //Recibe como referencia un string necesario para proceder con la existencia de cédulas de identificacion de usuarios
+        //Recibe como referencia un string necesario para proceder con la verificación de la cédula de identificacion del usuario
         public bool ValidarNumCedUsuarios(String v_NumCed)
         {
             return v_Data.ValidarNumCedUsuarios(v_NumCed);
         }
 
-        //Recibe como referencia un string necesario para proceder con la existencia de cédulas de identificacion de usuarios
+        //Recibe como referencia un string necesario para proceder con la verificación del código del producto
         public bool ValidarCodProductos(String v_CodProductos)
         {
             return v_Data.ValidarCodProductos(v_CodProductos);

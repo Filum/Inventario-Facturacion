@@ -111,6 +111,7 @@ namespace Proyecto
             ValidarRadioButton();
             btn_limpiar.Visibility = Visibility.Visible;
             MostrarFormulario();
+            rb_activo.IsChecked = true;
         }
 
         //Vuelve al panel de búsqueda en el tab de configuración de proveedores y oculta el formulario
@@ -170,6 +171,10 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
+                        MostrarProveedoresExistentes();
+
+                        v_EstadoSistema = "LISTAPROVEEDORES";
+                        ListarProveedores();
                     }
                 }
             }
@@ -243,6 +248,9 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarProveedoresExistentes();
+
+                        v_EstadoSistema = "LISTAPROVEEDORES";
+                        ListarProveedores();
                     }
                 }
                 catch (Exception m)
@@ -264,7 +272,7 @@ namespace Proyecto
             txb_correo.Text = "";
             txb_correoOpcional.Text = "";
             txb_descripcion.Text = "";
-            rb_activo.IsChecked = false;
+            rb_activo.IsChecked = true;
             rb_inactivo.IsChecked = false;
             dtg_proveedores.ItemsSource = null;
             lbl_errorCedJur.Visibility = Visibility.Collapsed;
@@ -280,33 +288,6 @@ namespace Proyecto
             btn_modificar.Visibility = Visibility.Collapsed;
             v_Actividad_btnModificar = false;
             v_Actividad_btnAgregar = true;
-        }
-
-        /*Botón el cual permite listar los proveedores existentes en el sistema según su estado, envía el estado en el 
-         * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
-        private void btn_listar_Click(object sender, RoutedEventArgs e)
-        {
-            if (cmb_tipoBusqueda.SelectedItem == null)
-            {
-                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
-                {
-                    MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-                else
-                {
-                    dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
-                    dtg_lista.Columns[0].Header = "Cédula Jurídica";
-                    dtg_lista.Columns[1].Header = "Nombre del Proveedor";
-                    dtg_lista.Columns[2].Header = "Correo";
-                    dtg_lista.Columns[3].Header = "Correo Opcional";
-                    dtg_lista.Columns[4].Header = "Teléfono";
-                    dtg_lista.Columns[5].Header = "Tel. Opcional";
-                    dtg_lista.Columns[6].Header = "Descripción";
-                    dtg_lista.Columns[7].Header = "Fecha de Ingreso";
-                    dtg_lista.Columns[8].Header = "Estado en el Sistema";
-                }
         }
 
         //Botón el cual brinda con información necesaria para la utilización de la ventana en la que se encuentra el usuario
@@ -327,6 +308,24 @@ namespace Proyecto
                 Login v_Ventana = new Login();
                 this.Close();
                 v_Ventana.Show();
+            }
+        }
+
+        /*Lista los proveedores existentes en el sistema según su estado, envía el estado en el sistema(v_EstadoSistema) que se 
+         * obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
+        private void ListarProveedores()
+        {
+            if (cmb_tipoBusqueda.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione el tipo de búsqueda", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (v_Model.MostrarListaProveedores(v_EstadoSistema).Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                dtg_lista.ItemsSource = v_Model.MostrarListaProveedores(v_EstadoSistema).DefaultView;
             }
         }
 
@@ -429,7 +428,7 @@ namespace Proyecto
             }
         }
 
-        //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de gestión de proveedores
+        //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de configuración de proveedores
         private void HabilitarBtnAgregar()
         {
             if (v_Actividad_btnAgregar == true)
@@ -800,6 +799,8 @@ namespace Proyecto
             {
                 v_EstadoSistema = "LISTAPROVEEDORES";
             }
+
+            ListarProveedores();
         }
 
        

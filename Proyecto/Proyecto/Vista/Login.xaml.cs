@@ -23,6 +23,9 @@ namespace Proyecto
     /// Interaction logic for Login.xaml
     /// </summary>
     public partial class Login : Window
+
+
+    //Style="{StaticResource placeHolder}" Tag="USUARIO"
     {
         Model datos = new Model();
         public Login()
@@ -151,6 +154,15 @@ namespace Proyecto
 
         private void txb_contrasena_KeyUp(object sender, KeyEventArgs e)
         {
+            if (label.Content !=null)
+            {
+                label.Visibility = Visibility.Collapsed;
+            }
+            if(label.Content ==null)
+            {
+                label.Visibility = Visibility.Visible;
+            }
+            
             if (e.Key != System.Windows.Input.Key.Enter) return;
 
             // your event handler here

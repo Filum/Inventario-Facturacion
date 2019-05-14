@@ -24,11 +24,10 @@ namespace Entidades
         public Int64 v_PrecioUnitario { set; get; }
         public string v_Descripcion { set; get; }
         public string v_Fabricante { set; get; }
-        public string v_Estado { set; get; }
-        public DateTime v_Fecha { set; get; }
-
-        public string v_EstadoSistema { set; get; }
         public string v_EstadoProducto { set; get; }
+        public DateTime v_Fecha { set; get; }
+        public string v_EstadoSistema { set; get; }
+        
 
         public EntidadProductos(Int64 v_IdProducto, string v_CodigoProducto, string v_NombreProducto, string v_MarcaProducto, Int64 v_CantidadExistencia, Int64 v_CantidadMinima, Int64 v_IdProveedor, string v_NombreProveedor, Int64 v_PrecioUnitario, string v_Descripcion, string v_Fabricante, string v_EstadoProducto, DateTime v_Fecha, string v_EstadoSistema)
         {
@@ -43,7 +42,7 @@ namespace Entidades
             this.v_PrecioUnitario = v_PrecioUnitario;
             this.v_Descripcion = v_Descripcion;
             this.v_Fabricante = v_Fabricante;
-            this.v_Estado = v_Estado;
+            this.v_EstadoProducto = v_EstadoProducto;
             this.v_Fecha = v_Fecha;
         }
     }

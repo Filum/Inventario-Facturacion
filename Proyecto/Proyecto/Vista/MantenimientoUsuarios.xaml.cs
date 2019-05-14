@@ -39,10 +39,10 @@ namespace Proyecto
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
-            
-            //Cargar usuarios existentes
+
+            MostrarUsuariosExistentes();
             cmb_tipoBusqueda.SelectedIndex = 2;
-            //dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios("LISTAUSUARIOS").DefaultView;
+            dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios("LISTAUSUARIOS").DefaultView;
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -107,7 +107,7 @@ namespace Proyecto
             txb_puesto.Text = "";
             cmb_rol.Text = "";
             txb_usuario.Text = "";
-            rb_activo.IsChecked = false;
+            rb_activo.IsChecked = true;
             rb_inactivo.IsChecked = false;
             lbl_errorNumCed.Visibility = Visibility.Hidden;
             lbl_errorBusqueda.Visibility = Visibility.Hidden;
@@ -135,9 +135,9 @@ namespace Proyecto
             this.Close();
         }
 
-        /*Botón el cual permite listar los usuarios existentes en el sistema según su estado, envía el estado en el 
+        /*Lista los usuarios existentes en el sistema según su estado, envía el estado en el 
         * sistema(v_EstadoSistema) que se obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
-        private void btn_listar_Click(object sender, RoutedEventArgs e)
+        private void ListarUsuarios()
         {
             if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
             {
@@ -146,18 +146,7 @@ namespace Proyecto
             else
             {
                 dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios(v_EstadoSistema).DefaultView;
-                dtg_lista.Columns[0].Header = "Número de Cédula";
-                dtg_lista.Columns[1].Header = "Nombre del Usuario";
-                dtg_lista.Columns[2].Header = "Apellidos";
-                dtg_lista.Columns[3].Header = "Teléfono";
-                dtg_lista.Columns[4].Header = "Tel. Opcional";
-                dtg_lista.Columns[5].Header = "Correo";
-                dtg_lista.Columns[6].Header = "Puesto";
-                dtg_lista.Columns[7].Header = "Rol";
-                dtg_lista.Columns[8].Header = "Usuario";
-                dtg_lista.Columns[9].Header = "Contraseña";
-                dtg_lista.Columns[10].Header = "Fecha de Ingreso";
-                dtg_lista.Columns[11].Header = "Estado en el Sistema";
+               
             }
         }
 
@@ -172,7 +161,9 @@ namespace Proyecto
         {
             MostrarFormulario();
             v_Actividad_btnAgregar = true;
+            btn_limpiar.Visibility = Visibility.Visible;
             lbl_actividad.Content = "Agregar usuario";
+            rb_activo.IsChecked = true;
         }
 
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
@@ -237,6 +228,9 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarUsuariosExistentes();
+
+                        v_EstadoSistema = "LISTAUSUARIOS";
+                        ListarUsuarios();
                     }
                 }
                 catch (Exception m)
@@ -277,11 +271,10 @@ namespace Proyecto
                     v_Clt.v_Puesto = txb_puesto.Text;
 
                     EntidadRoles ComboItem = (EntidadRoles)cmb_rol.SelectedItem;
-                    Int64 idRol = ComboItem.v_IdRol;
-                    v_Clt.v_IdRol = idRol;
+                    Int64 v_IdRol = ComboItem.v_IdRol;
+                    v_Clt.v_IdRol = v_IdRol;
 
                     v_Clt.v_UsuarioSistema = txb_usuario.Text;
-
                     v_Clt.v_Contrasena = txb_contrasenna.Text;
 
                     if (rb_inactivo.IsChecked == true)
@@ -298,6 +291,10 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         btn_limpiar_Click(sender, e);
+                        MostrarUsuariosExistentes();
+
+                        v_EstadoSistema = "LISTAUSUARIOS";
+                        ListarUsuarios();
                     }
                 }
             }
@@ -689,13 +686,9 @@ namespace Proyecto
             txb_usuario.Text = (dtg_usuarios.SelectedCells[10].Column.GetCellContent(row) as TextBlock).Text;
             txb_contrasenna.Text = (dtg_usuarios.SelectedCells[11].Column.GetCellContent(row) as TextBlock).Text;
 
-            //se guarda el id del rol que se obtiene del datagrid en la variable: v_Clt.v_IdRol
+            //se guarda el id del rol que se obtiene del datagrid en la variable: v_Clt.v_IdRol y se asigna al combobox
             v_Clt.v_IdRol = Convert.ToInt64((dtg_usuarios.SelectedCells[8].Column.GetCellContent(row) as TextBlock).Text);
-            //convertir de tipo long(v_Clt.v_IdRol) a tipo int(v_Indice) 
-            int v_Indice = unchecked((int)v_Clt.v_IdRol);
-            //indica al combobox cual opción debe estar seleccionada (asigna el id del rol por defecto según el índice que se obtiene del usuario seleccionado en el datagrid)
-            //se hace la resta v_Indice-1 porque los elementos del combobox inician en 0
-            cmb_rol.SelectedIndex = v_Indice-1;
+            cmb_rol.SelectedValue = v_Clt.v_IdRol; 
 
             if ((dtg_usuarios.SelectedCells[13].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
             {
@@ -842,6 +835,8 @@ namespace Proyecto
             {
                 v_EstadoSistema = "LISTAUSUARIOS";
             }
+
+            ListarUsuarios();
         }
                 
     }
