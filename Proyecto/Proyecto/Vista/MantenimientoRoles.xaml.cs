@@ -141,7 +141,7 @@ namespace Proyecto
         //Botón el cual permite agregar un nuevo rol, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
         private void btn_agregarRol_Click(object sender, RoutedEventArgs e)
         {
-            lbl_error.Visibility = Visibility.Collapsed;
+            lbl_errorNombre.Visibility = Visibility.Collapsed;
             lbl_errorCB.Visibility = Visibility.Collapsed;
             btn_limpiar.Visibility = Visibility.Visible;
             lbl_actividad2.Content = "Agregar Rol";
@@ -177,7 +177,7 @@ namespace Proyecto
 
             v_ER.v_IdRol = Convert.ToInt64((dtg_roles.SelectedCells[0].Column.GetCellContent(row) as TextBlock).Text);
 
-            txb_nomrol.Text = (dtg_roles.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
+            txb_nombre.Text = (dtg_roles.SelectedCells[1].Column.GetCellContent(row) as TextBlock).Text;
             if ((dtg_roles.SelectedCells[2].Column.GetCellContent(row) as TextBlock).Text == "ACTIVO")
             {
                 rb_activo.IsChecked = true;
@@ -230,13 +230,13 @@ namespace Proyecto
             try
             {
                 ValidarComponentes();
-                if (lbl_error.Visibility == Visibility.Visible || lbl_errorCB.Visibility == Visibility.Visible)
+                if (lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorCB.Visibility == Visibility.Visible)
                 {
                     MessageBox.Show("No se puede agregar un rol nuevo \nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    v_ER.v_Nombre = txb_nomrol.Text;
+                    v_ER.v_Nombre = txb_nombre.Text;
                     if (checkbox_mant_clientes.IsChecked == false)
                     {
                         v_ER.v_Mantenimiento_Clientes = "X";
@@ -311,13 +311,13 @@ namespace Proyecto
                         bitacora.usuario_Responsable = t_Usuario.Text;
                         bitacora.accion = "Agregó";
                         bitacora.ventana_Mantenimiento = "Mantenimieto Roles";
-                        bitacora.descripcion = "Agregó el Rol con el nombre: " + txb_nomrol.Text;
+                        bitacora.descripcion = "Agregó el Rol con el nombre: " + txb_nombre.Text;
                         v_Model.AgregarBitacora(bitacora);
 
-                        lbl_error.Visibility = Visibility.Collapsed;
+                        lbl_errorNombre.Visibility = Visibility.Collapsed;
                         lbl_errorCB.Visibility = Visibility.Collapsed;
                         MostrarRolesExistentes();
-                        txb_busqueda_rol.Text = "";
+                        txb_busqueda.Text = "";
                         limpiar();
 
                         v_EstadoSistema = "LISTAROLES";
@@ -337,7 +337,7 @@ namespace Proyecto
         {
             ValidarComponentes();
 
-            if (lbl_error.Visibility == Visibility.Visible || lbl_errorCB.Visibility == Visibility.Visible)
+            if (lbl_errorNombre.Visibility == Visibility.Visible || lbl_errorCB.Visibility == Visibility.Visible)
             {
                 MessageBox.Show("No se puede agregar un rol nuevo \nHay errores por corregir.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -345,7 +345,7 @@ namespace Proyecto
             {
                 try
                 {
-                    v_ER.v_Nombre = txb_nomrol.Text;
+                    v_ER.v_Nombre = txb_nombre.Text;
                     if (checkbox_mant_clientes.IsChecked == false)
                     {
                         v_ER.v_Mantenimiento_Clientes = "X";
@@ -418,13 +418,13 @@ namespace Proyecto
                         bitacora.usuario_Responsable = t_Usuario.Text;
                         bitacora.accion = "Modificó";
                         bitacora.ventana_Mantenimiento = "Mantenimieto Roles";
-                        bitacora.descripcion = "Modificó el Rol con el nombre: " + txb_nomrol.Text;
+                        bitacora.descripcion = "Modificó el Rol con el nombre: " + txb_nombre.Text;
                         v_Model.AgregarBitacora(bitacora);
                         
                         limpiar();
                         v_Actividad_btnAgregar = true;
                         MostrarRolesExistentes();
-                        txb_busqueda_rol.Text = "";
+                        txb_busqueda.Text = "";
 
                         v_EstadoSistema = "LISTAROLES";
                         ListarRoles();
@@ -444,7 +444,7 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_nomrol.Text == "" || (checkbox_mant_usuarios.IsChecked == false && checkbox_mant_productos.IsChecked == false && checkbox_mant_roles.IsChecked == false && checkbox_mant_proveedores.IsChecked == false && checkbox_facturacion.IsChecked == false && checkbox_mant_clientes.IsChecked == false && checkbox_bitacora.IsChecked == false))
+                if (txb_nombre.Text == "" || (checkbox_mant_usuarios.IsChecked == false && checkbox_mant_productos.IsChecked == false && checkbox_mant_roles.IsChecked == false && checkbox_mant_proveedores.IsChecked == false && checkbox_facturacion.IsChecked == false && checkbox_mant_clientes.IsChecked == false && checkbox_bitacora.IsChecked == false))
                 {
                     btn_agregar.Visibility = Visibility.Collapsed;
                 }
@@ -501,11 +501,11 @@ namespace Proyecto
             checkbox_mant_usuarios.IsChecked = false;
             rb_activo.IsChecked = true;
             rb_inactivo.IsChecked = false;
-            txb_busqueda_rol.Text = "";
-            txb_nomrol.Text = "";
-            lbl_error.Content = "";
+            txb_busqueda.Text = "";
+            txb_nombre.Text = "";
+            lbl_errorNombre.Content = "";
             lbl_errorCB.Content = "";
-            lbl_error.Visibility = Visibility.Collapsed;
+            lbl_errorNombre.Visibility = Visibility.Collapsed;
             lbl_errorCB.Visibility = Visibility.Collapsed;
             dtg_roles.ItemsSource = null;
             btn_agregar.Visibility = Visibility.Collapsed;
@@ -539,7 +539,7 @@ namespace Proyecto
 
         private void txb_busqueda_rol_KeyUp(object sender, KeyEventArgs e)
         {
-            if (txb_busqueda_rol.Text.Contains("'"))
+            if (txb_busqueda.Text.Contains("'"))
             {
                lbl_errorNomrol.Content = "No se permiten caracteres especiales";
                lbl_errorNomrol.Visibility = Visibility.Visible;
@@ -547,7 +547,7 @@ namespace Proyecto
             else
             {
                 lbl_errorNomrol.Visibility = Visibility.Collapsed;
-                dtg_roles.ItemsSource = v_Model.ValidarBusquedaRoles(txb_busqueda_rol.Text);
+                dtg_roles.ItemsSource = v_Model.ValidarBusquedaRoles(txb_busqueda.Text);
                 dtg_roles.Columns[0].Header = "Código";
                 dtg_roles.Columns[1].Header = "Nombre";
                 dtg_roles.Columns[2].Header = "Estado";
@@ -571,7 +571,7 @@ namespace Proyecto
         //Método el cual habilita componentes siempre y cuando no hayan errores en la caja de texto de buscar
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidarErroresTxb(txb_busqueda_rol, lbl_errorNomrol, "");
+            ValidarErroresTxb(txb_busqueda, lbl_errorNomrol, "");
         }
 
         //Validaciones en caja de texto de nombre
@@ -579,7 +579,7 @@ namespace Proyecto
         {
             HabilitarBtnAgregar();
             HabilitarBtnModificar();
-            ValidarErroresTxb(txb_busqueda_rol, lbl_error, "");
+            ValidarErroresTxb(txb_nombre, lbl_errorNombre, "nombre");
         }
 
         private void checkbox_mant_usuarios_Checked(object sender, RoutedEventArgs e)
@@ -695,28 +695,10 @@ namespace Proyecto
         //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
         private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
         {
-            if (v_Identificador == "numeros")
-            {
-                //caracteres que permite si la cadena es de int
-                String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
-                if (Regex.IsMatch(v_Txb, v_Caracteres))
-                {
-                    return true;
-                }
-            }
-            else if (v_Identificador == "nombre")
+            if (v_Identificador == "nombre")
             {
                 //caracteres que permite si la cadena es de string
                 String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
-                if (Regex.IsMatch(v_Txb, v_Caracteres))
-                {
-                    return true;
-                }
-            }
-            else if (v_Identificador == "descripcion")
-            {
-                //caracteres que permite si la cadena es de string
-                String v_Caracteres = "[!@#$%^*())+=.<>{}¬º´/\"':;|~¡?`¿]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
                     return true;
@@ -726,41 +708,37 @@ namespace Proyecto
         }
 
         //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
-        private void ValidarErroresTxb(TextBox txb_nombreRol, Label lbl_error, string tipo)
+        private void ValidarErroresTxb(TextBox txb_rol, Label lbl_error, string tipo)
         {
-            if (txb_nomrol.Text == "")
+            if (txb_rol.Text == "")
             {
                 lbl_error.Content = "Espacio vacío";
                 lbl_error.Visibility = Visibility.Visible;
             }
-            else if (txb_nomrol.Text != "")
+            else
             {
-                lbl_error.Visibility = Visibility.Collapsed;
+                lbl_error.Visibility = Visibility.Hidden;
             }
-            else if (txb_nomrol.Text == " ")
+            if (txb_rol.Text == " ")
             {
-                txb_nombreRol.Text = "";
+                txb_nombre.Text = "";
             }
-            else if (txb_nomrol.Text.Contains("  "))
+            else if (txb_rol.Text.Contains("  "))
             {
                 lbl_error.Content = "Parámetros incorrectos (espacios seguidos)";
                 lbl_error.Visibility = Visibility.Visible;
             }
-            else if (ValidarCaracteresEspeciales(txb_nomrol.Text, tipo) == true)
+            else if (ValidarCaracteresEspeciales(txb_rol.Text, tipo) == true)
             {
                 lbl_error.Content = "No se permiten caracteres especiales";
                 lbl_error.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                lbl_error.Visibility = Visibility.Collapsed;
             }
         }
 
         //Se validan los checkbox
         private void ValidarComponentes()
         {
-            ValidarErroresTxb(txb_nomrol, lbl_error, "numeros");
+            ValidarErroresTxb(txb_nombre, lbl_errorNombre, "numeros");
 
             if (rb_inactivo.IsChecked == false && rb_activo.IsChecked == false)
             {
