@@ -401,10 +401,11 @@ namespace Proyecto
          * obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
         private void ListarProductos()
         {
-            dtg_lista.ItemsSource = null;
             if (v_Model.MostrarListaProductos(v_EstadoSistema).Rows.Count == 0)
             {
-                MessageBox.Show("No existen productos registrados en el sistema", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                v_EstadoSistema = "LISTAPRODUCTOS";
+                cmb_tipoBusqueda.SelectedIndex = 2;
             }
             else
             {

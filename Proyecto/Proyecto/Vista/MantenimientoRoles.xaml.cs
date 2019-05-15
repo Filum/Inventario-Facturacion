@@ -110,6 +110,8 @@ namespace Proyecto
             if (v_Model.MostrarListaRoles(v_EstadoSistema).Rows.Count == 0)
             {
                 MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                v_EstadoSistema = "LISTAROLES";
+                cmb_tipoBusqueda.SelectedIndex = 2;
             }
             else
             {

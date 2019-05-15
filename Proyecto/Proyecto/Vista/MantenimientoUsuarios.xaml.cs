@@ -156,11 +156,12 @@ namespace Proyecto
             if (v_Model.MostrarListaUsuarios(v_EstadoSistema).Rows.Count == 0)
             {
                 MessageBox.Show("No hay datos registrados", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                v_EstadoSistema = "LISTAUSUARIOS";
+                cmb_tipoBusqueda.SelectedIndex = 2;
             }
             else
             {
                 dtg_lista.ItemsSource = v_Model.MostrarListaUsuarios(v_EstadoSistema).DefaultView;
-               
             }
         }
 
