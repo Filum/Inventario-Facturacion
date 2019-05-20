@@ -79,7 +79,7 @@ namespace Proyecto
 
         }
 
-
+        //Se envia el nombre de usuario entre ventanas ,para saber cual tiene la sesion iniciada.
         private void btn_Facturar_Selected(object sender, MouseButtonEventArgs e)
         {
             Facturacion ventana = new Facturacion();
@@ -232,12 +232,15 @@ namespace Proyecto
             ventana.Show();
         }
 
+        //carga el sistema ,buscando los permisos del usuario solicitado
         public void cargarMenu(string valor)
         {
             var detalleUsuario = new List<string>();
             detalleUsuario = datos.consultarUsuario(valor);
             Roles(detalleUsuario[2], detalleUsuario[3], detalleUsuario[4], detalleUsuario[5], detalleUsuario[6], detalleUsuario[7], detalleUsuario[8], detalleUsuario[9], detalleUsuario[10], detalleUsuario[11], detalleUsuario[12]);
         }
+
+        //funcion para habilitar los permisos de cada usuario
         private void Roles(string m_clientes, string m_proveedores, string m_productos, string m_usuarios, string m_roles, string facturacion, string bitacora, string nombreUsuario, string apellidos, string puesto, string nombreRol)
         {
 

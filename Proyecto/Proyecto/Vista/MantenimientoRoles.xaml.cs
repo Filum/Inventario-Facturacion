@@ -122,20 +122,10 @@ namespace Proyecto
         //Botón de ayuda 
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Mantenimiento de Roles: \n\n" +
-                "1. Listar: Seleccione el rango de fechas y oprima el botón 'Listar' para desplegar los datos. \n\n" +
-                "2. Buscar: Ingrese el elemento a buscar por nombre del rol. \n" +
-                "   Si existe el rol se le deslegará los datos y podrá seleccionarlo para modificarlo o deshabilitarlo.\n" +
-                "   Si no existe el rol se le permitirá agregarlo al sistema.\n\n" +
-                "   Agregar: \n" +
-                "   Complete todos los campos y marque los valores permitidos.\n" +
-                "   No está permitido ingresar caracteres especiales \n\n" +
-                "   Deshabilitar: \n" +
-                "   Seleccione el elemento del datagrid e ingrese el motivo por el cual se desea deshabilitar. \n\n" +
-                "   Actualizar: \n" +
-                "   Seleccione el elemento y proceda a editar los campos que desee.\n" +
-                "   Se utiliza el mismo formato de validaciones de ingresar. \n", "Ayuda",
-                MessageBoxButton.OK);
+            Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.Show();
+            ventana.Pantalla = "Roles";
+            this.Close();
         }
 
         //Botón el cual permite agregar un nuevo rol, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         

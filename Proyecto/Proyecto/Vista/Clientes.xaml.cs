@@ -51,26 +51,10 @@ namespace Proyecto
         //funcion para mostar mensajes de ayuda para el usuario.
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Sección Mantenimiento de Clientes:\n\n" + "Listar:\n 1 - Si desea listar clientes primero debe seleccionar el rango de fecha en el cual los quiere listar. \n" +
-                            "2 - Después se le da “click” en el botón de listar, este desplegara los datos de los clientes. \n" +
-                            "3 - También se puede ordenar alfabéticamente o en orden descendente, dando “click” en la columna que se desea. \n" +
-                             "Actualizar Clientes\n" +
-                             "1 - Si desea actualiar un cliente primero debe buscarlo por nombre del mismo.\n" +
-                             "2 - Una ves que lo encontró lo puede seleccionar,editar y guardar los cambios.\n\n" +
-
-                             "Ingresar Clientes\n" +
-                             "1 - Si desea ingresar un cliente primero debe buscarlo por nombre del mismo, para comprobar que este no exista previamente.\n" +
-                             "2 - Debera completar cada uno de los espacios requeridos para la creación del nuevo cliente.\n" +
-                             "3 - En caso de que cometa algún error el sistema le noticará.\n" +
-                             "4 - En caso de que todos los datos esten corectos, proceda a crearlo.\n\n" +
-
-                             "Recuerde:\n" +
-                             "*Nombre: puede utilizar letras mayúscula y minúsculas.\n" +
-                             "* Correo: debe cumplir con el formato de usuario@dominio.extensión\n" +
-                             "* Teléfono: solo se aceptan números y no debe contener espacios ni separadores.\n" +
-                             "* Observaciones: acá posee la libertad de escribir lo que desee, ya sean letras, números o símbolos.\n\n"
-
-                 , "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
+            Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.Show();
+            ventana.Pantalla = "Clientes";
+            this.Close();
         }
 
         //Función para limpiar campos en el modulo de clientes. 

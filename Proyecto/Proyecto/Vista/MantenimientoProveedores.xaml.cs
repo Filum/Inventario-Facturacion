@@ -292,24 +292,10 @@ namespace Proyecto
         //Botón el cual brinda con información necesaria para la utilización de la ventana en la que se encuentra el usuario
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Mantenimiento de Proveedores: \n\n" +
-               "1. Listar: Seleccione el rango de fechas y oprima el botón 'Listar' para desplegar los datos. \n\n" +
-               "2. Buscar: Ingrese el elemento a buscar, puede ser por cédula jurídica o por nombre del proveedor. \n" +
-               "   Si existe el proveedor se le deslegará los datos y podrá seleccionarlo para modificarlo o deshabilitarlo.\n" +
-               "   Si no existe el proveedor se le permitirá agregarlo al sistema.\n\n" +
-               "   Agregar: \n" +
-               "   Complete todos los campos, excepto los opcionales.\n" +
-               "   Las cajas de texto de los teléfonos y de la cédula jurídica solo permiten números.\n" +
-               "   Formato de correo: usuario@dominio.extension, la extensión debe ser como máximo 3 caracteres. \n" +
-               "   No ingrese caracteres especiales. \n" +
-               "   El teléfono y el correo opcional se pueden dejar en blanco, mientras no tenga errores. \n\n" +
-               "   Deshabilitar: \n" +
-               "   Seleccione el elemento del datagrid e ingrese el motivo por el cual se desea deshabilitar. \n\n" +
-               "   Actualizar: \n" +
-               "   Seleccione el elemento y proceda a editar los campos que desee.\n" +
-               "   Se utiliza el mismo formato de validaciones de ingresar. \n" +
-               "   No deje campos vacíos, excepto los opcionales.", "Ayuda",
-               MessageBoxButton.OK);
+            Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.Show();
+            ventana.Pantalla = "Proveedores";
+            this.Close();
         }
 
         //Botón el cual permite al usuario cerrar la sesión en la que se encuentra y ser llevado a la ventana de Login 

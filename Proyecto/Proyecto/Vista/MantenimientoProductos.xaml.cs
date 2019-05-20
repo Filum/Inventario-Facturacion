@@ -194,22 +194,10 @@ namespace Proyecto
 
         private void btn_productos_ayuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Mantenimiento de Productos: \n\n" +
-               "1. Listar: Seleccione el rango de fechas y oprima el botón 'Listar' para desplegar los datos. \n\n" +
-               "2. Buscar: Ingrese el elemento a buscar, puede ser por código o por nombre del producto. \n" +
-               "   Si existe el producto se le deslegará los datos y podrá seleccionarlo para modificarlo o deshabilitarlo.\n" +
-               "   Si no existe el producto se le permitirá agregarlo al sistema.\n\n" +
-               "   Agregar: \n" +
-               "   Complete todos los campos, excepto los opcionales.\n" +
-               "   Las cajas de texto de las cantidades y del precio solo permiten números.\n" +
-               "   No ingrese caracteres especiales. \n" +
-               "   Al agregar un nuevo producto la cantidad a modificar se debe dejar en blanco, siempre y cuando no tenga errores. \n\n" +
-               "   Deshabilitar: \n" +
-               "   Seleccione el elemento del datagrid e ingrese el motivo por el cual se desea deshabilitar. \n\n" +
-               "   Actualizar: \n" +
-               "   Seleccione el elemento y proceda a editar los campos que desee.\n" +
-               "   Se utiliza el mismo formato de validaciones de ingresar.", "Ayuda",
-               MessageBoxButton.OK);
+            Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.Show();
+            ventana.Pantalla = "Productos";
+            this.Close();
         }
 
         private void btn_agregar_Click(object sender, RoutedEventArgs e)
