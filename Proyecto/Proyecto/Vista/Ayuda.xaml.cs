@@ -81,41 +81,41 @@ namespace Proyecto.Vista
         {
             switch(cmb_ayuda.SelectedItem.ToString())
             {
-                case "Listar":
-                    Media.Source = new Uri("C:/Users/minor/Videos/GG.mp4");
+                case "Buscar y Listar":
+                    Media.Source = new Uri("C:/SIF/Ayuda/buscarylstar.mp4");
                     Media.Play();
                     break;
 
                 case "Facturar Productos":
-                    Media.Source = new Uri("C:/Users/minor/Videos/Prueba.mp4");
+                    Media.Source = new Uri("C:/SIF/Ayuda/facturarproductos.mp4");
                     Media.Play();
                     break;
 
                 case "Facturar Servicios":
-                    Media.Source = new Uri("C:/SIF/Ayuda/prueba2.wmv");
+                    Media.Source = new Uri("C:/SIF/Ayuda/facturarservicios.wmv");
                     Media.Play();
                     break;
 
-                case "Reportes":
-                    Media.Source = new Uri("C:/Users/minor/Videos/PanteraNegra.mp4");
+                case "Imprimir":
+                    Media.Source = new Uri("C:/SIF/Ayuda/imprimir.mp4");
                     Media.Play();
                     break;
 
                 case "Agregar":
-                    Media.Source = new Uri("C:/Users/minor/Videos/WIFI.mp4");
+                    Media.Source = new Uri("C:/SIF/Ayuda/agregar.mp4");
                     Media.Play();
                     break;
                 case "Modificar":
-                    Media.Source = new Uri("C:/Users/minor/Videos/CivilWar.mp4");
+                    Media.Source = new Uri("C:/SIF/Ayuda/modificar.mp4");
                     Media.Play();
                     break;
 
                 case "Bitácora":
-                    Media.Source = new Uri("C:/Users/minor/Videos/Infinity.mp4");
+                    Media.Source = new Uri("C:/SIF/Ayuda/bitacora.mp4");
                     Media.Play();
                     break;
                 case "Navegación":
-                    Media.Source = new Uri("C:/Users/minor/Videos/GG.mp4");
+                    Media.Source = new Uri("C:/SIF/Ayuda/navegacion.mp4");
                     Media.Play();
                     break;
         }
@@ -123,10 +123,10 @@ namespace Proyecto.Vista
 
         private void Cmb_ayuda_Initialized(object sender, EventArgs e)
         {
-            cmb_ayuda.Items.Add("Listar");
+            cmb_ayuda.Items.Add("Buscar y Listar");
             cmb_ayuda.Items.Add("Facturar Productos");
             cmb_ayuda.Items.Add("Facturar Servicios");
-            cmb_ayuda.Items.Add("Reportes");
+            cmb_ayuda.Items.Add("Imprimir");
             cmb_ayuda.Items.Add("Agregar");
             cmb_ayuda.Items.Add("Modificar");
             cmb_ayuda.Items.Add("Bitácora");
