@@ -52,9 +52,9 @@ namespace Proyecto
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
         {
             Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.nombreUsuario = nombreUsuario;
             ventana.Show();
             ventana.Pantalla = "Clientes";
-            this.Close();
         }
 
         //Función para limpiar campos en el modulo de clientes. 

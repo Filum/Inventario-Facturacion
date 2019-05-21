@@ -21,6 +21,7 @@ namespace Proyecto.Vista
     public partial class Ayuda : Window
     {
         public string Pantalla;
+        public string nombreUsuario;
         public Ayuda()
         {
             InitializeComponent(); System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -83,36 +84,50 @@ namespace Proyecto.Vista
             {
                 case "Clientes":
                     Clientes ventana = new Clientes();
+                    ventana.nombreUsuario=nombreUsuario;
+                    ventana.Usuario_clientes.Text = nombreUsuario;
                     ventana.Show();
                     this.Close();
                     break;
                 case "Facturacion":
                     Facturacion f = new Facturacion();
+                    f.nombreUsuario = nombreUsuario;
+                    f.t_Usuario.Text = nombreUsuario;
                     f.Show();
                     this.Close();
                     break;
                 case "Bitacora":
-                    Vista.Bitacora b = new Vista.Bitacora();
+                    Bitacora b = new Bitacora();
+                    b.nombreUsuario = nombreUsuario;
+                    b.t_Usuario.Text = nombreUsuario;
                     b.Show();
                     this.Close();
                     break;
                 case "Productos":
                     MantenimientoProductos p = new MantenimientoProductos();
+                    p.v_NombreUsuario = nombreUsuario;
+                    p.t_Usuario.Text = nombreUsuario;
                     p.Show();
                     this.Close();
                     break;
                 case "Proveedores":
                     MantenimientoProveedores pr = new MantenimientoProveedores();
+                    pr.nombreUsuario = nombreUsuario;
                     pr.Show();
+                    pr.t_Usuario.Text = nombreUsuario;
                     this.Close();
                     break;
                 case "Usuarios":
                     MantenimientoUsuarios u = new MantenimientoUsuarios();
+                    u.nombreUsuario = nombreUsuario;
+                    u.t_Usuario.Text = nombreUsuario;
                     u.Show();
                     this.Close();
                     break;
                 case "Roles":
                     MantenimientoRoles r = new MantenimientoRoles();
+                    r.nombreUsuario = nombreUsuario;
+                    r.t_Usuario.Text = nombreUsuario;
                     r.Show();
                     this.Close();
                     break;

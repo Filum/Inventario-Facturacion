@@ -191,6 +191,7 @@ namespace Proyecto.Vista
         private void Btn_ayuda_Copy_Click(object sender, RoutedEventArgs e)
         {
             Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.nombreUsuario = nombreUsuario;
             ventana.Show();
             ventana.Pantalla = "Bitacora";
             this.Close();

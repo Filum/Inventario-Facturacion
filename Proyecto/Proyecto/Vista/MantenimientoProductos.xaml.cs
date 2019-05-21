@@ -205,6 +205,7 @@ namespace Proyecto
         private void btn_productos_ayuda_Click(object sender, RoutedEventArgs e)
         {
             Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.nombreUsuario = v_NombreUsuario;
             ventana.Show();
             ventana.Pantalla = "Productos";
             this.Close();
