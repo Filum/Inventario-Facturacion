@@ -5,48 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto.Vista"
         mc:Ignorable="d"
-        Title="Ayuda" Height="1025.2" Width="1883.2" WindowState="Maximized" WindowStyle="None" MinWidth="1000" MinHeight="600">
-    <Grid Margin="0,0,0.4,-6.2" Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1236*"/>
-            <ColumnDefinition Width="641*"/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,10,87.8,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click" Grid.Column="1">
+        Title="Ayuda" Height="500" Width="800" WindowState="Minimized" WindowStyle="None" MinWidth="1000" MinHeight="600" Background="{x:Null}" SnapsToDevicePixels="True" Foreground="{x:Null}" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0" Background="Black">
+        <Rectangle x:Name="barra_movil" Height="29" VerticalAlignment="Top" Margin="0,0,119.6,0" MouseDown="barra_movil__MouseDown" Cursor="Hand" Grid.ColumnSpan="2">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,81,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click">
             <Image x:Name="img_minimizar_png" Height="16" Source="Imagenes/img_minimizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,10,47.8,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click" Grid.Column="1">
+        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,41,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click">
             <Image x:Name="img_maximizar_png" Height="16" Source="Imagenes/img_maximizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0,10,7.8,0" Grid.Column="1">
+        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0">
             <Image x:Name="img_cancelar_png" Height="16" Source="Imagenes/img_cancelar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,10,138.8,0" HorizontalAlignment="Right" Width="90" Grid.Column="1"/>
-        <Label Content="Ayuda S.I.F" FontSize="60" VerticalAlignment="Top" Foreground="White" Margin="0,10,52,0" Height="115" HorizontalAlignment="Right" Width="397"/>
+        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,130,0" HorizontalAlignment="Right"/>
+        <Label Content="Ayuda S.I.F" FontSize="48" VerticalAlignment="Top" Foreground="White" Margin="0,40,0,0" HorizontalAlignment="Center"/>
         <Label x:Name="txt_fecha" Content="fecha" Margin="10,0,0,9.4" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="245" Height="32" VerticalAlignment="Bottom"/>
-        <Button x:Name="Play" Foreground="White" Margin="0,0,340,70.4" Background="{x:Null}" BorderBrush="{x:Null}"  Height="66" VerticalAlignment="Bottom" Click="Play_Click" HorizontalAlignment="Right" Width="79">
-            <StackPanel x:Name="stp_ordenarcodigo" Width="70" Height="79" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="Imagenes/play1.png" Width="50" Height="44" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,5,10.4,5"/>
-                <TextBlock x:Name="txb_ordenarcodigo" Height="15" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left" Text="Play" Margin="18,0,-7.6,0"/>
+        <Button x:Name="Play" Foreground="White" Margin="0,0,40,100" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="Play_Click" HorizontalAlignment="Right">
+            <StackPanel x:Name="stp_ordenarcodigo" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="Imagenes/play1.png" Width="50" Height="44" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,5"/>
+                <TextBlock x:Name="txb_ordenarcodigo" FontFamily="Global Sans Serif" HorizontalAlignment="Center" Text="Play" Margin="0" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button x:Name="Pause" Foreground="White" Margin="0,0,160,70.4" Background="{x:Null}" BorderBrush="{x:Null}"  Height="66" VerticalAlignment="Bottom" Click="Pause_Click" HorizontalAlignment="Right" Width="79">
-            <StackPanel x:Name="stp_ordenarcodigo1" Width="70" Height="79" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="Imagenes/pause1.png" Width="45" Height="48" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,5,15.4,5"/>
-                <TextBlock x:Name="txb_ordenarcodigo1" Height="15" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left" Text="Pause" Margin="18,0,-7.6,0"/>
+        <Button x:Name="Pause" Foreground="White" Margin="0,100,40,0" Background="{x:Null}" BorderBrush="{x:Null}"  Height="72.3" VerticalAlignment="Center" Click="Pause_Click" HorizontalAlignment="Right" Width="73">
+            <StackPanel x:Name="stp_ordenarcodigo1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="Imagenes/pause1.png" Width="45" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5"/>
+                <TextBlock x:Name="txb_ordenarcodigo1" FontFamily="Global Sans Serif" HorizontalAlignment="Center" Text="Pause" Margin="0" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button x:Name="Regresar" Foreground="White" Margin="0,0,48.8,47.4" Background="{x:Null}" BorderBrush="{x:Null}"  Height="89" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="79" Click="Regresar_Click" Grid.Column="1">
-            <StackPanel x:Name="stp_ordenarcodigo3" Width="70" Height="95" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="Imagenes/regresar.png" Width="50" Height="49" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,5,10.4,5"/>
-                <TextBlock x:Name="txb_ordenarcodigo3" Height="15" FontFamily="Global Sans Serif" Width="60" HorizontalAlignment="Left" Text="Regresar" Margin="18,0,-7.6,0"/>
+        <Button x:Name="Regresar" Foreground="White" Margin="0,0,40,20" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Regresar_Click">
+            <StackPanel x:Name="stp_ordenarcodigo3" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="Imagenes/regresar.png" Width="50" Height="49" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5"/>
+                <TextBlock x:Name="txb_ordenarcodigo3" FontFamily="Global Sans Serif" HorizontalAlignment="Center" Text="Regresar" Margin="0" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <MediaElement x:Name="Media" Margin="13,187,7.8,176.4"  Visibility="Visible" LoadedBehavior="Manual" Position="0:0:15" Grid.ColumnSpan="2"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="13,187,10.8,176.4" Grid.ColumnSpan="2"/>
-        <Image x:Name="LOGODELRAM_png" Source="Imagenes/img_DELRAM.png" Stretch="Fill" Height="125" VerticalAlignment="Top" Margin="280,0,0,0" RenderTransformOrigin="0.327,0.507" HorizontalAlignment="Left" Width="234"/>
-        <Image x:Name="LOGODELRAM_png_Copy" Source="/Proyecto;component/LOGO SIFpequeño.png" Stretch="Fill" Height="115" VerticalAlignment="Top" Margin="0,10,327.8,0" RenderTransformOrigin="0.327,0.507" HorizontalAlignment="Right" Width="210" Grid.Column="1"/>
-        <ComboBox x:Name="cmb_ayuda" Margin="376,155,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="383" SelectionChanged="Cmb_ayuda_SelectionChanged" Initialized="Cmb_ayuda_Initialized" />
-        <Label Content="Seleccione la acción en la que necesita ayuda:" HorizontalAlignment="Left" Margin="26,152,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="345" Height="30" VerticalAlignment="Top"/>
+        <MediaElement x:Name="Media" Margin="20,125,150,100"  Visibility="Visible" LoadedBehavior="Manual" Position="0:0:15" Height="300"/>
+        <Image x:Name="LOGODELRAM_png" Source="Imagenes/img_DELRAM.png" Stretch="Fill" VerticalAlignment="Top" Margin="500,40,0,0" RenderTransformOrigin="0.327,0.507" HorizontalAlignment="Center" Width="125" Height="88"/>
+        <Image x:Name="LOGODELRAM_png_Copy" Source="/Proyecto;component/LOGO SIFpequeño.png" Stretch="Fill" VerticalAlignment="Top" Margin="0,40,500,0" RenderTransformOrigin="0.327,0.507" HorizontalAlignment="Center" Width="100" Height="90"/>
+        <ComboBox x:Name="cmb_ayuda" Margin="360,0,0,53"  HorizontalAlignment="Left" Width="323" SelectionChanged="Cmb_ayuda_SelectionChanged" Initialized="Cmb_ayuda_Initialized" Height="22" VerticalAlignment="Bottom" />
+        <Label Content="Seleccione la acción en la que necesita ayuda:" HorizontalAlignment="Left" Margin="10,0,0,50" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="345" Height="30" VerticalAlignment="Bottom"/>
 
 
 
