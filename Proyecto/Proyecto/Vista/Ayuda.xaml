@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto.Vista"
         mc:Ignorable="d"
-        Title="Ayuda" Height="500" Width="800" WindowState="Normal" WindowStyle="None" MinWidth="1000" MinHeight="600" Background="{x:Null}" SnapsToDevicePixels="True" Foreground="{x:Null}" WindowStartupLocation="CenterScreen">
+        Title="Ayuda" Height="500" Width="800" WindowState="Normal" WindowStyle="None" MinWidth="1000" MinHeight="600" Background="{x:Null}" SnapsToDevicePixels="True"  Foreground="{x:Null}" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+    
     <Grid Margin="0" Background="Black">
         <Rectangle x:Name="barra_movil" Height="29" VerticalAlignment="Top" Margin="0,0,119.6,0" MouseDown="barra_movil__MouseDown" Cursor="Hand" Grid.ColumnSpan="2">
             <Rectangle.Fill>
