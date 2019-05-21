@@ -125,7 +125,6 @@ namespace Proyecto
             Vista.Ayuda ventana = new Vista.Ayuda();
             ventana.Show();
             ventana.Pantalla = "Roles";
-            this.Close();
         }
 
         //Botón el cual permite agregar un nuevo rol, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         

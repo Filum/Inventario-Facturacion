@@ -54,7 +54,6 @@ namespace Proyecto
             Vista.Ayuda ventana = new Vista.Ayuda();
             ventana.Show();
             ventana.Pantalla = "Clientes";
-            this.Close();
         }
 
         //Función para limpiar campos en el modulo de clientes. 

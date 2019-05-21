@@ -295,7 +295,6 @@ namespace Proyecto
             Vista.Ayuda ventana = new Vista.Ayuda();
             ventana.Show();
             ventana.Pantalla = "Proveedores";
-            this.Close();
         }
 
         //Botón el cual permite al usuario cerrar la sesión en la que se encuentra y ser llevado a la ventana de Login 

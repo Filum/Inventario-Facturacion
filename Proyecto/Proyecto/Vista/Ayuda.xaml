@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto.Vista"
         mc:Ignorable="d"
-        Title="Ayuda" Height="500" Width="800" WindowState="Minimized" WindowStyle="None" MinWidth="1000" MinHeight="600" Background="{x:Null}" SnapsToDevicePixels="True" Foreground="{x:Null}" WindowStartupLocation="CenterScreen">
+        Title="Ayuda" Height="500" Width="800" WindowState="Normal" WindowStyle="None" MinWidth="1000" MinHeight="600" Background="{x:Null}" SnapsToDevicePixels="True" Foreground="{x:Null}" WindowStartupLocation="CenterScreen">
     <Grid Margin="0" Background="Black">
         <Rectangle x:Name="barra_movil" Height="29" VerticalAlignment="Top" Margin="0,0,119.6,0" MouseDown="barra_movil__MouseDown" Cursor="Hand" Grid.ColumnSpan="2">
             <Rectangle.Fill>
@@ -34,12 +34,6 @@
             <StackPanel x:Name="stp_ordenarcodigo1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image Source="Imagenes/pause1.png" Width="45" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5"/>
                 <TextBlock x:Name="txb_ordenarcodigo1" FontFamily="Global Sans Serif" HorizontalAlignment="Center" Text="Pause" Margin="0" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Button x:Name="Regresar" Foreground="White" Margin="0,0,40,20" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Regresar_Click">
-            <StackPanel x:Name="stp_ordenarcodigo3" Width="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="Imagenes/regresar.png" Width="50" Height="49" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5"/>
-                <TextBlock x:Name="txb_ordenarcodigo3" FontFamily="Global Sans Serif" HorizontalAlignment="Center" Text="Regresar" Margin="0" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
         <MediaElement x:Name="Media" Margin="20,125,150,100"  Visibility="Visible" LoadedBehavior="Manual" Position="0:0:15" Height="300"/>

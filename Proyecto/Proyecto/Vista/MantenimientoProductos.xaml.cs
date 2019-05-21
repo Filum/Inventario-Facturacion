@@ -197,7 +197,6 @@ namespace Proyecto
             Vista.Ayuda ventana = new Vista.Ayuda();
             ventana.Show();
             ventana.Pantalla = "Productos";
-            this.Close();
         }
 
         private void btn_agregar_Click(object sender, RoutedEventArgs e)

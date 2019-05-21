@@ -77,50 +77,6 @@ namespace Proyecto.Vista
             Media.Pause();
         }
 
-        private void Regresar_Click(object sender, RoutedEventArgs e)
-        {
-            switch(Pantalla)
-            {
-                case "Clientes":
-                    Clientes ventana = new Clientes();
-                    ventana.Show();
-                    this.Close();
-                    break;
-                case "Facturacion":
-                    Facturacion f = new Facturacion();
-                    f.Show();
-                    this.Close();
-                    break;
-                case "Bitacora":
-                    Vista.Bitacora b = new Vista.Bitacora();
-                    b.Show();
-                    this.Close();
-                    break;
-                case "Productos":
-                    MantenimientoProductos p = new MantenimientoProductos();
-                    p.Show();
-                    this.Close();
-                    break;
-                case "Proveedores":
-                    MantenimientoProveedores pr = new MantenimientoProveedores();
-                    pr.Show();
-                    this.Close();
-                    break;
-                case "Usuarios":
-                    MantenimientoUsuarios u = new MantenimientoUsuarios();
-                    u.Show();
-                    this.Close();
-                    break;
-                case "Roles":
-                    MantenimientoRoles r = new MantenimientoRoles();
-                    r.Show();
-                    this.Close();
-                    break;
-
-            }
-
-        }
-
         private void Cmb_ayuda_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch(cmb_ayuda.SelectedItem.ToString())
@@ -136,7 +92,7 @@ namespace Proyecto.Vista
                     break;
 
                 case "Facturar Servicios":
-                    Media.Source = new Uri("C:/Users/minor/Videos/prueba2.wmv");
+                    Media.Source = new Uri("C:/SIF/Ayuda/prueba2.wmv");
                     Media.Play();
                     break;
 

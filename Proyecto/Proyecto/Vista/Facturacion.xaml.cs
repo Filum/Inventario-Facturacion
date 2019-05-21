@@ -69,7 +69,6 @@ namespace Proyecto
             Vista.Ayuda ventana = new Vista.Ayuda();
             ventana.Show();
             ventana.Pantalla = "Facturacion";
-            this.Close();
         }
 
        

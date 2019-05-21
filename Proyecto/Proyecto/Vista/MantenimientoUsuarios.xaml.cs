@@ -132,7 +132,6 @@ namespace Proyecto
             Vista.Ayuda ventana = new Vista.Ayuda();
             ventana.Show();
             ventana.Pantalla = "Usuarios";
-            this.Close();
         }
 
         /*Lista los usuarios existentes en el sistema según su estado, envía el estado en el 
