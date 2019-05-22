@@ -180,11 +180,6 @@ namespace Logica
             return v_Data.ValidarModificacionUsuario(clt);
         }
 
-        public bool ValidarModificacionProducto(EntidadProductos clt)
-        {
-            return v_Data.ValidarModificacionProducto(clt);
-        }
-
         public List<EntidadClientes> BuscarClientes(String nombre)
         {
             return v_Data.BuscarClientes(nombre);

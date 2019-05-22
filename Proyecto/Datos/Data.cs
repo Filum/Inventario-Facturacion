@@ -1224,31 +1224,7 @@ namespace Datos
             conn.Close();
             return cliente;
         }
-
-        /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
-       cédula jurídica está asociada a dicho id.
-       Además, en caso de estar asociados retornara un true, en caso contrario retornara un false, esto es con el fin de que al momento de modificar si el
-       usuario ingresa o deja la misma cédula que tenia,no le de error*/
-        public Boolean ValidarModificacionProducto(EntidadProductos clt)
-        {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand();
-            comando.Connection = conn;
-            comando.CommandText = "SELECT PK_IDPRODUCTO,CODIGOPRODUCTO from TBL_PRODUCTOS where CODIGOPRODUCTO = '" + clt.v_CodigoProducto + "' AND PK_IDPRODUCTO = "+clt.v_IdProducto;
-
-            OracleDataReader dr = comando.ExecuteReader();
-
-            if (clt.v_IdProducto != 0 && clt.v_CodigoProducto != "")
-            {
-                while (dr.Read())
-                {
-                    return true;
-                }
-            }
-            conn.Close();
-            return false;
-        }
+        
         public Int64 VerificarNombre(string nombre)
         {
             OracleConnection conn = DataBase.Conexion();

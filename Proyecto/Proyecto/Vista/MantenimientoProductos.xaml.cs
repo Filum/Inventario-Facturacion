@@ -298,9 +298,9 @@ namespace Proyecto
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
             if ((lbl_errorNombre.Visibility == Visibility.Visible) || (lbl_errorCantActual.Visibility == Visibility.Visible) ||
-                    (lbl_errorCantMinima.Visibility == Visibility.Visible)|| (lbl_errorCantModificar.Visibility == Visibility.Visible) || (lbl_errorDescripcion.Visibility == Visibility.Visible) || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
+                    (lbl_errorCantMinima.Visibility == Visibility.Visible)|| (lbl_errorDescripcion.Visibility == Visibility.Visible) || lbl_errorestadoProd.Visibility == Visibility.Visible || lbl_errorFabricante.Visibility == Visibility.Visible ||
                     lbl_errorMarca.Visibility == Visibility.Visible || lbl_errorPrecio.Visibility == Visibility.Visible || lbl_errorProveedor.Visibility == Visibility.Visible ||
-                    lbl_errorRB.Visibility == Visibility.Visible)
+                    lbl_errorRB.Visibility == Visibility.Visible || lbl_errorCodProd.Visibility == Visibility.Visible)
             {
                 MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -311,38 +311,44 @@ namespace Proyecto
                     v_Clt.v_CodigoProducto = txb_codProd.Text;
                     v_Clt.v_NombreProducto = txb_nombre.Text;
                     v_Clt.v_MarcaProducto = txb_marca.Text;
-                    
                     v_CantActual = Convert.ToInt64(txb_cantActual.Text);
-                    v_CantModificar = Convert.ToInt64(txb_cantModificar.Text);
 
-                    if (rb_aumentar.IsChecked == true) {
-                        v_NuevaCantidad = v_CantActual + v_CantModificar;
-                        v_Clt.v_CantidadExistencia = v_NuevaCantidad;
-                    }
-                    if (rb_disminuir.IsChecked == true)
+                    if (txb_cantModificar.Text != "")
                     {
-                        if (v_CantActual < v_CantModificar)
+                        v_CantModificar = Convert.ToInt64(txb_cantModificar.Text);
+
+                        if (rb_aumentar.IsChecked == true)
                         {
-                            lbl_errorCantModificar.Visibility = Visibility.Visible;
-                            lbl_errorCantModificar.Content = "La cant. actual es inferior a la cant. a disminuir";
+                            v_NuevaCantidad = v_CantActual + v_CantModificar;
+                            v_Clt.v_CantidadExistencia = v_NuevaCantidad;
+                        }
+                        if (rb_disminuir.IsChecked == true)
+                        {
+                            if (v_CantActual < v_CantModificar)
+                            {
+                                lbl_errorCantModificar.Visibility = Visibility.Visible;
+                                lbl_errorCantModificar.Content = "La cant. actual es inferior a la cant. a disminuir";
+                            }
+                            else
+                            {
+                                v_NuevaCantidad = v_CantActual - v_CantModificar;
+                                v_Clt.v_CantidadExistencia = v_NuevaCantidad;
+                            }
                         }
                         else
                         {
-                            v_NuevaCantidad = v_CantActual - v_CantModificar;
-                            v_Clt.v_CantidadExistencia = v_NuevaCantidad;
+                            v_Clt.v_CantidadExistencia = v_CantActual;
                         }
                     }
-                    v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
 
+                    v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
                     EntidadProveedores ComboItem = (EntidadProveedores)cmb_proveedor.SelectedItem;
                     Int64 idProveedor = ComboItem.v_IdProveedor;
                     v_Clt.v_IdProveedor = idProveedor;
-
                     v_Clt.v_PrecioUnitario = Convert.ToInt64(txb_precio.Text);
                     v_Clt.v_Descripcion = txb_descripcion.Text;
                     v_Clt.v_Fabricante = txb_fabricante.Text;
-
-                    if(cmb_estadoprod.SelectedIndex == 0){
+                    if (cmb_estadoprod.SelectedIndex == 0){
                         v_Clt.v_EstadoProducto = "Nuevo";
                     }
                     else if (cmb_estadoprod.SelectedIndex == 1)
@@ -363,17 +369,7 @@ namespace Proyecto
                         v_Clt.v_EstadoSistema = "ACTIVO";
                     }
 
-
-                    if (v_Model.ValidarModificacionProducto(v_Clt) == true)
-                    {
-                        lbl_errorCodProd.Visibility = Visibility.Hidden;
-                    }
-
-                    if (lbl_errorCodProd.Visibility == Visibility.Visible)
-                    {
-                        MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else if (lbl_errorCantModificar.Visibility == Visibility.Visible)
+                    if (lbl_errorCantModificar.Visibility == Visibility.Visible)
                     {
                         MessageBox.Show("Error al modificar\nHacen falta campos por rellenar o errores que corregir", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
