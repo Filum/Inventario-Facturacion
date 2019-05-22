@@ -712,11 +712,17 @@ namespace Proyecto
             {
                 if (txb_buscar_cliente_Lista.Text == "")
                 {
-                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstado(cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                    if (cmb_estado_Cliente.SelectedItem.ToString() == "Todos")
+                        dtg_listar_clientes.ItemsSource = model.BuscarTodoslosClientes().DefaultView;
+                    else
+                        dtg_listar_clientes.ItemsSource = model.BuscarClienteEstado(cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
                 }
                 else
                 {
-                    dtg_listar_clientes.ItemsSource = model.BuscarClienteEstadoyNombre(txb_buscar_cliente_Lista.Text, cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
+                    if (cmb_estado_Cliente.SelectedItem.ToString() == "Todos")
+                        dtg_listar_clientes.ItemsSource = model.BuscarTodoslosClientes().DefaultView;
+                    else
+                        dtg_listar_clientes.ItemsSource = model.BuscarClienteEstadoyNombre(txb_buscar_cliente_Lista.Text, cmb_estado_Cliente.SelectedItem.ToString()).DefaultView;
                 }
             }
             catch (Exception m)
@@ -727,6 +733,7 @@ namespace Proyecto
 
         private void cmb_estado_Cliente_Initialized(object sender, EventArgs e)
         {
+            cmb_estado_Cliente.Items.Add("Todos");
             cmb_estado_Cliente.Items.Add("Activo");
             cmb_estado_Cliente.Items.Add("Inactivo");
         }

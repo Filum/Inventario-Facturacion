@@ -514,6 +514,22 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        //Este metodo busca todos los clientes
+        public DataTable BuscarTodoslosClientes()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_IDCLIENTE,NOMBRE,TELEFONOOFICINA,TELEFONOMOVIL,CORREO,ESTADO,CEDULA,REPRESENTANTE,DIRECCION  from tbl_Clientes";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
 
         //El sistema va buscando el nombre y estado del cliente solicitado
         public DataTable BuscarClienteEstadoyNombre(string nombre,string estado)
@@ -1097,6 +1113,24 @@ namespace Datos
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
             comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE ESTADOFACTURA LIKE '%" + v_Nombre + "%'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
+        //busca TODAS LAS FACTURAS
+        public DataTable BuscarFacturas()
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE ";
             OracleDataReader dr = comando.ExecuteReader();
 
             OracleDataAdapter adaptador = new OracleDataAdapter();

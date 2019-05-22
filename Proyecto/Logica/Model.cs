@@ -328,6 +328,14 @@ namespace Logica
         {
             return v_Data.BuscarFacturaEstadoClienteFechas(v_Nombre, estado, fecha1, fecha2);
         }
+        public DataTable BuscarFacturas()
+        {
+            return v_Data.BuscarFacturas();
+        }
+        public DataTable BuscarTodoslosClientes()
+        {
+            return v_Data.BuscarTodoslosClientes();
+        }
 
 
         }
