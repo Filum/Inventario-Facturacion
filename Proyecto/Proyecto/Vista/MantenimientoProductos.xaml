@@ -214,7 +214,7 @@
                         </StackPanel>
 
                         <StackPanel Margin="4,30,6,-13" Grid.Column="2" Grid.RowSpan="2" >
-                            <TextBox x:Name="txb_codProd" TextWrapping="Wrap" Height="28" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" LostKeyboardFocus="ValidarTxbCodProd" HorizontalAlignment="Left" Width="120"/>
+                            <TextBox x:Name="txb_codProd" TextWrapping="Wrap" Height="28" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" HorizontalAlignment="Left" Width="120" TextChanged="txb_codProd_TextChanged"/>
                             <Label x:Name="lbl_errorCodProd" Visibility="Hidden" Margin="0,-5" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="21" FontSize="12"/>
 
                             <TextBox x:Name="txb_nombre" Margin="0,9" TextWrapping="Wrap" Height="28" FontSize="16" FontFamily="Global Sans Serif" MaxLength="35" HorizontalAlignment="Left" Width="198" TextChanged="txb_nombre_TextChanged"/>

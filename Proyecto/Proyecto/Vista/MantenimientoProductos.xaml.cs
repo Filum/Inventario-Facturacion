@@ -122,7 +122,7 @@ namespace Proyecto
         {
             if (v_Actividad_btnAgregar == true)
             {
-                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || cmb_estadoprod.Text == "" || txb_cantActual.Text == "" || txb_cantMinima.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "")
+                if (txb_codProd.Text == "" || txb_nombre.Text == "" || txb_marca.Text == "" || cmb_estadoprod.Text == "" || txb_precio.Text == "" || cmb_proveedor.Text == "" || txb_descripcion.Text == "" || txb_fabricante.Text == "")
                 {
                     ValidarComponentes();
                     btn_agregar.Visibility = Visibility.Collapsed;
@@ -216,8 +216,24 @@ namespace Proyecto
                     v_Clt.v_CodigoProducto = txb_codProd.Text;
                     v_Clt.v_NombreProducto = txb_nombre.Text;
                     v_Clt.v_MarcaProducto = txb_marca.Text;
-                    v_Clt.v_CantidadExistencia = Convert.ToInt64(txb_cantActual.Text);
-                    v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
+
+                    if (txb_cantActual.Text == "")
+                    {
+                        v_Clt.v_CantidadExistencia = 1;
+                    }
+                    else
+                    {
+                        v_Clt.v_CantidadExistencia = Convert.ToInt64(txb_cantActual.Text);
+                    }
+
+                    if (txb_cantMinima.Text == "")
+                    {
+                        v_Clt.v_CantidadMinima = 1;
+                    }
+                    else
+                    {
+                        v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
+                    }
 
                     EntidadProveedores ComboItem = (EntidadProveedores)cmb_proveedor.SelectedItem;
                     Int64 idProveedor = ComboItem.v_IdProveedor;
@@ -675,29 +691,6 @@ namespace Proyecto
             }
         }
 
-        private void ValidarTxbCodProd(object sender, EventArgs e)
-        {
-            string v_CodProd = txb_codProd.Text;
-            ValidarComponentes();
-            HabilitarBtnModificar();
-            HabilitarBtnAgregar();
-            ValidarErroresTxb(txb_codProd, lbl_errorCodProd, "nombre");
-
-            if (lbl_errorCodProd.Visibility == Visibility.Hidden)
-            {
-                bool v_Resultado = v_Model.ValidarCodProductos(v_CodProd);
-                if (v_Resultado == true)
-                {
-                    lbl_errorCodProd.Content = "El código del producto ya existe";
-                    lbl_errorCodProd.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    lbl_errorCodProd.Visibility = Visibility.Hidden;
-                }
-            }
-        }
-
         private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
         {
             ValidarComponentes();
@@ -724,6 +717,14 @@ namespace Proyecto
             ValidarComponentes();
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
+        }
+
+        private void txb_codProd_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidarComponentes();
+            HabilitarBtnModificar();
+            HabilitarBtnAgregar();
+            ValidarErroresTxb(txb_codProd, lbl_errorCodProd, "nombre");
         }
 
         private void txb_nombre_TextChanged(object sender, TextChangedEventArgs e)
@@ -756,6 +757,10 @@ namespace Proyecto
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
             ValidarErroresTxb(txb_cantActual, lbl_errorCantActual, "numeros");
+            if (txb_cantActual.Text == "")
+            {
+                lbl_errorCantActual.Visibility = Visibility.Hidden;
+            }
         }
 
         private void txb_cantMinima_TextChanged(object sender, TextChangedEventArgs e)
@@ -764,6 +769,10 @@ namespace Proyecto
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
             ValidarErroresTxb(txb_cantMinima, lbl_errorCantMinima, "numeros");
+            if (txb_cantMinima.Text == "")
+            {
+                lbl_errorCantMinima.Visibility = Visibility.Hidden;
+            }
         }
 
         private void txb_precio_TextChanged(object sender, TextChangedEventArgs e)

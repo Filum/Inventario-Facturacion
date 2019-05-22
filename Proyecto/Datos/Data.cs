@@ -1383,28 +1383,6 @@ namespace Datos
             return Lista;
         }
 
-
-        public bool ValidarCodProductos(String v_Codigo)
-        {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand();
-            comando.Connection = conn;
-            comando.CommandText = "SELECT CODIGOPRODUCTO FROM TBL_PRODUCTOS WHERE codigoProducto = '" + v_Codigo + "'";
-            OracleDataReader dr = comando.ExecuteReader();
-
-            if (v_Codigo != "")
-            {
-                while (dr.Read())
-                {
-                    return true;
-                }
-            }
-            conn.Close();
-            return false;
-        }
-
-
         public Int64 IdProducto(string nombre)
         {
             OracleConnection conn = DataBase.Conexion();
