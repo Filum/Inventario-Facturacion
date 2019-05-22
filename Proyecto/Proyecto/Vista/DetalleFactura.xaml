@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto"
         mc:Ignorable="d"
-        Title="DETALLE FACTURA" Height="963.2" Width="1708.8" WindowState="Maximized" WindowStyle="None" MinWidth="1000" MinHeight="600">
+        Title="DETALLE FACTURA" Height="963.2" AllowsTransparency="True" Width="1708.8" WindowState="Maximized" WindowStyle="None" MinWidth="1000" MinHeight="600">
     <Window.Resources>
         <Color x:Key="Color1">#FFEBD8D8</Color>
     </Window.Resources>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Proyecto"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Mantenimiento de" Height="600" Width="1000" WindowState="Maximized" WindowStyle="None" ResizeMode="CanResizeWithGrip" MinWidth="1000" MinHeight="600">
+        Title="Mantenimiento de" Height="600" Width="1000" AllowsTransparency="True" WindowState="Maximized" WindowStyle="None" ResizeMode="CanResizeWithGrip" MinWidth="1000" MinHeight="600">
     <Window.Resources>
         <DataGridLength x:Key="DataGridLength1">Auto</DataGridLength>
     </Window.Resources>

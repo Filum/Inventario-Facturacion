@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Proyecto"
         mc:Ignorable="d"
        ResizeMode="NoResize" 	WindowStartupLocation="CenterScreen"
-        Title="Login  SIF" Height="450" Width="800" MinWidth="600" MinHeight="600" BorderBrush="Black" RenderTransformOrigin="0.5,0.5" WindowState="Maximized" WindowStyle="None">
+        Title="Login  SIF" Height="450" Width="800" MinWidth="600" AllowsTransparency="True" MinHeight="600" BorderBrush="Black" RenderTransformOrigin="0.5,0.5" WindowState="Maximized" WindowStyle="None">
 
     <Window.Resources>
 

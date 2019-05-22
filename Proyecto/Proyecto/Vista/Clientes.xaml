@@ -7,7 +7,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Mantenimiento de Clientes      
-        SIF" Height="783.6" Width="1774.6" FontFamily="Global Sans Serif"    WindowState="Maximized" ResizeMode="CanResizeWithGrip" WindowStyle="None" FontSize="16" MinWidth="1000" MinHeight="600" >
+        SIF" Height="783.6" Width="1774.6" FontFamily="Global Sans Serif"  AllowsTransparency="True"  WindowState="Maximized" ResizeMode="CanResizeWithGrip" WindowStyle="None" FontSize="16" MinWidth="1000" MinHeight="600" >
     <Window.Icon >
         <BitmapImage UriSource="Imagenes\icono barra de tareas.png"/>
     </Window.Icon>

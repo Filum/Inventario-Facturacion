@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Proyecto"
         mc:Ignorable="d"
        Title="Menu" Height="500" Width="800"
-         WindowState="Maximized" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowStyle="None" SnapsToDevicePixels="True" MinWidth="800" MinHeight="500" BorderBrush="Black" >
+         WindowState="Maximized" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" SnapsToDevicePixels="True" MinWidth="800" MinHeight="500" BorderBrush="Black" >
     <Window.Icon >
         <BitmapImage UriSource="Imagenes\icono barra de tareas.png"/>
     </Window.Icon>

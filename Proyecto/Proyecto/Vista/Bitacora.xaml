@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Proyecto.Vista"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Proyecto.Vista.Bitacora"
         mc:Ignorable="d"
-        Title="Bitacora" Height="600" Width="1300" WindowState="Maximized" WindowStyle="None" MinWidth="1300" MinHeight="600">
+        Title="Bitacora" Height="600" Width="1300" WindowState="Maximized" WindowStyle="None" MinWidth="1300" MinHeight="600" AllowsTransparency="True">
     <Grid Margin="0,0,0.4,-6.2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="554*"/>

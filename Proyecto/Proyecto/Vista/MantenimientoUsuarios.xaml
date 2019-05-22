@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto"
         mc:Ignorable="d"
-        Title="Mantenimiento de Usuarios" Height="600" Width="1000" WindowState="Maximized" WindowStyle="None" MinWidth="1000" MinHeight="600">
+        Title="Mantenimiento de Usuarios" Height="600" Width="1000" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" MinWidth="1000" MinHeight="600">
 
 
     <Window.Icon >
