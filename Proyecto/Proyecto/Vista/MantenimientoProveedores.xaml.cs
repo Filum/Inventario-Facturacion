@@ -26,6 +26,7 @@ namespace Proyecto
     public partial class MantenimientoProveedores : Window
     {
         EntidadProveedores v_Clt = new EntidadProveedores();
+        EntidadBitacora bitacora = new EntidadBitacora();
         Model v_Model = new Model();
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
@@ -94,7 +95,7 @@ namespace Proyecto
         }
 
         //Botón el cual permite devolverse a la ventana "Menú"
-        private void btn_salir_proveedores__Click(object sender, RoutedEventArgs e)
+        private void btn_menu_Click(object sender, RoutedEventArgs e)
         {
             Menu v_Ventana = new Menu();
             v_Ventana.cargarMenu(nombreUsuario);
@@ -169,6 +170,13 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        bitacora.accion = "Agregar";
+                        bitacora.usuario_Responsable = usuario_proveedores.Text;
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Proveedores";
+                        bitacora.descripcion = "Agregó el proveedor con la cédula jurídica: " + txb_cedJur.Text + ", con el nombre: " + txb_nombre.Text;
+                        v_Model.AgregarBitacora(bitacora);
+
                         btn_limpiar_Click(sender, e);
                         MostrarProveedoresExistentes();
 
@@ -244,6 +252,13 @@ namespace Proyecto
                     else if (v_Model.ModificarProveedores(v_Clt) == -1)
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        bitacora.accion = "Modificar";
+                        bitacora.usuario_Responsable = usuario_proveedores.Text;
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Proveedores";
+                        bitacora.descripcion = "Modificó el proveedor con la cédula jurídica: " + txb_cedJur.Text + ", con el nombre: " + txb_nombre.Text;
+                        v_Model.AgregarBitacora(bitacora);
+
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarProveedoresExistentes();

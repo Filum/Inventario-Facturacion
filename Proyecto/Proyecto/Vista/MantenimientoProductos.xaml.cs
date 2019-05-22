@@ -24,6 +24,7 @@ namespace Proyecto
     {
         Model v_Model = new Model();
         EntidadProductos v_Clt = new EntidadProductos();
+        EntidadBitacora bitacora = new EntidadBitacora();
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
         String v_EstadoSistema = "";
@@ -254,6 +255,13 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        bitacora.accion = "Agregar";
+                        bitacora.usuario_Responsable = usuario_productos.Text;
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Productos";
+                        bitacora.descripcion = "Agregó el producto con el código: " + txb_codProd.Text + ", con el nombre: " + txb_nombre.Text;
+                        v_Model.AgregarBitacora(bitacora);
+
                         btn_limpiar_Click(sender, e);
                         MostrarProductosExistentes();
 
@@ -356,6 +364,13 @@ namespace Proyecto
                     else if (v_Model.ModificarProductos(v_Clt) == -1)
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        bitacora.accion = "Modificar";
+                        bitacora.usuario_Responsable = usuario_productos.Text;
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Productos";
+                        bitacora.descripcion = "Modificó el producto con el código: " + txb_codProd.Text + ", con el nombre: " + txb_nombre.Text;
+                        v_Model.AgregarBitacora(bitacora);
+
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarProductosExistentes();

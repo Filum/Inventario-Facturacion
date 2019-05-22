@@ -297,10 +297,10 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        bitacora.usuario_Responsable = t_Usuario.Text;
-                        bitacora.accion = "Agregó";
-                        bitacora.ventana_Mantenimiento = "Mantenimieto Roles";
-                        bitacora.descripcion = "Agregó el Rol con el nombre: " + txb_nombre.Text;
+                        bitacora.usuario_Responsable = usuario_roles.Text;
+                        bitacora.accion = "Agregar";
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Roles";
+                        bitacora.descripcion = "Agregó el rol con el nombre: " + txb_nombre.Text;
                         v_Model.AgregarBitacora(bitacora);
 
                         lbl_errorNombre.Visibility = Visibility.Collapsed;
@@ -404,10 +404,10 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                         
-                        bitacora.usuario_Responsable = t_Usuario.Text;
-                        bitacora.accion = "Modificó";
-                        bitacora.ventana_Mantenimiento = "Mantenimieto Roles";
-                        bitacora.descripcion = "Modificó el Rol con el nombre: " + txb_nombre.Text;
+                        bitacora.usuario_Responsable = usuario_roles.Text;
+                        bitacora.accion = "Modificar";
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Roles";
+                        bitacora.descripcion = "Modificó el rol con el nombre: " + txb_nombre.Text;
                         v_Model.AgregarBitacora(bitacora);
                         
                         limpiar();

@@ -25,6 +25,7 @@ namespace Proyecto
     public partial class MantenimientoUsuarios : Window
     {
         EntidadUsuarios v_Clt = new EntidadUsuarios();
+        EntidadBitacora bitacora = new EntidadBitacora();
         Model v_Model = new Model();
         bool v_Actividad_btnModificar = false;
         bool v_Actividad_btnAgregar = true;
@@ -89,7 +90,7 @@ namespace Proyecto
         {
             Menu ventana = new Menu();
             ventana.cargarMenu(nombreUsuario);
-            ventana.nombreUser = t_Usuario.Text;
+            ventana.nombreUser = usuario_usuarios.Text;
             ventana.Show();
             this.Close();
         }
@@ -225,6 +226,13 @@ namespace Proyecto
                     else if (v_Model.ModificarUsuarios(v_Clt) == -1)
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        bitacora.accion = "Modificar";
+                        bitacora.usuario_Responsable = usuario_usuarios.Text;
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Usuarios";
+                        bitacora.descripcion = "Modificó el usuario con el número de cédula: " + txb_numCed.Text + ", con el nombre: " + txb_nombre.Text;
+                        v_Model.AgregarBitacora(bitacora);
+
                         btn_limpiar_Click(sender, e);
                         v_Actividad_btnAgregar = true;
                         MostrarUsuariosExistentes();
@@ -290,6 +298,12 @@ namespace Proyecto
                     if (v_Resultado == -1)
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                        bitacora.accion = "Agregar";
+                        bitacora.usuario_Responsable = usuario_usuarios.Text;
+                        bitacora.ventana_Mantenimiento = "Mantenimiento Usuarios";
+                        bitacora.descripcion = "Agregó el usuario con el número de cédula: " + txb_numCed.Text + ", con el nombre: " + txb_nombre.Text;
+                        v_Model.AgregarBitacora(bitacora);
+
                         btn_limpiar_Click(sender, e);
                         MostrarUsuariosExistentes();
 
