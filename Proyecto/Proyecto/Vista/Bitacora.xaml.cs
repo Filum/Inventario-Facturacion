@@ -127,13 +127,25 @@ namespace Proyecto.Vista
                 {
                     if (datos.MostrarBitacoraPorFecha(v_Fecha1, v_Fecha2).Rows.Count == 0)
                     {
+                        dtg_bitacora.ItemsSource = null;
                         MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
-                        dtg_bitacora.ItemsSource = datos.MostrarBitacoraPorFecha(v_Fecha1, v_Fecha2).DefaultView;
-                        cmb_accion.SelectedItem = null;
-                        cmb_Mantenimiento.SelectedItem = null;
+                        if (cmb_accion.SelectedItem == null && cmb_Mantenimiento.SelectedItem == null)
+                            dtg_bitacora.ItemsSource = datos.MostrarBitacoraPorFecha(v_Fecha1, v_Fecha2).DefaultView;
+                        else
+                        {
+                            try
+                            {
+                              dtg_bitacora.ItemsSource = datos.MostrarBitacoraPorFechaNombreAccion(cmb_Mantenimiento.SelectedItem.ToString(), cmb_accion.SelectedItem.ToString(),v_Fecha1, v_Fecha2).DefaultView;
+                            }
+                            catch (Exception m)
+                            {
+                                Console.WriteLine(m);
+                            }
+                        }
+                        
                     }
                 }
 

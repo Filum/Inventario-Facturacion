@@ -1072,6 +1072,23 @@ namespace Datos
             conn.Close();
             return tabla;
         }
+        //Busca las facturas por el estado de la factura y el nombre del cliente
+        public DataTable BuscarFacturaEstadoClienteFechas(string v_Nombre, string estado,string fecha1,string fecha2)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_Nombre + "%'),'ÁÉÍÓÚ', 'AEIOU') AND TBL_FACTURAS.ESTADOFACTURA = '" + estado + "' AND trunc(TBL_FACTURAS.FECHA) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
         //busca la factura por el estado de la misma
         public DataTable BuscarFacturaEstado(String v_Nombre)
         {
@@ -1277,26 +1294,26 @@ namespace Datos
         //funcion para verificar el estado de la factura cada vez que se inicia el sistema
         public void Verificarestadofactura()
         {
-            //OracleConnection conn = DataBase.Conexion();
-            //conn.Open();
-            //OracleCommand comando = new OracleCommand();
-            //comando.Connection = conn;
-            //comando.CommandText = "select PK_CODIGOFACTURA,FECHAPAGO from TBL_FACTURAS WHERE ESTADOFACTURA = 'Pendiente'";
-            //OracleDataReader dr = comando.ExecuteReader();
-            //System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
-            //DateTime fechaPago = new DateTime();
-            //DateTime diaActual = DateTime.Parse(DateTime.Now.ToShortDateString());
-            //string codigo = "";
-            //while (dr.Read())
-            //{
-            //    codigo=dr.GetInt64(0).ToString();
-            //    fechaPago = DateTime.Parse(dr.GetDateTime(1).ToShortDateString());
-            //    if(fechaPago < diaActual)
-            //    {
-            //        EstadoVencidaFactura(codigo);
-            //    }
-            //}
-            //conn.Close();
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "select PK_CODIGOFACTURA,FECHAPAGO from TBL_FACTURAS WHERE ESTADOFACTURA = 'Pendiente'";
+            OracleDataReader dr = comando.ExecuteReader();
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            DateTime fechaPago = new DateTime();
+            DateTime diaActual = DateTime.Parse(DateTime.Now.ToShortDateString());
+            string codigo = "";
+            while (dr.Read())
+            {
+                codigo=dr.GetInt64(0).ToString();
+                fechaPago = DateTime.Parse(dr.GetDateTime(1).ToShortDateString());
+                if(fechaPago < diaActual)
+                {
+                    EstadoVencidaFactura(codigo);
+                }
+            }
+            conn.Close();
         }
         //Cambiar el estado de la factura a vencida
         public void EstadoVencidaFactura(string codigo)
@@ -1468,6 +1485,29 @@ namespace Datos
             OracleCommand comando = new OracleCommand();
             comando.Connection = conn;
             comando.CommandText = "SELECT FECHA,ACCION,USUARIO_RESPONSABLE,VENTANA_MANTENIMIENTO,DESCRIPCION  from TBL_BITACORA where VENTANA_MANTENIMIENTO = '"+mantenimiento+"' AND ACCION = '"+accion+"'";
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            try
+            {
+                adaptador.Fill(tabla);
+            }
+            catch (Exception m)
+            {
+                Console.WriteLine(m);
+            }
+            conn.Close();
+            return tabla;
+        }
+        //Busca la bitacora por el rango de fechas,nombre y accion solicitado
+        public DataTable MostrarBitacoraPorFechaNombreAccion(string mantenimiento, string accion,String fecha1, String fecha2)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT FECHA,ACCION,USUARIO_RESPONSABLE,VENTANA_MANTENIMIENTO,DESCRIPCION  from TBL_BITACORA where VENTANA_MANTENIMIENTO = '" + mantenimiento + "' AND ACCION = '" + accion + "' AND trunc(TBL_BITACORA.FECHA) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
 
             OracleDataAdapter adaptador = new OracleDataAdapter();
             adaptador.SelectCommand = comando;

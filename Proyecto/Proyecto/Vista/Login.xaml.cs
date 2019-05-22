@@ -99,7 +99,6 @@ namespace Proyecto
         private void click_Ingresar(object sender, RoutedEventArgs e)
         {
              verificar();
-
         }
 
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)

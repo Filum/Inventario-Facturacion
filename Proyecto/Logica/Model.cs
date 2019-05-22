@@ -320,6 +320,15 @@ namespace Logica
         {
             return v_Data.BitacoraMantenimietoyAccion(mantenimiento, accion);
         }
+        public DataTable MostrarBitacoraPorFechaNombreAccion(string mantenimiento, string accion, String fecha1, String fecha2)
+        {
+            return v_Data.MostrarBitacoraPorFechaNombreAccion(mantenimiento,accion,fecha1,fecha2);
+        }
+        public DataTable BuscarFacturaEstadoClienteFechas(string v_Nombre, string estado, string fecha1, string fecha2)
+        {
+            return v_Data.BuscarFacturaEstadoClienteFechas(v_Nombre, estado, fecha1, fecha2);
+        }
+
 
         }
 }

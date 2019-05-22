@@ -211,12 +211,23 @@ namespace Proyecto
                     if (datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).Rows.Count == 0)
                     {
                         MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        dtg_listar_facturas.ItemsSource = null;
                     }
                     else
                     {
-                        dtg_listar_facturas.ItemsSource = datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).DefaultView;
-                        cmb_estado_Factura.SelectedItem = null;
-                        txb_buscar_cliente_factura.Text = "";
+                        if(cmb_estado_Factura.SelectedItem == null && txb_buscar_cliente_factura.Text=="")
+                             dtg_listar_facturas.ItemsSource = datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).DefaultView;
+                        else
+                        {
+                            try
+                            {
+                               dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoClienteFechas(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString(),v_Fecha1,v_Fecha2).DefaultView;
+                            }
+                            catch (Exception m)
+                            {
+                                Console.WriteLine(m);
+                            }
+                        }
                     }
                 }
 

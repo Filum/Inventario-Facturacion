@@ -82,7 +82,7 @@ namespace Proyecto.Vista
             switch(cmb_ayuda.SelectedItem.ToString())
             {
                 case "Buscar y Listar":
-                    Media.Source = new Uri("C:/SIF/Ayuda/buscarylstar.mp4");
+                    Media.Source = new Uri("C:/SIF/Ayuda/prueba2.wmv");
                     Media.Play();
                     break;
 
@@ -92,7 +92,7 @@ namespace Proyecto.Vista
                     break;
 
                 case "Facturar Servicios":
-                    Media.Source = new Uri("C:/SIF/Ayuda/facturarservicios.wmv");
+                    Media.Source = new Uri("C:/SIF/Ayuda/facturarservicios.mp4");
                     Media.Play();
                     break;
 
