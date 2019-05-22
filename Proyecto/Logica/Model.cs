@@ -162,12 +162,6 @@ namespace Logica
             return v_Data.ValidarNumCedUsuarios(v_NumCed);
         }
 
-        //Recibe como referencia un string necesario para proceder con la verificación del código del producto
-        public bool ValidarCodProductos(String v_CodProductos)
-        {
-            return v_Data.ValidarCodProductos(v_CodProductos);
-        }
-
         /*Recibe como referencia una entidad proveedor que contiene el id y la cédula jurídica del proveedor con el fin de validar si la
         cédula jurídica está asociada a dicho id*/
         public bool ValidarModificacionProveedores(EntidadProveedores clt)
