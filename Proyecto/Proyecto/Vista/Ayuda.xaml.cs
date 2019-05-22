@@ -28,6 +28,7 @@ namespace Proyecto.Vista
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
         }
+
         //Funciones basicas de la pantalla de facturacion
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {

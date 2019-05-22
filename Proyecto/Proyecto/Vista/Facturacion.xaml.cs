@@ -167,9 +167,11 @@ namespace Proyecto
         //Cargamos el combobox del estado de la factura
         private void cmb_estado_Factura_Initialized(object sender, EventArgs e)
         {
-            cmb_estado_Factura.Items.Add("Cancelado");
+            cmb_estado_Factura.Items.Add("Todas");
             cmb_estado_Factura.Items.Add("Vencida");
             cmb_estado_Factura.Items.Add("Pendiente");
+            cmb_estado_Factura.Items.Add("Cancelado");
+            cmb_estado_Factura.Items.Add("Nula");
         }
         //Metodo para mostrar las facturas una vez se eleccione el estado en el combobox
         private void cmb_estado_Factura_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -178,11 +180,16 @@ namespace Proyecto
             {
                 if (txb_buscar_cliente_factura.Text == "")
                 {
+                    if (cmb_estado_Factura.SelectedItem.ToString() == "Todas")
+                    {
+                    dtg_listar_facturas.ItemsSource = datos.BuscarFacturas().DefaultView;
+                    }
+                      else
                     dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstado(cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
                 }
                 else
                 {
-                    dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoyCliente(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
+                        dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoyCliente(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
                 }
             }
             catch(Exception m)

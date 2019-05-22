@@ -42,6 +42,11 @@ namespace Proyecto.Vista
             pagoFactura.Content = dia.ToShortDateString();
             btn_pagar_Factura.Visibility = Visibility.Hidden;
         }
+        private void Btn_anular_Click(object sender, RoutedEventArgs e)
+        {
+            datos.CambiarestadoFactura("Nula", txt_codigo.Content.ToString());
+            MessageBox.Show("Factura anulada", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
 
         private void Btn_imprimir_Click(object sender, RoutedEventArgs e)
         {
@@ -89,5 +94,7 @@ namespace Proyecto.Vista
             miDetalle.precioProducto = Precio.Content.ToString();
             imprimir.imprimirFactura(dtg_listar_detalle_facturas, miFactura, fecha, micliente,"",miDetalle);
         }
+
+
     }
 }
