@@ -332,7 +332,7 @@ namespace Proyecto
             }
         }
 
-        //MÉTODOS FUNCIONALIDAD
+        //MÉTODOS FUNCIONALIDAD.
 
         /*Lista los proveedores existentes en el sistema según su estado, envía el estado en el sistema(v_EstadoSistema) que se 
          * obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
@@ -501,7 +501,7 @@ namespace Proyecto
             ValidarErroresTxb(txb_cedJur, lbl_errorCedJur, "numeros");
             if (lbl_errorCedJur.Visibility == Visibility.Collapsed)
             {
-                bool v_Resultado = v_Model.ValidarCedJurProveedores(txb_cedJur.Text);
+                bool v_Resultado = v_Model.ValidarCedJurProveedores(v_CedJur);
                 if (v_Resultado == true)
                 {
                     lbl_errorCedJur.Content = "La cédula jurídica ya existe";
@@ -597,7 +597,7 @@ namespace Proyecto
 
         //VALIDACIONES.
 
-        /*Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales.
+        /*Método el cual valida si la caja de texto recibida contiene caracteres especiales.
          *Recibe como parámetro el textbox y un identificador con el cual se realizará la validación, este puede ser: numeros, nombre o descripcion.*/
         private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
         {
@@ -821,5 +821,5 @@ namespace Proyecto
         }
 
        
-    }//fin de la clase
-}//fin proyecto
+    }//Fin de la clase.
+}//Fin proyecto.

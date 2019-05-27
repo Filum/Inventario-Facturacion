@@ -807,7 +807,7 @@ namespace Datos
         }
 
         /*Este método recibe un parámetro tipo string con el cual buscará en la base de datos la existencia de la cédula jurídica.
-        En caso de encontrar dicha cédula jurídica retornará un true, en caso contrario retornará un false*/
+        En caso de encontrar dicha cédula jurídica retornará un true, de lo contrario retornará un false*/
         public bool ValidarCedJurProveedores(String v_CedJur)
         {
             OracleConnection conn = DataBase.Conexion();
@@ -829,7 +829,7 @@ namespace Datos
         }
 
         /*Este método recibe un parámetro tipo string con el cual buscará en la base de datos la existencia de la cédula de identificación.
-         Además, en caso de encontrar dicho número de cédula retornará un true, en caso contrario retornará un false*/
+         Además, en caso de encontrar dicho número de cédula retornará un true, de lo contrario retornará un false*/
         public bool ValidarNumCedUsuarios(String v_NumCed)
         {
             OracleConnection conn = DataBase.Conexion();

@@ -125,16 +125,6 @@ namespace Logica
             return v_Data.MostarListaRoles(v_EstadoSistema);
         }
 
-        public List<EntidadProveedores> ProveedoresExistentes()
-        {
-            return v_Data.ProveedoresExistentes();
-        }
-
-        public List<EntidadRoles> RolesExistentes()
-        {
-            return v_Data.RolesExistentes();
-        }
-
         public DataTable MostrarListaClientes(String fecha1, String fecha2)
         {
             return v_Data.MostrarListaClientes(fecha1, fecha2);
@@ -148,6 +138,21 @@ namespace Logica
         public DataTable MostrarDetalleFactura(int codigoFactura)
         {
             return v_Data.MostrarDetalleFactura(codigoFactura);
+        }
+
+        //////////          CARGAR DATOS         //////////
+        /*Invoca al método que se utiliza para llenar el combobox de proveedores en el mantenimiento de productos. 
+        Se consulta al Data los proveedores existentes obtiendo solo su id y nombre para ser retornados a la vista y así llenar el combobox. */
+        public List<EntidadProveedores> ProveedoresExistentes()
+        {
+            return v_Data.ProveedoresExistentes();
+        }
+
+        /*Invoca al método que se utiliza para llenar el combobox de roles en el mantenimiento de usuarios. 
+        Se consulta al Data los roles existentes obtiendo solo su id y nombre para ser retornados a la vista y así llenar el combobox. */
+        public List<EntidadRoles> RolesExistentes()
+        {
+            return v_Data.RolesExistentes();
         }
 
         //////////          BUSCAR         //////////

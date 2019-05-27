@@ -247,7 +247,7 @@
                             </StackPanel>
                         </Button>
 
-                        <Button x:Name="btn_agregar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_agregar_Click" HorizontalAlignment="Left" Width="70">
+                        <Button x:Name="btn_agregar" Visibility="Collapsed" Height="70" Foreground="White" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_agregar_Click" HorizontalAlignment="Left" Width="70">
                             <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="Imagenes/Agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
                                 <TextBlock Text="Agregar" Height="20" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="60" HorizontalAlignment="Left"/>
