@@ -25,6 +25,7 @@ namespace Proyecto
     /// </summary>
     public partial class MantenimientoProveedores : Window
     {
+        //Creación de variables e instancias
         EntidadProveedores v_Clt = new EntidadProveedores();
         EntidadBitacora bitacora = new EntidadBitacora();
         Model v_Model = new Model();
@@ -33,56 +34,29 @@ namespace Proyecto
         String v_EstadoSistema = "";
         public string nombreUsuario;
 
+        //Constructor de la Clase. Se cargan los proveedores en el datagrid del tab "Listar" y se crea el hilo que se usará para mostrar la hora al usuario.
         public MantenimientoProveedores()
         {
             InitializeComponent();
-            //Formato para la hora
+            //Formato para la hora.
             System.Windows.Threading.DispatcherTimer v_DispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             v_DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             v_DispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             v_DispatcherTimer.Start();
             MostrarProveedoresExistentes();
 
-            //Cargar proveedores existentes
+            //Cargar proveedores existentes.
             cmb_tipoBusqueda.SelectedIndex = 2;
             dtg_lista.ItemsSource = v_Model.MostrarListaProveedores("LISTAPROVEEDORES").DefaultView;
         }
 
+        //Se asigna la hora al label de la ventana por medio del hilo creado.
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             lbl_fecha.Content = DateTime.Now.ToString();
         }
 
-        //Minimiza ventana
-        private void btn_minimizar_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        //Cierra ventana
-        private void btn_cerrar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        //Maximiza ventana
-        private void btn_maximizar_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (WindowState == WindowState.Normal)
-            {
-                WindowState = WindowState.Maximized;
-
-            }
-            else
-            {
-                WindowStyle = WindowStyle.None;
-                WindowState = WindowState.Normal;
-
-            }
-        }
-
-        //Barra en el área superior de la ventana, la cual permite deslizarla de un lugar a otro
+        //Barra en el área superior de la ventana, la cual permite deslizarla de un lugar a otro.
         private void barra_movil__MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
@@ -90,11 +64,39 @@ namespace Proyecto
                 this.WindowStyle = WindowStyle.None;
                 WindowState = WindowState.Normal;
             }
-
             this.DragMove();
         }
 
-        //Botón el cual permite devolverse a la ventana "Menú"
+        //EVENTOS DE LOS BOTONES.
+
+        //Minimiza ventana.
+        private void btn_minimizar_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+        
+        //Cierra ventana.
+        private void btn_cerrar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        //Maximiza ventana.
+        private void btn_maximizar_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                WindowStyle = WindowStyle.None;
+                WindowState = WindowState.Normal;
+            }
+        }
+
+        //Botón el cual permite devolverse a la ventana "Menú".
         private void btn_menu_Click(object sender, RoutedEventArgs e)
         {
             Menu v_Ventana = new Menu();
@@ -114,13 +116,13 @@ namespace Proyecto
             rb_activo.IsChecked = true;
         }
 
-        //Vuelve al panel de búsqueda en el tab de configuración de proveedores y oculta el formulario
+        //Vuelve al panel de búsqueda en el tab de configuración de proveedores y oculta el formulario.
         private void btn_volver_Click(object sender, RoutedEventArgs e)
         {
             MostrarProveedoresExistentes();
         }
 
-        //Botón el cual permite agregar un nuevo proveedor, este botón posee las validaciones necesarias para la ejecución de su funcionalidad         
+        //Botón el cual permite agregar un nuevo proveedor, este botón posee las validaciones necesarias para la ejecución de su funcionalidad.
         private void btn_agregar_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -131,6 +133,7 @@ namespace Proyecto
                 }
                 else
                 {
+                    //Obtiene los datos del formulario y los asigna a la Entidad Proveedor.
                     v_Clt.v_CedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
                     v_Clt.v_Nombre = txb_nombre.Text;
                     v_Clt.v_Telefono = Convert.ToInt64(txb_telefono.Text);
@@ -171,6 +174,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos ingresados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                        //Se agrega a la bitácora la información respectiva acerca de la agregación del proveedor.
                         bitacora.accion = "Agregar";
                         bitacora.usuario_Responsable = usuario_proveedores.Text;
                         bitacora.ventana_Mantenimiento = "Mantenimiento Proveedores";
@@ -180,6 +184,7 @@ namespace Proyecto
                         btn_limpiar_Click(sender, e);
                         MostrarProveedoresExistentes();
 
+                        //Se actualiza el tap "Listar".
                         v_EstadoSistema = "LISTAPROVEEDORES";
                         ListarProveedores();
                     }
@@ -192,7 +197,7 @@ namespace Proyecto
             }
         }
 
-        //Botón el cual permite modificar un proveedor seleccionado, este botón posee las validaciones necesarias para la ejecución de su funcionalidad   
+        //Botón el cual permite modificar un proveedor seleccionado, este botón posee las validaciones necesarias para la ejecución de su funcionalidad.
         private void btn_modificar_Click(object sender, RoutedEventArgs e)
         {
             if ((lbl_errorBusqueda.Visibility == Visibility.Visible || lbl_errorNombre.Visibility == Visibility.Visible) ||
@@ -206,6 +211,7 @@ namespace Proyecto
             {
                 try
                 {
+                    //Obtiene los datos del formulario y los asigna a la Entidad Proveedor.
                     v_Clt.v_CedulaJuridica = Convert.ToInt64(txb_cedJur.Text);
                     v_Clt.v_Nombre = txb_nombre.Text;
                     v_Clt.v_Telefono = Convert.ToInt64(txb_telefono.Text);
@@ -253,6 +259,7 @@ namespace Proyecto
                     {
                         MessageBox.Show("Datos modificados correctamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                        //Se agrega a la bitácora la información respectiva acerca de la modificación del proveedor.
                         bitacora.accion = "Modificar";
                         bitacora.usuario_Responsable = usuario_proveedores.Text;
                         bitacora.ventana_Mantenimiento = "Mantenimiento Proveedores";
@@ -263,6 +270,7 @@ namespace Proyecto
                         v_Actividad_btnAgregar = true;
                         MostrarProveedoresExistentes();
 
+                        //Se actualiza el tap "Listar".
                         v_EstadoSistema = "LISTAPROVEEDORES";
                         ListarProveedores();
                     }
@@ -275,7 +283,7 @@ namespace Proyecto
             }
         }
 
-        //Botón el cual cumple con la funcionalidad de eliminar todos los datos existentes en las cajas de texto situadas en el tab de gestión de proveedores
+        //Botón el cual cumple con la funcionalidad de eliminar todos los datos existentes en los componentes situadas en el tab de configuración de proveedores.
         private void btn_limpiar_Click(object sender, RoutedEventArgs e)
         {
             txb_cedJur.Text = "";
@@ -304,7 +312,7 @@ namespace Proyecto
             v_Actividad_btnAgregar = true;
         }
 
-        //Botón el cual brinda con información necesaria para la utilización de la ventana en la que se encuentra el usuario
+        //Botón el cual brinda con información necesaria para la utilización de la ventana en la que se encuentra el usuario.
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
             Vista.Ayuda ventana = new Vista.Ayuda();
@@ -312,7 +320,7 @@ namespace Proyecto
             ventana.Pantalla = "Proveedores";
         }
 
-        //Botón el cual permite al usuario cerrar la sesión en la que se encuentra y ser llevado a la ventana de Login 
+        //Botón el cual permite al usuario cerrar la sesión en la que se encuentra, y lo redirecciona a la ventana de Login.
         private void btn_usuario_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult v_Result = MessageBox.Show("¿Desea cerrar sesión?", "Cerrar Sesión", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -323,6 +331,8 @@ namespace Proyecto
                 v_Ventana.Show();
             }
         }
+
+        //MÉTODOS FUNCIONALIDAD
 
         /*Lista los proveedores existentes en el sistema según su estado, envía el estado en el sistema(v_EstadoSistema) que se 
          * obtiene del combobox "cmb_tipoBusqueda" con el cual se realizará la consulta.*/
@@ -340,7 +350,7 @@ namespace Proyecto
             }
         }
 
-        //Muestra el panel de búsqueda en el tab de configuración de proveedores
+        //Muestra el panel de búsqueda en el tab de configuración de proveedores.
         private void MostrarProveedoresExistentes()
         {
             lbl_actividad.Content = "Proveedores existentes";
@@ -348,60 +358,27 @@ namespace Proyecto
             OcultarFormulario();
         }
 
-        //Oculta el panel de búsqueda en el tab de configuración de proveedores
+        //Oculta el panel de búsqueda en el tab de configuración de proveedores.
         private void OcultarProveedoresExistentes()
         {
             grd_proveedoresExistentes.Visibility = Visibility.Collapsed;
         }
 
-        //Oculta el panel del formulario en el tab de configuración de proveedores
+        //Oculta el panel del formulario en el tab de configuración de proveedores.
         private void OcultarFormulario()
         {
             grd_formularioProveedor.Visibility = Visibility.Collapsed;
         }
 
-        //Muestra el panel del formulario en el tab de configuración de proveedores
+        //Muestra el panel del formulario en el tab de configuración de proveedores.
         private void MostrarFormulario()
         {
             grd_formularioProveedor.Visibility = Visibility.Visible;
             OcultarProveedoresExistentes();
         }
-               
-
-        /*En esta caja de texto se implementa la búsqueda del proveedor que se desea, en caso de ser encontrado este despliega los datos en el DataGrid,
-        de lo contrario se podrá agregar un nuevo proveedor*/
-        private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (txb_busqueda.Text.Contains("'"))
-            {
-                lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
-                lbl_errorBusqueda.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                dtg_proveedores.ItemsSource = v_Model.ValidarBusquedaProveedores(txb_busqueda.Text);
-                dtg_proveedores.Columns[0].Header = "Código";
-                dtg_proveedores.Columns[1].Header = "Cédula Jurídica";
-                dtg_proveedores.Columns[2].Header = "Nombre del Proveedor";
-                dtg_proveedores.Columns[3].Header = "Correo";
-                dtg_proveedores.Columns[4].Header = "Correo Opcional";
-                dtg_proveedores.Columns[6].Header = "Teléfono";
-                dtg_proveedores.Columns[7].Header = "Tel. Opcional";
-                dtg_proveedores.Columns[5].Header = "Descripción";
-                dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
-                dtg_proveedores.Columns[9].Header = "Estado en el Sistema";
-
-                //Proveedores existentes
-                v_Actividad_btnAgregar = false;
-                btn_agregar.Visibility = Visibility.Collapsed;
-                btn_modificar.Visibility = Visibility.Collapsed;
-                lbl_actividad.Content = "Proveedores existentes";
-                lbl_actividad.Visibility = Visibility.Visible;
-            }
-        }
-
+              
         /*Método el cual cumple con la funcionalidad de desplegar los datos en los campos correspondientes de un proveedor seleccionado 
-        en el DataGrid con la finalidad de ser modificado, esto en el panel del formulario en el tab de configuración de proveedores*/
+        en el DataGrid con la finalidad de ser modificado, esto en el panel del formulario en el tab de configuración de proveedores.*/
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
@@ -429,7 +406,7 @@ namespace Proyecto
             MostrarFormulario();
         }
 
-        //Método el cual habilita el botón modificar
+        //Método el cual habilita el botón modificar, esto se permite solamente si la bandera "v_Actividad_btnModificar" está encendida "true".
         private void HabilitarBtnModificar()
         {
             if (v_Actividad_btnModificar == true)
@@ -438,7 +415,8 @@ namespace Proyecto
             }
         }
 
-        //Método el cual habilita el botón agregar siempre y cuando los espacios correspondientes para esta actividad no estén vacíos  situados en el tab de configuración de proveedores
+        /*Método el cual habilita el botón agregar, siempre y cuando los espacios correspondientes para esta actividad no estén vacíos,  
+        esto se permite solamente si la bandera "v_Actividad_btnAgregar" está encendida "true".*/
         private void HabilitarBtnAgregar()
         {
             if (v_Actividad_btnAgregar == true)
@@ -454,13 +432,67 @@ namespace Proyecto
             }
         }
 
-        //Método el cual habilita componentes siempre y cuando no hayan errores en la caja de texto de buscar
+        //EVENTOS DE LOS COMPONENTES.
+
+        /*Recibe el filtro por el cual el usuario desea realizar el listado de proveedores y se lo asigna a la variable "v_EstadoSistema" 
+        para que se envie al Data mediante el método ListarProveedores() y se realice la consulta respectiva.*/
+        private void cmb_tipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmb_tipoBusqueda.SelectedValue == proveedoresActivos)
+            {
+                v_EstadoSistema = "ACTIVO";
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == proveedoresInactivos)
+            {
+                v_EstadoSistema = "INACTIVO";
+            }
+            else if (cmb_tipoBusqueda.SelectedValue == listaProveedores)
+            {
+                v_EstadoSistema = "LISTAPROVEEDORES";
+            }
+
+            ListarProveedores();
+        }
+
+        //Se implementa la búsqueda del proveedor que se desea, en caso de ser encontrado se despliega los datos en el DataGrid.
+        private void txb_busqueda_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txb_busqueda.Text.Contains("'"))
+            {
+                lbl_errorBusqueda.Content = "No se permiten caracteres especiales";
+                lbl_errorBusqueda.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                //Proveedores existentes.
+                dtg_proveedores.ItemsSource = v_Model.ValidarBusquedaProveedores(txb_busqueda.Text);
+                dtg_proveedores.Columns[0].Header = "Código";
+                dtg_proveedores.Columns[1].Header = "Cédula Jurídica";
+                dtg_proveedores.Columns[2].Header = "Nombre del Proveedor";
+                dtg_proveedores.Columns[3].Header = "Correo";
+                dtg_proveedores.Columns[4].Header = "Correo Opcional";
+                dtg_proveedores.Columns[6].Header = "Teléfono";
+                dtg_proveedores.Columns[7].Header = "Tel. Opcional";
+                dtg_proveedores.Columns[5].Header = "Descripción";
+                dtg_proveedores.Columns[8].Header = "Fecha de Ingreso";
+                dtg_proveedores.Columns[9].Header = "Estado en el Sistema";
+
+                v_Actividad_btnAgregar = false;
+                btn_agregar.Visibility = Visibility.Collapsed;
+                btn_modificar.Visibility = Visibility.Collapsed;
+                lbl_actividad.Content = "Proveedores existentes";
+                lbl_actividad.Visibility = Visibility.Visible;
+            }
+        }
+
+        //Valida el contenido del txb_busqueda para que no se envie con errores al momento de realizar la consulta en la BD.
         private void txb_busqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
             ValidarErroresTxb(txb_busqueda, lbl_errorBusqueda, "");
         }
 
-        //Método el cual valida si la cédula jurídica es existente o no, en caso de ser existente, mostrar un error
+        /*Método el cual valida si la cédula jurídica es existente o no, en caso de ser existente muestra un error.
+         * Además valida que el contenido ingresado sea de la manera correcta, en caso contrario se muestran mensajes indicandole al usuario los errores.*/
         private void ValidarTxbCedJur(object sender, EventArgs e)
         {
             string v_CedJur = txb_cedJur.Text;
@@ -482,7 +514,8 @@ namespace Proyecto
             }
         }
 
-        //Validaciones en caja de texto de nombre
+        /*Validaciones en caja de texto de nombre.
+        Valida que el contenido ingresado sea de la manera correcta, en caso contrario se muestran mensajes indicandole al usuario los errores.*/
         private void txb_nombre_TextChanged(object sender, TextChangedEventArgs e)
         {
             HabilitarBtnModificar();
@@ -490,7 +523,8 @@ namespace Proyecto
             ValidarErroresTxb(txb_nombre, lbl_errorNombre, "nombre");
         }
 
-        //Validaciones en caja de texto de teléfono
+        /*Validaciones en caja de texto de teléfono.
+        Valida que el contenido ingresado sea de la manera correcta, en caso contrario se muestran mensajes indicandole al usuario los errores.*/
         private void txb_telefono_TextChanged(object sender, TextChangedEventArgs e)
         {
             HabilitarBtnModificar();
@@ -498,7 +532,8 @@ namespace Proyecto
             ValidarErroresTxb(txb_telefono, lbl_errorTelefono, "numeros");
         }
 
-        //Validaciones en caja de texto de teléfono opcional
+        /*Validaciones en caja de texto de teléfono opcional.
+        Valida que el contenido ingresado sea de la manera correcta, en caso contrario se muestran mensajes indicandole al usuario los errores.*/
         private void txb_telefonoOpcional_TextChanged(object sender, TextChangedEventArgs e)
         {
             HabilitarBtnModificar();
@@ -514,7 +549,8 @@ namespace Proyecto
             }
         }
 
-        //Validaciones en caja de texto de correo
+        /*Validaciones en caja de texto de correo.
+        Valida que el contenido ingresado sea de la manera correcta, en caso contrario se muestran mensajes indicandole al usuario los errores.*/
         private void txb_correo_TextChanged(object sender, TextChangedEventArgs e)
         {
             HabilitarBtnModificar();
@@ -522,7 +558,8 @@ namespace Proyecto
             ValidarErroresTxb(txb_correo, lbl_errorcorreo, "");
         }
 
-        //Validaciones en caja de texto de correo opcional
+        /*Validaciones en caja de texto de correo opcional.
+        Valida que el contenido ingresado sea de la manera correcta, en caso contrario se muestran mensajes indicandole al usuario los errores.*/
         private void txb_correoOpcional_TextChanged(object sender, TextChangedEventArgs e)
         {
             HabilitarBtnModificar();
@@ -534,7 +571,8 @@ namespace Proyecto
             }
         }
 
-        //Validaciones en caja de texto de descripción
+        /*Validaciones en caja de texto de descripción.
+        Valida que el contenido ingresado sea de la manera correcta, en caso contrario se muestran mensajes indicandole al usuario los errores.*/
         private void txb_descripcion_TextChanged(object sender, TextChangedEventArgs e)
         {
             HabilitarBtnModificar();
@@ -542,26 +580,30 @@ namespace Proyecto
             ValidarErroresTxb(txb_descripcion, lbl_errorDesc, "descripcion");
         }
 
-        //Validación en la actividad de los radiobutton
+        //Validación en la actividad del radiobutton Activo. Al seleccionarse se llaman los metodos respectivos para las actividades de los botones. 
         private void rb_activo_Checked(object sender, RoutedEventArgs e)
         {
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
         }
 
-        //Validación en la actividad de los radiobutton
+        //Validación en la actividad del radiobutton Inactivo. Al seleccionarse se llaman los metodos respectivos para las actividades de los botones. 
         private void rb_inactivo_Checked(object sender, RoutedEventArgs e)
         {
             HabilitarBtnModificar();
             HabilitarBtnAgregar();
         }
 
-        //Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales
+
+        //VALIDACIONES.
+
+        /*Método el cual valida si en las cajas de texto recibidos contiene caracteres especiales.
+         *Recibe como parámetro el textbox y un identificador con el cual se realizará la validación, este puede ser: numeros, nombre o descripcion.*/
         private Boolean ValidarCaracteresEspeciales(String v_Txb, String v_Identificador)
         {
             if (v_Identificador == "numeros")
             {
-                //caracteres que no permite si la cadena es de int
+                //Caracteres que no permite si la cadena es de int.
                 String v_Caracteres = "[a-zA-Z !@#$%^&*())+=.,<>{}¬º´/\"':;|ñÑ~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -570,7 +612,7 @@ namespace Proyecto
             }
             else if (v_Identificador == "nombre")
             {
-                //caracteres que no permite si la cadena es de string
+                //Caracteres que no permite si la cadena es de string.
                 String v_Caracteres = "[!@#$%^*())+=.,<>{}¬º´/\"':;|~¡?`¿-]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -579,7 +621,7 @@ namespace Proyecto
             }
             else if (v_Identificador == "descripcion")
             {
-                //caracteres que permite si la cadena es de string
+                //Caracteres que no permite si la cadena es de string.
                 String v_Caracteres = "[!@#$%^*())+=.<>{}¬º´/\"':;|~¡?`¿]";
                 if (Regex.IsMatch(v_Txb, v_Caracteres))
                 {
@@ -589,7 +631,7 @@ namespace Proyecto
             return false;
         }
 
-        //Validaciones en caja de texto de teléfono
+        //Validación en caja de texto de teléfono. Bloquea el textbox para que no se pueda ingresar letras.
         private void Telefono_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
@@ -610,7 +652,7 @@ namespace Proyecto
             }
         }
 
-        //Validaciones en caja de texto de teléfono opcional
+        //Validación en caja de texto de teléfono opcional. Bloquea el textbox para que no se pueda ingresar letras.
         private void TelefonoOpcional_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
@@ -631,7 +673,7 @@ namespace Proyecto
             }
         }
 
-        //Validaciones en caja de texto de cédula jurídica
+        //Validaciones en caja de texto de cédula jurídica. Bloquea el textbox para que no se pueda ingresar letras.
         private void CedJur_KeyDown(object sender, KeyEventArgs e)
         {
             if (Char.IsDigit(e.Key.ToString().Substring(e.Key.ToString().Length - 1)[0]))
@@ -647,8 +689,8 @@ namespace Proyecto
             }
         }
 
-        //Método el cual valida si en la caja de texto recibida posee los parametros correctos de un correo electronico
-        private Boolean correoCorrecto(String v_correo)
+        //Método el cual valida si la cadena recibida posee los parametros correctos de un correo electrónico.
+        private Boolean CorreoCorrecto(String v_correo)
         {
             String v_Expresion;
             v_Expresion = @"^([a-zA-Z0-9_\-\.ñÑ]+)@((\[[0-9]{1,3}" + @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" + @".)+))([a-zA-Z]{2,3}|[0-9]{1,3})(\]?)$";
@@ -669,12 +711,12 @@ namespace Proyecto
             }
         }
 
-        //Método el cual valida si los parametros del correo electrónico son correctos, en caso de que no los sean muestra un error al usuario
+        //Método el cual valida el contenido del correo electrónico, en caso de que esté incorrecto se muestra un mensaje de error al usuario.
         private void Validarcorreo(object sender, EventArgs e)
         {
             Console.WriteLine("Correo: " + txb_correo.Text);
-            Console.WriteLine(correoCorrecto(txb_correo.Text));
-            if (correoCorrecto(txb_correo.Text) == false)
+            Console.WriteLine(CorreoCorrecto(txb_correo.Text));
+            if (CorreoCorrecto(txb_correo.Text) == false)
             {
                 if (txb_correo.Text == "")
                 {
@@ -689,17 +731,17 @@ namespace Proyecto
             }
         }
 
-        /*Método el cual valida si los parametros del correo electrónico opcional son correctos, en caso de que no los sean muestra un error al usuario
-         y en caso de que este no posea (N/A) no mostrar errores al usuario */
+        /*Método el cual valida el contenido del correo electrónico, en caso de que esté incorrecto se muestra un mensaje de error al usuario.
+        En caso de que no posea una dirección electrónica por ser opcional (N/A), no muestra errores al usuario.*/
         private void ValidarcorreoOpcional(object sender, EventArgs e)
         {
             Console.WriteLine("Correo: " + txb_correoOpcional.Text);
-            Console.WriteLine(correoCorrecto(txb_correoOpcional.Text));
+            Console.WriteLine(CorreoCorrecto(txb_correoOpcional.Text));
             if (txb_correoOpcional.Text == "N/A")
             {
                 lbl_errorcorreoOpcional.Visibility = Visibility.Collapsed;
             }
-            else if (correoCorrecto(txb_correoOpcional.Text) == false)
+            else if (CorreoCorrecto(txb_correoOpcional.Text) == false)
             {
                 if (txb_correoOpcional.Text == "")
                 {
@@ -713,7 +755,9 @@ namespace Proyecto
             }
         }
 
-        //Método el cual recibe parametros necesarios para la validacion y la muestra de mensajes de erroes en las cajas de texto
+        /*Método el cual recibe 3 parametros para llevar a cabo las validaciones necesarias. 
+         * Recibe el textbox a validar, el label de error respectivo y la cadena "tipo" con la que se llamará al método 
+         * ValidarCaracteresEspeciales(tipo) para verificar si el contenido posee caracteres no permitidos.*/
         private void ValidarErroresTxb(TextBox txb_proveedor, Label lbl_error, string tipo)
         {
             string v_TamanoTxb = txb_proveedor.Text;
@@ -774,26 +818,6 @@ namespace Proyecto
             {
                 lbl_error.Visibility = Visibility.Collapsed;
             }
-        }
-
-        //Recibe el filtro por el cual el usuario desea realizar el listado de proveedores y se lo asigna a la variable "v_EstadoSistema" 
-        //para que se envie a data y realice la consulta respectiva.
-        private void cmb_tipoBusqueda_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cmb_tipoBusqueda.SelectedValue == proveedoresActivos)
-            {
-                v_EstadoSistema = "ACTIVO";
-            }
-            else if (cmb_tipoBusqueda.SelectedValue == proveedoresInactivos)
-            {
-                v_EstadoSistema = "INACTIVO";
-            }
-            else if (cmb_tipoBusqueda.SelectedValue == listaProveedores)
-            {
-                v_EstadoSistema = "LISTAPROVEEDORES";
-            }
-
-            ListarProveedores();
         }
 
        
