@@ -43,7 +43,6 @@
         <Image x:Name="LOGODELRAM_png_Copy" Source="/Proyecto;component/LOGO SIFpequeño.png" Stretch="Fill" VerticalAlignment="Top" Margin="0,40,500,0" RenderTransformOrigin="0.327,0.507" HorizontalAlignment="Center" Width="100" Height="90"/>
         <ComboBox x:Name="cmb_ayuda" Margin="360,0,0,53"  HorizontalAlignment="Left" Width="323" SelectionChanged="Cmb_ayuda_SelectionChanged" Initialized="Cmb_ayuda_Initialized" Height="22" VerticalAlignment="Bottom" />
         <Label Content="Seleccione la acción en la que necesita ayuda:" HorizontalAlignment="Left" Margin="10,0,0,50" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="345" Height="30" VerticalAlignment="Bottom"/>
-        <ProgressBar x:Name="pbar" Margin="217,0,0,138" HorizontalAlignment="Left" Width="509" Height="10" VerticalAlignment="Bottom"/>
 
 
 

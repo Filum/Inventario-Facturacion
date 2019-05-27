@@ -17,7 +17,7 @@ namespace Proyecto.Vista
 {
     /// <summary>
     /// Interaction logic for Ayuda.xaml
-    /// </summary>
+    /// </summary>d
     public partial class Ayuda : Window
     {
         public string Pantalla;

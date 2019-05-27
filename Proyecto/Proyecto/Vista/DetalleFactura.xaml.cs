@@ -45,6 +45,10 @@ namespace Proyecto.Vista
         private void Btn_anular_Click(object sender, RoutedEventArgs e)
         {
             datos.CambiarestadoFactura("Nula", txt_codigo.Content.ToString());
+            ActualizarInventario();
+            btn_anular.Visibility = Visibility.Hidden;
+            btn_imprimir.Visibility = Visibility.Hidden;
+            btn_pagar_Factura.Visibility = Visibility.Hidden;
             MessageBox.Show("Factura anulada", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -94,7 +98,36 @@ namespace Proyecto.Vista
             miDetalle.precioProducto = Precio.Content.ToString();
             imprimir.imprimirFactura(dtg_listar_detalle_facturas, miFactura, fecha, micliente,"",miDetalle);
         }
+        private void ActualizarInventario()
+        {
+            string cantidad = "";
+            string producto = "";
+            string nuevo_valor_existencia = "";
+            var detalle = new List<string>();
 
+            //recorremos el datagrid y le damos el valor de cada campo de la fila a las diferentes variables,para agregar cada detalle de la factura solicitada.
+            foreach (var item in dtg_listar_detalle_facturas.Items)
+            {
+                DataGridRow row = (DataGridRow)dtg_listar_detalle_facturas.ItemContainerGenerator.ContainerFromItem(item);
+                producto = ((TextBlock)dtg_listar_detalle_facturas.Columns[2].GetCellContent(row)).Text;
+                cantidad = ((TextBlock)dtg_listar_detalle_facturas.Columns[3].GetCellContent(row)).Text;
+                try
+                {
+
+                    //tomamos los valores del producto solicitado. 
+                    detalle = datos.DetalleProducto(producto);
+                    //igualamos la variable existencia con la cantidad de productos existentes en el inventario.
+                    int existencia = int.Parse(detalle[2]);
+                    nuevo_valor_existencia = (existencia + int.Parse(cantidad)).ToString();
+                        datos.DescuentoInventario(nuevo_valor_existencia, producto);
+                }
+                catch (Exception m)
+                {
+                    MessageBox.Show("Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Console.WriteLine(m.ToString());
+                }
+            }
+        }
 
     }
 }

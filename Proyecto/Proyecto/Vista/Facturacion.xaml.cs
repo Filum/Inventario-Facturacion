@@ -305,6 +305,16 @@ namespace Proyecto
                 ventana.fechaVence.Content = detalle[11];
                 ventana.br_pago1.Visibility = Visibility.Hidden;
                 ventana.br_pago2.Visibility = Visibility.Hidden;
+            } else if (detalle[10] == "Nula")
+            {
+                ventana.dias.Visibility = Visibility.Hidden;
+                ventana.Dias.Visibility = Visibility.Hidden;
+                ventana.a.Visibility = Visibility.Hidden;
+                ventana.Vence.Visibility = Visibility.Hidden;
+                ventana.fechaVence.Visibility = Visibility.Hidden;
+                ventana.btn_anular.Visibility = Visibility.Hidden;
+                ventana.btn_imprimir.Visibility = Visibility.Hidden;
+                ventana.btn_pagar_Factura.Visibility = Visibility.Hidden;
             }
             ventana.EstadoFactura.Content = detalle[10];
             ventana.idCLiente.Content = detalle[12];
