@@ -263,8 +263,9 @@ namespace Proyecto
                         {
                             v_NuevaCantidad = v_CantActual + v_CantModificar;
                             v_Clt.v_CantidadExistencia = v_NuevaCantidad;
+                            lbl_errorCantModificar.Visibility = Visibility.Hidden;
                         }
-                        if (rb_disminuir.IsChecked == true)
+                        else if (rb_disminuir.IsChecked == true)
                         {
                             if (v_CantActual < v_CantModificar)
                             {
