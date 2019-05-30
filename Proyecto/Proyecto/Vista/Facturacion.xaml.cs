@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -942,11 +943,11 @@ namespace Proyecto
                     detalle = datos.DetalleProducto(producto);
                     //igualamos la variable existencia con la cantidad de productos existentes en el inventario.
                     int existencia = int.Parse(detalle[2]);
-                    miDetalle.subtotal = subtotal;
+                    miDetalle.subtotal = float.Parse(subtotal);
                     miDetalle.descripcion_servicio = null;
-                    miDetalle.id_producto = datos.id_Producto(producto).ToString();
-                    miDetalle.id_factura = txt_codigo_factura.Content.ToString();
-                    miDetalle.cantidad = cantidad;
+                    miDetalle.id_producto = int.Parse(datos.id_Producto(producto).ToString());
+                    miDetalle.id_factura = int.Parse(txt_codigo_factura.Content.ToString());
+                    miDetalle.cantidad = int.Parse(cantidad);
                     miDetalle.impuesto = impuesto;
                     miDetalle.descuento = descuento;
                     miDetalle.precioProducto = precio;
@@ -959,7 +960,7 @@ namespace Proyecto
                 }
                 catch (Exception m)
                 {
-                    MessageBox.Show("Error al agregar detalle", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(m.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     Console.WriteLine(m.ToString());
                 }
             }
@@ -1052,12 +1053,11 @@ namespace Proyecto
 
         private void Rb_Contado_Checked(object sender, RoutedEventArgs e)
         {
-            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
             DateTime dia = DateTime.Now;
             tipoPago = "Contado";
-                diasCredito = "0";
-                estadoFactura = "Cancelado";
-                fechaPago = dia.ToShortDateString();
+            diasCredito = "0";
+            estadoFactura = "Cancelado";
+            fechaPago = dia.ToString("dd/MM/yyyy");
             if (txb_diasCredito != null)
             {
                 txb_diasCredito.Visibility = Visibility.Hidden;
@@ -1083,7 +1083,7 @@ namespace Proyecto
                 tipoPago = "Credito";
                 diasCredito = txb_diasCredito.Text;
                 estadoFactura = "Pendiente";
-                fechaPago = dia.ToShortDateString();
+                fechaPago = dia.ToString("dd/MM/yyyy");
 
                 MessageBox.Show("Tiene credito hasta el "+fechaPago, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                 txb_diasCredito.Visibility = Visibility.Hidden;
@@ -1182,12 +1182,12 @@ namespace Proyecto
         //SI EL USUARIO DESEA HACER LA FACTURA A CONTADO
         private void Rb_Contado_Servicio_Checked(object sender, RoutedEventArgs e)
         {
-            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+            //System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
             DateTime dia = DateTime.Now;
             tipoPago = "Contado";
             diasCredito = "0";
             estadoFactura = "Cancelado";
-            fechaPago = dia.ToShortDateString();
+            fechaPago = dia.ToString("dd/MM/yyyy");
             if (txb_diasCredito != null)
             {
                 txb_diasCredito_Servicio.Visibility = Visibility.Hidden;
@@ -1284,13 +1284,13 @@ namespace Proyecto
         {
             if (txb_diasCredito_Servicio.Text != "")
             {
-                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+                //System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
                 int diasContado = int.Parse(txb_diasCredito_Servicio.Text);
                 DateTime dia = DateTime.Now.AddDays(diasContado);
                 tipoPago = "Credito";
                 diasCredito = txb_diasCredito_Servicio.Text;
                 estadoFactura = "Pendiente";
-                fechaPago = dia.ToShortDateString();
+                fechaPago = dia.ToString("dd/MM/yyyy");
 
                 MessageBox.Show("Tiene credito hasta el " + fechaPago, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                 txb_diasCredito_Servicio.Visibility = Visibility.Hidden;
@@ -1319,7 +1319,7 @@ namespace Proyecto
         //En caso que el usuario necesite aplicar impuesto a la factura de servicios
         private void Rb_Si_Servicio_Checked(object sender, RoutedEventArgs e)
         {
-            if (txb_impuesto_Servicios != null)
+            if (txb_impuesto_Servicios != null && txb_porcentaje_impuesto != null)
             {
                 txb_porcentaje_impuesto.Visibility = Visibility.Visible;
                 txt_porcentaje_impuesto.Visibility = Visibility.Visible;
@@ -1393,10 +1393,10 @@ namespace Proyecto
                     {
                         try
                         {
-                            miDetalle.cantidad = txb_Cantidad.Text;
+                            miDetalle.cantidad = int.Parse(txb_Cantidad.Text);
                             miDetalle.precioProducto = txb_Precio.Text;
                             miDetalle.descripcion_servicio = txb_descripcion.Text;
-                            miDetalle.id_factura = txt_codigo_factura_servicios.Content.ToString();
+                            miDetalle.id_factura = int.Parse(txt_codigo_factura_servicios.Content.ToString());
                             int v_ResultadoD = datos.AgregarDetalle(miDetalle);
                             if (v_Resultado == -1)
                             {

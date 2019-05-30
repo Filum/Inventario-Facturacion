@@ -178,7 +178,7 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("ID_CLIE", fact.v_Cliente));
             comando.Parameters.Add(new OracleParameter("V_TOTAL", fact.v_Total));
             comando.Parameters.Add(new OracleParameter("V_DESCUENTO", fact.v_Descuento));
-            comando.Parameters.Add(new OracleParameter("V_MONEDA", fact.v_Moneda));
+            comando.Parameters.Add(new OracleParameter("V_MONE", fact.v_Moneda));
             comando.Parameters.Add(new OracleParameter("V_IMP", fact.v_Impuesto));
             comando.Parameters.Add(new OracleParameter("V_TIPO", fact.v_tipoFactura));
             comando.Parameters.Add(new OracleParameter("V_SUBTOTAL", fact.v_Subtotal));

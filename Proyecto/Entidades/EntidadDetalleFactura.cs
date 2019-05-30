@@ -9,12 +9,12 @@ namespace Entidades
     public class EntidadDetalleFactura
     {
         public string tipo { get; set; }
-        public string id_detalle { get; set; }
-        public string subtotal { get; set; }
+        public int id_detalle { get; set; }
+        public float subtotal { get; set; }
         public string descripcion_servicio { get; set; }
-        public string id_producto { get; set; }
-        public string id_factura { get; set; }
-        public string cantidad { get; set; }
+        public int id_producto { get; set; }
+        public int id_factura { get; set; }
+        public int cantidad { get; set; }
 
         public string impuesto { get; set; }
         public string descuento { get; set; }
@@ -25,7 +25,7 @@ namespace Entidades
 
         }
 
-        public EntidadDetalleFactura(string id_Detalle, string subtotal, string descripcion_servicio, string id_producto, string id_factura, string cantidad,string tipo,string descuento,string impuesto)
+        public EntidadDetalleFactura(int id_Detalle, float subtotal, string descripcion_servicio, int id_producto, int id_factura, int cantidad,string tipo,string descuento,string impuesto)
         {
             this.id_detalle = id_Detalle;
             this.subtotal = subtotal;

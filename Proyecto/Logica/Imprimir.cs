@@ -262,7 +262,7 @@ namespace Logica
                 {
                     TableRow row10 = new TableRow();
                     row10.Cells.Add(new TableCell(new Paragraph(new Run("Cantidad horas: "))));
-                    row10.Cells.Add(new TableCell(new Paragraph(new Run(detalle.cantidad))));
+                    row10.Cells.Add(new TableCell(new Paragraph(new Run(detalle.cantidad.ToString()))));
                     for (int n = 0; n < row10.Cells.Count; n++)
                     {
                         row10.Cells[n].BorderThickness = new Thickness(0, 1, 1, 0);
