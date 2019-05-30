@@ -21,6 +21,7 @@ namespace Datos
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
             DateTime dia = DateTime.Now;
+            //string fecha = dia.ToShortDateString();
             string fecha = dia.ToShortDateString();
 
             DataSet tipoCambio = cliente.ObtenerIndicadoresEconomicos("317", fecha, fecha, "Usuario", "N");
@@ -140,10 +141,10 @@ namespace Datos
             comando.Parameters.Add(new OracleParameter("V_SUBNETO", fact.v_SubtotalNeto));
             comando.Parameters.Add(new OracleParameter("V_TPAGO", fact.v_tipoPago));
             comando.Parameters.Add(new OracleParameter("V_DCREDITO", fact.v_diasCredito));
-            comando.Parameters.Add(new OracleParameter("V_EFACTURA", fact.v_estadoFactura));
-            comando.Parameters.Add(new OracleParameter("V_FPAGO", fact.v_fechaPago));
-            comando.Parameters.Add(new OracleParameter("V_FCANCELAR", fact.v_fechaCancelacion));
-            comando.Parameters.Add(new OracleParameter("V_TIPOCAM", fact.v_tipoCambio));
+            comando.Parameters.Add(new OracleParameter("V_EFACTURA", fact.v_estadoFactura)); 
+            comando.Parameters.Add(new OracleParameter("V_FPAGO", DateTime.ParseExact(fact.v_fechaPago, "dd/MMM/yyyy", CultureInfo.InvariantCulture)));   
+            comando.Parameters.Add(new OracleParameter("V_FCANCELAR", DateTime.ParseExact(fact.v_fechaCancelacion, "dd/MMM/yyyy", CultureInfo.InvariantCulture)));
+            comando.Parameters.Add(new OracleParameter("V_TIPOCAM", fact.v_tipoCambio)); 
             int v_Resultado = comando.ExecuteNonQuery();
             conn.Close();
             return v_Resultado;
