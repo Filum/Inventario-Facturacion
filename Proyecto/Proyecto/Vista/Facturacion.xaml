@@ -34,7 +34,7 @@
                 <GradientStop Color="#FF040608"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid Width="90" HorizontalAlignment="Right" Background="#FF3472DE" Margin="0,40,-0.2,0.2">
+        <Grid Width="90" HorizontalAlignment="Right" Background="#FF3472DE" Margin="0,40,0,0">
             <Button x:Name="btn_menu" Width="75" Height="90" Foreground="White" Margin="7,196,0,117.2" Background="{x:Null}" BorderBrush="{x:Null}" Click="btn_Salir_Click" HorizontalAlignment="Center" >
                 <StackPanel x:Name="btn_menu_facturas" Width="75" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="imagenes/menu.png" Width="60" Height="60"
@@ -57,23 +57,23 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
             </Button>
 
         </Grid>
-        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,89.8,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click">
+        <Button x:Name="btn_minimizar" VerticalAlignment="Top" Margin="0,0,90,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_minimizar_Click">
             <Image x:Name="img_minimizar_png" Height="16" Source="Imagenes/img_minimizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,49.8,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click">
+        <Button x:Name="btn_maximizar" VerticalAlignment="Top" Margin="0,0,50,0" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_maximizar_Click">
             <Image x:Name="img_maximizar_png" Height="16" Source="Imagenes/img_maximizar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0,0,9.8,0">
+        <Button x:Name="btn_cerrar" VerticalAlignment="Top" Height="30" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="40" Click="btn_cerrar_Click" Margin="0,0,10,0">
             <Image x:Name="img_cancelar_png" Height="16" Source="Imagenes/img_cancelar.png" Stretch="Fill" Width="16"/>
         </Button>
-        <Rectangle x:Name="barra_movil" Height="30" VerticalAlignment="Top" MouseDown="barra_movil__MouseDown" Cursor="Hand" Margin="20,0,265.8,0">
+        <Rectangle x:Name="barra_movil" Height="30" VerticalAlignment="Top" MouseDown="barra_movil__MouseDown" Cursor="Hand" Margin="20,0,266,0">
             <Rectangle.Fill>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label x:Name="txt_fecha" Content="fecha" Margin="10,0,0,5.2" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="245" Height="32" VerticalAlignment="Bottom"/>
+        <Label x:Name="txt_fecha" Content="fecha" Margin="10,0,0,5" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Width="245" Height="32" VerticalAlignment="Bottom"/>
 
-        <TabControl Margin="10,40,100.8,37.2">
+        <TabControl Margin="10,40,101,37">
             <TabItem>
 
                 <TabItem.Background>
@@ -285,115 +285,151 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             <GradientStop Color="#FF040608"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Label Content="Número de factura:" HorizontalAlignment="Left" Margin="29,29,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
 
-                    <Label Content="Cliente:" HorizontalAlignment="Left" Margin="29,82,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="cmb_Cliente_Productos_Prueba" Margin="209,85,21.2,0" VerticalAlignment="Top" Initialized="cmb_Cliente_Productos_Prueba_Initialized" />
-                    <GroupBox x:Name="gb_Moneda_prueba" Header="Moneda:" Margin="209,175,0,0" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Left" Width="147" Height="73" VerticalAlignment="Top">
-                        <StackPanel>
-                            <RadioButton x:Name="RadioButton_Colon1" Content="Colón (₡)"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True" Checked="RadioButton_Colon1_Checked"/>
-                            <RadioButton x:Name="RadioButton_Dolar1" Content="Dólar ($)" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="RadioButton_Dolar1_Checked" />
+                    <StackPanel HorizontalAlignment="Left" Height="834" Margin="310,29,0,0" VerticalAlignment="Top" Width="336">
+                        <Label x:Name="txt_codigo_factura" Margin="0,15" Content="# de factura:" HorizontalAlignment="Left" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="cmb_Cliente_Productos_Prueba" Margin="0,15" VerticalAlignment="Top" Initialized="cmb_Cliente_Productos_Prueba_Initialized" />
+                        <StackPanel Margin="0,0,10,0" Orientation="Horizontal" Grid.ColumnSpan="2">
+                            <GroupBox x:Name="gb_Moneda_prueba" Margin="0,15" Header="Moneda:" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Left" Width="147" Height="73" VerticalAlignment="Top" Grid.Column="1">
+                                <StackPanel>
+                                    <RadioButton x:Name="RadioButton_Colon1" Content="Colón (₡)"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True" Checked="RadioButton_Colon1_Checked"/>
+                                    <RadioButton x:Name="RadioButton_Dolar1" Content="Dólar ($)" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="RadioButton_Dolar1_Checked" />
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox x:Name="gb_Impuesto_prueba" Margin="0,15" Header="Impuesto Factura:" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Left" Width="146" Height="73" VerticalAlignment="Top" Grid.Column="2">
+                                <StackPanel>
+                                    <RadioButton x:Name="RadioButton_Si1" Content="Si" Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True" Checked="RadioButton_Si1_Checked"/>
+                                    <RadioButton x:Name="RadioButton_No1" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="RadioButton_No1_Checked" />
+                                </StackPanel>
+                            </GroupBox>
                         </StackPanel>
-                    </GroupBox>
-                    <GroupBox x:Name="gb_Impuesto_prueba" Header="Impuesto Factura:" Margin="412,175,0,0" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Left" Width="146" Height="73" VerticalAlignment="Top">
-                        <StackPanel>
-                            <RadioButton x:Name="RadioButton_Si1" Content="Si" Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True" Checked="RadioButton_Si1_Checked"/>
-                            <RadioButton x:Name="RadioButton_No1" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="RadioButton_No1_Checked" />
+                        <StackPanel Margin="0,0,10,0" Orientation="Horizontal">
+                            <Label x:Name="txt_Estado" Content="Agregar" HorizontalAlignment="Left" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="96" Height="30" VerticalAlignment="Top"/>
+                            <Label Content="productos" HorizontalAlignment="Left" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="96" Height="30" VerticalAlignment="Top"/>
                         </StackPanel>
-                    </GroupBox>
-                    <Button x:Name="btn_agregar_producto_prueba" Foreground="White" Margin="213,635,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="87" Click="btn_agregar_producto_prueba_Click" Height="104" VerticalAlignment="Top" >
-                        <StackPanel Width="71" Height="93" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,5,15.2,5"/>
-                            <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="  Agregar "/><LineBreak/><Run Text="Productos"/></TextBlock>
+                        <ComboBox x:Name="cmb_Productos" Margin="0,15" VerticalAlignment="Top" Initialized="cmb_Productos_Initialized" SelectionChanged="cmb_Productos_SelectionChanged" />
+                        <TextBox x:Name="txb_catidad_producto" Margin="0,15" TextWrapping="Wrap" Height="27" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="91"  MaxLength="6" IsReadOnly="True" TextChanged="txb_cantidad_producto_TextChanged" PreviewTextInput="Txb_catidad_producto_PreviewTextInput"/>
+                        <Label x:Name="lbl_error_cantidadproducto" HorizontalAlignment="Left" FontSize="12" FontFamily="Global Sans Serif" Foreground="Red" Width="248" Height="25" VerticalAlignment="Top" Visibility="Visible"/>
+                        <StackPanel Margin="0,0,139,0" Orientation="Horizontal" Grid.ColumnSpan="2">
+                            <TextBox x:Name="txb_descuento_linea_producto" Grid.Column="1" IsReadOnly="True" TextWrapping="Wrap" MaxLength="3" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="91" PreviewTextInput="Txb_descuento_linea_producto_PreviewTextInput"/>
+                            <Label Content="%" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" Margin="0,0,190,0"/>
                         </StackPanel>
-                    </Button>
-                    <DataGrid x:Name="dtg_facturar_productos_prueba" AlternatingRowBackground="LightGray" ItemsSource="{Binding}" IsReadOnly="True" AutoGenerateColumns="False" Margin="13.8,29,9.8,262.8" FrozenColumnCount="5" FontSize="12" Grid.Column="1"  >
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="FontWeight" Value="Bold" />
-                                <Setter Property="FontSize"  Value="14" />
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                        <DataGrid.Resources>
-                            <Style TargetType="DataGridRow">
-                                <EventSetter Event="MouseDoubleClick" Handler="Row_Double_Click"/>
-                            </Style>
-                        </DataGrid.Resources>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Servicio}" FontFamily="Global Sans Serif"  Header="Tipo" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Codigo}" FontFamily="Global Sans Serif" Header="CódigoProducto" Width="119"/>
-                            <DataGridTextColumn Binding="{Binding Producto}" FontFamily="Global Sans Serif" Header="Descripción Producto" Width="160"/>
-                            <DataGridTextColumn Binding="{Binding Cantidad}" FontFamily="Global Sans Serif" Header="Cantidad" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Precio}" FontFamily="Global Sans Serif" Header="Precio Unitario" Width="109"/>
-                            <DataGridTextColumn Binding="{Binding Descuento}" FontFamily="Global Sans Serif" Header="Descuento" Width="84"/>
-                            <DataGridTextColumn Binding="{Binding Impuesto}" FontFamily="Global Sans Serif" Header="Impuesto" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding Total}" FontFamily="Global Sans Serif" Header="Subtotal" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Label Content="Subtotal:" Margin="0,0,170.8,227.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
-                    <TextBox x:Name="txb_subtotal_factura_prueba"  Margin="0,0,99.8,227.8" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom" TextChanged="txb_subtotal_factura_prueba_TextChanged"/>
-                    <Label Content="Descuento:" Margin="0,0,170.8,171.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
-                    <TextBox x:Name="txb_descuento_Producto_prueba"  Margin="0,0,135.8,171.8" TextWrapping="Wrap" MaxLength="3" Grid.Column="1" HorizontalAlignment="Right" Width="55" Height="30" VerticalAlignment="Bottom" TextChanged="txb_descuento_Producto_prueba_TextChanged" PreviewTextInput="Txb_descuento_Producto_prueba_PreviewTextInput"/>
-                    <Label Content="Total a facturar:" Margin="0,0,170.8,9.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
-                    <TextBox x:Name="txb_total_factura_prueba"  Margin="0,0,99.8,9.8" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom"/>
+                        <Label x:Name="lbl_error_descuentoproducto"   HorizontalAlignment="Left" FontSize="12" FontFamily="Global Sans Serif" Foreground="Red" Width="248" Height="25" VerticalAlignment="Top" Visibility="Visible"/>
+                        <GroupBox x:Name="gb_Impuesto_prueba_Copy" Margin="0,15" Header="Impuesto Producto:" FontFamily="Global Sans Serif" Foreground="White" Height="73" VerticalAlignment="Top" HorizontalAlignment="Left" Width="169">
+                            <StackPanel>
+                                <RadioButton x:Name="Rb_siProducto" Content="Si"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True"/>
+                                <RadioButton x:Name="Rb_noProducto" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" />
+                            </StackPanel>
+                        </GroupBox>
+                        <Button x:Name="btn_agregar_producto_prueba" Margin="0,15" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="87" Click="btn_agregar_producto_prueba_Click" Height="104" VerticalAlignment="Top" >
+                            <StackPanel Width="71" Height="93" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,5,15.2,5"/>
+                                <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="  Agregar "/><LineBreak/><Run Text="Productos"/></TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+
+
+                    <StackPanel Margin="29,29,473,10" Orientation="Vertical" >
+                        <Label Content="Número de factura:" Margin="0,15" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170"/>
+                        <Label Content="Cliente:" Margin="0,15" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170"/>
+                        <Label Content="Descripción :" Margin="0,140" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170"/>
+                        <Label Content="Cantidad:" Margin="0,-110" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170"/>
+                        <Label Content="Descuento:" Margin="0,-40" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="14,19,10,6" Orientation="Vertical">
+                        <DataGrid x:Name="dtg_facturar_productos_prueba" AlternatingRowBackground="LightGray" ItemsSource="{Binding}" IsReadOnly="True" AutoGenerateColumns="False" FrozenColumnCount="5" FontSize="12" Height="530"  >
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <EventSetter Event="Control.MouseDoubleClick" Handler="Row_Double_Click"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="FontSize"  Value="14" />
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Servicio}" FontFamily="Global Sans Serif"  Header="Tipo" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Codigo}" FontFamily="Global Sans Serif" Header="CódigoProducto" Width="119"/>
+                                <DataGridTextColumn Binding="{Binding Producto}" FontFamily="Global Sans Serif" Header="Descripción Producto" Width="160"/>
+                                <DataGridTextColumn Binding="{Binding Cantidad}" FontFamily="Global Sans Serif" Header="Cantidad" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Precio}" FontFamily="Global Sans Serif" Header="Precio Unitario" Width="109"/>
+                                <DataGridTextColumn Binding="{Binding Descuento}" FontFamily="Global Sans Serif" Header="Descuento" Width="84"/>
+                                <DataGridTextColumn Binding="{Binding Impuesto}" FontFamily="Global Sans Serif" Header="Impuesto" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Total}" FontFamily="Global Sans Serif" Header="Subtotal" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Margin="0,20" Orientation="Horizontal" Height="242">
+                            <StackPanel Margin="0,8,0,15" Orientation="Vertical" Width="126">
+                                <Button x:Name="btn_eliminar_producto" Width="87" Foreground="White" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Height="104" VerticalAlignment="Bottom" Click="btn_eliminar_producto_Click" >
+                                    <StackPanel Width="71" Height="93" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Source="Imagenes/eliminar.png" Width="45" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,5,10.2,5"/>
+                                        <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="   Eliminar "/><LineBreak/><Run Text="  Productos"/></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="btn_imprimir_factura_prueba" Foreground="White" Margin="9,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Height="109" VerticalAlignment="Bottom" Click="btn_imprimir_factura_prueba_Click" HorizontalAlignment="Left" Width="93">
+                                    <StackPanel Width="98" Height="115" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                        <TextBlock Height="56" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,-0.4,0" Width="98" HorizontalAlignment="Left"><Run Text="      Imprimir"/><LineBreak/><Run Text="            o"/><LineBreak/><Run Text="  Guardar pdf"/></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+
+                            <StackPanel Margin="25,0" Orientation="Vertical" Width="290">
+                                <GroupBox x:Name="gb_tipoPagoProductos" Header="Tipo de pago:" FontFamily="Global Sans Serif" Foreground="White" Height="73" VerticalAlignment="Top" Margin="0,0,121,0">
+                                    <StackPanel>
+                                        <RadioButton x:Name="Rb_Contado" Content="Contado"  Foreground="White" FontSize="16" Height="24" Width="89" Checked="Rb_Contado_Checked" IsChecked="True"/>
+                                        <RadioButton x:Name="Rb_Credito" Content="Credito"  Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="Rb_Credito_Checked" />
+                                    </StackPanel>
+                                </GroupBox>
+                                <StackPanel Margin="0,15,53,15" Orientation="Horizontal">
+                                    <Label x:Name="txt_Credito" Content="Cantidad de dias :" Visibility="Hidden" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="137" Height="30" VerticalAlignment="Bottom"/>
+                                    <TextBox x:Name="txb_diasCredito" Visibility="Hidden" TextWrapping="Wrap" MaxLength="3" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom" PreviewTextInput="Txb_diasCredito_PreviewTextInput" />
+                                </StackPanel>
+                                <Label x:Name="lbl_error_creditoproductos" FontSize="12" FontFamily="Global Sans Serif" Foreground="Red" Height="25" VerticalAlignment="Top" Visibility="Visible" Margin="0,0,10,0" HorizontalAlignment="Right" Width="195" />
+                                <Button x:Name="btn_agregarCredito" Visibility="Hidden" Width="70" Foreground="White" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Height="70" VerticalAlignment="Bottom" Click="btn_agregarCredito_Click" >
+                                    <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
+                                        <TextBlock Text="Agregar" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+
+
+
+                            <StackPanel Margin="25,0" Orientation="Horizontal" Width="370">
+                                <StackPanel Orientation="Vertical" Width="168">
+                                    <Label Content="Subtotal:" Margin="0,10" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
+                                    <Label Content="Descuento:" Margin="0,5" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
+                                    <Label Content="Subtotal Neto:" Margin="0,10" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
+                                    <Label Content="Impuesto:" Margin="0,5" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
+                                    <Label Content="Total a facturar:" Margin="0,5" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Width="166">
+                                    <TextBox x:Name="txb_subtotal_factura_prueba" Margin="0,10" TextWrapping="Wrap" IsReadOnly="True" Height="25" VerticalAlignment="Bottom" TextChanged="txb_subtotal_factura_prueba_TextChanged" HorizontalAlignment="Left" Width="91"/>
+                                    <StackPanel Margin="0,0,36,0" Orientation="Horizontal">
+                                        <TextBox x:Name="txb_descuento_Producto_prueba" Margin="0,5" TextWrapping="Wrap" MaxLength="3" Height="25" VerticalAlignment="Bottom" TextChanged="txb_descuento_Producto_prueba_TextChanged" PreviewTextInput="Txb_descuento_Producto_prueba_PreviewTextInput" HorizontalAlignment="Left" Width="55"/>
+                                        <Label Content="%" Margin="0,5" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Left" Width="39" Height="30" VerticalAlignment="Bottom"/>
+                                    </StackPanel>
+                                    <Label x:Name="lbl_error_descuentofacturaproductos" HorizontalAlignment="Left" FontSize="12" FontFamily="Global Sans Serif" Foreground="Red" Width="181" Height="25" VerticalAlignment="Bottom" Visibility="Visible"/>
+                                    <TextBox x:Name="txb_subtotalneto" TextWrapping="Wrap" IsReadOnly="True" HorizontalAlignment="Left" Width="91" Height="25" VerticalAlignment="Bottom"/>
+                                    <TextBox x:Name="txb_impuestofactura" Margin="0,10" MaxLength="3" TextWrapping="Wrap" IsReadOnly="True" HorizontalAlignment="Left" Width="91" Height="25" VerticalAlignment="Bottom"/>
+                                    <TextBox x:Name="txb_total_factura_prueba" Margin="0,5" TextWrapping="Wrap" IsReadOnly="True" HorizontalAlignment="Left" Width="91" Height="25" VerticalAlignment="Bottom"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
                     <Label x:Name="txt_error_descuento_prueba" Content="" HorizontalAlignment="Left" Margin="319.8,848,0,0" VerticalAlignment="Top" Visibility="Visible" FontWeight="Bold" FontFamily="Global Sans Serif" Foreground="Red" Height="30" FontSize="12" Width="180" Grid.Column="1"/>
-                    <Button x:Name="btn_eliminar_producto" Width="87" Foreground="White" Margin="77.8,0,0,146.8" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Height="104" VerticalAlignment="Bottom" Click="btn_eliminar_producto_Click" >
-                        <StackPanel Width="71" Height="93" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/eliminar.png" Width="45" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,5,10.2,5"/>
-                            <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="   Eliminar "/><LineBreak/><Run Text="  Productos"/></TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btn_imprimir_factura_prueba" Foreground="White" Margin="86.8,0,0,31.8" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Height="109" VerticalAlignment="Bottom" Click="btn_imprimir_factura_prueba_Click" HorizontalAlignment="Left" Width="93">
-                        <StackPanel Width="98" Height="115" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/imprimir.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Height="56" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,-0.4,0" Width="98" HorizontalAlignment="Left"><Run Text="      Imprimir"/><LineBreak/><Run Text="            o"/><LineBreak/><Run Text="  Guardar pdf"/></TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Label Content="%" Margin="0,0,91.8,168.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="39" Height="30" VerticalAlignment="Bottom"/>
-                    <Label Content="productos" HorizontalAlignment="Left" Margin="412,282,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="96" Height="30" VerticalAlignment="Top"/>
-                    <Label Content="Descripción :" HorizontalAlignment="Left" Margin="29,340,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="cmb_Productos" Margin="209,343,21.2,0" VerticalAlignment="Top" Initialized="cmb_Productos_Initialized" SelectionChanged="cmb_Productos_SelectionChanged" />
-                    <Label Content="Cantidad:" HorizontalAlignment="Left" Margin="29,408,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txb_catidad_producto" Margin="209,407,0,0" TextWrapping="Wrap" Height="27" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="91"  MaxLength="6" IsReadOnly="True" TextChanged="txb_cantidad_producto_TextChanged" PreviewTextInput="Txb_catidad_producto_PreviewTextInput"/>
-                    <Label x:Name="txt_Estado" Content="Agregar" HorizontalAlignment="Left" Margin="339,282,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="96" Height="30" VerticalAlignment="Top"/>
+
                     <Button x:Name="btn_modificar_producto_prueba"  Foreground="White" Margin="213,632,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Height="104" VerticalAlignment="Top" HorizontalAlignment="Left" Width="87" Click="btn_modificar_producto_prueba_Click" Visibility="Collapsed" >
                         <StackPanel Width="71" Height="93" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Imagenes/editar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16,5,15.2,5"/>
                             <TextBlock  Height="42" FontSize="14" FontFamily="Global Sans Serif" Margin="0,0,0.2,0"><Run Text="  Editar "/><LineBreak/><Run Text="Productos"/></TextBlock>
                         </StackPanel>
                     </Button>
-                    <Label x:Name="txt_codigo_factura" Content="# de factura:" HorizontalAlignment="Left" Margin="209,29,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Width="154" Height="30" VerticalAlignment="Top"/>
-                    <Label Content="Descuento:" Margin="29,478,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="154"/>
-                    <TextBox x:Name="txb_descuento_linea_producto"  IsReadOnly="True" Margin="209,479,0,0" TextWrapping="Wrap" MaxLength="3" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="91" PreviewTextInput="Txb_descuento_linea_producto_PreviewTextInput"/>
-                    <GroupBox x:Name="gb_Impuesto_prueba_Copy" Header="Impuesto Producto:" Margin="209,538,0,0" FontFamily="Global Sans Serif" Foreground="White" Height="73" VerticalAlignment="Top" HorizontalAlignment="Left" Width="169">
-                        <StackPanel>
-                            <RadioButton x:Name="Rb_siProducto" Content="Si"  Foreground="White" FontSize="16" Height="24" Width="89" IsChecked="True"/>
-                            <RadioButton x:Name="Rb_noProducto" Content="No" BorderBrush="{x:Null}" Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" />
-                        </StackPanel>
-                    </GroupBox>
-                    <Label Content="%" Margin="339,478,0,0" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Left" Width="39" Height="30" VerticalAlignment="Top"/>
-                    <Label Content="Subtotal Neto:" Margin="0,0,170.8,116.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
-                    <TextBox x:Name="txb_subtotalneto"  Margin="0,0,99.8,116.8" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom"/>
-                    <Label Content="Impuesto:" Margin="0,0,170.8,65.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="154" Height="30" VerticalAlignment="Bottom"/>
-                    <TextBox x:Name="txb_impuestofactura" MaxLength="3" Margin="0,0,99.8,65.8" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom"/>
-                    <GroupBox x:Name="gb_tipoPagoProductos" Header="Tipo de pago:" Margin="0,0,382.8,168.8" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="169" Grid.Column="1" Height="73" VerticalAlignment="Bottom">
-                        <StackPanel>
-                            <RadioButton x:Name="Rb_Contado" Content="Contado"  Foreground="White" FontSize="16" Height="24" Width="89" Checked="Rb_Contado_Checked" IsChecked="True"/>
-                            <RadioButton x:Name="Rb_Credito" Content="Credito"  Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="Rb_Credito_Checked" />
-                        </StackPanel>
-                    </GroupBox>
-                    <Button x:Name="btn_agregarCredito" Visibility="Hidden" Width="70" Foreground="White" Margin="0,0,382.8,19.8" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Column="1" Height="70" VerticalAlignment="Bottom" Click="btn_agregarCredito_Click" >
-                        <StackPanel Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Imagenes/agregar.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5"/>
-                            <TextBlock Text="Agregar" Height="16" FontSize="14" FontFamily="Global Sans Serif" Margin="10,0,0,0" Width="50" HorizontalAlignment="Left"/>
-                        </StackPanel>
-                    </Button>
-                    <Label x:Name="txt_Credito" Content="Cantidad de dias :" Visibility="Hidden" Margin="0,0,482.8,112.8" FontSize="16" FontFamily="Global Sans Serif" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Width="137" Height="30" VerticalAlignment="Bottom"/>
-                    <TextBox x:Name="txb_diasCredito" Visibility="Hidden" Margin="0,0,382.8,112.8" TextWrapping="Wrap" MaxLength="3" Grid.Column="1" HorizontalAlignment="Right" Width="91" Height="30" VerticalAlignment="Bottom" PreviewTextInput="Txb_diasCredito_PreviewTextInput" />
-                    <Label x:Name="lbl_error_cantidadproducto"   HorizontalAlignment="Left" Margin="209,439,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="Red" Width="248" Height="25" VerticalAlignment="Top" Visibility="Visible"/>
-                    <Label x:Name="lbl_error_descuentoproducto"   HorizontalAlignment="Left" Margin="209,513,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="Red" Width="248" Height="25" VerticalAlignment="Top" Visibility="Visible"/>
-                    <Label x:Name="lbl_error_descuentofacturaproductos"   HorizontalAlignment="Right" Margin="0,0,9.8,146.8" FontSize="12" FontFamily="Global Sans Serif" Foreground="Red" Width="181" Height="25" VerticalAlignment="Bottom" Visibility="Visible" Grid.Column="1"/>
-                    <Label x:Name="lbl_error_creditoproductos"   HorizontalAlignment="Left" Margin="515.8,797,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="Red" Width="149" Height="25" VerticalAlignment="Top" Visibility="Visible" Grid.Column="1"/>
 
 
 
@@ -401,7 +437,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
             </TabItem>
         </TabControl>
         <Label Content="Facturación " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,129.8,0" HorizontalAlignment="Right" Width="90"/>
+        <Label Content="SIF" VerticalAlignment="Top" Foreground="White" Margin="0,0,130,0" HorizontalAlignment="Right" Width="90"/>
 
 
     </Grid>
