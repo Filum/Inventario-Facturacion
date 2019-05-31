@@ -37,9 +37,8 @@ namespace Proyecto.Vista
             datos.CambiarestadoFactura("Cancelado", txt_codigo.Content.ToString());
             Pago.Content = "FECHA DE CANCELACIÓN: ";
             EstadoFactura.Content = "Cancelado";
-            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
             DateTime dia = DateTime.Now;
-            pagoFactura.Content = dia.ToShortDateString();
+            pagoFactura.Content = dia.ToString("dd/MMM/yyyy");
             btn_pagar_Factura.Visibility = Visibility.Hidden;
         }
 
@@ -49,7 +48,6 @@ namespace Proyecto.Vista
             EntidadFacturas miFactura = new EntidadFacturas();
             EntidadDetalleFactura miDetalle = new EntidadDetalleFactura();
             Imprimir imprimir = new Imprimir();
-            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
             DateTime fecha = DateTime.Parse(txt_fecha.Content.ToString());
             EntidadClientes micliente = new EntidadClientes();
             micliente = datos.id_Cliente(nombreCliente.Content.ToString());

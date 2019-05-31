@@ -1027,7 +1027,7 @@ namespace Proyecto
 
         private void Rb_Contado_Checked(object sender, RoutedEventArgs e)
         {
-            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+          //  System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
             DateTime dia = DateTime.Now;
             tipoPago = "Contado";
                 diasCredito = "0";
@@ -1052,13 +1052,13 @@ namespace Proyecto
         {
             if(txb_diasCredito.Text != "" )
             {
-                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+               // System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
                 int diasContado = int.Parse(txb_diasCredito.Text);
                 DateTime dia = DateTime.Now.AddDays(diasContado);
                 tipoPago = "Credito";
                 diasCredito = txb_diasCredito.Text;
                 estadoFactura = "Pendiente";
-                fechaPago = dia.ToString("dd/MMM/yyyy"); ;
+                fechaPago = dia.ToString("dd/MMM/yyyy"); 
 
                 MessageBox.Show("Tiene credito hasta el "+fechaPago, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                 txb_diasCredito.Visibility = Visibility.Hidden;
@@ -1162,7 +1162,7 @@ namespace Proyecto
             tipoPago = "Contado";
             diasCredito = "0";
             estadoFactura = "Cancelado";
-            fechaPago = dia.ToString("dd/MM/yy");
+            fechaPago = dia.ToString("dd/MMM/yyyy");
             if (txb_diasCredito != null)
             {
                 txb_diasCredito_Servicio.Visibility = Visibility.Hidden;
@@ -1265,7 +1265,7 @@ namespace Proyecto
                 tipoPago = "Credito";
                 diasCredito = txb_diasCredito_Servicio.Text;
                 estadoFactura = "Pendiente";
-                fechaPago = dia.ToShortDateString();
+                fechaPago = dia.ToString("dd/MMM/yyyy");
 
                 MessageBox.Show("Tiene credito hasta el " + fechaPago, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                 txb_diasCredito_Servicio.Visibility = Visibility.Hidden;
