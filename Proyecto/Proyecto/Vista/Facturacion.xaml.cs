@@ -398,6 +398,7 @@ namespace Proyecto
         /// </summary>
         EntidadFacturas miFactura = new EntidadFacturas();
         EntidadDetalleFactura miDetalle = new EntidadDetalleFactura();
+       // DateTime diah = DateTime.Now;
         private float montos = 0;
         private string tipoPago = "";
         private string diasCredito = "";
@@ -422,6 +423,7 @@ namespace Proyecto
             }
             catch (Exception m)
             {
+                Console.Write(m);
                 txt_codigo_factura.Content = "1";
             }
         }
@@ -442,6 +444,7 @@ namespace Proyecto
         //funcion para limpiar la factura de productos
         private void limpiar_Facturaprodutcos()
         {
+            DateTime dia = DateTime.Now;
             dtg_facturar_productos_prueba.Items.Clear();
             RadioButton_Si1.IsChecked = true;
             txb_subtotal_factura_prueba.Text = "0";
@@ -463,7 +466,7 @@ namespace Proyecto
             tipoPago = "";
             diasCredito = "";
             estadoFactura = "";
-            fechaPago = "";
+            fechaPago = dia.ToString("dd/MMM/yyyy");
         }
 
         //Funcion para gregar un nuevo producto con sus respectivas caracteristicas al datgrid
@@ -1034,7 +1037,7 @@ namespace Proyecto
             }
             catch (Exception m)
             {
-                MessageBox.Show(m.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error al ingresar la factura", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.WriteLine(m.ToString());
             }
         }
@@ -1111,6 +1114,7 @@ namespace Proyecto
             }
             catch (Exception m)
             {
+                Console.Write(m);
                 txt_codigo_factura_servicios.Content = "1";
             }
             if( txb_descripcion.Text == "")
@@ -1129,6 +1133,7 @@ namespace Proyecto
         //funcion para limpiar los datos de la facturas de servicios
         public void LimpiarServicio()
         {
+            DateTime dia = DateTime.Now;
             cmb_Cliente_servicios.SelectedItem = null;
             txt_codigo_factura_servicios.Content = (datos.MaximaFactura() + 1).ToString();
             txb_impuesto_Servicios.Text = "0";
@@ -1145,7 +1150,7 @@ namespace Proyecto
             tipoPago = "";
             diasCredito = "";
             estadoFactura = "";
-            fechaPago = "";
+            fechaPago = dia.ToString("dd/MMM/yyyy");
             Rb_Contado_Servicio.IsChecked = true;
             Rb_Si_Servicio.IsChecked = true;
             Rb_Colon_Servicio.IsChecked = true;
@@ -1399,6 +1404,7 @@ namespace Proyecto
                             miDetalle.precioProducto = txb_Precio.Text;
                             miDetalle.descripcion_servicio = txb_descripcion.Text;
                             miDetalle.id_factura = int.Parse(txt_codigo_factura_servicios.Content.ToString());
+                            miDetalle.id_producto = 1;
                             int v_ResultadoD = datos.AgregarDetalle(miDetalle);
                             if (v_Resultado == -1)
                             {
@@ -1424,7 +1430,7 @@ namespace Proyecto
             }
             catch (Exception m)
             {
-                MessageBox.Show(m.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error al ingresar la factura", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.WriteLine(m.ToString());
             }
         }

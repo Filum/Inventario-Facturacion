@@ -195,32 +195,7 @@ namespace Datos
             return v_Resultado;
         }
 
-        public int AgregarFacturas(EntidadFacturas fact)
-        {
-            OracleConnection conn = DataBase.Conexion();
-            conn.Open();
-            OracleCommand comando = new OracleCommand("ADD_FACTURAS", conn as OracleConnection);
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add(new OracleParameter("ID_FACTURA", fact.v_Codigo));
-            comando.Parameters.Add(new OracleParameter("ID_USU", fact.v_Usuario));
-            comando.Parameters.Add(new OracleParameter("ID_CLIE", fact.v_Cliente));
-            comando.Parameters.Add(new OracleParameter("V_TOTAL", fact.v_Total));
-            comando.Parameters.Add(new OracleParameter("V_DESCUENTO", fact.v_Descuento));
-            comando.Parameters.Add(new OracleParameter("V_MONE", fact.v_Moneda));
-            comando.Parameters.Add(new OracleParameter("V_IMP", fact.v_Impuesto));
-            comando.Parameters.Add(new OracleParameter("V_TIPO", fact.v_tipoFactura));
-            comando.Parameters.Add(new OracleParameter("V_SUBTOTAL", fact.v_Subtotal));
-            comando.Parameters.Add(new OracleParameter("V_SUBNETO", fact.v_SubtotalNeto));
-            comando.Parameters.Add(new OracleParameter("V_TPAGO", fact.v_tipoPago));
-            comando.Parameters.Add(new OracleParameter("V_DCREDITO", fact.v_diasCredito));
-            comando.Parameters.Add(new OracleParameter("V_EFACTURA", fact.v_estadoFactura));
-            comando.Parameters.Add(new OracleParameter("V_FPAGO", fact.v_fechaPago));
-            comando.Parameters.Add(new OracleParameter("V_FCANCELAR", fact.v_fechaCancelacion));
-            comando.Parameters.Add(new OracleParameter("V_TIPOCAM", fact.v_tipoCambio));
-            int v_Resultado = comando.ExecuteNonQuery();
-            conn.Close();
-            return v_Resultado;
-        }
+    
 
         public int AgregarDetalle(EntidadDetalleFactura fact)
         {

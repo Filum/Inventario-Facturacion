@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datos", "Datos\Datos.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica", "Logica\Logica.csproj", "{88F02D93-A58D-446E-B431-B9731972262C}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Instalador SIF", "..\Instalador SIF\Instalador SIF.vdproj", "{34AFF74A-CEF0-456B-B44B-C583CF9B0D24}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,12 +69,6 @@ Global
 		{88F02D93-A58D-446E-B431-B9731972262C}.Release|x64.Build.0 = Release|x64
 		{88F02D93-A58D-446E-B431-B9731972262C}.Release|x86.ActiveCfg = Release|x86
 		{88F02D93-A58D-446E-B431-B9731972262C}.Release|x86.Build.0 = Release|x86
-		{34AFF74A-CEF0-456B-B44B-C583CF9B0D24}.Debug|Any CPU.ActiveCfg = Debug
-		{34AFF74A-CEF0-456B-B44B-C583CF9B0D24}.Debug|x64.ActiveCfg = Debug
-		{34AFF74A-CEF0-456B-B44B-C583CF9B0D24}.Debug|x86.ActiveCfg = Debug
-		{34AFF74A-CEF0-456B-B44B-C583CF9B0D24}.Release|Any CPU.ActiveCfg = Release
-		{34AFF74A-CEF0-456B-B44B-C583CF9B0D24}.Release|x64.ActiveCfg = Release
-		{34AFF74A-CEF0-456B-B44B-C583CF9B0D24}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
