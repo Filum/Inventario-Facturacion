@@ -30,6 +30,7 @@ namespace Proyecto
         public string nombreUsuario; //variable para cargar el nombre del usuario en esta pantalla
         Model datos = new Model();//variable para llamar los metodos de acceso a la base de datos
         EntidadBitacora bitacora = new EntidadBitacora();
+        
         public Facturacion()
         {
             InitializeComponent();
@@ -68,6 +69,7 @@ namespace Proyecto
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
             Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.nombreUsuario = nombreUsuario;
             ventana.Show();
             ventana.Pantalla = "Facturacion";
         }
@@ -203,7 +205,7 @@ namespace Proyecto
         {
             if (date_historial_datte3.SelectedDate != null && date_historial_datte4.SelectedDate != null)
             {
-                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
                 DateTime v_Date1 = DateTime.Parse(date_historial_datte3.SelectedDate.Value.Date.ToShortDateString());
                 DateTime v_Date2 = DateTime.Parse(date_historial_datte4.SelectedDate.Value.Date.ToShortDateString());
                 String v_Fecha1;
@@ -1055,9 +1057,9 @@ namespace Proyecto
         {
             DateTime dia = DateTime.Now;
             tipoPago = "Contado";
-            diasCredito = "0";
-            estadoFactura = "Cancelado";
-            fechaPago = dia.ToString("dd/MM/yyyy");
+                diasCredito = "0";
+                estadoFactura = "Cancelado";
+                fechaPago = dia.ToString("dd/MMM/yyyy");
             if (txb_diasCredito != null)
             {
                 txb_diasCredito.Visibility = Visibility.Hidden;
@@ -1077,13 +1079,13 @@ namespace Proyecto
         {
             if(txb_diasCredito.Text != "" )
             {
-                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+               // System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
                 int diasContado = int.Parse(txb_diasCredito.Text);
                 DateTime dia = DateTime.Now.AddDays(diasContado);
                 tipoPago = "Credito";
                 diasCredito = txb_diasCredito.Text;
                 estadoFactura = "Pendiente";
-                fechaPago = dia.ToString("dd/MM/yyyy");
+                fechaPago = dia.ToString("dd/MMM/yyyy"); 
 
                 MessageBox.Show("Tiene credito hasta el "+fechaPago, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                 txb_diasCredito.Visibility = Visibility.Hidden;
@@ -1187,7 +1189,7 @@ namespace Proyecto
             tipoPago = "Contado";
             diasCredito = "0";
             estadoFactura = "Cancelado";
-            fechaPago = dia.ToString("dd/MM/yyyy");
+            fechaPago = dia.ToString("dd/MMM/yyyy");
             if (txb_diasCredito != null)
             {
                 txb_diasCredito_Servicio.Visibility = Visibility.Hidden;
@@ -1290,7 +1292,7 @@ namespace Proyecto
                 tipoPago = "Credito";
                 diasCredito = txb_diasCredito_Servicio.Text;
                 estadoFactura = "Pendiente";
-                fechaPago = dia.ToString("dd/MM/yyyy");
+                fechaPago = dia.ToString("dd/MMM/yyyy");
 
                 MessageBox.Show("Tiene credito hasta el " + fechaPago, "Información", MessageBoxButton.OK, MessageBoxImage.Information);
                 txb_diasCredito_Servicio.Visibility = Visibility.Hidden;

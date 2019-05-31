@@ -21,6 +21,7 @@ namespace Datos
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
             DateTime dia = DateTime.Now;
+            //string fecha = dia.ToShortDateString();
             string fecha = dia.ToShortDateString();
 
             DataSet tipoCambio = cliente.ObtenerIndicadoresEconomicos("317", fecha, fecha, "Usuario", "N");
@@ -122,8 +123,35 @@ namespace Datos
             return v_Resultado;
         }
 
-        /*Se llama a un procedimiento almacenado (store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo producto.
-       Si se agrega correctamente retorna un "-1" */
+        public int AgregarFacturas(EntidadFacturas fact)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand("ADD_FACTURAS", conn as OracleConnection);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add(new OracleParameter("ID_FACTURA", fact.v_Codigo));
+            comando.Parameters.Add(new OracleParameter("ID_USU", fact.v_Usuario));
+            comando.Parameters.Add(new OracleParameter("ID_CLIE", fact.v_Cliente));
+            comando.Parameters.Add(new OracleParameter("V_TOTAL", fact.v_Total));
+            comando.Parameters.Add(new OracleParameter("V_DESCUENTO", fact.v_Descuento));
+            comando.Parameters.Add(new OracleParameter("V_MONEDA", fact.v_Moneda));
+            comando.Parameters.Add(new OracleParameter("V_IMP", fact.v_Impuesto));
+            comando.Parameters.Add(new OracleParameter("V_TIPO", fact.v_tipoFactura));
+            comando.Parameters.Add(new OracleParameter("V_SUBTOTAL", fact.v_Subtotal));
+            comando.Parameters.Add(new OracleParameter("V_SUBNETO", fact.v_SubtotalNeto));
+            comando.Parameters.Add(new OracleParameter("V_TPAGO", fact.v_tipoPago));
+            comando.Parameters.Add(new OracleParameter("V_DCREDITO", fact.v_diasCredito));
+            comando.Parameters.Add(new OracleParameter("V_EFACTURA", fact.v_estadoFactura)); 
+            comando.Parameters.Add(new OracleParameter("V_FPAGO", DateTime.ParseExact(fact.v_fechaPago, "dd/MMM/yyyy", CultureInfo.InvariantCulture)));   
+            comando.Parameters.Add(new OracleParameter("V_FCANCELAR", DateTime.ParseExact(fact.v_fechaCancelacion, "dd/MMM/yyyy", CultureInfo.InvariantCulture)));
+            comando.Parameters.Add(new OracleParameter("V_TIPOCAM", fact.v_tipoCambio)); 
+            int v_Resultado = comando.ExecuteNonQuery();
+            conn.Close();
+            return v_Resultado;
+        }
+
+        /*Se llama a un procedimiento almacenado(store procedure) que se encuentra en la base de datos el cual permite ingresar un nuevo producto.
+       Si se modifica correctamente retorna un "-1" */
         public int AgregarProductos(EntidadProductos clt)
         {
             OracleConnection conn = DataBase.Conexion();

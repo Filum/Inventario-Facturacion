@@ -21,6 +21,7 @@ namespace Proyecto.Vista
     public partial class Ayuda : Window
     {
         public string Pantalla;
+        public string nombreUsuario;
         public Ayuda()
         {
             InitializeComponent(); System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();

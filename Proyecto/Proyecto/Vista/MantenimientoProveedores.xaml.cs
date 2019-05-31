@@ -316,6 +316,7 @@ namespace Proyecto
         private void btn_ayuda_Click(object sender, RoutedEventArgs e)
         {
             Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.nombreUsuario = nombreUsuario;
             ventana.Show();
             ventana.Pantalla = "Proveedores";
         }

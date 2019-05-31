@@ -52,6 +52,7 @@ namespace Proyecto
         private void btn_Ayuda_Click(object sender, RoutedEventArgs e)
         {
             Vista.Ayuda ventana = new Vista.Ayuda();
+            ventana.nombreUsuario = nombreUsuario;
             ventana.Show();
             ventana.Pantalla = "Clientes";
         }
