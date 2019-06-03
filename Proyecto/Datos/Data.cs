@@ -1110,7 +1110,24 @@ namespace Datos
             conn.Close();
             return tabla;
         }
-        
+        //Busca las facturas por el estado de la factura y el nombre del cliente
+        public DataTable BuscarFacturaClienteFechas(string v_Nombre, string fecha1, string fecha2)
+        {
+            OracleConnection conn = DataBase.Conexion();
+            conn.Open();
+            OracleCommand comando = new OracleCommand();
+            comando.Connection = conn;
+            comando.CommandText = "SELECT TBL_FACTURAS.TIPOFACTURA,TBL_FACTURAS.PK_CODIGOFACTURA,TBL_FACTURAS.FECHA,TBL_USUARIOS.NOMBREUSUARIO,TBL_CLIENTES.NOMBRE,TBL_FACTURAS.TOTAL,MONEDA,IMPUESTO,TBL_FACTURAS.DESCUENTO,TBL_FACTURAS.ESTADOFACTURA FROM TBL_FACTURAS INNER JOIN TBL_USUARIOS ON TBL_FACTURAS.FK_IDUSUARIO = TBL_USUARIOS.PK_IDUSUARIO INNER JOIN TBL_CLIENTES ON TBL_FACTURAS.FK_IDCLIENTE = TBL_CLIENTES.PK_IDCLIENTE WHERE translate(UPPER(NOMBRE),'ÁÉÍÓÚ', 'AEIOU') LIKE translate(UPPER('%" + v_Nombre + "%'),'ÁÉÍÓÚ', 'AEIOU')  AND trunc(TBL_FACTURAS.FECHA) BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
+            OracleDataReader dr = comando.ExecuteReader();
+
+            OracleDataAdapter adaptador = new OracleDataAdapter();
+            adaptador.SelectCommand = comando;
+            DataTable tabla = new DataTable();
+            adaptador.Fill(tabla);
+            conn.Close();
+            return tabla;
+        }
+
         //busca la factura por el estado de la misma
         public DataTable BuscarFacturaEstado(String v_Nombre)
         {

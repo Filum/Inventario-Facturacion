@@ -234,7 +234,15 @@ namespace Proyecto
                         {
                             try
                             {
-                               dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoClienteFechas(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString(),v_Fecha1,v_Fecha2).DefaultView;
+                                if (cmb_estado_Factura.SelectedItem != null && txb_buscar_cliente_factura.Text != "" && cmb_estado_Factura.SelectedItem.ToString() != "Todas")
+                                    dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoClienteFechas(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString(),v_Fecha1,v_Fecha2).DefaultView;
+                                else if(cmb_estado_Factura.SelectedItem.ToString() == "Todas")
+                                {
+                                    if(txb_buscar_cliente_factura.Text == "")
+                                        dtg_listar_facturas.ItemsSource = datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).DefaultView;
+                                    else
+                                        dtg_listar_facturas.ItemsSource = datos.BuscarFacturaClienteFechas(txb_buscar_cliente_factura.Text, v_Fecha1, v_Fecha2).DefaultView;
+                                }
                             }
                             catch (Exception m)
                             {

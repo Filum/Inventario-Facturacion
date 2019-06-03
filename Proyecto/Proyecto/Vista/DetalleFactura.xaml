@@ -55,7 +55,7 @@
         <Label Content="Fecha:" Margin="0,54,221.8,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="56"/>
         <Label x:Name="txt_codigo" Content="#" Margin="0,19,49.8,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="154"/>
 
-        <Label x:Name="txt_fecha" Content="Fecha:" HorizontalAlignment="Right" Margin="0,54,135.8,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="66" Height="30" VerticalAlignment="Top"/>
+        <Label x:Name="txt_fecha" Content="Fecha:" HorizontalAlignment="Right" Margin="0,54,135.2,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="69" Height="30" VerticalAlignment="Top"/>
         <Label Content="DELGADO RAMOS SOCIEDAD ANONIMA" HorizontalAlignment="Left" Margin="40,41,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="321" Height="30" VerticalAlignment="Top"/>
         <Label Content="(506) 24310896                           (506) 24439149" HorizontalAlignment="Left" Margin="40,71,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="361" Height="30" VerticalAlignment="Top"/>
         <Label Content="delram@delramtech.com             310390765  " HorizontalAlignment="Left" Margin="40,101,0,0" FontSize="12" FontFamily="Global Sans Serif" Foreground="White" Width="361" Height="30" VerticalAlignment="Top"/>

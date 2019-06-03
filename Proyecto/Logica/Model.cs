@@ -373,5 +373,10 @@ namespace Logica
             return v_Data.MostrarBitacoraPorFechaNombreAccion(mantenimiento,accion,fecha1,fecha2);
         }
 
-    }//Fin de la clase.
+        public DataTable BuscarFacturaClienteFechas(string v_Nombre, string fecha1, string fecha2)
+        {
+            return v_Data.BuscarFacturaClienteFechas(v_Nombre,fecha1,fecha2);
+        }
+
+        }//Fin de la clase.
 }//Fin del proyecto.
