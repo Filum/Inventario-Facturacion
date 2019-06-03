@@ -257,36 +257,43 @@ namespace Proyecto
         //Botón para listar los clientes existentes en el sistema.
         private void btn_Listar_Click(object sender, RoutedEventArgs e)
         {
-            if (date_historial_clientes_inicio.SelectedDate != null && date_historial_clientes_final.SelectedDate != null)
+            try
             {
-                DateTime v_Date1 = DateTime.Parse(date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString());
-                DateTime v_Date2 = DateTime.Parse(date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString());
-                String v_Fecha1;
-                v_Fecha1 = date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString();
-                String v_Fecha2;
-                v_Fecha2 = date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString();
-                if (v_Date1 > v_Date2)
+                if (date_historial_clientes_inicio.SelectedDate != null && date_historial_clientes_final.SelectedDate != null)
                 {
-                    MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    if (model.MostrarListaClientes(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                    DateTime v_Date1 = DateTime.Parse(date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString());
+                    DateTime v_Date2 = DateTime.Parse(date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString());
+                    String v_Fecha1;
+                    v_Fecha1 = date_historial_clientes_inicio.SelectedDate.Value.Date.ToShortDateString();
+                    String v_Fecha2;
+                    v_Fecha2 = date_historial_clientes_final.SelectedDate.Value.Date.ToShortDateString();
+                    if (v_Date1 > v_Date2)
                     {
-                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("El rango de fechas es incorrecto\nLa fecha inicial no puede ser mayor a la final", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
-                        dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(v_Fecha1, v_Fecha2).DefaultView;
-                        txb_buscar_cliente_Lista.Text = "";
-                        cmb_estado_Cliente.SelectedItem = null;
+                        if (model.MostrarListaClientes(v_Fecha1, v_Fecha2).Rows.Count == 0)
+                        {
+                            MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                        else
+                        {
+                            dtg_listar_clientes.ItemsSource = model.MostrarListaClientes(v_Fecha1, v_Fecha2).DefaultView;
+                            txb_buscar_cliente_Lista.Text = "";
+                            cmb_estado_Cliente.SelectedItem = null;
+                        }
                     }
-                }
 
-            }
-            else
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un rango de fechas", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }catch(Exception m)
             {
-                MessageBox.Show("Seleccione un rango de fechas", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.Write(m);
+                MessageBox.Show("Error al listar", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

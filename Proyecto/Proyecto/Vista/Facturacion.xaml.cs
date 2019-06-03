@@ -181,7 +181,7 @@ namespace Proyecto
         {
             try
             {
-                if (txb_buscar_cliente_factura.Text == "")
+                if (txb_buscar_cliente_factura.Text == "" )
                 {
                     if (cmb_estado_Factura.SelectedItem.ToString() == "Todas")
                     {
@@ -192,7 +192,10 @@ namespace Proyecto
                 }
                 else
                 {
+                    if (cmb_estado_Factura.SelectedItem.ToString() != "Todas")
                         dtg_listar_facturas.ItemsSource = datos.BuscarFacturaEstadoyCliente(txb_buscar_cliente_factura.Text, cmb_estado_Factura.SelectedItem.ToString()).DefaultView;
+                    else
+                        dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text.ToString()).DefaultView;
                 }
             }
             catch(Exception m)
@@ -205,7 +208,7 @@ namespace Proyecto
         {
             if (date_historial_datte3.SelectedDate != null && date_historial_datte4.SelectedDate != null)
             {
-                System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+               // System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
                 DateTime v_Date1 = DateTime.Parse(date_historial_datte3.SelectedDate.Value.Date.ToShortDateString());
                 DateTime v_Date2 = DateTime.Parse(date_historial_datte4.SelectedDate.Value.Date.ToShortDateString());
                 String v_Fecha1;
@@ -220,8 +223,8 @@ namespace Proyecto
                 {
                     if (datos.MostrarListaFacturas(v_Fecha1, v_Fecha2).Rows.Count == 0)
                     {
-                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                         dtg_listar_facturas.ItemsSource = null;
+                        MessageBox.Show("No hay datos registrados en el rango de fechas seleccionado", "Búsqueda", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else
                     {
@@ -373,7 +376,7 @@ namespace Proyecto
                 }
                 else
                 {
-                    if (cmb_estado_Factura.SelectedItem == null)
+                    if (cmb_estado_Factura.SelectedItem == null || cmb_estado_Factura.SelectedItem.ToString() == "Todas")
                     {
                         dtg_listar_facturas.ItemsSource = datos.BuscarFactura(txb_buscar_cliente_factura.Text).DefaultView;
                     }
@@ -608,7 +611,10 @@ namespace Proyecto
         private void btn_eliminar_producto_Click(object sender, RoutedEventArgs e)
         {
             //le descontamos el precio que habia en la lista
-            montos -= float.Parse((dtg_facturar_productos_prueba.SelectedCells[7].Column.GetCellContent(dtg_facturar_productos_prueba.SelectedItem) as TextBlock).Text);
+            if (dtg_facturar_productos_prueba.SelectedItem != null)
+                montos -= float.Parse((dtg_facturar_productos_prueba.SelectedCells[7].Column.GetCellContent(dtg_facturar_productos_prueba.SelectedItem) as TextBlock).Text);
+            else
+                MessageBox.Show("Debe seleccionar algún producto.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             txb_subtotal_factura_prueba.Text = montos.ToString("F");
             CalculaMontos();//volvemos a recalcular los montos 
             //vemos cual es la fila que se desea eliminar
@@ -1065,6 +1071,7 @@ namespace Proyecto
                 fechaPago = dia.ToString("dd/MMM/yyyy");
             if (txb_diasCredito != null)
             {
+                lbl_error_creditoproductos.Visibility = Visibility.Hidden;
                 txb_diasCredito.Visibility = Visibility.Hidden;
                 btn_agregarCredito.Visibility = Visibility.Hidden;
                 txt_Credito.Visibility = Visibility.Hidden;
@@ -1237,7 +1244,7 @@ namespace Proyecto
             if (ascci >= 48 && ascci <= 57)
             {
                 e.Handled = false;
-                lbl.Visibility = Visibility.Collapsed;
+                lbl.Visibility = Visibility.Hidden;
                 if (ValidarCaracteresEspeciales(txb.Text) == true)
                 {
                     lbl.Content = "No se permiten caracteres especiales";
@@ -1393,6 +1400,7 @@ namespace Proyecto
                     miFactura.v_estadoFactura = estadoFactura;
                     miFactura.v_fechaPago = fechaPago;
                     miFactura.v_fechaCancelacion = fechaPago;
+                    MessageBox.Show(fechaPago);
                     miFactura.v_tipoCambio = datos.ObtenerValorDolar().ToString("F");
                     //verificamos si se puede agregar la factura o hay errores 
                     int v_Resultado = datos.AgregarFacturas(miFactura);

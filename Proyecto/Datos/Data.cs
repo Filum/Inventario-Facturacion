@@ -19,10 +19,10 @@ namespace Datos
         //Método para obtener el valor del dolar.
         public float ObtenerValorDolar()
         {
-            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
             DateTime dia = DateTime.Now;
             //string fecha = dia.ToShortDateString();
-            string fecha = dia.ToShortDateString();
+            string fecha = dia.ToString("dd/MM/yyyy");
 
             DataSet tipoCambio = cliente.ObtenerIndicadoresEconomicos("317", fecha, fecha, "Usuario", "N");
             float valor = float.Parse(tipoCambio.Tables[0].Rows[0].ItemArray[2].ToString());
