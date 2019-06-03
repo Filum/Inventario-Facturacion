@@ -232,7 +232,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                     <TextBox x:Name="txb_impuesto_Servicios" IsReadOnly="True" Margin="0,0,75.8,82.8" TextWrapping="Wrap"    HorizontalAlignment="Right" Width="125" Height="30" VerticalAlignment="Bottom"/>
                     <GroupBox x:Name="gb_tipoPagoServicos" Header="Tipo de pago:" Margin="0,0,900.8,158.8" FontFamily="Global Sans Serif" Foreground="White" HorizontalAlignment="Right" Width="169" Height="73" VerticalAlignment="Bottom">
                         <StackPanel>
-                            <RadioButton x:Name="Rb_Contado_Servicio" Content="Contado"  Foreground="White" FontSize="16" Height="24" Width="89"  Checked="Rb_Contado_Servicio_Checked"/>
+                            <RadioButton x:Name="Rb_Contado_Servicio" Content="Contado"  Foreground="White" FontSize="16" Height="24" Width="89"  Checked="Rb_Contado_Servicio_Checked" IsChecked="True"/>
                             <RadioButton x:Name="Rb_Credito_Servicio" Content="Credito"  Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="Rb_Credito_Servicio_Checked"  />
                         </StackPanel>
                     </GroupBox>
@@ -386,7 +386,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,7,5"/>
                             <StackPanel Margin="0,20,100,2" Orientation="Vertical" Height="358">
                                 <GroupBox x:Name="gb_tipoPagoProductos" Header="Tipo de pago:" FontFamily="Global Sans Serif" Foreground="White" Height="73" VerticalAlignment="Top" Margin="0,0,282,0">
                                     <StackPanel>
-                                        <RadioButton x:Name="Rb_Contado" Content="Contado"  Foreground="White" FontSize="16" Height="24" Width="89" Checked="Rb_Contado_Checked" />
+                                        <RadioButton x:Name="Rb_Contado" Content="Contado"  Foreground="White" FontSize="16" Height="24" Width="89" Checked="Rb_Contado_Checked" IsChecked="True" />
                                         <RadioButton x:Name="Rb_Credito" Content="Credito"  Foreground="White" FontSize="16" Height="24" Width="89" Margin="25,0,20.4,0" Checked="Rb_Credito_Checked" />
                                     </StackPanel>
                                 </GroupBox>

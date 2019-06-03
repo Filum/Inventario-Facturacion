@@ -1400,7 +1400,7 @@ namespace Proyecto
                     miFactura.v_estadoFactura = estadoFactura;
                     miFactura.v_fechaPago = fechaPago;
                     miFactura.v_fechaCancelacion = fechaPago;
-                    MessageBox.Show(fechaPago);
+                   // MessageBox.Show(fechaPago);
                     miFactura.v_tipoCambio = datos.ObtenerValorDolar().ToString("F");
                     //verificamos si se puede agregar la factura o hay errores 
                     int v_Resultado = datos.AgregarFacturas(miFactura);
