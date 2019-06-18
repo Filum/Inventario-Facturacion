@@ -283,10 +283,6 @@ namespace Proyecto
                             v_Clt.v_CantidadExistencia = v_CantActual;
                         }
                     }
-                    else
-                    {
-                        v_Clt.v_CantidadExistencia = v_CantActual;
-                    }
 
                     v_Clt.v_CantidadMinima = Convert.ToInt64(txb_cantMinima.Text);
                     EntidadProveedores ComboItem = (EntidadProveedores)cmb_proveedor.SelectedItem;
